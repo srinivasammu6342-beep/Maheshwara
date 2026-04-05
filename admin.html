@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin — Maheshwara Nexlify Nucleus</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Gidugu&family=Ramabhadra&family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Roboto"', "system-ui", "sans-serif"],
+            telugu: ['"Ramabhadra"', '"Gidugu"', "sans-serif"],
+            display: ['"Ramabhadra"', '"Gidugu"', "Georgia", "serif"],
+          },
+        },
+      },
+    };
+  </script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="min-h-screen bg-slate-950 font-sans text-slate-100">
+  <div id="gate" class="fixed inset-0 z-[200] flex items-center justify-center bg-slate-950/95 p-4 backdrop-blur-sm">
+    <div class="w-full max-w-sm rounded-2xl border border-white/10 bg-slate-900 p-6 shadow-2xl">
+      <h1 class="font-sans text-xl font-bold text-white">Control Room</h1>
+      <p class="mt-1 text-sm text-slate-400">Enter password to continue.</p>
+      <input type="password" id="gate-pass" class="mt-4 w-full rounded-lg border border-white/10 bg-slate-800 px-3 py-2 text-white outline-none focus:border-amber-500" placeholder="Password" autocomplete="current-password" />
+      <button type="button" id="gate-btn" class="mt-3 w-full rounded-lg bg-red-700 py-2 font-semibold text-white hover:bg-red-600">Unlock</button>
+      <p id="gate-err" class="mt-2 hidden text-sm text-red-400">Incorrect password.</p>
+    </div>
+  </div>
+
+  <div
+    id="mns-breaking-bar"
+    class="mns-flash-ticker fixed left-0 right-0 top-0 z-[100] flex items-stretch gap-0 shadow-lg"
+  >
+    <div class="mns-breaking-label flex shrink-0 items-center px-3 sm:px-5">
+      <span class="mns-breaking-news-tag font-sans whitespace-nowrap uppercase">Breaking News</span>
+    </div>
+    <div class="mns-ticker-fade relative flex flex-1 items-center overflow-hidden">
+      <div id="mns-ticker-track" class="mns-ticker-track flex items-center whitespace-nowrap text-white"></div>
+    </div>
+  </div>
+
+  <header
+    id="mns-premium-header"
+    class="mns-header-dark mns-header-below-ticker fixed left-0 right-0 z-[90] border-b border-white/10"
+  >
+    <div class="mx-auto flex h-16 max-w-3xl items-center justify-between gap-3 px-4 sm:h-[4.25rem]">
+      <div class="flex min-w-0 items-center gap-3">
+        <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-red-700 text-[10px] font-bold uppercase text-white">MNS</span>
+        <div class="min-w-0">
+          <p class="truncate font-sans text-base font-semibold text-white">Admin</p>
+          <p class="truncate font-sans text-[10px] text-slate-400">Maheshwara Nexlify Nucleus</p>
+        </div>
+      </div>
+      <nav class="flex shrink-0 items-center gap-2">
+        <a href="index.html" class="rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-semibold text-white hover:bg-white/20">Home</a>
+        <a href="news.html" class="rounded-full border border-white/20 px-4 py-2 text-sm font-medium text-slate-200 hover:bg-white/10">News</a>
+        <button type="button" id="logout-btn" class="rounded-full bg-red-800 px-4 py-2 text-sm font-semibold text-white hover:bg-red-700">Lock</button>
+      </nav>
+    </div>
+  </header>
+
+  <div class="mns-shell-spacer" aria-hidden="true"></div>
+
+  <main id="panel" class="hidden mx-auto max-w-3xl px-4 py-8">
+    <h2 class="font-sans text-2xl font-bold text-white">Publish news</h2>
+    <p class="mt-1 text-sm text-slate-400">
+      Saves through <code class="rounded bg-white/10 px-1 text-amber-200">POST /api/save-news</code>. Use
+      <code class="rounded bg-white/10 px-1">npm start</code> and open from
+      <code class="rounded bg-white/10 px-1">http://localhost:3000</code>.
+    </p>
+
+    <form id="news-form" class="mt-8 space-y-5">
+      <div>
+        <label class="block text-sm font-medium text-slate-300">Headline (title)</label>
+        <input name="headline" required class="mt-1 w-full rounded-lg border border-white/10 bg-slate-900 px-3 py-2 text-white outline-none focus:border-amber-500" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-slate-300">Sub-headline</label>
+        <input name="sub_headline" class="mt-1 w-full rounded-lg border border-white/10 bg-slate-900 px-3 py-2 font-telugu text-white outline-none focus:border-amber-500" />
+      </div>
+      <div class="grid gap-4 sm:grid-cols-2">
+        <div>
+          <label class="block text-sm font-medium text-slate-300">Category</label>
+          <select name="category" class="mt-1 w-full rounded-lg border border-white/10 bg-slate-900 px-3 py-2 text-white outline-none focus:border-amber-500">
+            <option>General</option>
+            <option>Local</option>
+            <option>Agriculture</option>
+            <option>Business</option>
+            <option>Health</option>
+            <option>Technology</option>
+            <option>Grama Panchayath</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-slate-300">Author name</label>
+          <input name="author_name" class="mt-1 w-full rounded-lg border border-white/10 bg-slate-900 px-3 py-2 text-white outline-none focus:border-amber-500" placeholder="Reporter / Desk" />
+        </div>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-slate-300">Location</label>
+        <input name="location" class="mt-1 w-full rounded-lg border border-white/10 bg-slate-900 px-3 py-2 font-telugu text-white outline-none focus:border-amber-500" placeholder="Mutharam, Peddapalli" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-slate-300">Video URL</label>
+        <input type="text" name="video_url" class="mt-1 w-full rounded-lg border border-white/10 bg-slate-900 px-3 py-2 text-sm text-white outline-none focus:border-amber-500" placeholder="YouTube or direct .mp4 link" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-slate-300">Body (content)</label>
+        <textarea name="body" rows="10" required class="mt-1 w-full rounded-lg border border-white/10 bg-slate-900 px-3 py-2 font-telugu text-white outline-none focus:border-amber-500"></textarea>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-slate-300">Image URLs (comma or newline separated)</label>
+        <textarea
+          id="gallery_urls_text"
+          name="gallery_urls_text"
+          rows="3"
+          class="mt-1 w-full rounded-lg border border-white/10 bg-slate-900 px-3 py-2 text-sm text-white outline-none focus:border-amber-500"
+          placeholder="https://a.jpg, https://b.jpg"
+        ></textarea>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-slate-300">Primary image URL (optional if you upload)</label>
+        <input type="text" name="image_url" id="image_url" class="mt-1 w-full rounded-lg border border-white/10 bg-slate-900 px-3 py-2 text-sm text-white outline-none focus:border-amber-500" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-slate-300">Upload images (watermark each — first = hero)</label>
+        <input type="file" id="file-imgs" accept="image/*" multiple class="mt-1 block w-full text-sm text-slate-400 file:mr-3 file:rounded-lg file:border-0 file:bg-amber-600 file:px-4 file:py-2 file:text-white" />
+        <p class="mt-1 text-xs text-slate-500">First file fills hero <code class="text-slate-400">image_url</code>; rest go to <code class="text-slate-400">gallery_json</code>.</p>
+      </div>
+      <div class="rounded-xl border border-white/10 bg-slate-900/50 p-4">
+        <p class="text-sm font-medium text-slate-300">Last upload preview</p>
+        <canvas id="wm-canvas" width="0" height="0" class="mt-2 max-h-56 w-full rounded-lg border border-white/10 bg-black object-contain"></canvas>
+      </div>
+      <button type="submit" class="w-full rounded-xl bg-red-700 py-3 font-semibold text-white shadow-lg hover:bg-red-600">Save via server</button>
+      <p id="form-msg" class="text-center text-sm"></p>
+    </form>
+
+    <section class="mt-14 rounded-2xl border border-white/10 bg-slate-900/50 p-6 shadow-lg">
+      <h2 class="font-sans text-xl font-bold text-white">Flash news (ticker ribbon)</h2>
+      <p class="mt-1 text-sm text-slate-400">
+        Short Telugu or English lines scroll at the top of the site. Only messages from the <strong class="text-slate-300">last 24 hours</strong> are shown (latest 5).
+      </p>
+      <form id="flash-form" class="mt-5 flex flex-col gap-3 sm:flex-row sm:items-end">
+        <div class="min-w-0 flex-1">
+          <label class="block text-xs font-medium text-slate-400">Message</label>
+          <input
+            name="message"
+            required
+            class="mt-1 w-full rounded-lg border border-white/10 bg-slate-900 px-3 py-2 font-telugu text-white outline-none focus:border-amber-500"
+            placeholder="తాజా ఫ్లాష్ వార్త…"
+          />
+        </div>
+        <button type="submit" class="shrink-0 rounded-lg bg-amber-600 px-6 py-2.5 font-semibold text-white hover:bg-amber-500">Post flash</button>
+      </form>
+      <p id="flash-msg" class="mt-2 text-center text-sm"></p>
+    </section>
+
+    <section class="mt-8 rounded-2xl border border-white/10 bg-slate-900/50 p-6 shadow-lg">
+      <h2 class="font-sans text-xl font-bold text-white">Advertisement banner</h2>
+      <p class="mt-1 text-sm text-slate-400">
+        Upload an image (watermarked like news photos) or paste a URL. The first active ad may appear in the news sidebar.
+      </p>
+      <form id="ad-form" class="mt-5 space-y-4">
+        <div>
+          <label class="block text-sm font-medium text-slate-300">Upload banner image</label>
+          <input
+            type="file"
+            id="ad-file"
+            accept="image/*"
+            class="mt-1 block w-full text-sm text-slate-400 file:mr-3 file:rounded-lg file:border-0 file:bg-emerald-700 file:px-4 file:py-2 file:text-white"
+          />
+          <canvas id="ad-wm-canvas" width="0" height="0" class="mt-2 max-h-40 w-full rounded-lg border border-white/10 bg-black object-contain"></canvas>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-slate-300">Or banner image URL</label>
+          <input
+            name="image_url"
+            id="ad-image-url"
+            class="mt-1 w-full rounded-lg border border-white/10 bg-slate-900 px-3 py-2 text-sm text-white outline-none focus:border-amber-500"
+            placeholder="https://…jpg (optional if you upload)"
+          />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-slate-300">Link URL (optional)</label>
+          <input
+            name="link_url"
+            class="mt-1 w-full rounded-lg border border-white/10 bg-slate-900 px-3 py-2 text-sm text-white outline-none focus:border-amber-500"
+            placeholder="https://…"
+          />
+        </div>
+        <div class="max-w-xs">
+          <label class="block text-sm font-medium text-slate-300">Sort order (lower = first)</label>
+          <input name="sort_order" type="number" min="0" value="0" class="mt-1 w-full rounded-lg border border-white/10 bg-slate-900 px-3 py-2 text-white outline-none focus:border-amber-500" />
+        </div>
+        <button type="submit" class="w-full rounded-lg bg-emerald-700 py-2.5 font-semibold text-white hover:bg-emerald-600">Save advertisement</button>
+      </form>
+      <p id="ad-msg" class="mt-2 text-center text-sm"></p>
+    </section>
+  </main>
+
+  <footer class="mt-12 space-y-1 border-t border-white/10 py-6 text-center text-xs text-slate-500">
+    <p class="font-medium text-slate-400">Maheshwara Nexlify Nucleus Digital Sewa Centre</p>
+    <p>Mutharam Village &amp; Mandal, Peddapalli District, Telangana — 505184</p>
+    <p>9949122402 · nexalifynucleus@gmail.com</p>
+  </footer>
+
+  <script src="config.js"></script>
+  <script src="js/mns-layout.js"></script>
+  <script>
+    (function () {
+      var SESSION_KEY = "mns_admin_ok";
+      var gate = document.getElementById("gate");
+      var panel = document.getElementById("panel");
+      var cfg = window.MNS_CONFIG || {};
+
+      function showPanel() {
+        gate.classList.add("hidden");
+        panel.classList.remove("hidden");
+        sessionStorage.setItem(SESSION_KEY, "1");
+      }
+      function showGate() {
+        gate.classList.remove("hidden");
+        panel.classList.add("hidden");
+        sessionStorage.removeItem(SESSION_KEY);
+      }
+
+      if (sessionStorage.getItem(SESSION_KEY) === "1") showPanel();
+
+      function tryGate() {
+        var v = document.getElementById("gate-pass").value;
+        var err = document.getElementById("gate-err");
+        if (v && v === (cfg.adminPassword || "")) {
+          err.classList.add("hidden");
+          showPanel();
+        } else err.classList.remove("hidden");
+      }
+      document.getElementById("gate-btn").addEventListener("click", tryGate);
+      document.getElementById("gate-pass").addEventListener("keydown", function (e) {
+        if (e.key === "Enter") tryGate();
+      });
+
+      document.getElementById("logout-btn").addEventListener("click", showGate);
+
+      var BRAND_WM = "Maheshwara Nexlify Nucleus";
+      var canvas = document.getElementById("wm-canvas");
+      var ctx = canvas.getContext("2d");
+      var watermarkedList = [];
+      var adDataUrl = null;
+      var adCanvas = document.getElementById("ad-wm-canvas");
+      var adCtx = adCanvas.getContext("2d");
+
+      function applyWatermarkToImage(img) {
+        var w = img.naturalWidth;
+        var h = img.naturalHeight;
+        var maxW = 1200;
+        var scale = w > maxW ? maxW / w : 1;
+        var cw = Math.round(w * scale);
+        var ch = Math.round(h * scale);
+        canvas.width = cw;
+        canvas.height = ch;
+        ctx.drawImage(img, 0, 0, cw, ch);
+        var text = BRAND_WM;
+        ctx.save();
+        ctx.font = "bold " + Math.max(11, Math.round(cw * 0.022)) + "px Ramabhadra, Roboto, sans-serif";
+        ctx.fillStyle = "rgba(255,255,255,0.88)";
+        ctx.strokeStyle = "rgba(0,0,0,0.55)";
+        ctx.lineWidth = 3;
+        var pad = 12;
+        var tw = ctx.measureText(text).width;
+        var x = cw - tw - pad;
+        var y = ch - pad;
+        ctx.strokeText(text, x, y);
+        ctx.fillText(text, x, y);
+        ctx.restore();
+        return canvas.toDataURL("image/jpeg", 0.82);
+      }
+
+      function applyWatermarkToAdFile(img) {
+        var w = img.naturalWidth;
+        var h = img.naturalHeight;
+        var maxW = 1200;
+        var scale = w > maxW ? maxW / w : 1;
+        var cw = Math.round(w * scale);
+        var ch = Math.round(h * scale);
+        adCanvas.width = cw;
+        adCanvas.height = ch;
+        adCtx.drawImage(img, 0, 0, cw, ch);
+        var text = BRAND_WM;
+        adCtx.save();
+        adCtx.font = "bold " + Math.max(11, Math.round(cw * 0.022)) + "px Ramabhadra, Roboto, sans-serif";
+        adCtx.fillStyle = "rgba(255,255,255,0.88)";
+        adCtx.strokeStyle = "rgba(0,0,0,0.55)";
+        adCtx.lineWidth = 3;
+        var pad = 12;
+        var tw = adCtx.measureText(text).width;
+        var x = cw - tw - pad;
+        var y = ch - pad;
+        adCtx.strokeText(text, x, y);
+        adCtx.fillText(text, x, y);
+        adCtx.restore();
+        return adCanvas.toDataURL("image/jpeg", 0.82);
+      }
+
+      document.getElementById("ad-file").addEventListener("change", function (e) {
+        adDataUrl = null;
+        var files = e.target.files;
+        if (!files || !files.length) return;
+        var file = files[0];
+        var blobUrl = URL.createObjectURL(file);
+        var img = new Image();
+        img.onload = function () {
+          adDataUrl = applyWatermarkToAdFile(img);
+          document.getElementById("ad-image-url").value = adDataUrl;
+          URL.revokeObjectURL(blobUrl);
+        };
+        img.onerror = function () {
+          URL.revokeObjectURL(blobUrl);
+        };
+        img.src = blobUrl;
+      });
+
+      function previewLast(dataUrl) {
+        var pv = new Image();
+        pv.onload = function () {
+          var mh = 220;
+          var sc = Math.min(1, mh / pv.naturalHeight, 640 / pv.naturalWidth);
+          canvas.width = Math.round(pv.naturalWidth * sc);
+          canvas.height = Math.round(pv.naturalHeight * sc);
+          ctx.drawImage(pv, 0, 0, canvas.width, canvas.height);
+        };
+        pv.src = dataUrl;
+      }
+
+      document.getElementById("file-imgs").addEventListener("change", function (e) {
+        watermarkedList = [];
+        var files = e.target.files;
+        if (!files || !files.length) return;
+        var pending = files.length;
+        Array.from(files).forEach(function (file) {
+          var blobUrl = URL.createObjectURL(file);
+          var img = new Image();
+          img.onload = function () {
+            watermarkedList.push(applyWatermarkToImage(img));
+            URL.revokeObjectURL(blobUrl);
+            pending--;
+            if (pending === 0) {
+              if (watermarkedList[0]) document.getElementById("image_url").value = watermarkedList[0];
+              previewLast(watermarkedList[watermarkedList.length - 1]);
+            }
+          };
+          img.onerror = function () {
+            URL.revokeObjectURL(blobUrl);
+            pending--;
+          };
+          img.src = blobUrl;
+        });
+      });
+
+      function apiBase() {
+        return typeof cfg.apiBase === "string" ? cfg.apiBase.replace(/\/$/, "") : "";
+      }
+
+      document.getElementById("news-form").addEventListener("submit", async function (ev) {
+        ev.preventDefault();
+        var msg = document.getElementById("form-msg");
+        msg.textContent = "";
+        msg.className = "text-center text-sm";
+
+        var fd = new FormData(ev.target);
+        var imageUrl = (document.getElementById("image_url").value || "").trim();
+        var galleryJson = watermarkedList.slice(1);
+        if (watermarkedList.length && watermarkedList[0]) imageUrl = watermarkedList[0];
+
+        var payload = {
+          title: fd.get("headline"),
+          content: fd.get("body"),
+          sub_headline: (fd.get("sub_headline") || "").trim() || null,
+          category: fd.get("category"),
+          author_name: (fd.get("author_name") || "").trim() || null,
+          location: (fd.get("location") || "").trim() || null,
+          video_url: (fd.get("video_url") || "").trim() || null,
+          image_url: imageUrl || null,
+          gallery_json: galleryJson,
+          gallery_urls_text: document.getElementById("gallery_urls_text").value,
+        };
+
+        msg.textContent = "Saving…";
+        msg.classList.add("text-slate-400");
+
+        var res;
+        try {
+          res = await fetch(apiBase() + "/api/save-news", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+          });
+        } catch (e) {
+          msg.textContent = "Network error — npm start + http://localhost:3000";
+          msg.classList.remove("text-slate-400");
+          msg.classList.add("text-red-400");
+          return;
+        }
+
+        var data;
+        try {
+          data = await res.json();
+        } catch (e2) {
+          msg.textContent = "Invalid server response";
+          msg.classList.remove("text-slate-400");
+          msg.classList.add("text-red-400");
+          return;
+        }
+
+        if (!res.ok || !data.ok) {
+          msg.textContent = (data && data.error) || "Save failed";
+          msg.classList.remove("text-slate-400");
+          msg.classList.add("text-red-400");
+          return;
+        }
+
+        msg.textContent = "Saved.";
+        msg.classList.remove("text-slate-400");
+        msg.classList.add("text-emerald-400");
+        ev.target.reset();
+        document.getElementById("image_url").value = "";
+        document.getElementById("gallery_urls_text").value = "";
+        watermarkedList = [];
+        document.getElementById("file-imgs").value = "";
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+      });
+
+      function adminBody(extra) {
+        var o = extra || {};
+        o.adminPassword = cfg.adminPassword || "";
+        return o;
+      }
+
+      document.getElementById("flash-form").addEventListener("submit", async function (ev) {
+        ev.preventDefault();
+        var msg = document.getElementById("flash-msg");
+        msg.textContent = "";
+        msg.className = "mt-2 text-center text-sm";
+        var fd = new FormData(ev.target);
+        var message = (fd.get("message") || "").trim();
+        if (!message) return;
+        msg.textContent = "Posting…";
+        msg.classList.add("text-slate-400");
+        var res;
+        try {
+          res = await fetch(apiBase() + "/api/save-flash-news", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(adminBody({ message: message })),
+          });
+        } catch (e) {
+          msg.textContent = "Network error.";
+          msg.classList.remove("text-slate-400");
+          msg.classList.add("text-red-400");
+          return;
+        }
+        var data;
+        try {
+          data = await res.json();
+        } catch (e2) {
+          msg.textContent = "Bad response";
+          msg.classList.remove("text-slate-400");
+          msg.classList.add("text-red-400");
+          return;
+        }
+        if (!res.ok || !data.ok) {
+          msg.textContent = (data && data.error) || "Failed";
+          msg.classList.remove("text-slate-400");
+          msg.classList.add("text-red-400");
+          return;
+        }
+        msg.textContent = "Flash news posted.";
+        msg.classList.remove("text-slate-400");
+        msg.classList.add("text-emerald-400");
+        ev.target.reset();
+      });
+
+      document.getElementById("ad-form").addEventListener("submit", async function (ev) {
+        ev.preventDefault();
+        var msg = document.getElementById("ad-msg");
+        msg.textContent = "";
+        msg.className = "mt-2 text-center text-sm";
+        var fd = new FormData(ev.target);
+        var linkVal = (fd.get("link_url") || "").trim();
+        var urlField = (document.getElementById("ad-image-url").value || "").trim();
+        var imageUrl = adDataUrl || urlField;
+        var payload = adminBody({
+          image_url: imageUrl,
+          link_url: linkVal ? linkVal : null,
+          sort_order: fd.get("sort_order"),
+        });
+        if (!payload.image_url) {
+          msg.textContent = "Upload an image or enter an image URL.";
+          msg.classList.add("text-red-400");
+          return;
+        }
+        msg.textContent = "Saving…";
+        msg.classList.add("text-slate-400");
+        var res;
+        try {
+          res = await fetch(apiBase() + "/api/save-ad", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+          });
+        } catch (e) {
+          msg.textContent = "Network error.";
+          msg.classList.remove("text-slate-400");
+          msg.classList.add("text-red-400");
+          return;
+        }
+        var data;
+        try {
+          data = await res.json();
+        } catch (e2) {
+          msg.textContent = "Bad response";
+          msg.classList.remove("text-slate-400");
+          msg.classList.add("text-red-400");
+          return;
+        }
+        if (!res.ok || !data.ok) {
+          msg.textContent = (data && data.error) || "Failed";
+          msg.classList.remove("text-slate-400");
+          msg.classList.add("text-red-400");
+          return;
+        }
+        msg.textContent = "Advertisement saved.";
+        msg.classList.remove("text-slate-400");
+        msg.classList.add("text-emerald-400");
+        ev.target.reset();
+        document.querySelector('#ad-form [name="sort_order"]').value = "0";
+        document.getElementById("ad-image-url").value = "";
+        document.getElementById("ad-file").value = "";
+        adDataUrl = null;
+        adCtx.clearRect(0, 0, adCanvas.width, adCanvas.height);
+      });
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="te">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>News — Maheshwara Nexlify Nucleus</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Gidugu&family=Ramabhadra&family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Roboto"', "system-ui", "sans-serif"],
+            telugu: ['"Ramabhadra"', '"Gidugu"', "sans-serif"],
+            display: ['"Ramabhadra"', '"Gidugu"', "Georgia", "serif"],
+          },
+        },
+      },
+    };
+  </script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="min-h-screen bg-stone-100 font-sans text-stone-900 antialiased">
+  <!-- Flash / Breaking News marquee -->
+  <div
+    id="mns-breaking-bar"
+    class="mns-flash-ticker fixed left-0 right-0 top-0 z-[100] flex items-stretch gap-0 shadow-lg"
+  >
+    <div class="mns-breaking-label flex shrink-0 items-center px-3 sm:px-5">
+      <span class="mns-breaking-news-tag font-sans whitespace-nowrap uppercase">Breaking News</span>
+    </div>
+    <div class="mns-ticker-fade relative flex flex-1 items-center overflow-hidden">
+      <div id="mns-ticker-track" class="mns-ticker-track flex items-center whitespace-nowrap text-white"></div>
+    </div>
+  </div>
+
+  <!-- Premium sticky header -->
+  <header
+    id="mns-premium-header"
+    class="mns-header-light mns-header-below-ticker fixed left-0 right-0 z-[90] border-b border-stone-200/80"
+  >
+    <div class="mx-auto flex h-16 max-w-5xl items-center justify-between gap-3 px-4 sm:h-[4.25rem]">
+      <a href="index.html" class="flex min-w-0 items-center gap-3">
+        <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-red-800 text-xs font-bold uppercase leading-tight text-white shadow-md ring-2 ring-red-600/30">MNS</span>
+        <div class="min-w-0">
+          <p class="truncate font-sans text-[10px] font-bold uppercase tracking-wide text-red-900 sm:text-[11px]">Maheshwara Nexlify Nucleus</p>
+          <p class="truncate font-telugu text-lg font-bold leading-tight text-stone-900 sm:text-xl">వార్తలు</p>
+          <p class="truncate font-telugu text-[11px] text-stone-500">న్యూక్లియస్ డిజిటల్ సేవా · ముతరం</p>
+        </div>
+      </a>
+      <div
+        id="mns-header-clock"
+        class="hidden max-w-[11rem] shrink-0 text-right text-[10px] font-medium leading-tight text-stone-600 sm:block sm:max-w-none sm:text-xs"
+        title="Telangana (IST)"
+      ></div>
+      <nav class="flex shrink-0 items-center gap-2">
+        <a
+          href="index.html"
+          class="rounded-full border border-stone-200 bg-white px-4 py-2 text-sm font-semibold text-stone-800 shadow-sm transition hover:border-red-300 hover:bg-red-50"
+          >Home</a
+        >
+        <a
+          href="admin.html"
+          class="rounded-full bg-red-800 px-4 py-2 text-sm font-semibold text-white shadow-md transition hover:bg-red-700"
+          >Admin</a
+        >
+      </nav>
+    </div>
+  </header>
+
+  <div class="mns-shell-spacer" aria-hidden="true"></div>
+
+  <main class="mx-auto max-w-5xl px-4 pb-12 pt-6">
+    <h1 class="font-sans border-b-4 border-red-800 pb-2 text-3xl font-bold text-stone-900">Latest headlines</h1>
+    <p class="mt-2 font-telugu text-sm text-stone-600">Way2News · Eenadu శైలి · తాజా అప్‌డేట్స్</p>
+
+    <div id="news-list" class="mt-8 grid gap-4 sm:grid-cols-2">
+      <p id="news-loading" class="col-span-full text-stone-500">Loading…</p>
+    </div>
+    <p id="news-empty" class="hidden py-12 text-center font-telugu text-stone-500">ఇంకా వార్తలు లేవు. అడ్మిన్ నుండి ప్రచురించండి.</p>
+    <p id="news-err" class="hidden py-4 text-center text-red-600"></p>
+  </main>
+
+  <footer class="border-t border-stone-200 bg-white py-8 text-xs text-stone-500">
+    <div class="mx-auto max-w-5xl space-y-4 px-4">
+      <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:text-left">
+        <div>
+          <p class="font-medium text-stone-800">Maheshwara Nexlify Nucleus Digital Sewa Centre</p>
+          <p>Mutharam Village &amp; Mandal, Peddapalli District, Telangana — 505184</p>
+          <p>9949122402 | nexalifynucleus@gmail.com</p>
+        </div>
+        <div class="rounded-lg border border-stone-200 bg-stone-50 px-4 py-2 text-center sm:text-right">
+          <p class="font-semibold text-stone-700">Visitor counter</p>
+          <p class="mt-1 tabular-nums text-stone-600">
+            Total: <strong id="mns-visitor-total" class="text-red-900">—</strong>
+            <span class="mx-2 text-stone-300">|</span>
+            Today: <strong id="mns-visitor-today" class="text-red-900">—</strong>
+          </p>
+        </div>
+      </div>
+      <div class="border-t border-stone-100 pt-4">
+        <p class="mb-2 text-center text-[10px] font-bold uppercase tracking-wider text-stone-400">Follow us</p>
+        <div class="flex flex-wrap items-center justify-center gap-3">
+          <a
+            id="news-foot-wa"
+            href="https://wa.me/919949122402"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="mns-share-fab bg-[#25D366]"
+            aria-label="WhatsApp"
+            ><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.435 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
+          <a
+            id="news-foot-fb"
+            href="#"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="mns-share-fab bg-[#1877F2]"
+            aria-label="Facebook"
+            ><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+          <a
+            id="news-foot-x"
+            href="#"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="mns-share-fab bg-stone-900"
+            aria-label="X"
+            ><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+          <a
+            id="news-foot-ig"
+            href="#"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="mns-share-fab bg-gradient-to-br from-[#f58529] via-[#dd2a7b] to-[#8134af]"
+            aria-label="Instagram"
+            ><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+        </div>
+        <p class="mb-2 mt-4 text-center text-[10px] font-bold uppercase tracking-wider text-stone-400">Useful links</p>
+        <div class="flex flex-wrap justify-center gap-x-4 gap-y-2 font-telugu text-sm text-red-900">
+          <a class="hover:underline" href="gramapanchayath.html">Mutharam GP</a>
+          <a class="hover:underline" href="https://csc.gov.in/" target="_blank" rel="noopener noreferrer">CSC Services</a>
+          <a class="hover:underline" href="mailto:nexalifynucleus@gmail.com">Contact us</a>
+          <a class="hover:underline" href="privacy.html">Privacy policy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="config.js"></script>
+  <script src="js/mns-layout.js"></script>
+  <script src="js/mns-site.js"></script>
+  <script>
+    (function () {
+      var cfg = window.MNS_CONFIG || {};
+      var u = encodeURIComponent(window.location.href);
+      var fb = document.getElementById("news-foot-fb");
+      var x = document.getElementById("news-foot-x");
+      var ig = document.getElementById("news-foot-ig");
+      if (fb) fb.href = "https://www.facebook.com/sharer/sharer.php?u=" + u;
+      if (x)
+        x.href =
+          "https://twitter.com/intent/tweet?url=" +
+          u +
+          "&text=" +
+          encodeURIComponent("Maheshwara Nexlify Nucleus — News");
+      if (ig) ig.href = cfg.socialInstagram || "https://www.instagram.com/";
+    })();
+
+    function timeAgo(iso) {
+      var t = new Date(iso).getTime();
+      var s = Math.floor((Date.now() - t) / 1000);
+      if (s < 60) return s + " secs ago";
+      var m = Math.floor(s / 60);
+      if (m < 60) return m + " mins ago";
+      var h = Math.floor(m / 60);
+      if (h < 24) return h + " hours ago";
+      var d = Math.floor(h / 24);
+      if (d < 7) return d + " days ago";
+      return new Date(iso).toLocaleDateString("en-IN");
+    }
+
+    function snippet(text, max) {
+      if (!text) return "";
+      var one = text.replace(/\s+/g, " ").trim();
+      if (one.length <= max) return one;
+      return one.slice(0, max - 1) + "…";
+    }
+
+    function apiBase() {
+      var cfg = window.MNS_CONFIG || {};
+      return typeof cfg.apiBase === "string" ? cfg.apiBase.replace(/\/$/, "") : "";
+    }
+
+    (async function () {
+      var listEl = document.getElementById("news-list");
+      var loading = document.getElementById("news-loading");
+      var empty = document.getElementById("news-empty");
+      var errEl = document.getElementById("news-err");
+
+      try {
+        var res = await fetch(apiBase() + "/api/news?limit=50");
+        var data = await res.json();
+        loading.classList.add("hidden");
+        if (!res.ok || !data.ok) {
+          errEl.textContent = (data && data.error) || "Failed to load news";
+          errEl.classList.remove("hidden");
+          return;
+        }
+        var rows = data.items || [];
+        if (!rows.length) {
+          empty.classList.remove("hidden");
+          return;
+        }
+
+        rows.forEach(function (row) {
+          var nid = row.id != null ? String(row.id).trim() : "";
+          if (!nid) return;
+          var thumb = row.image_url || null;
+          var card = document.createElement("a");
+          card.href = "news-detail.html?id=" + encodeURIComponent(nid);
+          card.className =
+            "group flex overflow-hidden rounded-xl border border-stone-200 bg-white shadow-sm ring-1 ring-black/5 transition hover:border-red-200 hover:shadow-md";
+
+          var imgWrap = document.createElement("div");
+          imgWrap.className = "relative h-28 w-28 shrink-0 bg-gradient-to-br from-stone-100 to-stone-200 sm:h-32 sm:w-32";
+          if (thumb) {
+            var im = document.createElement("img");
+            im.src = thumb;
+            im.alt = "";
+            im.className = "h-full w-full object-cover";
+            im.loading = "lazy";
+            im.decoding = "async";
+            im.onerror = function () {
+              imgWrap.innerHTML =
+                '<div class="flex h-full w-full items-center justify-center font-telugu text-xs text-stone-400">ఫోటో</div>';
+            };
+            imgWrap.appendChild(im);
+          } else {
+            imgWrap.innerHTML =
+              '<div class="flex h-full w-full items-center justify-center font-telugu text-xs text-stone-400">ఫోటో</div>';
+          }
+
+          var body = document.createElement("div");
+          body.className = "flex min-w-0 flex-1 flex-col justify-center p-3";
+          var tag = document.createElement("span");
+          tag.className = "font-sans text-[10px] font-bold uppercase tracking-wider text-red-800";
+          tag.textContent = row.category || "News";
+          var h = document.createElement("h2");
+          h.className =
+            "font-telugu line-clamp-2 text-base font-bold leading-snug text-stone-900 group-hover:text-red-900";
+          h.textContent = row.title || "";
+          var sub = document.createElement("p");
+          sub.className = "mt-1 line-clamp-2 font-telugu text-xs text-stone-600";
+          sub.textContent = row.sub_headline ? row.sub_headline : snippet(row.content, 120);
+          var time = document.createElement("p");
+          time.className = "font-sans mt-auto pt-2 text-[11px] font-medium text-stone-400";
+          time.textContent = timeAgo(row.created_at);
+          body.appendChild(tag);
+          body.appendChild(h);
+          body.appendChild(sub);
+          body.appendChild(time);
+
+          card.appendChild(imgWrap);
+          card.appendChild(body);
+          listEl.appendChild(card);
+        });
+      } catch (e) {
+        loading.classList.add("hidden");
+        errEl.textContent = "Network error — start the server (npm start).";
+        errEl.classList.remove("hidden");
+      }
+    })();
+  </script>
+</body>
+</html>

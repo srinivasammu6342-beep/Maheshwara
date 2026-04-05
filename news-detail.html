@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="te">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Story — Maheshwara Nexlify Nucleus</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Gidugu&family=Ramabhadra&family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Roboto"', "system-ui", "sans-serif"],
+            telugu: ['"Ramabhadra"', '"Gidugu"', "sans-serif"],
+            display: ['"Ramabhadra"', '"Gidugu"', "Georgia", "serif"],
+          },
+        },
+      },
+    };
+  </script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="min-h-screen bg-stone-100 font-sans text-stone-900 antialiased">
+  <div
+    id="mns-breaking-bar"
+    class="mns-flash-ticker fixed left-0 right-0 top-0 z-[100] flex items-stretch gap-0 shadow-lg"
+  >
+    <div class="mns-breaking-label flex shrink-0 items-center px-3 sm:px-5">
+      <span class="mns-breaking-news-tag font-sans whitespace-nowrap uppercase">Breaking News</span>
+    </div>
+    <div class="mns-ticker-fade relative flex flex-1 items-center overflow-hidden">
+      <div id="mns-ticker-track" class="mns-ticker-track flex items-center whitespace-nowrap text-white"></div>
+    </div>
+  </div>
+
+  <header
+    id="mns-premium-header"
+    class="mns-header-light mns-header-below-ticker fixed left-0 right-0 z-[90] border-b border-stone-200/80"
+  >
+    <div class="mx-auto flex h-16 max-w-5xl items-center justify-between gap-3 px-4 sm:h-[4.25rem]">
+      <a href="news.html" class="flex min-w-0 items-center gap-3">
+        <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-red-800 text-xs font-bold uppercase leading-tight text-white shadow-md ring-2 ring-red-600/30">MNS</span>
+        <div class="min-w-0">
+          <p class="truncate font-sans text-[10px] font-bold uppercase tracking-wide text-red-900 sm:text-[11px]">Maheshwara Nexlify Nucleus</p>
+          <p class="truncate font-telugu text-lg font-bold leading-tight text-stone-900 sm:text-xl">వార్త</p>
+          <p class="truncate font-telugu text-[11px] text-stone-500">వెనక్కి వార్తలు</p>
+        </div>
+      </a>
+      <div
+        id="mns-header-clock"
+        class="hidden max-w-[11rem] shrink-0 text-right text-[10px] font-medium leading-tight text-stone-600 sm:block sm:max-w-none sm:text-xs"
+        title="Telangana (IST)"
+      ></div>
+      <nav class="flex shrink-0 items-center gap-2">
+        <a
+          href="index.html"
+          class="rounded-full border border-stone-200 bg-white px-4 py-2 text-sm font-semibold text-stone-800 shadow-sm transition hover:border-red-300 hover:bg-red-50"
+          >Home</a
+        >
+        <a
+          href="admin.html"
+          class="rounded-full bg-red-800 px-4 py-2 text-sm font-semibold text-white shadow-md transition hover:bg-red-700"
+          >Admin</a
+        >
+      </nav>
+    </div>
+  </header>
+
+  <div class="mns-shell-spacer" aria-hidden="true"></div>
+
+  <nav
+    id="mns-float-share"
+    class="fixed bottom-20 left-3 z-[85] flex flex-col items-center gap-2 rounded-2xl border border-stone-200/90 bg-white/95 p-2 shadow-lg backdrop-blur-sm md:bottom-auto md:left-4 md:top-[40%] md:-translate-y-1/2"
+    aria-label="Share article"
+  >
+    <span class="mb-0.5 hidden text-[9px] font-bold uppercase tracking-widest text-stone-500 md:block">Share</span>
+    <a
+      id="mns-float-wa"
+      href="#"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="mns-share-fab bg-[#25D366]"
+      aria-label="Share on WhatsApp"
+      ><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.435 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
+    <a
+      id="mns-float-fb"
+      href="#"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="mns-share-fab bg-[#1877F2]"
+      aria-label="Share on Facebook"
+      ><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+    <a
+      id="mns-float-x"
+      href="#"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="mns-share-fab bg-stone-900"
+      aria-label="Share on X"
+      ><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+    <a
+      id="mns-float-ig"
+      href="#"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="mns-share-fab bg-gradient-to-br from-[#f58529] via-[#dd2a7b] to-[#8134af]"
+      aria-label="Instagram"
+      ><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+  </nav>
+
+  <main class="mx-auto max-w-5xl px-4 pb-16 pt-6 md:pl-16 lg:pl-20">
+    <div class="flex w-full flex-col gap-8 lg:flex-row lg:items-start">
+      <article class="order-1 min-w-0 w-full flex-1 lg:order-1">
+        <div id="article-card" class="relative overflow-hidden rounded-xl border border-stone-200 bg-white p-6 shadow-sm ring-1 ring-black/5 md:p-8">
+          <p id="art-loading" class="font-sans text-stone-500">Loading story…</p>
+          <div id="art-content" class="hidden">
+            <span id="art-cat" class="font-sans text-xs font-bold uppercase tracking-wider text-red-800"></span>
+            <h1 id="art-head" class="font-telugu mt-2 text-3xl font-bold leading-tight text-stone-900 md:text-4xl"></h1>
+            <p id="art-dateline" class="font-sans mt-3 text-sm text-stone-500"></p>
+            <div id="art-sub-wrap" class="mt-4 hidden border-l-4 border-amber-500 bg-amber-50/80 py-3 pl-4 pr-3">
+              <p id="art-sub" class="font-telugu text-lg font-medium leading-relaxed text-stone-800"></p>
+            </div>
+            <div id="art-gallery-section" class="mt-6 hidden"></div>
+            <div id="art-video" class="mt-6 hidden"></div>
+            <div id="art-body-wrap"></div>
+            <div class="mt-8 flex flex-wrap items-center gap-3 border-t border-stone-100 pt-6">
+              <a
+                id="btn-wa"
+                href="#"
+                class="inline-flex items-center gap-2 rounded-full bg-green-600 px-5 py-2.5 text-sm font-semibold text-white shadow hover:bg-green-500"
+              >
+                <svg class="h-5 w-5 shrink-0" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path
+                    d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.435 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"
+                  />
+                </svg>
+                Share on WhatsApp
+              </a>
+              <button
+                type="button"
+                id="btn-copy"
+                class="inline-flex items-center gap-2 rounded-full border-2 border-stone-300 bg-white px-5 py-2.5 text-sm font-semibold text-stone-800 hover:border-red-300 hover:bg-red-50"
+              >
+                Copy link
+              </button>
+              <button
+                type="button"
+                id="btn-clip"
+                class="inline-flex items-center gap-2 rounded-full border-2 border-red-800 bg-red-50 px-5 py-2.5 text-sm font-semibold text-red-900 hover:bg-red-100"
+              >
+                Download news card
+              </button>
+              <span id="clip-msg" class="font-sans text-xs text-stone-500"></span>
+            </div>
+            <span class="mns-article-brand-mark font-sans" aria-hidden="true">Maheshwara Nexlify Nucleus</span>
+          </div>
+          <div id="art-err-wrap" class="hidden rounded-xl border border-red-200 bg-red-50/90 p-6 text-center shadow-sm">
+            <p id="art-err" class="font-telugu text-base font-medium text-red-900"></p>
+            <div class="mt-5 flex flex-wrap justify-center gap-3">
+              <a href="news.html" class="rounded-full bg-red-800 px-5 py-2.5 text-sm font-semibold text-white shadow hover:bg-red-700">All news</a>
+              <a href="index.html" class="rounded-full border-2 border-stone-300 bg-white px-5 py-2.5 text-sm font-semibold text-stone-800 hover:border-red-300">Home</a>
+            </div>
+            <p id="art-err-redirect" class="mt-4 hidden text-xs text-stone-600"></p>
+          </div>
+        </div>
+      </article>
+
+      <aside class="order-2 w-full max-w-full shrink-0 space-y-6 lg:order-2 lg:w-80 lg:max-w-none">
+        <div id="mns-sidebar-ad-root" class="mns-ad-box rounded-xl border-2 border-dashed border-red-200 bg-gradient-to-br from-red-50 via-white to-amber-50 p-4 shadow-sm">
+          <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-red-800">Advertisement</p>
+          <p class="mt-2 font-sans text-xl font-bold text-stone-900">Maheshwara Nexlify Nucleus</p>
+          <p class="mt-1 font-telugu text-sm text-stone-600">న్యూక్లియస్ డిజిటల్ సేవా కేంద్రం · ముతరం, పెద్దపల్లి</p>
+          <a href="tel:9949122402" class="mt-3 inline-block text-sm font-bold text-red-800">9949122402</a>
+        </div>
+
+        <div class="mns-related-sticky rounded-xl border border-stone-200 bg-white p-4 shadow-sm ring-1 ring-black/5">
+          <h2 class="border-b-2 border-red-800 pb-2 font-sans text-lg font-bold text-stone-900">Related news</h2>
+          <ul id="related" class="mt-4 space-y-3 text-sm"></ul>
+          <p id="related-empty" class="mt-4 hidden font-telugu text-stone-500">సంబంధిత వార్తలు లేవు.</p>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <!-- Lightbox (gallery enlarge) -->
+  <div
+    id="mns-lightbox"
+    class="fixed inset-0 z-[500] hidden cursor-zoom-out flex-col items-center justify-center bg-black/92 p-4 backdrop-blur-sm"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Image preview"
+  >
+    <button
+      type="button"
+      id="mns-lightbox-close"
+      class="absolute right-3 top-3 z-10 flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-2xl font-light text-white hover:bg-white/20"
+      aria-label="Close"
+    >
+      ×
+    </button>
+    <button
+      type="button"
+      id="mns-lightbox-prev"
+      class="absolute left-2 top-1/2 z-10 hidden -translate-y-1/2 rounded-full bg-white/15 px-3 py-4 text-white hover:bg-white/25 sm:block"
+      aria-label="Previous image"
+    >
+      ‹
+    </button>
+    <button
+      type="button"
+      id="mns-lightbox-next"
+      class="absolute right-2 top-1/2 z-10 hidden -translate-y-1/2 rounded-full bg-white/15 px-3 py-4 text-white hover:bg-white/25 sm:block"
+      aria-label="Next image"
+    >
+      ›
+    </button>
+    <img
+      id="mns-lightbox-img"
+      src=""
+      alt=""
+      class="max-h-[88vh] max-w-full rounded-lg object-contain shadow-2xl"
+      loading="lazy"
+      decoding="async"
+    />
+    <p id="mns-lightbox-cap" class="mt-3 max-w-lg text-center text-xs text-white/70"></p>
+  </div>
+
+  <!-- Off-screen capture root for html2canvas -->
+  <div
+    id="news-clip-root"
+    class="fixed left-[-10000px] top-0 w-[600px] bg-white p-8 text-left shadow-none"
+    aria-hidden="true"
+  >
+    <p
+      class="pointer-events-none absolute bottom-8 right-8 z-0 rotate-[-14deg] font-sans text-[11px] font-bold uppercase tracking-[0.2em] text-stone-200"
+      aria-hidden="true"
+    >
+      Maheshwara Nexlify Nucleus
+    </p>
+    <div class="relative z-[1] rounded-lg border-2 border-red-800 bg-gradient-to-br from-red-50 to-white px-4 py-3">
+      <p class="text-center font-sans text-xl font-bold tracking-tight text-red-800">Maheshwara Nexlify Nucleus</p>
+      <p class="mt-1 text-center font-telugu text-sm text-stone-600">న్యూక్లియస్ డిజిటల్ సేవా కేంద్రం · ముతరం, తెలంగాణ</p>
+    </div>
+    <h2 id="clip-title" class="relative z-[1] font-telugu mt-5 text-2xl font-bold leading-snug text-stone-900"></h2>
+    <p id="clip-dateline" class="relative z-[1] mt-2 font-sans text-sm font-medium text-stone-500"></p>
+    <p
+      id="clip-summary"
+      class="relative z-[1] font-telugu mt-4 text-[15px] leading-relaxed text-stone-800"
+      style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden"
+    ></p>
+    <div class="relative z-[1] mt-8 border-t-2 border-red-100 pt-4">
+      <p id="clip-footer" class="text-center font-telugu text-sm font-semibold leading-relaxed text-red-900"></p>
+    </div>
+  </div>
+
+  <footer class="border-t border-stone-200 bg-white py-8 text-xs text-stone-500">
+    <div class="mx-auto max-w-5xl space-y-4 px-4">
+      <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:text-left">
+        <div>
+          <p class="font-sans font-medium text-stone-800">Maheshwara Nexlify Nucleus Digital Sewa Centre</p>
+          <p>Mutharam Village &amp; Mandal, Peddapalli District, Telangana — 505184</p>
+          <p>9949122402 | nexalifynucleus@gmail.com</p>
+        </div>
+        <div class="rounded-lg border border-stone-200 bg-stone-50 px-4 py-2 text-center sm:text-right">
+          <p class="font-semibold text-stone-700">Visitor counter</p>
+          <p class="mt-1 tabular-nums text-stone-600">
+            Total: <strong id="mns-visitor-total" class="text-red-900">—</strong>
+            <span class="mx-2 text-stone-300">|</span>
+            Today: <strong id="mns-visitor-today" class="text-red-900">—</strong>
+          </p>
+        </div>
+      </div>
+      <div class="border-t border-stone-100 pt-4">
+        <p class="mb-2 text-center text-[10px] font-bold uppercase tracking-wider text-stone-400">Useful links</p>
+        <div class="flex flex-wrap justify-center gap-x-4 gap-y-2 font-telugu text-sm text-red-900">
+          <a class="hover:underline" href="gramapanchayath.html">Mutharam GP</a>
+          <a class="hover:underline" href="https://csc.gov.in/" target="_blank" rel="noopener noreferrer">CSC Services</a>
+          <a class="hover:underline" href="mailto:nexalifynucleus@gmail.com">Contact us</a>
+          <a class="hover:underline" href="privacy.html">Privacy policy</a>
+        </div>
+      </div>
+      <div class="flex flex-wrap items-center justify-center gap-3 border-t border-stone-100 pt-4">
+        <span class="text-[10px] font-bold uppercase tracking-wider text-stone-400">Follow</span>
+        <a
+          id="mns-foot-wa"
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="mns-share-fab bg-[#25D366]"
+          aria-label="WhatsApp"
+          ><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.435 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
+        <a
+          id="mns-foot-fb"
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="mns-share-fab bg-[#1877F2]"
+          aria-label="Facebook"
+          ><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+        <a
+          id="mns-foot-x"
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="mns-share-fab bg-stone-900"
+          aria-label="X"
+          ><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+        <a
+          id="mns-foot-ig"
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="mns-share-fab bg-gradient-to-br from-[#f58529] via-[#dd2a7b] to-[#8134af]"
+          aria-label="Instagram"
+          ><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+      </div>
+      <p class="pt-3 text-center text-[11px] text-stone-400">© Maheshwara Nexlify Nucleus · Way2News–Eenadu inspired layout</p>
+    </div>
+  </footer>
+
+  <script src="config.js"></script>
+  <script src="js/mns-layout.js"></script>
+  <script src="js/mns-site.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script>
+    function apiBase() {
+      var cfg = window.MNS_CONFIG || {};
+      return typeof cfg.apiBase === "string" ? cfg.apiBase.replace(/\/$/, "") : "";
+    }
+
+    /** Live site uses window.location.href; on localhost uses MNS_CONFIG.publicSiteUrl + path. */
+    function getShareablePageUrl() {
+      var cfg = window.MNS_CONFIG || {};
+      var href = window.location.href;
+      var pub = (cfg.publicSiteUrl || "").trim().replace(/\/$/, "");
+      if (!pub) return href;
+      try {
+        var host = window.location.hostname || "";
+        if (host === "localhost" || host === "127.0.0.1" || href.indexOf("file:") === 0) {
+          return pub + window.location.pathname + window.location.search + window.location.hash;
+        }
+      } catch (e) {}
+      return href;
+    }
+
+    var galleryLightboxUrls = [];
+    var lightboxIndex = 0;
+
+    function openLightbox(idx) {
+      lightboxIndex = idx;
+      var lb = document.getElementById("mns-lightbox");
+      var img = document.getElementById("mns-lightbox-img");
+      img.src = galleryLightboxUrls[idx];
+      img.loading = "eager";
+      lb.classList.remove("hidden");
+      document.body.style.overflow = "hidden";
+      var n = galleryLightboxUrls.length;
+      document.getElementById("mns-lightbox-prev").classList.toggle("hidden", n <= 1);
+      document.getElementById("mns-lightbox-next").classList.toggle("hidden", n <= 1);
+      document.getElementById("mns-lightbox-cap").textContent = n > 1 ? idx + 1 + " / " + n : "";
+    }
+
+    function closeLightbox() {
+      document.getElementById("mns-lightbox").classList.add("hidden");
+      document.body.style.overflow = "";
+    }
+
+    function buildImageCarousel(urls) {
+      var uniq = [];
+      var seen = {};
+      (urls || []).forEach(function (u) {
+        var s = String(u || "").trim();
+        if (s && !seen[s]) {
+          seen[s] = 1;
+          uniq.push(s);
+        }
+      });
+      if (!uniq.length) return;
+      galleryLightboxUrls = uniq;
+      var sec = document.getElementById("art-gallery-section");
+      sec.classList.remove("hidden");
+      sec.innerHTML = "";
+
+      var carouselIdx = 0;
+      var outer = document.createElement("div");
+      outer.className = "mns-carousel relative overflow-hidden rounded-xl border border-stone-200 bg-stone-950 shadow-md";
+
+      var viewport = document.createElement("div");
+      viewport.className =
+        "relative aspect-[16/10] w-full max-h-[min(72vh,560px)] overflow-hidden sm:aspect-[16/9]";
+
+      var track = document.createElement("div");
+      track.className = "mns-carousel-track flex h-full transition-transform duration-500 ease-out";
+      track.style.width = uniq.length * 100 + "%";
+
+      uniq.forEach(function (u, i) {
+        var slide = document.createElement("div");
+        slide.className = "relative h-full overflow-hidden bg-stone-900";
+        slide.style.flex = "0 0 " + 100 / uniq.length + "%";
+        var im = document.createElement("img");
+        im.src = u;
+        im.alt = "";
+        im.draggable = false;
+        im.className = "h-full w-full cursor-zoom-in object-contain";
+        im.loading = "lazy";
+        im.decoding = "async";
+        im.addEventListener("click", function () {
+          openLightbox(i);
+        });
+        slide.appendChild(im);
+        track.appendChild(slide);
+      });
+
+      viewport.appendChild(track);
+
+      function setTransform() {
+        var pct = (carouselIdx * 100) / uniq.length;
+        track.style.transform = "translateX(-" + pct + "%)";
+        if (captionEl) captionEl.textContent = uniq.length > 1 ? carouselIdx + 1 + " / " + uniq.length : "";
+        if (dotsWrap) {
+          var dots = dotsWrap.querySelectorAll("[data-mns-dot]");
+          for (var di = 0; di < dots.length; di++) {
+            dots[di].classList.toggle("bg-red-700", di === carouselIdx);
+            dots[di].classList.toggle("w-6", di === carouselIdx);
+            dots[di].classList.toggle("bg-stone-500", di !== carouselIdx);
+            dots[di].classList.toggle("w-2", di !== carouselIdx);
+          }
+        }
+      }
+
+      function go(delta) {
+        carouselIdx = (carouselIdx + delta + uniq.length) % uniq.length;
+        setTransform();
+      }
+
+      function goTo(i) {
+        carouselIdx = ((i % uniq.length) + uniq.length) % uniq.length;
+        setTransform();
+      }
+
+      var captionEl = document.createElement("p");
+      captionEl.className =
+        "pointer-events-none absolute bottom-3 left-0 right-0 z-[5] text-center text-[11px] font-semibold text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.9)] sm:bottom-4";
+
+      var dotsWrap = null;
+      outer.appendChild(viewport);
+      outer.appendChild(captionEl);
+
+      if (uniq.length > 1) {
+        function btnArrow(dir, label) {
+          var b = document.createElement("button");
+          b.type = "button";
+          b.setAttribute("aria-label", label);
+          b.className =
+            "mns-carousel-btn absolute top-1/2 z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/95 text-xl font-bold leading-none text-red-900 shadow-lg ring-1 ring-stone-200/90 transition hover:bg-red-50 active:scale-95 sm:h-12 sm:w-12";
+          b.className += dir < 0 ? " left-2 sm:left-3" : " right-2 sm:right-3";
+          b.innerHTML = dir < 0 ? "&#8249;" : "&#8250;";
+          b.addEventListener("click", function (e) {
+            e.preventDefault();
+            go(dir);
+          });
+          return b;
+        }
+        outer.appendChild(btnArrow(-1, "Previous image"));
+        outer.appendChild(btnArrow(1, "Next image"));
+
+        dotsWrap = document.createElement("div");
+        dotsWrap.className = "absolute bottom-10 left-0 right-0 z-20 flex justify-center gap-2 sm:bottom-11";
+        uniq.forEach(function (_, di) {
+          var dot = document.createElement("button");
+          dot.type = "button";
+          dot.setAttribute("data-mns-dot", "1");
+          dot.className = "h-2 w-2 rounded-full bg-stone-500 transition-all duration-300";
+          dot.setAttribute("aria-label", "Slide " + (di + 1));
+          dot.addEventListener("click", function () {
+            goTo(di);
+          });
+          dotsWrap.appendChild(dot);
+        });
+        outer.appendChild(dotsWrap);
+      }
+
+      setTransform();
+
+      var sx = 0;
+      viewport.addEventListener(
+        "touchstart",
+        function (e) {
+          sx = e.changedTouches[0].screenX;
+        },
+        { passive: true }
+      );
+      viewport.addEventListener(
+        "touchend",
+        function (e) {
+          var dx = e.changedTouches[0].screenX - sx;
+          if (Math.abs(dx) > 48) go(dx > 0 ? -1 : 1);
+        },
+        { passive: true }
+      );
+
+      sec.appendChild(outer);
+    }
+
+    /** image_url from ads: full data URI, https URL, or raw base64 payload */
+    function normalizeAdImageUrl(raw) {
+      var s = String(raw == null ? "" : raw).trim().replace(/^\uFEFF/, "");
+      if (!s) return "";
+      if (/^https?:\/\//i.test(s)) return s;
+      if (/^data:image\//i.test(s)) {
+        var i = s.indexOf("base64,");
+        if (i !== -1) {
+          return s.slice(0, i + 7) + s.slice(i + 7).replace(/\s+/g, "");
+        }
+        return s;
+      }
+      var b64 = s.replace(/\s+/g, "");
+      if (/^[A-Za-z0-9+/]+=*$/.test(b64) && b64.length >= 32) {
+        if (b64.indexOf("iVBOR") === 0) return "data:image/png;base64," + b64;
+        if (b64.indexOf("/9j/") === 0) return "data:image/jpeg;base64," + b64;
+        if (b64.indexOf("R0lGOD") === 0) return "data:image/gif;base64," + b64;
+        return "data:image/jpeg;base64," + b64;
+      }
+      return s;
+    }
+
+    async function loadSidebarAd() {
+      var root = document.getElementById("mns-sidebar-ad-root");
+      if (!root) return;
+
+      var placeholderClass =
+        "mns-ad-box rounded-xl border-2 border-dashed border-red-200 bg-gradient-to-br from-red-50 via-white to-amber-50 p-4 shadow-sm";
+      var placeholderHtml =
+        '<p class="font-sans text-[10px] font-bold uppercase tracking-[0.2em] text-red-800">Advertisement</p>' +
+        '<p class="mt-2 font-sans text-xl font-bold text-stone-900">Maheshwara Nexlify Nucleus</p>' +
+        '<p class="mt-1 font-telugu text-sm text-stone-600">న్యూక్లియస్ డిజిటల్ సేవా కేంద్రం · ముతరం, పెద్దపల్లి</p>' +
+        '<a href="tel:9949122402" class="mt-3 inline-block font-sans text-sm font-bold text-red-800">9949122402</a>';
+
+      var loadedClass =
+        "mns-ad-sidebar-loaded rounded-xl border border-stone-200 bg-white p-0 shadow-sm ring-1 ring-black/10 overflow-hidden";
+
+      function showPlaceholder() {
+        root.className = placeholderClass;
+        root.innerHTML = placeholderHtml;
+      }
+
+      try {
+        var base = apiBase();
+        var r = await fetch(base + "/api/ads/sidebar?_=" + Date.now(), { cache: "no-store" });
+        var j = await r.json().catch(function () {
+          return {};
+        });
+        var ad = j && j.ok && j.ad ? j.ad : null;
+
+        if (!ad || !j.ok) {
+          r = await fetch(base + "/api/ads?_=" + Date.now(), { cache: "no-store" });
+          j = await r.json().catch(function () {
+            return {};
+          });
+          if (!j.ok) {
+            showPlaceholder();
+            return;
+          }
+          var items = j.items || [];
+          items.sort(function (a, b) {
+            return new Date(b.created_at || 0).getTime() - new Date(a.created_at || 0).getTime();
+          });
+          ad = null;
+          for (var i = 0; i < items.length; i++) {
+            var row = items[i];
+            var raw = row.image_url != null ? String(row.image_url).trim() : "";
+            if (!raw) continue;
+            ad = row;
+            break;
+          }
+        }
+
+        if (!ad || ad.image_url == null) {
+          showPlaceholder();
+          return;
+        }
+
+        var rawImg = String(ad.image_url).trim();
+        if (!rawImg) {
+          showPlaceholder();
+          return;
+        }
+
+        root.className = loadedClass;
+        root.replaceChildren();
+
+        var linkHref = ad.link_url != null && String(ad.link_url).trim() ? String(ad.link_url).trim() : "";
+        var wrap = document.createElement(linkHref ? "a" : "div");
+        if (linkHref) {
+          wrap.href = linkHref;
+          wrap.target = "_blank";
+          wrap.rel = "noopener noreferrer";
+          wrap.className = "block bg-white transition hover:opacity-95";
+        } else {
+          wrap.className = "block bg-white";
+        }
+
+        var im = document.createElement("img");
+        im.alt = "Advertisement";
+        im.className = "block h-auto max-h-96 w-full object-contain bg-white";
+        im.decoding = "async";
+        im.referrerPolicy = "no-referrer";
+        im.loading = "lazy";
+
+        im.onload = function () {
+          root.classList.add("mns-ad-image-ready");
+        };
+
+        im.onerror = function () {
+          showPlaceholder();
+        };
+
+        var fixed = normalizeAdImageUrl(rawImg);
+        im.src = fixed || rawImg;
+
+        wrap.appendChild(im);
+        root.appendChild(wrap);
+
+        if (im.complete && im.naturalWidth > 0) {
+          root.classList.add("mns-ad-image-ready");
+        }
+      } catch (e) {
+        showPlaceholder();
+      }
+    }
+
+    function initLightboxUi() {
+      var lb = document.getElementById("mns-lightbox");
+      document.getElementById("mns-lightbox-close").addEventListener("click", function (e) {
+        e.stopPropagation();
+        closeLightbox();
+      });
+      document.getElementById("mns-lightbox-prev").addEventListener("click", function (e) {
+        e.stopPropagation();
+        var n = galleryLightboxUrls.length;
+        if (n < 2) return;
+        openLightbox(lightboxIndex <= 0 ? n - 1 : lightboxIndex - 1);
+      });
+      document.getElementById("mns-lightbox-next").addEventListener("click", function (e) {
+        e.stopPropagation();
+        var n2 = galleryLightboxUrls.length;
+        if (n2 < 2) return;
+        openLightbox(lightboxIndex >= n2 - 1 ? 0 : lightboxIndex + 1);
+      });
+      lb.addEventListener("click", function (e) {
+        if (e.target === lb) closeLightbox();
+      });
+      document.getElementById("mns-lightbox-img").addEventListener("click", function (e) {
+        e.stopPropagation();
+      });
+      document.addEventListener("keydown", function (e) {
+        if (lb.classList.contains("hidden")) return;
+        if (e.key === "Escape") closeLightbox();
+      });
+    }
+
+    function timeAgo(iso) {
+      var t = new Date(iso).getTime();
+      var s = Math.floor((Date.now() - t) / 1000);
+      if (s < 60) return s + " secs ago";
+      var m = Math.floor(s / 60);
+      if (m < 60) return m + " mins ago";
+      var h = Math.floor(m / 60);
+      if (h < 24) return h + " hours ago";
+      var d = Math.floor(h / 24);
+      if (d < 7) return d + " days ago";
+      return new Date(iso).toLocaleDateString("en-IN");
+    }
+
+    function formatDate(iso) {
+      try {
+        return new Date(iso).toLocaleDateString("en-IN", {
+          day: "numeric",
+          month: "short",
+          year: "numeric",
+        });
+      } catch (e) {
+        return "";
+      }
+    }
+
+    function splitFirstParagraph(text) {
+      if (!text) return ["", ""];
+      var parts = text.split(/\n\n+/);
+      if (parts.length >= 2) return [parts[0], parts.slice(1).join("\n\n")];
+      var i = text.indexOf(". ");
+      if (i >= 80 && i < 500) return [text.slice(0, i + 1), text.slice(i + 2).trim()];
+      return [text, ""];
+    }
+
+    function parseGallery(row) {
+      var g = row.gallery_json;
+      if (g == null) return [];
+      if (Array.isArray(g)) return g.map(String).filter(Boolean);
+      if (typeof g === "string") {
+        try {
+          var p = JSON.parse(g);
+          return Array.isArray(p) ? p.map(String).filter(Boolean) : [];
+        } catch (e) {
+          return [];
+        }
+      }
+      return [];
+    }
+
+    function youtubeEmbedUrl(u) {
+      try {
+        var url = new URL(u);
+        if (url.hostname.indexOf("youtu.be") !== -1) {
+          return "https://www.youtube.com/embed/" + url.pathname.replace(/^\//, "").split("?")[0];
+        }
+        if (url.hostname.indexOf("youtube.com") !== -1) {
+          var v = url.searchParams.get("v");
+          if (v) return "https://www.youtube.com/embed/" + v;
+        }
+      } catch (e) {}
+      return null;
+    }
+
+    function adBoxHtml() {
+      return (
+        '<div class="mns-ad-box my-8 rounded-xl border-2 border-dashed border-red-200 bg-gradient-to-br from-red-50 via-white to-amber-50 p-5 shadow-inner">' +
+        '<p class="text-[10px] font-sans font-bold uppercase tracking-[0.2em] text-red-800">Advertisement</p>' +
+        '<p class="mt-2 font-sans text-xl font-bold text-stone-900">Maheshwara Nexlify Nucleus</p>' +
+        '<p class="mt-1 font-telugu text-sm text-stone-600">డిజిటల్ సేవలు · ఆన్‌లైన్ ఫారమ్లు · ముతరం, 505184</p>' +
+        '<a href="tel:9949122402" class="mt-2 inline-block font-sans text-sm font-bold text-red-800">9949122402</a></div>'
+      );
+    }
+
+    function escapeHtml(s) {
+      var d = document.createElement("div");
+      d.textContent = s == null ? "" : String(s);
+      return d.innerHTML;
+    }
+
+    function showStoryError(message, redirectToHomeMs) {
+      var wrap = document.getElementById("art-err-wrap");
+      var el = document.getElementById("art-err");
+      var redir = document.getElementById("art-err-redirect");
+      wrap.classList.remove("hidden");
+      el.innerHTML = escapeHtml(message);
+      if (redirectToHomeMs && redirectToHomeMs > 0) {
+        redir.classList.remove("hidden");
+        var sec = Math.round(redirectToHomeMs / 1000);
+        redir.textContent = "Redirecting to Home in " + sec + " seconds…";
+        setTimeout(function () {
+          window.location.href = "index.html";
+        }, redirectToHomeMs);
+      } else {
+        redir.classList.add("hidden");
+        redir.textContent = "";
+      }
+    }
+
+    function applyWatermarkToCanvas(sourceCanvas) {
+      var c = document.createElement("canvas");
+      c.width = sourceCanvas.width;
+      c.height = sourceCanvas.height;
+      var x = c.getContext("2d");
+      x.drawImage(sourceCanvas, 0, 0);
+      var text = "Maheshwara Nexlify Nucleus";
+      x.save();
+      x.font = "bold 20px Ramabhadra, sans-serif";
+      var tw = x.measureText(text).width;
+      var pad = 14;
+      var tx = c.width - tw - pad;
+      var ty = c.height - pad;
+      x.strokeStyle = "rgba(0,0,0,0.45)";
+      x.lineWidth = 4;
+      x.strokeText(text, tx, ty);
+      x.fillStyle = "rgba(255,255,255,0.92)";
+      x.fillText(text, tx, ty);
+      x.restore();
+      return c;
+    }
+
+    initLightboxUi();
+
+    loadSidebarAd();
+
+    (async function () {
+      var params = new URLSearchParams(window.location.search);
+      var raw = params.get("id");
+      var id = raw != null ? String(raw).trim() : "";
+      /* Support ?id=UUID or malformed spacing */
+      if (id.indexOf(" ") !== -1) id = id.replace(/\s+/g, "");
+
+      var loading = document.getElementById("art-loading");
+      var content = document.getElementById("art-content");
+
+      if (!id) {
+        loading.classList.add("hidden");
+        showStoryError(
+          "This page needs a story id in the address (for example news-detail.html?id=…). Open the article from the news list.",
+          0
+        );
+        return;
+      }
+
+      var res;
+      try {
+        res = await fetch(apiBase() + "/api/news/" + encodeURIComponent(id));
+      } catch (e) {
+        loading.classList.add("hidden");
+        showStoryError("Network error — make sure the site is open via http://localhost:3000 and the server is running (npm start).", 0);
+        return;
+      }
+
+      var payload = await res.json().catch(function () {
+        return {};
+      });
+      loading.classList.add("hidden");
+      if (!res.ok || !payload.ok || !payload.item) {
+        var msg = (payload && payload.message) || null;
+        if (!msg) {
+          if (res.status === 404) msg = "This story was not found. It may have been removed.";
+          else if (res.status === 400)
+            msg = "This link is not valid. Open the article again from the news list.";
+          else msg = (payload && payload.error) || "Something went wrong loading this story.";
+        }
+        showStoryError(msg, res.status === 404 ? 8000 : 0);
+        return;
+      }
+
+      var row = payload.item;
+      document.title = (row.title || "Story") + " — Maheshwara Nexlify Nucleus";
+      document.getElementById("art-cat").textContent = row.category || "News";
+      document.getElementById("art-head").textContent = row.title || "";
+
+      var loc = row.location || "Mutharam, Telangana";
+      var dateStr = formatDate(row.created_at);
+      var author = row.author_name || "Desk";
+      document.getElementById("art-dateline").textContent = loc + " | " + dateStr + " | By " + author;
+
+      if (row.sub_headline) {
+        document.getElementById("art-sub-wrap").classList.remove("hidden");
+        document.getElementById("art-sub").textContent = row.sub_headline;
+      }
+
+      var allUrls = [];
+      if (row.image_url) allUrls.push(row.image_url);
+      parseGallery(row).forEach(function (u) {
+        if (u && allUrls.indexOf(u) === -1) allUrls.push(u);
+      });
+      buildImageCarousel(allUrls);
+
+      var vidEl = document.getElementById("art-video");
+      if (row.video_url) {
+        var emb = youtubeEmbedUrl(row.video_url);
+        if (emb) {
+          vidEl.classList.remove("hidden");
+          var ifr = document.createElement("iframe");
+          ifr.className = "aspect-video w-full rounded-xl border border-stone-200";
+          ifr.src = emb;
+          ifr.title = "Video";
+          ifr.loading = "lazy";
+          ifr.setAttribute("allowfullscreen", "");
+          vidEl.appendChild(ifr);
+        } else if (/\.(mp4|webm|ogg)(\?|$)/i.test(row.video_url)) {
+          vidEl.classList.remove("hidden");
+          var v = document.createElement("video");
+          v.src = row.video_url;
+          v.controls = true;
+          v.preload = "metadata";
+          v.className = "w-full rounded-xl border border-stone-200";
+          vidEl.appendChild(v);
+        }
+      }
+
+      var fullBody = row.content || "";
+      var split = splitFirstParagraph(fullBody);
+      var wrap = document.getElementById("art-body-wrap");
+      wrap.innerHTML = "";
+
+      var p1 = document.createElement("div");
+      p1.className = "font-telugu text-base leading-relaxed text-stone-800 whitespace-pre-wrap";
+      p1.textContent = split[0];
+      wrap.appendChild(p1);
+
+      var ad = document.createElement("div");
+      ad.innerHTML = adBoxHtml();
+      wrap.appendChild(ad.firstElementChild);
+
+      if (split[1]) {
+        var p2 = document.createElement("div");
+        p2.className = "mt-6 font-telugu text-base leading-relaxed text-stone-800 whitespace-pre-wrap";
+        p2.textContent = split[1];
+        wrap.appendChild(p2);
+      }
+
+      var shareTitle = row.title || "Maheshwara Nexlify Nucleus News";
+      var shareUrl = getShareablePageUrl();
+      var waBody = "*" + shareTitle + "*\n\n" + shareUrl + "\n\n— Maheshwara Nexlify Nucleus";
+      document.getElementById("btn-wa").href =
+        "https://wa.me/?text=" + encodeURIComponent(waBody);
+
+      function wireArticleSocial(url, title) {
+        var cfg = window.MNS_CONFIG || {};
+        var encU = encodeURIComponent(url);
+        var encT = encodeURIComponent(title || "");
+        var waText = encodeURIComponent((title || "") + "\n\n" + url + "\n\n— Maheshwara Nexlify Nucleus");
+        function set(id, href) {
+          var n = document.getElementById(id);
+          if (n) n.href = href;
+        }
+        set("mns-float-wa", "https://wa.me/?text=" + waText);
+        set("mns-float-fb", "https://www.facebook.com/sharer/sharer.php?u=" + encU);
+        set("mns-float-x", "https://twitter.com/intent/tweet?url=" + encU + "&text=" + encT);
+        set("mns-float-ig", (cfg.socialInstagram || "https://www.instagram.com/").replace(/\/?$/, "/"));
+        set("mns-foot-wa", "https://wa.me/?text=" + waText);
+        set("mns-foot-fb", "https://www.facebook.com/sharer/sharer.php?u=" + encU);
+        set("mns-foot-x", "https://twitter.com/intent/tweet?url=" + encU + "&text=" + encT);
+        set("mns-foot-ig", (cfg.socialInstagram || "https://www.instagram.com/").replace(/\/?$/, "/"));
+      }
+      wireArticleSocial(shareUrl, shareTitle);
+
+      document.getElementById("btn-copy").addEventListener("click", async function () {
+        try {
+          await navigator.clipboard.writeText(getShareablePageUrl());
+          document.getElementById("clip-msg").textContent = "Link copied.";
+          setTimeout(function () {
+            document.getElementById("clip-msg").textContent = "";
+          }, 2500);
+        } catch (e) {
+          document.getElementById("clip-msg").textContent = "Copy blocked — select URL manually.";
+        }
+      });
+
+      document.getElementById("clip-title").textContent = row.title || "";
+      document.getElementById("clip-dateline").textContent =
+        loc + " | " + dateStr + " | By " + author;
+      var subLine = (row.sub_headline || "").trim();
+      var firstPara = (split[0] || fullBody || "").replace(/\s+/g, " ").trim();
+      var summaryText = subLine && firstPara ? subLine + " " + firstPara : subLine || firstPara;
+      if (summaryText.length > 280) summaryText = summaryText.slice(0, 277) + "…";
+      document.getElementById("clip-summary").textContent = summaryText;
+      document.getElementById("clip-footer").textContent =
+        "పూర్తి వార్త కోసం సందర్శించండి: nexalifynucleus.in";
+
+      document.getElementById("btn-clip").addEventListener("click", async function () {
+        var msg = document.getElementById("clip-msg");
+        msg.textContent = "";
+        var root = document.getElementById("news-clip-root");
+        if (!window.html2canvas) {
+          msg.textContent = "html2canvas failed to load.";
+          return;
+        }
+        try {
+          var canvas = await html2canvas(root, {
+            scale: 2,
+            useCORS: true,
+            backgroundColor: "#ffffff",
+            logging: false,
+          });
+          var out = applyWatermarkToCanvas(canvas);
+          out.toBlob(function (blob) {
+            if (!blob) return;
+            var a = document.createElement("a");
+            a.href = URL.createObjectURL(blob);
+            a.download = "maheshwara-news-card.png";
+            a.click();
+            URL.revokeObjectURL(a.href);
+            msg.textContent = "Download started.";
+          }, "image/png");
+        } catch (e) {
+          msg.textContent = "Could not create image.";
+        }
+      });
+
+      content.classList.remove("hidden");
+
+      var relUrl =
+        apiBase() +
+        "/api/news/related?exclude=" +
+        encodeURIComponent(id) +
+        "&category=" +
+        encodeURIComponent(row.category || "") +
+        "&limit=4";
+      var relRes = await fetch(relUrl);
+      var relJson = await relRes.json().catch(function () {
+        return {};
+      });
+      var relList = document.getElementById("related");
+      var relEmpty = document.getElementById("related-empty");
+      var items = relRes.ok && relJson.ok ? (relJson.items || []).slice(0, 4) : [];
+      if (!items.length) {
+        relEmpty.classList.remove("hidden");
+      } else {
+        items.forEach(function (r) {
+          var li = document.createElement("li");
+          var a = document.createElement("a");
+          a.href = "news-detail.html?id=" + encodeURIComponent(r.id);
+          a.className =
+            "block rounded-lg border border-stone-100 p-2 transition hover:border-red-200 hover:bg-red-50/50";
+          a.innerHTML =
+            "<span class='font-telugu font-semibold text-stone-900 line-clamp-2'>" +
+            (r.title || "") +
+            "</span><span class='mt-1 block font-telugu text-xs text-stone-400'>" +
+            timeAgo(r.created_at) +
+            "</span>";
+          li.appendChild(a);
+          relList.appendChild(li);
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
