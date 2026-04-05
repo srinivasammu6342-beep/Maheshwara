@@ -36,7 +36,7 @@
 
   <div
     id="mns-breaking-bar"
-    class="mns-flash-ticker fixed left-0 right-0 top-0 z-[100] flex items-stretch gap-0 shadow-lg"
+    class="mns-flash-ticker fixed left-0 right-0 top-0 z-[100] flex min-h-[60px] h-[60px] max-h-[60px] items-stretch gap-0 overflow-hidden shadow-lg"
   >
     <div class="mns-breaking-label flex shrink-0 items-center px-3 sm:px-5">
       <span class="mns-breaking-news-tag font-sans whitespace-nowrap uppercase">Breaking News</span>
@@ -179,13 +179,14 @@
           <canvas id="ad-wm-canvas" width="0" height="0" class="mt-2 max-h-40 w-full rounded-lg border border-white/10 bg-black object-contain"></canvas>
         </div>
         <div>
-          <label class="block text-sm font-medium text-slate-300">Or banner image URL</label>
-          <input
+          <label class="block text-sm font-medium text-slate-300">Or banner URL / Base64 (long data URIs safe here)</label>
+          <textarea
             name="image_url"
             id="ad-image-url"
-            class="mt-1 w-full rounded-lg border border-white/10 bg-slate-900 px-3 py-2 text-sm text-white outline-none focus:border-amber-500"
-            placeholder="https://…jpg (optional if you upload)"
-          />
+            rows="3"
+            class="mt-1 w-full resize-y rounded-lg border border-white/10 bg-slate-900 px-3 py-2 font-mono text-xs text-white outline-none focus:border-amber-500"
+            placeholder="https://… or data:image/jpeg;base64,… (filled automatically on upload)"
+          ></textarea>
         </div>
         <div>
           <label class="block text-sm font-medium text-slate-300">Link URL (optional)</label>

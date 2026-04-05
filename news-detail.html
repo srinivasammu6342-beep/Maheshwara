@@ -26,7 +26,7 @@
 <body class="min-h-screen bg-stone-100 font-sans text-stone-900 antialiased">
   <div
     id="mns-breaking-bar"
-    class="mns-flash-ticker fixed left-0 right-0 top-0 z-[100] flex items-stretch gap-0 shadow-lg"
+    class="mns-flash-ticker fixed left-0 right-0 top-0 z-[100] flex min-h-[60px] h-[60px] max-h-[60px] items-stretch gap-0 overflow-hidden shadow-lg"
   >
     <div class="mns-breaking-label flex shrink-0 items-center px-3 sm:px-5">
       <span class="mns-breaking-news-tag font-sans whitespace-nowrap uppercase">Breaking News</span>
@@ -618,8 +618,8 @@
           showPlaceholder();
         };
 
-        var fixed = normalizeAdImageUrl(rawImg);
-        im.src = fixed || rawImg;
+        /* ads.image_url → img.src (normalize fixes whitespace / raw base64 only) */
+        im.src = normalizeAdImageUrl(rawImg) || rawImg;
 
         wrap.appendChild(im);
         root.appendChild(wrap);

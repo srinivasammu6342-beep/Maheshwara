@@ -94,6 +94,19 @@ function parseGalleryRow(g) {
   return [];
 }
 
+/** Postgres / PostgREST: unknown column or schema cache mismatch — retry with fewer columns */
+function isMissingColumnOrSchemaError(err) {
+  if (!err) return false;
+  const code = String(err.code || "");
+  const msg = String(err.message || "").toLowerCase();
+  const details = String(err.details || "").toLowerCase();
+  if (code === "42703") return true;
+  if (msg.includes("column") && (msg.includes("does not exist") || msg.includes("unknown"))) return true;
+  if (msg.includes("could not find") && msg.includes("column")) return true;
+  if (details.includes("column") && details.includes("not find")) return true;
+  return false;
+}
+
 /** Hero image for OG / previews: primary `image_url` first, then first gallery entry. */
 function firstNewsImage(row) {
   const hero = row && row.image_url != null ? String(row.image_url).trim() : "";
@@ -126,11 +139,15 @@ function absoluteNewsDetailUrl(req, id) {
 /** Last 5 headlines (fallback if flash_news empty) */
 app.get("/api/news/ticker", async (req, res) => {
   try {
-    const { data, error } = await supabase
+    let { data, error } = await supabase
       .from("news")
-      .select("id,title")
+      .select("id,title,created_at")
       .order("created_at", { ascending: false })
       .limit(5);
+
+    if (error && isMissingColumnOrSchemaError(error)) {
+      ({ data, error } = await supabase.from("news").select("id,title").order("id", { ascending: false }).limit(5));
+    }
 
     if (error) {
       console.error(error);
@@ -157,7 +174,7 @@ app.get("/api/news/related", async (req, res) => {
     let out = [];
 
     if (category) {
-      const { data: same } = await supabase
+      let { data: same, error: e1 } = await supabase
         .from("news")
         .select("id,title,created_at,category")
         .eq("category", category)
@@ -165,16 +182,30 @@ app.get("/api/news/related", async (req, res) => {
         .order("created_at", { ascending: false })
         .limit(limit);
 
+      if (e1 && isMissingColumnOrSchemaError(e1)) {
+        ({ data: same } = await supabase
+          .from("news")
+          .select("id,title,category")
+          .eq("category", category)
+          .neq("id", exclude)
+          .limit(limit * 2));
+        same = (same || []).slice(0, limit);
+      }
+
       out = same || [];
     }
 
     if (out.length < limit) {
-      const { data: rest } = await supabase
+      let { data: rest, error: e2 } = await supabase
         .from("news")
         .select("id,title,created_at,category")
         .neq("id", exclude)
         .order("created_at", { ascending: false })
         .limit(limit * 2);
+
+      if (e2 && isMissingColumnOrSchemaError(e2)) {
+        ({ data: rest } = await supabase.from("news").select("id,title,category").neq("id", exclude).limit(limit * 3));
+      }
 
       const seen = new Set(out.map((r) => r.id));
       for (const row of rest || []) {
@@ -197,13 +228,17 @@ app.get("/api/news/related", async (req, res) => {
 app.get("/api/news", async (req, res) => {
   try {
     const lim = Math.min(100, Math.max(1, parseInt(req.query.limit, 10) || 50));
-    const { data, error } = await supabase
-      .from("news")
-      .select(
-        "id,title,content,sub_headline,category,author_name,location,image_url,gallery_json,video_url,created_at"
-      )
-      .order("created_at", { ascending: false })
-      .limit(lim);
+    const full =
+      "id,title,content,sub_headline,category,author_name,location,image_url,gallery_json,video_url,created_at";
+    let { data, error } = await supabase.from("news").select(full).order("created_at", { ascending: false }).limit(lim);
+
+    if (error && isMissingColumnOrSchemaError(error)) {
+      ({ data, error } = await supabase
+        .from("news")
+        .select("id,title,content,image_url")
+        .order("id", { ascending: false })
+        .limit(lim));
+    }
 
     if (error) {
       console.error(error);
@@ -231,7 +266,11 @@ app.get("/api/news/:id", async (req, res) => {
     const columns =
       "id,title,content,sub_headline,category,author_name,location,video_url,image_url,gallery_json,created_at";
 
-    const { data, error } = await supabase.from("news").select(columns).eq("id", id).maybeSingle();
+    let { data, error } = await supabase.from("news").select(columns).eq("id", id).maybeSingle();
+
+    if (error && isMissingColumnOrSchemaError(error)) {
+      ({ data, error } = await supabase.from("news").select("id,title,content,image_url").eq("id", id).maybeSingle());
+    }
 
     if (error) {
       console.error(error);
@@ -320,12 +359,16 @@ app.post("/api/save-news", async (req, res) => {
 app.get("/api/flash-news/ticker", async (req, res) => {
   try {
     const since = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
-    const { data, error } = await supabase
+    let { data, error } = await supabase
       .from("flash_news")
       .select("id,message,created_at")
       .gte("created_at", since)
       .order("created_at", { ascending: false })
       .limit(5);
+
+    if (error && isMissingColumnOrSchemaError(error)) {
+      ({ data, error } = await supabase.from("flash_news").select("id,message").order("id", { ascending: false }).limit(5));
+    }
 
     if (error) {
       console.error(error);
@@ -369,7 +412,18 @@ app.get("/api/ads", async (req, res) => {
   try {
     let q = supabase.from("ads").select("id,image_url,link_url,sort_order,created_at,active");
     q = adsVisibleFilter(q);
-    const { data, error } = await q.order("created_at", { ascending: false }).limit(25);
+    let { data, error } = await q.order("created_at", { ascending: false }).limit(25);
+
+    if (error && isMissingColumnOrSchemaError(error)) {
+      ({ data, error } = await supabase
+        .from("ads")
+        .select("id,image_url,link_url,sort_order,created_at")
+        .order("created_at", { ascending: false })
+        .limit(25));
+    }
+    if (error && isMissingColumnOrSchemaError(error)) {
+      ({ data, error } = await supabase.from("ads").select("id,image_url,link_url").order("id", { ascending: false }).limit(25));
+    }
 
     if (error) {
       console.error(error);
@@ -387,7 +441,18 @@ app.get("/api/ads/sidebar", async (req, res) => {
   try {
     let q = supabase.from("ads").select("id,image_url,link_url,created_at");
     q = adsVisibleFilter(q);
-    const { data, error } = await q.order("created_at", { ascending: false }).limit(1);
+    let { data, error } = await q.order("created_at", { ascending: false }).limit(1);
+
+    if (error && isMissingColumnOrSchemaError(error)) {
+      ({ data, error } = await supabase
+        .from("ads")
+        .select("id,image_url,link_url,created_at")
+        .order("created_at", { ascending: false })
+        .limit(1));
+    }
+    if (error && isMissingColumnOrSchemaError(error)) {
+      ({ data, error } = await supabase.from("ads").select("id,image_url,link_url").order("id", { ascending: false }).limit(1));
+    }
 
     if (error) {
       console.error(error);
@@ -413,11 +478,14 @@ app.post("/api/save-ad", async (req, res) => {
     if (!image_url) {
       return res.status(400).json({ ok: false, error: "image_url is required" });
     }
-    const { data, error } = await supabase
+    let { data, error } = await supabase
       .from("ads")
       .insert({ image_url, link_url, active: true, sort_order })
       .select("id")
       .single();
+    if (error && isMissingColumnOrSchemaError(error)) {
+      ({ data, error } = await supabase.from("ads").insert({ image_url, link_url }).select("id").single());
+    }
     if (error) {
       console.error(error);
       return res.status(500).json({ ok: false, error: error.message });
@@ -432,14 +500,18 @@ app.post("/api/save-ad", async (req, res) => {
 /** Visitor stats (single row id=1) */
 app.get("/api/stats/public", async (req, res) => {
   try {
-    const { data, error } = await supabase.from("visitor_stats").select("total_visits,day_key,day_visits").eq("id", 1).maybeSingle();
+    let { data, error } = await supabase.from("visitor_stats").select("total_visits,day_key,day_visits").eq("id", 1).maybeSingle();
+    if (error && isMissingColumnOrSchemaError(error)) {
+      ({ data, error } = await supabase.from("visitor_stats").select("total_visits").eq("id", 1).maybeSingle());
+    }
     if (error) {
-      console.error(error);
+      console.warn("visitor_stats read:", error.message);
       return res.json({ ok: true, total: 0, today: 0 });
     }
     if (!data) return res.json({ ok: true, total: 0, today: 0 });
     const todayKey = istDateKey();
-    const today = data.day_key === todayKey ? Number(data.day_visits) || 0 : 0;
+    const hasDay = Object.prototype.hasOwnProperty.call(data, "day_key") && Object.prototype.hasOwnProperty.call(data, "day_visits");
+    const today = hasDay && data.day_key === todayKey ? Number(data.day_visits) || 0 : 0;
     return res.json({ ok: true, total: Number(data.total_visits) || 0, today });
   } catch (e) {
     console.error(e);
@@ -450,37 +522,54 @@ app.get("/api/stats/public", async (req, res) => {
 app.post("/api/stats/ping", async (req, res) => {
   try {
     const todayKey = istDateKey();
-    const { data: row, error: selErr } = await supabase.from("visitor_stats").select("*").eq("id", 1).maybeSingle();
-    if (selErr) {
-      console.error(selErr);
-      return res.status(500).json({ ok: false, error: selErr.message });
+    let sel = await supabase.from("visitor_stats").select("id,total_visits,day_key,day_visits").eq("id", 1).maybeSingle();
+    if (sel.error && isMissingColumnOrSchemaError(sel.error)) {
+      sel = await supabase.from("visitor_stats").select("id,total_visits").eq("id", 1).maybeSingle();
     }
+    if (sel.error) {
+      console.warn("visitor_stats ping select:", sel.error.message);
+      return res.json({ ok: true, total: 0, today: 0 });
+    }
+
+    const row = sel.data;
     if (!row) {
-      const { error: insErr } = await supabase
+      let ins = await supabase
         .from("visitor_stats")
         .insert({ id: 1, total_visits: 1, day_key: todayKey, day_visits: 1 });
-      if (insErr) {
-        console.error(insErr);
-        return res.status(500).json({ ok: false, error: insErr.message });
+      if (ins.error && isMissingColumnOrSchemaError(ins.error)) {
+        ins = await supabase.from("visitor_stats").insert({ id: 1, total_visits: 1 });
+      }
+      if (ins.error) {
+        console.warn("visitor_stats ping insert:", ins.error.message);
+        return res.json({ ok: true, total: 0, today: 0 });
       }
       return res.json({ ok: true, total: 1, today: 1 });
     }
+
     const nextTotal = (Number(row.total_visits) || 0) + 1;
-    let nextDay = Number(row.day_visits) || 0;
-    if (row.day_key === todayKey) nextDay += 1;
-    else nextDay = 1;
-    const { error: upErr } = await supabase
+    const hasDay = Object.prototype.hasOwnProperty.call(row, "day_key") && Object.prototype.hasOwnProperty.call(row, "day_visits");
+    let nextDay = 1;
+    if (hasDay) {
+      nextDay = Number(row.day_visits) || 0;
+      if (row.day_key === todayKey) nextDay += 1;
+      else nextDay = 1;
+    }
+
+    let up = await supabase
       .from("visitor_stats")
       .update({ total_visits: nextTotal, day_key: todayKey, day_visits: nextDay })
       .eq("id", 1);
-    if (upErr) {
-      console.error(upErr);
-      return res.status(500).json({ ok: false, error: upErr.message });
+    if (up.error && isMissingColumnOrSchemaError(up.error)) {
+      up = await supabase.from("visitor_stats").update({ total_visits: nextTotal }).eq("id", 1);
     }
-    return res.json({ ok: true, total: nextTotal, today: nextDay });
+    if (up.error) {
+      console.warn("visitor_stats ping update:", up.error.message);
+      return res.json({ ok: true, total: nextTotal, today: hasDay ? nextDay : 0 });
+    }
+    return res.json({ ok: true, total: nextTotal, today: hasDay ? nextDay : 0 });
   } catch (e) {
     console.error(e);
-    return res.status(500).json({ ok: false, error: "Server error" });
+    return res.json({ ok: true, total: 0, today: 0 });
   }
 });
 
@@ -496,7 +585,10 @@ app.get("/news-detail.html", async (req, res, next) => {
 
     const columns =
       "id,title,content,sub_headline,category,author_name,location,video_url,image_url,gallery_json,created_at";
-    const { data, error } = await supabase.from("news").select(columns).eq("id", id).maybeSingle();
+    let { data, error } = await supabase.from("news").select(columns).eq("id", id).maybeSingle();
+    if (error && isMissingColumnOrSchemaError(error)) {
+      ({ data, error } = await supabase.from("news").select("id,title,content,image_url").eq("id", id).maybeSingle());
+    }
     if (error || !data) return next();
 
     const filePath = path.join(__dirname, "news-detail.html");
