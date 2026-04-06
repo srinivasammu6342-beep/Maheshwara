@@ -647,3 +647,4 @@ app.listen(PORT, () => {
   console.log(`Maheshwara Nexlify Nucleus server at http://localhost:${PORT}`);
   console.log(`JSON body limit: ${jsonLimit}`);
 });
+module.exports = app;
