@@ -4,7 +4,7 @@ window.MNS_CONFIG = {
   apiBase: "",
   adminPassword: "Nexalify@2026",
   /** When testing on localhost, share/copy links use this site + current path. When live, window.location.href is used. */
-  publicSiteUrl: "https://nexalifynucleus.in",
+  publicSiteUrl: "https://nexlifynucleus.in",
   /** Footer / floating share — set your official profile URLs */
   socialInstagram: "https://www.instagram.com/",
 };
