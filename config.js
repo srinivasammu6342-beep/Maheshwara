@@ -1,7 +1,7 @@
 /** Client config — run `npm start`, open http://localhost:3000 (no secrets here).
  *  This project is saved on disk as-is; you do not need Cursor’s “Accept” for these files. */
 window.MNS_CONFIG = {
-  apiBase: "",
+  apiBase: "https://nexlifynucleus.in",
   adminPassword: "Nexalify@2026",
   /** When testing on localhost, share/copy links use this site + current path. When live, window.location.href is used. */
   publicSiteUrl: "https://nexlifynucleus.in",
