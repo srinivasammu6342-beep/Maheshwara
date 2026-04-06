@@ -129,6 +129,27 @@ app.get("/api/news", async (req, res) => {
   }
 });
 
+app.get("/api/news/related", async (req, res) => {
+  try {
+    const exclude = normalizeNewsId(req.query.exclude || "");
+    const category = String(req.query.category || "").trim();
+    const limit = Math.min(25, Math.max(1, parseInt(req.query.limit, 10) || 4));
+    const fetchN = Math.min(80, limit * 6);
+    let q = supabase.from("news").select("id,title,created_at,category").order("created_at", { ascending: false }).limit(fetchN);
+    if (exclude && isValidNewsId(exclude)) q = q.neq("id", exclude);
+    const { data, error } = await q;
+    if (error) throw error;
+    let rows = data || [];
+    if (category) {
+      rows = rows.filter((r) => (r.category || "General") === category);
+    }
+    rows = rows.slice(0, limit);
+    return res.json({ ok: true, items: rows });
+  } catch (e) {
+    return res.status(500).json({ ok: false, error: e.message, items: [] });
+  }
+});
+
 app.get("/api/news/:id", async (req, res) => {
   try {
     const id = normalizeNewsId(req.params.id);
@@ -144,9 +165,58 @@ app.get("/api/news/:id", async (req, res) => {
 
 app.post("/api/save-news", async (req, res) => {
   try {
-    const { title, content, sub_headline, category, author_name, location, video_url, image_url, gallery_json } = req.body;
+    if (!adminOk(req.body)) return res.status(403).json({ ok: false, error: "Unauthorized" });
+    const { title, content, sub_headline, category, author_name, location, video_url, image_url } = req.body;
     if (!title || !content) return res.status(400).json({ ok: false, error: "Required fields missing" });
-    const { data, error } = await supabase.from("news").insert([{ title, content, sub_headline, category, author_name, location, video_url, image_url, gallery_json }]).select("id").single();
+    let gallery_json = req.body.gallery_json;
+    if (Array.isArray(gallery_json)) {
+      gallery_json = gallery_json.map(String).map((s) => s.trim()).filter(Boolean);
+    } else if (typeof gallery_json === "string") {
+      try {
+        const p = JSON.parse(gallery_json);
+        gallery_json = Array.isArray(p) ? p.map(String).map((s) => s.trim()).filter(Boolean) : [];
+      } catch {
+        gallery_json = [];
+      }
+    } else {
+      gallery_json = [];
+    }
+    const extra = parseGallery(req.body.gallery_urls_text);
+    gallery_json = [...gallery_json, ...extra];
+    const row = { title, content, sub_headline, category, author_name, location, video_url, image_url, gallery_json };
+    const { data, error } = await supabase.from("news").insert([row]).select("id").single();
+    if (error) throw error;
+    return res.status(201).json({ ok: true, id: data.id });
+  } catch (e) {
+    return res.status(500).json({ ok: false, error: e.message });
+  }
+});
+
+app.post("/api/save-flash-news", async (req, res) => {
+  try {
+    if (!adminOk(req.body)) return res.status(403).json({ ok: false, error: "Unauthorized" });
+    const message = typeof req.body.message === "string" ? req.body.message.trim() : "";
+    if (!message) return res.status(400).json({ ok: false, error: "message required" });
+    const { data, error } = await supabase.from("flash_news").insert({ message }).select("id").single();
+    if (error) throw error;
+    return res.status(201).json({ ok: true, id: data.id });
+  } catch (e) {
+    return res.status(500).json({ ok: false, error: e.message });
+  }
+});
+
+app.post("/api/save-ad", async (req, res) => {
+  try {
+    if (!adminOk(req.body)) return res.status(403).json({ ok: false, error: "Unauthorized" });
+    const image_url = typeof req.body.image_url === "string" ? req.body.image_url.trim() : "";
+    const link_url = req.body.link_url && String(req.body.link_url).trim() ? String(req.body.link_url).trim() : null;
+    const sort_order = Math.min(1000, Math.max(0, parseInt(req.body.sort_order, 10) || 0));
+    if (!image_url) return res.status(400).json({ ok: false, error: "image_url required" });
+    const { data, error } = await supabase
+      .from("ads")
+      .insert({ image_url, link_url, active: true, sort_order })
+      .select("id")
+      .single();
     if (error) throw error;
     return res.status(201).json({ ok: true, id: data.id });
   } catch (e) {
@@ -172,6 +242,22 @@ app.get("/api/ads", async (req, res) => {
     return res.json({ ok: true, items: data || [] });
   } catch (e) {
     return res.status(500).json({ ok: false, error: e.message });
+  }
+});
+
+app.get("/api/ads/sidebar", async (req, res) => {
+  try {
+    let { data, error } = await supabase
+      .from("ads")
+      .select("id,image_url,link_url,created_at")
+      .eq("active", true)
+      .order("created_at", { ascending: false })
+      .limit(1);
+    if (error) throw error;
+    const row = Array.isArray(data) && data[0] ? data[0] : null;
+    return res.json({ ok: true, ad: row });
+  } catch (e) {
+    return res.status(500).json({ ok: false, error: e.message, ad: null });
   }
 });
 
@@ -229,9 +315,5 @@ app.get("/news-detail.html", async (req, res, next) => {
 });
 
 app.use(express.static(path.join(__dirname, "..")));
-
-if (process.env.NODE_ENV !== 'production') {
-  app.listen(PORT, () => console.log(`Server at http://localhost:${PORT}`));
-}
 
 module.exports = app;
