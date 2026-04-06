@@ -1,10 +1,10 @@
 /** Client config — run `npm start`, open http://localhost:3000 (no secrets here).
  *  This project is saved on disk as-is; you do not need Cursor’s “Accept” for these files. */
 window.MNS_CONFIG = {
-  apiBase: "",
+  apiBase: "",  // దీన్ని ఖాళీగా ఉంచండి (Relative path)
   adminPassword: "Nexalify@2026",
-  /** When testing on localhost, share/copy links use this site + current path. When live, window.location.href is used. */
-  publicSiteUrl: "https://nexlifynucleus.in",
+  publicSiteUrl: window.location.origin, // ఇది ఆటోమేటిక్ గా కరెక్ట్ అడ్రస్ తీసుకుంటుంది
+  // ... మిగతావి అలాగే ఉంచండి
   /** Footer / floating share — set your official profile URLs */
   socialInstagram: "https://www.instagram.com/",
 };
