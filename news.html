@@ -3,39 +3,81 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>వార్తలు — Maheshwara Nexlify Nucleus</title>
+  <title>వార్తలు — MAHESHWARA NEXLIFY NUCLEUS</title>
   <meta name="description" content="Maheshwara Nexlify Nucleus — ముత్తారం తాజా వార్తలు, బ్రేకింగ్ అప్‌డేట్స్." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Gidugu&family=Ramabhadra&family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Gidugu&family=Ramabhadra&family=Roboto:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css" />
   <style>
     :root {
-      --mns-navy: #0f172a;
-      --mns-blue: #1d4ed8;
-      --mns-soft: #f8fafc;
+      --mns-slate-blue: #1e3a5f;
+      --mns-slate-deep: #0f2744;
+      --mns-gold: #c9a227;
     }
+
     body {
-      background: var(--mns-soft);
+      background: #f4f6f9;
       color: #0f172a;
       font-family: "Roboto", "Segoe UI", Arial, sans-serif;
     }
+
     .font-telugu {
       font-family: "Ramabhadra", "Gidugu", "Roboto", sans-serif;
     }
-    .mns-nav {
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      background: rgba(255, 255, 255, 0.96);
+
+    .mns-header-shell {
+      background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+      border-bottom: 1px solid rgba(30, 58, 95, 0.12);
+      box-shadow: 0 4px 24px rgba(15, 39, 68, 0.06);
     }
+
+    .mns-brand-gold {
+      color: var(--mns-gold);
+    }
+
+    .mns-nav-link {
+      transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+    }
+
+    .mns-nav-link:hover {
+      color: var(--mns-slate-blue);
+      background: rgba(30, 58, 95, 0.06);
+    }
+
+    .mns-nav-link-active {
+      color: var(--mns-slate-deep);
+      background: linear-gradient(180deg, rgba(201, 162, 39, 0.15), rgba(201, 162, 39, 0.08));
+      border-bottom: 2px solid var(--mns-gold);
+    }
+
+    #mns-search-panel {
+      max-height: 0;
+      opacity: 0;
+      transition: max-height 0.45s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s ease, padding 0.35s ease;
+    }
+
+    #mns-search-panel.mns-search-open {
+      max-height: 120px;
+      opacity: 1;
+    }
+
     .mns-ticker-wrap {
-      background: linear-gradient(90deg, #7f1d1d 0%, #b91c1c 45%, #991b1b 100%);
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+      background: #b91c1c;
+      background: linear-gradient(90deg, #991b1b 0%, #dc2626 50%, #991b1b 100%);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15);
+      border-bottom: 2px solid #ffffff;
     }
+
     .mns-ticker-label {
-      background: rgba(0, 0, 0, 0.35);
-      border-right: 2px solid rgba(250, 204, 21, 0.45);
+      background: #ffffff;
+      border-right: 3px solid #fecaca;
     }
+
+    .mns-ticker-label span {
+      color: #b91c1c !important;
+    }
+
     @keyframes mns-marquee {
       0% {
         transform: translate3d(0, 0, 0);
@@ -44,6 +86,7 @@
         transform: translate3d(-50%, 0, 0);
       }
     }
+
     .mns-ticker-track {
       display: flex;
       flex-wrap: nowrap;
@@ -51,72 +94,112 @@
       animation: mns-marquee 55s linear infinite;
       will-change: transform;
     }
+
     .mns-ticker-track:hover {
       animation-play-state: paused;
     }
+
     .mns-card-news {
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
     }
+
     .mns-card-news:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 14px 32px rgba(15, 23, 42, 0.12);
+      transform: translateY(-5px);
+      box-shadow: 0 18px 38px rgba(15, 39, 68, 0.12);
+      border-color: rgba(201, 162, 39, 0.5);
     }
+
     @media (prefers-reduced-motion: reduce) {
       .mns-ticker-track {
         animation: none;
       }
     }
+
+    .mns-gold-rule {
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--mns-gold), transparent);
+    }
   </style>
 </head>
 <body class="min-h-screen antialiased">
-  <header class="mns-nav sticky top-0 z-50 border-b border-slate-200 shadow-sm">
-    <div class="mx-auto flex w-full max-w-6xl items-center justify-between px-4 py-3">
-      <a href="index.html" class="flex min-w-0 items-center gap-3">
-        <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-blue-700 text-xs font-extrabold tracking-wide text-white shadow-md">MNS</span>
-        <div class="min-w-0">
-          <p class="truncate text-xs font-extrabold uppercase tracking-wide text-slate-900">Maheshwara Nexlify Nucleus</p>
-          <p class="truncate font-telugu text-base font-bold text-slate-800 sm:text-lg">వార్తలు</p>
-          <p class="truncate font-telugu text-[11px] text-slate-500">ముత్తారం · డిజిటల్ సేవా</p>
-        </div>
-      </a>
-      <div
-        id="mns-header-clock"
-        class="hidden max-w-[11rem] shrink-0 text-right text-[10px] font-medium leading-tight text-slate-600 sm:block sm:max-w-none sm:text-xs"
-        title="Telangana (IST)"
-      ></div>
-      <nav class="flex shrink-0 items-center gap-2 text-sm font-semibold">
-        <a href="index.html" class="rounded-lg px-3 py-2 text-slate-700 hover:bg-slate-100">Home</a>
-        <a href="news.html" class="rounded-lg bg-blue-50 px-3 py-2 text-blue-700">News</a>
-        <a href="admin.html" class="rounded-lg bg-slate-900 px-3 py-2 text-white hover:bg-slate-800">Admin</a>
-      </nav>
+  <header class="mns-header-shell sticky top-0 z-50">
+    <div class="mx-auto w-full max-w-7xl px-4 pt-5 pb-1 text-center sm:pt-6">
+      <p class="font-sans text-[10px] font-bold uppercase tracking-[0.35em] text-slate-500">Corporate Services &amp; News</p>
+      <h1 class="mt-1 font-sans text-3xl font-extrabold leading-tight tracking-tight text-slate-800 sm:text-4xl md:text-5xl">
+        MAHESHWARA <span class="mns-brand-gold">NEXLIFY</span> NUCLEUS
+      </h1>
+      <p class="font-telugu mt-2 text-sm text-slate-600 sm:text-base">వార్తలు · ముత్తారం · డిజిటల్ సేవా</p>
+      <div class="mns-gold-rule mx-auto mt-3 max-w-md"></div>
     </div>
+
+    <nav class="mx-auto flex w-full max-w-7xl flex-col items-stretch px-4 pb-2" aria-label="Primary">
+      <div class="flex flex-wrap items-center justify-center gap-1 border-t border-slate-200/80 pt-3 sm:gap-2">
+        <a href="index.html" class="mns-nav-link rounded-lg px-3 py-2 text-xs font-bold uppercase tracking-wide text-slate-700 sm:text-sm">Home</a>
+        <a href="index.html#services" class="mns-nav-link rounded-lg px-3 py-2 text-xs font-bold uppercase tracking-wide text-slate-700 sm:text-sm">Our Services</a>
+        <a href="index.html#about" class="mns-nav-link rounded-lg px-3 py-2 text-xs font-bold uppercase tracking-wide text-slate-700 sm:text-sm">About Us</a>
+        <a href="index.html#contact" class="mns-nav-link rounded-lg px-3 py-2 text-xs font-bold uppercase tracking-wide text-slate-700 sm:text-sm">Contact Us</a>
+        <a href="index.html#testimonials" class="mns-nav-link rounded-lg px-3 py-2 text-xs font-bold uppercase tracking-wide text-slate-700 sm:text-sm">Testimonials</a>
+        <a href="news.html" class="mns-nav-link mns-nav-link-active rounded-lg px-3 py-2 text-xs font-bold uppercase tracking-wide text-slate-700 sm:text-sm">Blog / News</a>
+        <button
+          type="button"
+          id="mns-search-toggle"
+          class="mns-nav-link inline-flex items-center gap-2 rounded-lg px-3 py-2 text-xs font-bold uppercase tracking-wide text-slate-700 sm:text-sm"
+          aria-expanded="false"
+          aria-controls="mns-search-panel"
+        >
+          <svg class="h-5 w-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+          <span class="hidden sm:inline">Search</span>
+        </button>
+      </div>
+
+      <div id="mns-search-panel" class="overflow-hidden px-0">
+        <form id="mns-search-form" class="mx-auto mt-2 flex max-w-2xl gap-2 rounded-xl border border-slate-200 bg-white p-3 shadow-inner" action="news.html" method="get" role="search">
+          <label for="mns-search-input" class="sr-only">Search news</label>
+          <input
+            id="mns-search-input"
+            type="search"
+            name="q"
+            placeholder="వార్తల కోసం వెతకండి…"
+            class="font-telugu min-w-0 flex-1 rounded-lg border border-slate-200 px-4 py-2.5 text-sm text-slate-800 placeholder-slate-400 focus:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-200"
+          />
+          <button type="submit" class="shrink-0 rounded-lg bg-slate-800 px-5 py-2.5 text-sm font-bold text-amber-300 transition hover:bg-slate-900">Go</button>
+        </form>
+      </div>
+    </nav>
   </header>
 
-  <!-- TV9-style ticker: immediately below header -->
-  <div class="mns-ticker-wrap relative z-40 overflow-hidden border-b border-red-900/40">
-    <div class="mx-auto flex max-w-6xl items-stretch">
-      <div class="mns-ticker-label flex shrink-0 items-center px-3 py-2 sm:px-4">
-        <span class="whitespace-nowrap font-sans text-[10px] font-black uppercase tracking-[0.2em] text-yellow-300 sm:text-xs">Breaking News</span>
+  <!-- TV9-style Breaking News ticker: red band, white text -->
+  <div class="mns-ticker-wrap relative z-40 overflow-hidden">
+    <div class="mx-auto flex max-w-7xl items-stretch">
+      <div class="mns-ticker-label flex shrink-0 items-center px-3 py-2.5 sm:px-5">
+        <span class="whitespace-nowrap font-sans text-[10px] font-black uppercase tracking-[0.25em] sm:text-xs">Breaking News</span>
       </div>
-      <div class="relative min-h-[44px] flex-1 overflow-hidden py-2">
-        <div id="mns-ticker-track" class="mns-ticker-track items-center text-sm font-bold text-white"></div>
+      <div class="relative flex min-h-[48px] flex-1 items-center overflow-hidden border-l border-white/30 bg-red-700 py-2">
+        <div id="mns-ticker-track" class="mns-ticker-track items-center pl-2 text-sm font-bold text-white"></div>
       </div>
     </div>
   </div>
 
-  <main class="mx-auto w-full max-w-6xl px-4 py-8 sm:py-10">
+  <main class="mx-auto w-full max-w-7xl px-4 py-8 sm:py-10">
     <div class="flex flex-col gap-4 border-b border-slate-200 pb-6 sm:flex-row sm:items-end sm:justify-between">
       <div>
-        <h1 class="font-telugu text-2xl font-extrabold text-slate-900 sm:text-3xl">తాజా వార్తలు</h1>
-        <p class="mt-1 text-sm text-slate-600">Maheshwara Nexlify Nucleus — స్థానిక, వేగవంతమైన అప్‌డేట్స్</p>
+        <h2 class="font-telugu text-2xl font-extrabold text-slate-900 sm:text-3xl">తాజా వార్తలు</h2>
+        <p class="mt-1 text-sm text-slate-600">MAHESHWARA NEXLIFY NUCLEUS — స్థానిక, వేగవంతమైన అప్‌డేట్స్</p>
       </div>
+      <div
+        id="mns-header-clock"
+        class="hidden text-right text-[10px] font-medium leading-tight text-slate-500 sm:block sm:text-xs"
+        title="Telangana (IST)"
+      ></div>
       <div id="news-filters" class="flex flex-wrap gap-2"></div>
     </div>
 
     <div class="mt-8 flex flex-col gap-8 lg:flex-row lg:items-start">
       <div class="min-w-0 flex-1">
         <div id="news-list" class="grid grid-cols-1 gap-5 sm:grid-cols-2">
-          <p id="news-loading" class="col-span-full text-slate-500">లోడ్ అవుతోంది…</p>
+          <p id="news-loading" class="col-span-full font-telugu text-slate-500">లోడ్ అవుతోంది…</p>
         </div>
         <p id="news-empty" class="hidden py-16 text-center font-telugu text-slate-500">ఇంకా వార్తలు లేవు. అడ్మిన్ నుండి ప్రచురించండి.</p>
         <p id="news-err" class="hidden py-6 text-center text-red-600"></p>
@@ -124,14 +207,14 @@
 
       <aside class="w-full shrink-0 lg:w-80">
         <div class="sticky top-4 space-y-4">
-          <div class="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
-            <h2 class="border-b border-slate-200 pb-2 font-sans text-sm font-bold uppercase tracking-wider text-slate-700">Sidebar Ads</h2>
+          <div class="rounded-xl border border-slate-200 bg-white p-4 shadow-sm transition hover:shadow-md">
+            <h3 class="border-b border-slate-200 pb-2 font-sans text-xs font-bold uppercase tracking-wider text-slate-700">Advertisement</h3>
             <div
               id="mns-sidebar-ad-root"
-              class="mt-3 rounded-lg border-2 border-dashed border-blue-100 bg-gradient-to-br from-slate-50 to-white p-4 text-center text-sm text-slate-500"
+              class="mt-3 rounded-lg border-2 border-dashed border-amber-200 bg-gradient-to-br from-slate-50 to-white p-4 text-center text-sm text-slate-500"
             >
-              <p class="font-sans text-[10px] font-bold uppercase tracking-widest text-blue-800">Advertisement</p>
-              <p class="mt-2 font-sans font-semibold text-slate-800">Maheshwara Nexlify Nucleus</p>
+              <p class="font-sans text-[10px] font-bold uppercase tracking-widest text-slate-600">Ad Space</p>
+              <p class="mt-2 font-sans font-semibold text-slate-800">MAHESHWARA NEXLIFY NUCLEUS</p>
               <p class="mt-1 font-telugu text-xs text-slate-600">అడ్ లోడ్ అవుతోంది…</p>
             </div>
           </div>
@@ -140,29 +223,78 @@
     </div>
   </main>
 
-  <footer class="border-t border-slate-200 bg-white py-8 text-xs text-slate-500">
-    <div class="mx-auto max-w-6xl space-y-4 px-4">
-      <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:text-left">
+  <footer class="border-t border-slate-200 bg-slate-900 py-10 text-xs text-slate-400">
+    <div class="mx-auto max-w-7xl space-y-4 px-4">
+      <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between sm:text-left">
         <div>
-          <p class="font-sans font-medium text-slate-800">Maheshwara Nexlify Nucleus</p>
-          <p>ముత్తారం, పెద్దపల్లి జిల్లా, తెలంగాణ — 505184</p>
-          <p>9949122402</p>
+          <p class="font-sans font-bold uppercase tracking-wide text-white">MAHESHWARA NEXLIFY NUCLEUS</p>
+          <p class="mt-1">ముత్తారం, పెద్దపల్లి జిల్లా, తెలంగాణ — 505184</p>
+          <p class="mt-1">
+            <a href="tel:9949122402" class="font-bold text-amber-300 hover:underline">9949122402</a>
+          </p>
         </div>
-        <div class="rounded-lg border border-slate-200 bg-slate-50 px-4 py-2 text-center sm:text-right">
-          <p class="font-semibold text-slate-700">సందర్శకులు</p>
-          <p class="mt-1 tabular-nums text-slate-600">
-            మొత్తం: <strong id="mns-visitor-total" class="text-blue-800">—</strong>
-            <span class="mx-2 text-slate-300">|</span>
-            ఈరోజు: <strong id="mns-visitor-today" class="text-blue-800">—</strong>
+        <div class="rounded-lg border border-slate-700 bg-slate-800/80 px-4 py-3 text-center sm:text-right">
+          <p class="font-semibold text-slate-200">సందర్శకులు</p>
+          <p class="mt-1 tabular-nums text-slate-300">
+            మొత్తం: <strong id="mns-visitor-total" class="text-amber-300">—</strong>
+            <span class="mx-2 text-slate-600">|</span>
+            ఈరోజు: <strong id="mns-visitor-today" class="text-amber-300">—</strong>
           </p>
         </div>
       </div>
-      <p class="text-center text-[11px] text-slate-400">© Maheshwara Nexlify Nucleus</p>
+      <p class="text-center text-[11px] text-slate-500">© 2026 Maheshwara Nexlify Nucleus</p>
+      <p class="text-center">
+        <a href="admin.html" class="text-[11px] text-slate-500 hover:text-amber-300">Admin</a>
+      </p>
     </div>
   </footer>
 
   <script src="config.js"></script>
   <script src="js/mns-site.js"></script>
+  <script>
+    (function () {
+      var toggle = document.getElementById("mns-search-toggle");
+      var panel = document.getElementById("mns-search-panel");
+      var input = document.getElementById("mns-search-input");
+
+      function setOpen(open) {
+        if (!panel || !toggle) return;
+        if (open) {
+          panel.classList.add("mns-search-open");
+          toggle.setAttribute("aria-expanded", "true");
+          setTimeout(function () {
+            if (input) input.focus();
+          }, 200);
+        } else {
+          panel.classList.remove("mns-search-open");
+          toggle.setAttribute("aria-expanded", "false");
+        }
+      }
+
+      if (toggle && panel) {
+        toggle.addEventListener("click", function (e) {
+          e.preventDefault();
+          setOpen(!panel.classList.contains("mns-search-open"));
+        });
+      }
+
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") setOpen(false);
+      });
+
+      document.addEventListener("click", function (e) {
+        if (!panel || !toggle) return;
+        if (!panel.classList.contains("mns-search-open")) return;
+        var t = e.target;
+        if (panel.contains(t) || toggle.contains(t)) return;
+        setOpen(false);
+      });
+
+      var params = new URLSearchParams(window.location.search);
+      var q = params.get("q");
+      if (q && input) input.value = q;
+    })();
+  </script>
   <script>
     (function () {
       var cfg = window.MNS_CONFIG || {};
@@ -181,8 +313,8 @@
         var el = document.getElementById("mns-ticker-track");
         if (!el) return;
         var fallback =
-          '<span class="inline-flex items-center gap-2 pr-10 text-yellow-200"><span aria-hidden="true">●</span>Maheshwara Nexlify Nucleus — ముత్తారం</span>' +
-          '<span class="inline-flex items-center gap-2 pr-10"><span aria-hidden="true">●</span><span class="font-telugu text-yellow-100">పెద్దపల్లి జిల్లా, తెలంగాణ — 505184</span></span>';
+          '<span class="inline-flex items-center gap-2 pr-10 text-white"><span aria-hidden="true" class="text-yellow-200">●</span>MAHESHWARA NEXLIFY NUCLEUS — ముత్తారం</span>' +
+          '<span class="inline-flex items-center gap-2 pr-10 text-white"><span aria-hidden="true" class="text-yellow-200">●</span><span class="font-telugu font-bold">పెద్దపల్లి జిల్లా, తెలంగాణ — 505184</span></span>';
         try {
           var r = await fetch(apiBase() + "/api/flash-news/ticker", { cache: "no-store" });
           var j = await r.json();
@@ -207,10 +339,10 @@
           var dup = items.concat(items);
           var html = "";
           dup.forEach(function (t, idx) {
-            var yellow = idx % 2 === 1 ? " text-yellow-200" : " text-white";
+            var accent = idx % 2 === 1 ? " text-yellow-100" : " text-white";
             html +=
-              '<span class="inline-flex items-center gap-2 pr-10 font-telugu' +
-              yellow +
+              '<span class="inline-flex items-center gap-2 pr-10 font-telugu font-bold' +
+              accent +
               '">' +
               '<span class="shrink-0 text-yellow-300" aria-hidden="true">●</span>' +
               escapeHtml(t) +
@@ -245,12 +377,12 @@
         var root = document.getElementById("mns-sidebar-ad-root");
         if (!root) return;
         var ph =
-          '<p class="font-sans text-[10px] font-bold uppercase tracking-widest text-blue-800">Advertisement</p>' +
-          '<p class="mt-2 font-sans font-semibold text-slate-800">Maheshwara Nexlify Nucleus</p>' +
+          '<p class="font-sans text-[10px] font-bold uppercase tracking-widest text-slate-600">Ad Space</p>' +
+          '<p class="mt-2 font-sans font-semibold text-slate-800">MAHESHWARA NEXLIFY NUCLEUS</p>' +
           '<p class="mt-1 font-telugu text-xs text-slate-600">ప్రకటన లభ్యం కావడం లేదు.</p>';
         function showPh() {
           root.className =
-            "mt-3 rounded-lg border-2 border-dashed border-blue-100 bg-gradient-to-br from-slate-50 to-white p-4 text-center text-sm text-slate-500";
+            "mt-3 rounded-lg border-2 border-dashed border-amber-200 bg-gradient-to-br from-slate-50 to-white p-4 text-center text-sm text-slate-500";
           root.innerHTML = ph;
         }
         try {
@@ -351,6 +483,20 @@
         return one.slice(0, max - 1) + "…";
       }
 
+      function rowMatchesQuery(row, q) {
+        if (!q) return true;
+        var hay = (
+          (row.title || "") +
+          " " +
+          (row.sub_headline || "") +
+          " " +
+          (row.content || "") +
+          " " +
+          (row.category || "")
+        ).toLowerCase();
+        return hay.indexOf(q) !== -1;
+      }
+
       function renderFilters() {
         var wrap = document.getElementById("news-filters");
         if (!wrap) return;
@@ -362,8 +508,8 @@
           b.className =
             "rounded-full border px-3 py-1.5 text-xs font-semibold transition sm:text-sm " +
             (currentFilter === c.id
-              ? "border-blue-600 bg-blue-600 text-white"
-              : "border-slate-200 bg-white text-slate-700 hover:border-blue-300");
+              ? "border-slate-800 bg-slate-800 text-amber-300"
+              : "border-slate-200 bg-white text-slate-700 hover:border-amber-400");
           b.textContent = c.label;
           b.addEventListener("click", function () {
             currentFilter = c.id;
@@ -379,11 +525,18 @@
         var empty = document.getElementById("news-empty");
         if (!listEl) return;
         listEl.innerHTML = "";
+        var params = new URLSearchParams(window.location.search);
+        var qRaw = params.get("q");
+        var q = qRaw != null ? String(qRaw).trim().toLowerCase() : "";
+
         var rows = ALL_ROWS.filter(function (row) {
           if (currentFilter === "all") return true;
           var cat = (row.category || "General").trim();
           return cat === currentFilter;
+        }).filter(function (row) {
+          return rowMatchesQuery(row, q);
         });
+
         if (!rows.length) {
           empty.classList.remove("hidden");
           return;
@@ -427,11 +580,11 @@
           var body = document.createElement("div");
           body.className = "flex min-w-0 flex-1 flex-col justify-center p-4";
           var tag = document.createElement("span");
-          tag.className = "font-sans text-[10px] font-bold uppercase tracking-wider text-blue-800";
+          tag.className = "font-sans text-[10px] font-bold uppercase tracking-wider text-slate-600";
           tag.textContent = row.category || "News";
-          var h = document.createElement("h2");
+          var h = document.createElement("h3");
           h.className =
-            "font-telugu line-clamp-2 text-lg font-bold leading-snug text-slate-900 group-hover:text-blue-800";
+            "font-telugu line-clamp-2 text-lg font-bold leading-snug text-slate-900 group-hover:text-slate-700";
           h.textContent = row.title || "";
           var sub = document.createElement("p");
           sub.className = "mt-1 line-clamp-2 font-telugu text-sm text-slate-600";

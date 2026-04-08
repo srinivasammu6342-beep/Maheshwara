@@ -3,88 +3,162 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Story — Maheshwara Nexlify Nucleus</title>
+  <title>Story — MAHESHWARA NEXLIFY NUCLEUS</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Gidugu&family=Ramabhadra&family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Gidugu&family=Ramabhadra&family=Roboto:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css" />
   <style>
+    :root {
+      --mns-slate-blue: #1e3a5f;
+      --mns-slate-deep: #0f2744;
+      --mns-gold: #c9a227;
+    }
+
     body {
-      background: #f8fafc;
+      background: #f4f6f9;
       color: #0f172a;
       font-family: "Roboto", "Segoe UI", Arial, sans-serif;
     }
+
     .font-telugu {
       font-family: "Ramabhadra", "Gidugu", "Roboto", sans-serif;
     }
-    .mns-nav {
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      background: rgba(255, 255, 255, 0.96);
+
+    .mns-header-shell {
+      background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+      border-bottom: 1px solid rgba(30, 58, 95, 0.12);
+      box-shadow: 0 4px 24px rgba(15, 39, 68, 0.06);
     }
-    .mns-ticker-wrap {
-      background: linear-gradient(90deg, #7f1d1d 0%, #b91c1c 45%, #991b1b 100%);
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+
+    .mns-brand-gold {
+      color: var(--mns-gold);
     }
-    .mns-ticker-label {
-      background: rgba(0, 0, 0, 0.35);
-      border-right: 2px solid rgba(250, 204, 21, 0.45);
+
+    .mns-nav-link {
+      transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease;
     }
-    @keyframes mns-marquee-nd {
-      0% {
-        transform: translate3d(0, 0, 0);
-      }
-      100% {
-        transform: translate3d(-50%, 0, 0);
-      }
+
+    .mns-nav-link:hover {
+      color: var(--mns-slate-blue);
+      background: rgba(30, 58, 95, 0.06);
     }
-    .mns-ticker-track-nd {
+
+    .mns-nav-link-active {
+      color: var(--mns-slate-deep);
+      background: linear-gradient(180deg, rgba(201, 162, 39, 0.15), rgba(201, 162, 39, 0.08));
+      border-bottom: 2px solid var(--mns-gold);
+    }
+
+    #mns-search-panel {
+      max-height: 0;
+      opacity: 0;
+      transition: max-height 0.45s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s ease, padding 0.35s ease;
+    }
+
+    #mns-search-panel.mns-search-open {
+      max-height: 120px;
+      opacity: 1;
+    }
+
+    #mns-float-share {
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+    }
+
+    .mns-share-fab {
       display: flex;
-      flex-wrap: nowrap;
-      width: max-content;
-      animation: mns-marquee-nd 55s linear infinite;
-      will-change: transform;
+      height: 2.75rem;
+      width: 2.75rem;
+      align-items: center;
+      justify-content: center;
+      border-radius: 9999px;
+      color: #fff;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
     }
-    .mns-ticker-track-nd:hover {
-      animation-play-state: paused;
+
+    .mns-share-fab:hover {
+      transform: scale(1.06);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+    }
+
+    .mns-share-fab svg {
+      width: 1.25rem;
+      height: 1.25rem;
+    }
+
+    .mns-gold-rule {
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--mns-gold), transparent);
+    }
+
+    .mns-article-card {
+      transition: box-shadow 0.25s ease;
+    }
+
+    .mns-related-card {
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+
+    .mns-related-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px rgba(15, 39, 68, 0.1);
+      border-color: rgba(201, 162, 39, 0.45);
     }
   </style>
-  <link rel="stylesheet" href="style.css" />
 </head>
 <body class="min-h-screen antialiased">
-  <header id="mns-premium-header" class="mns-nav sticky top-0 z-50 border-b border-slate-200 shadow-sm">
-    <div class="mx-auto flex h-auto max-w-6xl items-center justify-between gap-3 px-4 py-3">
-      <a href="news.html" class="flex min-w-0 items-center gap-3">
-        <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-blue-700 text-xs font-extrabold text-white shadow-md">MNS</span>
-        <div class="min-w-0">
-          <p class="truncate text-xs font-extrabold uppercase tracking-wide text-slate-900">Maheshwara Nexlify Nucleus</p>
-          <p class="truncate font-telugu text-base font-bold text-slate-800 sm:text-lg">వార్త వివరం</p>
-          <p class="truncate font-telugu text-[11px] text-slate-500">ముత్తారం · డిజిటల్ న్యూస్</p>
-        </div>
-      </a>
-      <div
-        id="mns-header-clock"
-        class="hidden max-w-[11rem] shrink-0 text-right text-[10px] font-medium leading-tight text-slate-600 sm:block sm:max-w-none sm:text-xs"
-        title="Telangana (IST)"
-      ></div>
-      <nav class="flex shrink-0 items-center gap-2 text-sm font-semibold">
-        <a href="index.html" class="rounded-lg px-3 py-2 text-slate-700 hover:bg-slate-100">Home</a>
-        <a href="news.html" class="rounded-lg bg-blue-50 px-3 py-2 text-blue-700">News</a>
-        <a href="admin.html" class="rounded-lg bg-slate-900 px-3 py-2 text-white hover:bg-slate-800">Admin</a>
-      </nav>
+  <header id="mns-premium-header" class="mns-header-shell sticky top-0 z-50">
+    <div class="mx-auto w-full max-w-7xl px-4 pt-4 pb-1 text-center sm:pt-5">
+      <p class="font-sans text-[10px] font-bold uppercase tracking-[0.35em] text-slate-500">Corporate Services &amp; News</p>
+      <h1 class="mt-1 font-sans text-3xl font-extrabold leading-tight tracking-tight text-slate-800 sm:text-4xl md:text-5xl">
+        MAHESHWARA <span class="mns-brand-gold">NEXLIFY</span> NUCLEUS
+      </h1>
+      <p class="font-telugu mt-2 text-sm text-slate-600 sm:text-base">వార్త వివరం · ముత్తారం</p>
+      <div class="mns-gold-rule mx-auto mt-3 max-w-md"></div>
     </div>
-  </header>
 
-  <div class="mns-ticker-wrap relative z-40 overflow-hidden border-b border-red-900/40">
-    <div class="mx-auto flex max-w-6xl items-stretch">
-      <div class="mns-ticker-label flex shrink-0 items-center px-3 py-2 sm:px-4">
-        <span class="whitespace-nowrap font-sans text-[10px] font-black uppercase tracking-[0.2em] text-yellow-300 sm:text-xs">Breaking News</span>
+    <nav class="mx-auto flex w-full max-w-7xl flex-col items-stretch px-4 pb-2" aria-label="Primary">
+      <div class="flex flex-wrap items-center justify-center gap-1 border-t border-slate-200/80 pt-3 sm:gap-2">
+        <a href="index.html" class="mns-nav-link rounded-lg px-3 py-2 text-xs font-bold uppercase tracking-wide text-slate-700 sm:text-sm">Home</a>
+        <a href="index.html#services" class="mns-nav-link rounded-lg px-3 py-2 text-xs font-bold uppercase tracking-wide text-slate-700 sm:text-sm">Our Services</a>
+        <a href="index.html#about" class="mns-nav-link rounded-lg px-3 py-2 text-xs font-bold uppercase tracking-wide text-slate-700 sm:text-sm">About Us</a>
+        <a href="index.html#contact" class="mns-nav-link rounded-lg px-3 py-2 text-xs font-bold uppercase tracking-wide text-slate-700 sm:text-sm">Contact Us</a>
+        <a href="index.html#testimonials" class="mns-nav-link rounded-lg px-3 py-2 text-xs font-bold uppercase tracking-wide text-slate-700 sm:text-sm">Testimonials</a>
+        <a href="news.html" class="mns-nav-link mns-nav-link-active rounded-lg px-3 py-2 text-xs font-bold uppercase tracking-wide text-slate-700 sm:text-sm">Blog / News</a>
+        <button
+          type="button"
+          id="mns-search-toggle"
+          class="mns-nav-link inline-flex items-center gap-2 rounded-lg px-3 py-2 text-xs font-bold uppercase tracking-wide text-slate-700 sm:text-sm"
+          aria-expanded="false"
+          aria-controls="mns-search-panel"
+        >
+          <svg class="h-5 w-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+          <span class="hidden sm:inline">Search</span>
+        </button>
+        <div
+          id="mns-header-clock"
+          class="hidden w-full text-center text-[10px] font-medium text-slate-500 sm:ml-2 sm:inline sm:w-auto sm:text-right sm:text-xs"
+          title="Telangana (IST)"
+        ></div>
       </div>
-      <div class="relative min-h-[44px] flex-1 overflow-hidden py-2">
-        <div id="mns-ticker-track" class="mns-ticker-track-nd items-center text-sm font-bold text-white"></div>
+
+      <div id="mns-search-panel" class="overflow-hidden px-0">
+        <form class="mx-auto mt-2 flex max-w-2xl gap-2 rounded-xl border border-slate-200 bg-white p-3 shadow-inner" action="news.html" method="get" role="search">
+          <label for="mns-search-input" class="sr-only">Search news</label>
+          <input
+            id="mns-search-input"
+            type="search"
+            name="q"
+            placeholder="వార్తల కోసం వెతకండి…"
+            class="font-telugu min-w-0 flex-1 rounded-lg border border-slate-200 px-4 py-2.5 text-sm text-slate-800 placeholder-slate-400 focus:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-200"
+          />
+          <button type="submit" class="shrink-0 rounded-lg bg-slate-800 px-5 py-2.5 text-sm font-bold text-amber-300 transition hover:bg-slate-900">Go</button>
+        </form>
       </div>
-    </div>
-  </div>
+    </nav>
+  </header>
 
   <nav
     id="mns-float-share"
@@ -126,18 +200,18 @@
       ><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
   </nav>
 
-  <main class="mx-auto max-w-6xl px-4 pb-16 pt-6">
-    <div class="flex w-full flex-col gap-8 lg:flex-row lg:items-start">
+  <main class="mx-auto max-w-7xl px-4 pb-16 pt-8">
+    <div class="flex w-full flex-col gap-10 lg:flex-row lg:items-start">
       <article class="order-1 min-w-0 w-full flex-1 lg:order-1">
-        <div id="article-card" class="relative overflow-hidden rounded-xl border border-slate-200 bg-white p-6 shadow-sm ring-1 ring-slate-100 md:p-8">
-          <p id="art-loading" class="font-sans text-stone-500">Loading story…</p>
+        <div id="article-card" class="mns-article-card relative overflow-hidden rounded-2xl border border-slate-200/90 bg-white p-6 shadow-lg ring-1 ring-slate-100 md:p-10 lg:p-12">
+          <p id="art-loading" class="font-sans text-slate-500">Loading story…</p>
           <div id="art-content" class="hidden">
-            <span id="art-cat" class="font-sans text-xs font-bold uppercase tracking-wider text-red-800"></span>
-            <h1 id="art-head" class="font-telugu mt-2 text-3xl font-extrabold leading-tight text-slate-900 md:text-4xl"></h1>
-            <div class="mt-4 flex flex-col gap-2 rounded-xl border border-slate-100 bg-slate-50/90 p-4 sm:flex-row sm:flex-wrap sm:items-center sm:gap-6">
-              <p id="art-location" class="font-telugu text-base font-bold text-slate-900"></p>
-              <p id="art-author" class="font-sans text-sm font-bold uppercase tracking-wide text-blue-800"></p>
-              <p id="art-dateline" class="font-sans text-sm text-slate-500"></p>
+            <span id="art-cat" class="inline-block rounded-full border border-amber-400/40 bg-slate-100 px-3 py-1 font-sans text-[10px] font-bold uppercase tracking-[0.2em] text-slate-700"></span>
+            <h1 id="art-head" class="font-telugu mt-6 text-4xl font-black leading-[1.08] tracking-tight text-slate-900 md:text-5xl lg:text-6xl"></h1>
+            <div class="mt-8 flex flex-col gap-4 border-b border-slate-100 pb-8 sm:flex-row sm:flex-wrap sm:items-center sm:gap-8">
+              <p id="art-location" class="inline-flex w-fit max-w-full items-center rounded-full border border-amber-500/40 bg-gradient-to-r from-slate-800 to-slate-900 px-5 py-2 font-telugu text-sm font-bold text-amber-100 shadow-sm"></p>
+              <p id="art-author" class="font-sans text-xs font-bold uppercase tracking-[0.25em] text-slate-500"></p>
+              <p id="art-dateline" class="font-sans text-sm text-slate-400"></p>
             </div>
             <div id="art-sub-wrap" class="mt-4 hidden border-l-4 border-amber-500 bg-amber-50/80 py-3 pl-4 pr-3">
               <p id="art-sub" class="font-telugu text-lg font-medium leading-relaxed text-stone-800"></p>
@@ -187,29 +261,30 @@
         </div>
       </article>
 
-      <aside class="order-2 w-full max-w-full shrink-0 lg:order-2 lg:w-80 lg:max-w-none">
-        <div class="sticky top-4 space-y-4">
-          <div class="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
-            <h2 class="border-b border-slate-200 pb-2 font-sans text-xs font-bold uppercase tracking-wider text-slate-700">Sidebar Ads</h2>
+      <aside class="order-2 w-full max-w-full shrink-0 lg:order-2 lg:w-96 lg:max-w-none">
+        <div class="sticky top-24 space-y-6">
+          <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-md">
+            <div class="border-b border-amber-200/80 pb-3">
+              <h2 class="font-sans text-[11px] font-black uppercase tracking-[0.35em] text-slate-500">Related News</h2>
+              <p class="font-telugu mt-1 text-lg font-bold text-slate-900">సంబంధిత వార్తలు</p>
+            </div>
+            <ul id="related" class="mt-4 space-y-3"></ul>
+            <p id="related-empty" class="mt-4 hidden text-center font-telugu text-sm text-slate-500">సంబంధిత వార్తలు లేవు.</p>
+          </div>
+          <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+            <h3 class="border-b border-slate-200 pb-2 font-sans text-[10px] font-bold uppercase tracking-wider text-slate-600">Advertisement</h3>
             <div
               id="mns-sidebar-ad-root"
-              class="mns-ad-box mt-3 rounded-lg border-2 border-dashed border-blue-100 bg-gradient-to-br from-slate-50 to-white p-4 shadow-sm"
+              class="mns-ad-box mt-3 rounded-xl border-2 border-dashed border-amber-200 bg-gradient-to-br from-slate-50 to-white p-4 shadow-sm"
             >
-              <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-blue-800">Advertisement</p>
-              <p class="mt-2 font-sans text-lg font-bold text-slate-900">Maheshwara Nexlify Nucleus</p>
+              <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-700">Ad Space</p>
+              <p class="mt-2 font-sans text-lg font-bold text-slate-900">MAHESHWARA NEXLIFY NUCLEUS</p>
               <p class="mt-1 font-telugu text-sm text-slate-600">ప్రకటన లోడ్ అవుతోంది…</p>
             </div>
           </div>
         </div>
       </aside>
     </div>
-
-    <section class="mt-10 border-t border-slate-200 pb-12 pt-8">
-      <h2 class="font-telugu text-2xl font-bold text-slate-900">సంబంధిత కథనాలు</h2>
-      <p class="mt-1 text-sm text-slate-600">Maheshwara Nexlify Nucleus — మరిన్ని అప్‌డేట్స్</p>
-      <ul id="related" class="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3"></ul>
-      <p id="related-empty" class="mt-6 hidden text-center font-telugu text-slate-500">సంబంధిత వార్తలు లేవు.</p>
-    </section>
   </main>
 
   <!-- Lightbox (gallery enlarge) -->
@@ -283,26 +358,30 @@
     </div>
   </div>
 
-  <footer class="border-t border-slate-200 bg-white py-8 text-xs text-slate-500">
-    <div class="mx-auto max-w-6xl space-y-4 px-4">
-      <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:text-left">
+  <footer class="border-t border-slate-200 bg-slate-900 py-10 text-xs text-slate-400">
+    <div class="mx-auto max-w-7xl space-y-4 px-4">
+      <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between sm:text-left">
         <div>
-          <p class="font-sans font-medium text-stone-800">Maheshwara Nexlify Nucleus Digital Sewa Centre</p>
-          <p>Mutharam Village &amp; Mandal, Peddapalli District, Telangana — 505184</p>
-          <p>9949122402 | nexalifynucleus@gmail.com</p>
+          <p class="font-sans font-bold uppercase tracking-wide text-white">MAHESHWARA NEXLIFY NUCLEUS</p>
+          <p class="mt-1">Mutharam Village &amp; Mandal, Peddapalli District, Telangana — 505184</p>
+          <p class="mt-2">
+            <a href="tel:9949122402" class="font-bold text-amber-300 hover:underline">9949122402</a>
+            <span class="text-slate-600"> | </span>
+            <a href="mailto:nexalifynucleus@gmail.com" class="hover:text-amber-200">nexalifynucleus@gmail.com</a>
+          </p>
         </div>
-        <div class="rounded-lg border border-stone-200 bg-stone-50 px-4 py-2 text-center sm:text-right">
-          <p class="font-semibold text-stone-700">Visitor counter</p>
-          <p class="mt-1 tabular-nums text-stone-600">
-            Total: <strong id="mns-visitor-total" class="text-red-900">—</strong>
-            <span class="mx-2 text-stone-300">|</span>
-            Today: <strong id="mns-visitor-today" class="text-red-900">—</strong>
+        <div class="rounded-lg border border-slate-700 bg-slate-800/80 px-4 py-3 text-center sm:text-right">
+          <p class="font-semibold text-slate-200">Visitor counter</p>
+          <p class="mt-1 tabular-nums text-slate-300">
+            Total: <strong id="mns-visitor-total" class="text-amber-300">—</strong>
+            <span class="mx-2 text-slate-600">|</span>
+            Today: <strong id="mns-visitor-today" class="text-amber-300">—</strong>
           </p>
         </div>
       </div>
-      <div class="border-t border-stone-100 pt-4">
-        <p class="mb-2 text-center text-[10px] font-bold uppercase tracking-wider text-stone-400">Useful links</p>
-        <div class="flex flex-wrap justify-center gap-x-4 gap-y-2 font-telugu text-sm text-red-900">
+      <div class="border-t border-slate-700 pt-4">
+        <p class="mb-2 text-center text-[10px] font-bold uppercase tracking-wider text-slate-500">Useful links</p>
+        <div class="flex flex-wrap justify-center gap-x-4 gap-y-2 font-telugu text-sm text-amber-200/90">
           <a class="hover:underline" href="gramapanchayath.html">Mutharam GP</a>
           <a class="hover:underline" href="https://csc.gov.in/" target="_blank" rel="noopener noreferrer">CSC Services</a>
           <a class="hover:underline" href="mailto:nexalifynucleus@gmail.com">Contact us</a>
@@ -344,7 +423,10 @@
           aria-label="Instagram"
           ><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
       </div>
-      <p class="pt-3 text-center text-[11px] text-stone-400">© Maheshwara Nexlify Nucleus · Way2News–Eenadu inspired layout</p>
+      <p class="pt-3 text-center text-[11px] text-slate-500">© 2026 Maheshwara Nexlify Nucleus</p>
+      <p class="text-center">
+        <a href="admin.html" class="text-[11px] text-slate-500 hover:text-amber-300">Admin</a>
+      </p>
     </div>
   </footer>
 
@@ -352,59 +434,42 @@
   <script src="js/mns-site.js"></script>
   <script>
     (function () {
-      var cfg = window.MNS_CONFIG || {};
-      function apiBase() {
-        return typeof cfg.apiBase === "string" ? cfg.apiBase.replace(/\/$/, "") : "";
-      }
-      function escapeHtml(s) {
-        var d = document.createElement("div");
-        d.textContent = s == null ? "" : String(s);
-        return d.innerHTML;
-      }
-      async function loadTickerNd() {
-        var el = document.getElementById("mns-ticker-track");
-        if (!el) return;
-        var fallback =
-          '<span class="inline-flex items-center gap-2 pr-10 text-yellow-200"><span aria-hidden="true">●</span>Maheshwara Nexlify Nucleus</span>' +
-          '<span class="inline-flex items-center gap-2 pr-10 text-white"><span aria-hidden="true">●</span><span class="font-telugu text-yellow-100">ముత్తారం · తెలంగాణ</span></span>';
-        try {
-          var r = await fetch(apiBase() + "/api/flash-news/ticker", { cache: "no-store" });
-          var j = await r.json();
-          var items = (j.items || [])
-            .map(function (x) {
-              return x.message;
-            })
-            .filter(Boolean);
-          if (!items.length) {
-            var r2 = await fetch(apiBase() + "/api/news/ticker", { cache: "no-store" });
-            var j2 = await r2.json();
-            items = (j2.items || [])
-              .map(function (x) {
-                return x.title;
-              })
-              .filter(Boolean);
-          }
-          if (!items.length) {
-            el.innerHTML = fallback;
-            return;
-          }
-          var dup = items.concat(items);
-          var html = "";
-          dup.forEach(function (t, idx) {
-            var cls = idx % 2 === 1 ? " text-yellow-200" : " text-white";
-            html +=
-              '<span class="inline-flex items-center gap-2 pr-10 font-telugu font-bold' +
-              cls +
-              '"><span class="shrink-0 text-yellow-300" aria-hidden="true">●</span>' +
-              escapeHtml(t) +
-              "</span>";
-          });
-          el.innerHTML = html;
-        } catch (e) {
-          el.innerHTML = fallback;
+      var toggle = document.getElementById("mns-search-toggle");
+      var panel = document.getElementById("mns-search-panel");
+      var input = document.getElementById("mns-search-input");
+
+      function setOpen(open) {
+        if (!panel || !toggle) return;
+        if (open) {
+          panel.classList.add("mns-search-open");
+          toggle.setAttribute("aria-expanded", "true");
+          setTimeout(function () {
+            if (input) input.focus();
+          }, 200);
+        } else {
+          panel.classList.remove("mns-search-open");
+          toggle.setAttribute("aria-expanded", "false");
         }
       }
-      document.addEventListener("DOMContentLoaded", loadTickerNd);
+
+      if (toggle && panel) {
+        toggle.addEventListener("click", function (e) {
+          e.preventDefault();
+          setOpen(!panel.classList.contains("mns-search-open"));
+        });
+      }
+
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") setOpen(false);
+      });
+
+      document.addEventListener("click", function (e) {
+        if (!panel || !toggle) return;
+        if (!panel.classList.contains("mns-search-open")) return;
+        var t = e.target;
+        if (panel.contains(t) || toggle.contains(t)) return;
+        setOpen(false);
+      });
     })();
   </script>
   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
@@ -1076,15 +1141,17 @@
       var relList = document.getElementById("related");
       var relEmpty = document.getElementById("related-empty");
       var items = relRes.ok && relJson.ok ? (relJson.items || []).slice(0, 4) : [];
+      relList.innerHTML = "";
       if (!items.length) {
         relEmpty.classList.remove("hidden");
       } else {
+        relEmpty.classList.add("hidden");
         items.forEach(function (r) {
           var li = document.createElement("li");
           var a = document.createElement("a");
           a.href = "news-detail.html?id=" + encodeURIComponent(r.id);
           a.className =
-            "block rounded-xl border border-slate-200 bg-white p-4 shadow-sm transition hover:border-blue-200 hover:shadow-md";
+            "mns-related-card block rounded-xl border border-slate-200 bg-white p-4 shadow-sm";
           a.innerHTML =
             "<span class='font-telugu font-semibold text-stone-900 line-clamp-2'>" +
             (r.title || "") +
