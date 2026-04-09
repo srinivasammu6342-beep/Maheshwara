@@ -3,314 +3,268 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MAHESHWARA NEXLIFY NUCLEUS | ముత్తారం పోర్టల్</title>
+  <title>MAHESHWARA NEXLIFY NUCLEUS | Corporate News & Services</title>
   <meta
     name="description"
-    content="Maheshwara Nexlify Nucleus: ముత్తారం గ్రామ/మండల  వార్తలు, డిజిటల్ సేవలు, కార్పొరేట్ సేవా కేంద్రం."
+    content="MAHESHWARA NEXLIFY NUCLEUS: Premium corporate portal for Mutharam services and local news."
   />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Gidugu&family=Ramabhadra&family=Roboto:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Gidugu&family=Ramabhadra&family=Roboto:wght@400;500;700;800;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css" />
   <style>
     :root {
-      --mns-slate-blue: #1e3a5f;
-      --mns-slate-deep: #0f2744;
-      --mns-gold: #c9a227;
-      --mns-gold-light: #e8d48b;
-      --mns-surface: #f4f6f9;
+      --brand-navy: #0c2039;
+      --brand-slate: #13345a;
+      --brand-gold: #d4af37;
+      --surface: #f3f6fb;
+      --ticker-red: #cb1212;
     }
 
     body {
-      background: var(--mns-surface);
+      background: var(--surface);
       color: #0f172a;
       font-family: "Roboto", "Segoe UI", Arial, sans-serif;
     }
 
+    .font-brand {
+      font-family: "Ramabhadra", "Times New Roman", serif;
+    }
+
     .font-telugu {
-      font-family: "Ramabhadra", "Gidugu", "Roboto", sans-serif;
+      font-family: "Gidugu", "Ramabhadra", "Roboto", sans-serif;
     }
 
-    .mns-header-shell {
+    .mns-header {
       background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
-      border-bottom: 1px solid rgba(30, 58, 95, 0.12);
-      box-shadow: 0 4px 24px rgba(15, 39, 68, 0.06);
+      border-bottom: 1px solid rgba(19, 52, 90, 0.15);
+      box-shadow: 0 8px 28px rgba(15, 23, 42, 0.08);
     }
 
-    .mns-brand-gold {
-      color: var(--mns-gold);
-      text-shadow: 0 1px 0 rgba(0, 0, 0, 0.15);
+    .mns-brand-title {
+      letter-spacing: 0.03em;
+      text-shadow: 0 2px 10px rgba(15, 23, 42, 0.08);
+    }
+
+    .mns-brand-highlight {
+      color: var(--brand-gold);
     }
 
     .mns-nav-link {
-      transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+      transition: color 0.2s ease, background-color 0.2s ease;
     }
 
     .mns-nav-link:hover {
-      color: var(--mns-slate-blue);
-      background: rgba(30, 58, 95, 0.06);
+      color: #111827;
+      background: rgba(12, 32, 57, 0.08);
     }
 
     .mns-nav-link-active {
-      color: var(--mns-slate-deep);
-      background: linear-gradient(180deg, rgba(201, 162, 39, 0.15), rgba(201, 162, 39, 0.08));
-      border-bottom: 2px solid var(--mns-gold);
+      color: #0f172a;
+      background: rgba(212, 175, 55, 0.16);
     }
 
     #mns-search-panel {
       max-height: 0;
       opacity: 0;
-      transition: max-height 0.45s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s ease, padding 0.35s ease;
+      transform: translateY(-8px);
+      overflow: hidden;
+      transition: max-height 0.4s ease, opacity 0.3s ease, transform 0.3s ease;
     }
 
     #mns-search-panel.mns-search-open {
-      max-height: 120px;
+      max-height: 140px;
       opacity: 1;
+      transform: translateY(0);
     }
 
-    .mns-hero {
-      background: linear-gradient(135deg, var(--mns-slate-deep) 0%, #1a4a6e 42%, var(--mns-slate-blue) 100%);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .mns-hero::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse 80% 60% at 80% 20%, rgba(201, 162, 39, 0.12), transparent 55%);
-      pointer-events: none;
-    }
-
-    .mns-card {
+    .mns-service-card {
       transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
     }
 
-    .mns-card:hover {
+    .mns-service-card:hover {
       transform: translateY(-6px);
-      box-shadow: 0 20px 40px rgba(15, 39, 68, 0.14);
-      border-color: rgba(201, 162, 39, 0.45);
+      box-shadow: 0 18px 36px rgba(15, 23, 42, 0.14);
+      border-color: rgba(212, 175, 55, 0.7);
     }
 
     .mns-service-icon {
-      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
     }
 
-    .mns-service-icon:hover {
-      transform: translateY(-4px) scale(1.03);
-      box-shadow: 0 16px 32px rgba(30, 58, 95, 0.2);
-      border-color: var(--mns-gold);
+    .mns-service-card:hover .mns-service-icon {
+      transform: scale(1.08);
+      box-shadow: 0 0 0 7px rgba(212, 175, 55, 0.15);
     }
 
-    .mns-gold-rule {
-      height: 3px;
-      background: linear-gradient(90deg, transparent, var(--mns-gold), transparent);
+    .mns-ticker-track {
+      animation: tickerScroll 32s linear infinite;
+      white-space: nowrap;
+    }
+
+    @keyframes tickerScroll {
+      from {
+        transform: translateX(0);
+      }
+      to {
+        transform: translateX(-50%);
+      }
     }
   </style>
 </head>
 <body class="min-h-screen antialiased">
-  <header class="mns-header-shell sticky top-0 z-50">
-    <div class="mx-auto w-full max-w-7xl px-4 pt-6 pb-2 text-center sm:pt-8">
-      <p class="font-sans text-[10px] font-bold uppercase tracking-[0.35em] text-slate-500">Corporate Services &amp; News</p>
-      <h1 class="mt-2 font-sans text-4xl font-extrabold leading-none tracking-tight text-slate-800 sm:text-5xl md:text-5xl">
-        MAHESHWARA <span class="mns-brand-gold">NEXLIFY</span> NUCLEUS
+  <header class="mns-header sticky top-0 z-50">
+    <div class="mx-auto max-w-7xl px-4 pt-6 pb-4 text-center sm:pt-8">
+      <h1 class="mns-brand-title font-brand text-5xl font-extrabold leading-tight text-gray-900 sm:text-6xl">
+        MAHESHWARA <span class="mns-brand-highlight">NEXLIFY</span> NUCLEUS
       </h1>
-      <p class="font-telugu mt-3 text-base text-slate-600 sm:text-lg">ముత్తారం గ్రామ సేవా &amp; న్యూస్ పోర్టల్ · పెద్దపల్లి జిల్లా, తెలంగాణ</p>
-      <div class="mns-gold-rule mx-auto mt-4 max-w-md"></div>
+      <p class="font-telugu mt-3 text-base text-gray-600 sm:text-lg">ముత్తారం మండల సేవ &amp; వార్తా పోర్టల్</p>
     </div>
 
-    <nav class="mx-auto flex w-full max-w-7xl flex-col items-stretch px-4 pb-3" aria-label="Primary">
-      <div class="flex flex-wrap items-center justify-center gap-1 border-t border-slate-200/80 pt-4 sm:gap-2">
-        <a href="index.html" class="mns-nav-link mns-nav-link-active rounded-lg px-3 py-2 text-xs font-bold uppercase tracking-wide text-slate-700 sm:text-sm">Home</a>
-        <a href="#services" class="mns-nav-link rounded-lg px-3 py-2 text-xs font-bold uppercase tracking-wide text-slate-700 sm:text-sm">Our Services</a>
-        <a href="#about" class="mns-nav-link rounded-lg px-3 py-2 text-xs font-bold uppercase tracking-wide text-slate-700 sm:text-sm">About Us</a>
-        <a href="#contact" class="mns-nav-link rounded-lg px-3 py-2 text-xs font-bold uppercase tracking-wide text-slate-700 sm:text-sm">Contact Us</a>
-        <a href="#Admin" class="mns-nav-link rounded-lg px-3 py-2 text-xs font-bold uppercase tracking-wide text-slate-700 sm:text-sm">Admin</a>
-        <a href="#Gallery" class="mns-nav-link rounded-lg px-3 py-2 text-xs font-bold uppercase tracking-wide text-slate-700 sm:text-sm">Gallery</a>
+    <nav class="border-t border-gray-200/90 bg-white/95" aria-label="Primary Navigation">
+      <div class="mx-auto flex max-w-7xl items-center justify-center gap-1 px-3 py-2 sm:gap-2">
+        <a href="index.html" class="mns-nav-link mns-nav-link-active rounded-md px-3 py-2 text-xs font-bold uppercase tracking-wide text-gray-700 sm:text-sm">Home</a>
+        <a href="#our-services" class="mns-nav-link rounded-md px-3 py-2 text-xs font-bold uppercase tracking-wide text-gray-700 sm:text-sm">Our Services</a>
+        <a href="#about-us" class="mns-nav-link rounded-md px-3 py-2 text-xs font-bold uppercase tracking-wide text-gray-700 sm:text-sm">About Us</a>
+        <a href="#contact-us" class="mns-nav-link rounded-md px-3 py-2 text-xs font-bold uppercase tracking-wide text-gray-700 sm:text-sm">Contact Us</a>
+        <a href="#testimonials" class="mns-nav-link rounded-md px-3 py-2 text-xs font-bold uppercase tracking-wide text-gray-700 sm:text-sm">Testimonials</a>
+        <a href="news.html" class="mns-nav-link rounded-md px-3 py-2 text-xs font-bold uppercase tracking-wide text-gray-700 sm:text-sm">News</a>
         <button
-          type="button"
           id="mns-search-toggle"
-          class="mns-nav-link inline-flex items-center gap-2 rounded-lg px-3 py-2 text-xs font-bold uppercase tracking-wide text-slate-700 sm:text-sm"
-          aria-expanded="false"
+          type="button"
+          class="mns-nav-link inline-flex items-center rounded-md px-3 py-2 text-gray-700"
+          aria-label="Toggle search"
           aria-controls="mns-search-panel"
+          aria-expanded="false"
         >
-          <svg class="h-5 w-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-5.2-5.2m2-4.8a7 7 0 11-14 0 7 7 0 0114 0z"></path>
           </svg>
-          <span class="hidden sm:inline">Search</span>
         </button>
       </div>
 
-      <div id="mns-search-panel" class="overflow-hidden px-0">
-        <form id="mns-search-form" class="mx-auto mt-3 flex max-w-2xl gap-2 rounded-xl border border-slate-200 bg-white p-3 shadow-inner" action="news.html" method="get" role="search">
-          <label for="mns-search-input" class="sr-only">Search news and services</label>
+      <div id="mns-search-panel" class="px-4">
+        <form action="news.html" method="get" role="search" class="mx-auto mt-1 mb-3 flex max-w-3xl gap-2 rounded-lg border border-gray-200 bg-gray-50 p-2 shadow-inner">
+          <label for="mns-search-input" class="sr-only">Search portal</label>
           <input
             id="mns-search-input"
             type="search"
             name="q"
-            placeholder="వార్తలు, సేవల కోసం వెతకండి…"
-            class="font-telugu min-w-0 flex-1 rounded-lg border border-slate-200 px-4 py-2.5 text-sm text-slate-800 placeholder-slate-400 focus:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-200"
+            placeholder="Search services, headlines, updates..."
+            class="min-w-0 flex-1 rounded-md border border-gray-300 bg-white px-4 py-2 text-sm text-gray-800 placeholder-gray-400 focus:border-yellow-500 focus:outline-none focus:ring-2 focus:ring-yellow-100"
           />
-          <button type="submit" class="shrink-0 rounded-lg bg-slate-800 px-5 py-2.5 text-sm font-bold text-amber-300 transition hover:bg-slate-900">Go</button>
+          <button type="submit" class="rounded-md bg-gray-900 px-5 py-2 text-sm font-bold text-yellow-300 hover:bg-black">Search</button>
         </form>
       </div>
     </nav>
   </header>
 
-  <section id="quick-services" class="border-b border-slate-200 bg-white py-12 sm:py-16" aria-labelledby="quick-services-heading">
-    <div class="mx-auto w-full max-w-7xl px-4">
-      <div class="mb-10 text-center">
-        <h2 id="quick-services-heading" class="font-sans text-xl font-extrabold uppercase tracking-wider text-slate-800 sm:text-2xl">Quick Government &amp; Digital Services</h2>
-        <p class="font-telugu mt-2 text-sm text-slate-600">అధికారిక పోర్టల్‌లకు త్వరిత లింకులు — ఒక క్లిక్‌తో ప్రవేశించండి</p>
-      </div>
-      <div class="grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-5 md:gap-8">
-        <a
-          href="https://uidai.gov.in/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="mns-service-icon group flex flex-col items-center rounded-2xl border border-slate-200 bg-gradient-to-b from-white to-slate-50 p-6 text-center shadow-sm"
-        >
-          <span class="flex h-20 w-20 items-center justify-center rounded-full border-2 border-amber-400/60 bg-slate-800 text-2xl font-black text-amber-300 shadow-md">आ</span>
-          <span class="font-telugu mt-4 text-sm font-bold text-slate-800 group-hover:text-slate-900">ఆధార్</span>
-          <span class="mt-1 font-sans text-[10px] font-semibold uppercase tracking-wider text-slate-500">UIDAI</span>
-        </a>
-        <a
-          href="https://csc.gov.in/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="mns-service-icon group flex flex-col items-center rounded-2xl border border-slate-200 bg-gradient-to-b from-white to-slate-50 p-6 text-center shadow-sm"
-        >
-          <span class="flex h-20 w-20 items-center justify-center rounded-full border-2 border-amber-400/60 bg-slate-800 text-xl font-black text-amber-300 shadow-md">CSC</span>
-          <span class="font-telugu mt-4 text-sm font-bold text-slate-800">CSC</span>
-          <span class="mt-1 font-sans text-[10px] font-semibold uppercase tracking-wider text-slate-500">Common Service Centre</span>
-        </a>
-        <a
-          href="https://www.incometax.gov.in/iec/foportal/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="mns-service-icon group flex flex-col items-center rounded-2xl border border-slate-200 bg-gradient-to-b from-white to-slate-50 p-6 text-center shadow-sm"
-        >
-          <span class="flex h-20 w-20 items-center justify-center rounded-full border-2 border-amber-400/60 bg-slate-800 text-xl font-black text-amber-300 shadow-md">PAN</span>
-          <span class="font-telugu mt-4 text-sm font-bold text-slate-800">PAN</span>
-          <span class="mt-1 font-sans text-[10px] font-semibold uppercase tracking-wider text-slate-500">Income Tax India</span>
-        </a>
-        <a
-          href="https://dharani.telangana.gov.in/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="mns-service-icon group flex flex-col items-center rounded-2xl border border-slate-200 bg-gradient-to-b from-white to-slate-50 p-6 text-center shadow-sm"
-        >
-          <span class="flex h-20 w-20 items-center justify-center rounded-full border-2 border-amber-400/60 bg-slate-800 text-lg font-black leading-tight text-amber-300 shadow-md">భూ</span>
-          <span class="font-telugu mt-4 text-sm font-bold text-slate-800">భూభారతి (ధరణి)</span>
-          <span class="mt-1 font-sans text-[10px] font-semibold uppercase tracking-wider text-slate-500">Telangana Land Records</span>
-        </a>
-        <a
-          href="https://digitalseva.csc.gov.in/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="mns-service-icon group col-span-2 flex flex-col items-center rounded-2xl border border-slate-200 bg-gradient-to-b from-white to-slate-50 p-6 text-center shadow-sm sm:col-span-1 md:col-span-1"
-        >
-          <span class="flex h-20 w-20 items-center justify-center rounded-full border-2 border-amber-400/60 bg-slate-800 text-2xl font-black text-amber-300 shadow-md">DS</span>
-          <span class="font-telugu mt-4 text-sm font-bold text-slate-800">డిజిటల్ సేవ</span>
-          <span class="mt-1 font-sans text-[10px] font-semibold uppercase tracking-wider text-slate-500">Digital Seva Portal</span>
-        </a>
+  <section class="border-y border-red-200 bg-white">
+    <div class="mx-auto flex max-w-7xl items-center overflow-hidden">
+      <span class="shrink-0 bg-red-700 px-4 py-2 text-xs font-extrabold uppercase tracking-widest text-white">Breaking</span>
+      <div class="relative w-full overflow-hidden bg-white">
+        <div class="mns-ticker-track py-2 text-sm font-semibold text-red-700">
+          <a href="news-detail.html" class="mx-6 hover:underline">Mutharam Mandal digital service drive starts this week.</a>
+          <a href="news-detail.html" class="mx-6 hover:underline">Corporate citizen helpdesk now open for PAN and Aadhar updates.</a>
+          <a href="news-detail.html" class="mx-6 hover:underline">Village development and welfare meeting highlights published.</a>
+          <a href="news-detail.html" class="mx-6 hover:underline">Mutharam Mandal digital service drive starts this week.</a>
+          <a href="news-detail.html" class="mx-6 hover:underline">Corporate citizen helpdesk now open for PAN and Aadhar updates.</a>
+          <a href="news-detail.html" class="mx-6 hover:underline">Village development and welfare meeting highlights published.</a>
+        </div>
       </div>
     </div>
   </section>
 
-  <main class="mx-auto w-full max-w-7xl px-4 py-12 sm:py-16">
-    <div id="services" class="mb-12 scroll-mt-28">
-      <h2 class="font-telugu text-2xl font-extrabold text-slate-900 sm:text-3xl">మా సేవలు</h2>
-      <p class="mt-2 text-sm text-slate-600">వార్తలు, డిజిటల్ సహాయం మరియు గ్రామ సమాచారం ఒకే వేదికపై.</p>
-    </div>
+  <main class="mx-auto max-w-7xl px-4 py-10 sm:py-12">
+    <section id="our-services" class="scroll-mt-32">
+      <div class="mb-8 text-center">
+        <h2 class="font-brand text-3xl font-extrabold text-gray-900 sm:text-4xl">Quick Services</h2>
+        <p class="font-telugu mt-2 text-sm text-gray-600 sm:text-base">అత్యవసర ఆన్‌లైన్ సేవల కోసం వేగవంతమైన అధికారిక లింకులు</p>
+      </div>
 
-    <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
-      <a href="news.html" class="mns-card rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-        <div class="mb-4 inline-flex h-14 w-14 items-center justify-center rounded-full border border-amber-200 bg-slate-800 text-2xl text-amber-300">📰</div>
-        <h3 class="font-telugu text-xl font-extrabold text-slate-900">వార్తలు (News)</h3>
-        <p class="mt-2 text-sm leading-relaxed text-slate-600">
-          తాజా స్థానిక వార్తలు, బ్రేకింగ్ అప్డేట్లు, ప్రజలకు ఉపయోగపడే సమాచారం.
-        </p>
-        <p class="mt-4 text-sm font-bold text-amber-700">ఇప్పుడు చూడండి →</p>
-      </a>
+      <div class="grid grid-cols-2 gap-5 md:grid-cols-4">
+        <a
+          href="https://uidai.gov.in/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="mns-service-card group rounded-2xl border border-gray-200 bg-white p-5 text-center shadow-sm"
+        >
+          <span class="mns-service-icon mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-blue-900 to-blue-700 text-2xl font-extrabold text-white">A</span>
+          <p class="mt-4 text-base font-extrabold text-gray-900">Aadhar</p>
+          <p class="mt-1 text-xs uppercase tracking-wider text-gray-500">UIDAI Official</p>
+        </a>
 
-      <a href="construction.html" class="mns-card rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-        <div class="mb-4 inline-flex h-14 w-14 items-center justify-center rounded-full border border-amber-200 bg-slate-800 text-2xl text-amber-300">🌱</div>
-        <h3 class="font-telugu text-xl font-extrabold text-slate-900">వ్యవసాయం</h3>
-        <p class="mt-2 text-sm leading-relaxed text-slate-600">
-          పంటల సలహాలు, రైతులకు ఉపయోగకరమైన సూచనలు మరియు ధరల సమాచారం.
-        </p>
-        <p class="mt-4 text-sm font-bold text-slate-500">త్వరలో…</p>
-      </a>
+        <a
+          href="https://csc.gov.in/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="mns-service-card group rounded-2xl border border-gray-200 bg-white p-5 text-center shadow-sm"
+        >
+          <span class="mns-service-icon mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-green-700 to-green-500 text-xl font-extrabold text-white">CSC</span>
+          <p class="mt-4 text-base font-extrabold text-gray-900">CSC</p>
+          <p class="mt-1 text-xs uppercase tracking-wider text-gray-500">Citizen Services</p>
+        </a>
 
-      <a href="#contact" class="mns-card rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-        <div class="mb-4 inline-flex h-14 w-14 items-center justify-center rounded-full border border-amber-200 bg-slate-800 text-2xl text-amber-300">💼</div>
-        <h3 class="font-telugu text-xl font-extrabold text-slate-900">డిజిటల్ సేవలు</h3>
-        <p class="mt-2 text-sm leading-relaxed text-slate-600">
-          ఆధార్, పాన్, ఆన్‌లైన్ దరఖాస్తులు, పౌర సేవల కోసం సహాయం.
-        </p>
-        <p class="mt-4 text-sm font-bold text-amber-700">సంప్రదించండి →</p>
-      </a>
-    </div>
+        <a
+          href="https://www.onlineservices.nsdl.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="mns-service-card group rounded-2xl border border-gray-200 bg-white p-5 text-center shadow-sm"
+        >
+          <span class="mns-service-icon mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-purple-800 to-purple-600 text-xl font-extrabold text-white">PAN</span>
+          <p class="mt-4 text-base font-extrabold text-gray-900">PAN</p>
+          <p class="mt-1 text-xs uppercase tracking-wider text-gray-500">NSDL Services</p>
+        </a>
 
-    <div id="about" class="mt-16 scroll-mt-28 rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
-      <h2 class="font-telugu text-2xl font-extrabold text-slate-900">మా గురించి</h2>
-      <p class="font-telugu mt-4 text-base leading-relaxed text-slate-700">
-        MAHESHWARA NEXLIFY NUCLEUS ముత్తారం ప్రాంత ప్రజలకు నమ్మకమైన డిజిటల్ సేవలు మరియు వేగవంతమైన స్థానిక వార్తలను అందించడానికి రూపొందిన కార్పొరేట్ స్టైల్ పోర్టల్. స్పష్టత, వేగం, ప్రొఫెషనలిజం మా ప్రాధాన్యాలు.
+        <a
+          href="https://dharani.telangana.gov.in/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="mns-service-card group rounded-2xl border border-gray-200 bg-white p-5 text-center shadow-sm"
+        >
+          <span class="mns-service-icon mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-yellow-600 to-yellow-500 text-sm font-extrabold text-white">DHARANI</span>
+          <p class="mt-4 text-base font-extrabold text-gray-900">Dharani / Bhubharathi</p>
+          <p class="mt-1 text-xs uppercase tracking-wider text-gray-500">Land Records</p>
+        </a>
+      </div>
+    </section>
+
+    <section id="about-us" class="mt-12 rounded-2xl border border-gray-200 bg-white p-7 shadow-sm">
+      <h3 class="font-brand text-2xl font-extrabold text-gray-900">About Us</h3>
+      <p class="mt-3 text-sm leading-relaxed text-gray-700 sm:text-base">
+        MAHESHWARA NEXLIFY NUCLEUS delivers a premium digital gateway for Mutharam residents by combining trusted public services, fast local updates, and a corporate-grade information experience in one clean destination.
       </p>
-    </div>
+    </section>
 
-    <div id="Admin" class="mt-12 scroll-mt-28">
-      <h2 class="font-telugu text-2xl font-extrabold text-slate-900">అభిప్రాయాలు</h2>
-      <div class="mt-6 grid gap-6 md:grid-cols-2">
-        <blockquote class="mns-card rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-          <p class="font-telugu text-slate-700">“సేవలు వేగంగా, స్పష్టంగా అందుతున్నాయి. గ్రామ వార్తలు ఒకే చోట చూడటం సౌకర్యంగా ఉంది.”</p>
-          <footer class="mt-4 text-sm font-bold text-slate-500">— స్థానిక భద్రతా సమితి</footer>
+    <section id="testimonials" class="mt-10">
+      <h3 class="font-brand text-2xl font-extrabold text-gray-900">Testimonials</h3>
+      <div class="mt-5 grid gap-5 md:grid-cols-2">
+        <blockquote class="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+          <p class="font-telugu text-gray-700">"సేవలు వేగంగా, పోర్టల్ క్లియర్‌గా ఉంది. ఆధార్ మరియు పాన్ సమాచారం చాలా సులభంగా దొరికింది."</p>
+          <footer class="mt-3 text-sm font-semibold text-gray-500">- ముత్తారం నివాసి</footer>
         </blockquote>
-        <blockquote class="mns-card rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-          <p class="font-telugu text-slate-700">“డిజిటల్ సేవల కోసం సహాయం అందుబాటులో ఉండటం మంచి విషయం.”</p>
-          <footer class="mt-4 text-sm font-bold text-slate-500">— గ్రామస్థుడు</footer>
+        <blockquote class="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+          <p class="font-telugu text-gray-700">"వార్తల టిక్కర్ టీవీ ఛానల్‌లా రియల్‌టైమ్‌గా కనిపిస్తోంది. ఉపయోగించడానికి చాలా ప్రొఫెషనల్‌గా ఉంది."</p>
+          <footer class="mt-3 text-sm font-semibold text-gray-500">- స్థానిక వ్యాపారి</footer>
         </blockquote>
       </div>
-    </div>
+    </section>
 
-    <div id="contact" class="mt-12 scroll-mt-28 rounded-2xl border-2 border-amber-200/80 bg-gradient-to-br from-slate-800 to-slate-900 p-8 text-white shadow-lg">
-      <h2 class="font-telugu text-2xl font-extrabold">సంప్రదింపు</h2>
-      <p class="font-telugu mt-3 text-slate-200">ముత్తారం, పెద్దపల్లి జిల్లా, తెలంగాణ — 505184</p>
-      <p class="mt-4 font-sans text-lg font-bold text-amber-300">
-        <a href="tel:9949122402" class="hover:underline">9949122402</a>
+    <section id="contact-us" class="mt-12 rounded-2xl bg-gradient-to-br from-gray-900 to-blue-900 p-7 text-white shadow-lg">
+      <h3 class="font-brand text-2xl font-extrabold">Contact Us</h3>
+      <p class="font-telugu mt-3 text-gray-200">ముత్తారం మండలం, పెద్దపల్లి జిల్లా, తెలంగాణ</p>
+      <p class="mt-4 text-lg font-bold text-yellow-300">
+        <a href="tel:9949122402" class="hover:underline">+91 99491 22402</a>
       </p>
-      <p class="mt-2 font-sans text-sm text-slate-400">
-        ఇమెయిల్: <a href="mailto:nexalifynucleus@gmail.com" class="text-amber-200 hover:underline">nexalifynucleus@gmail.com</a>
+      <p class="mt-2 text-sm text-gray-300">
+        Email:
+        <a href="mailto:nexalifynucleus@gmail.com" class="text-yellow-200 hover:underline">nexalifynucleus@gmail.com</a>
       </p>
-    </div>
+    </section>
   </main>
 
-  <footer class="border-t border-slate-200 bg-slate-900 text-slate-300">
-    <div class="mx-auto grid w-full max-w-7xl grid-cols-1 gap-10 px-4 py-12 md:grid-cols-3">
-      <div>
-        <p class="font-sans text-lg font-extrabold uppercase tracking-wide text-white">MAHESHWARA NEXLIFY NUCLEUS</p>
-        <p class="font-telugu mt-3 text-sm leading-relaxed text-slate-400">
-          ముత్తారం గ్రామ ప్రజలకు వేగంగా, స్పష్టంగా సేవలు అందించడానికి రూపొందిన హైఎండ్ పోర్టల్.
-        </p>
-      </div>
-      <div>
-        <h4 class="text-base font-bold text-amber-200">సంప్రదింపు</h4>
-        <p class="mt-3 text-sm">
-          Cell:
-          <a href="tel:9949122402" class="font-bold text-white hover:text-amber-300">9949122402</a>
-        </p>
-        <p class="mt-2 text-sm text-slate-400">ముత్తారం, పెద్దపల్లి జిల్లా, తెలంగాణ</p>
-      </div>
-      <div>
-        <h4 class="text-base font-bold text-amber-200">క్రెడిట్</h4>
-        <p class="mt-3 text-sm text-slate-400">అమ్ము శ్రీనివాస్ — రిపోర్టర్ (ప్రజా ప్రతిభ)</p>
-        <p class="mt-4 text-xs text-slate-500">© 2026 Maheshwara Nexlify Nucleus. All Rights Reserved.</p>
-        <p class="mt-2">
-          <a href="admin.html" class="text-xs font-semibold text-slate-500 hover:text-amber-300">Admin</a>
-        </p>
-      </div>
-    </div>
+  <footer class="border-t border-gray-200 bg-white py-5 text-center text-xs text-gray-500">
+    © 2026 MAHESHWARA NEXLIFY NUCLEUS. All rights reserved.
   </footer>
 
   <script>
@@ -319,38 +273,40 @@
       var panel = document.getElementById("mns-search-panel");
       var input = document.getElementById("mns-search-input");
 
-      function setOpen(open) {
-        if (!panel || !toggle) return;
-        if (open) {
+      function setSearchOpen(isOpen) {
+        if (!toggle || !panel) return;
+        if (isOpen) {
           panel.classList.add("mns-search-open");
           toggle.setAttribute("aria-expanded", "true");
-          setTimeout(function () {
+          window.setTimeout(function () {
             if (input) input.focus();
-          }, 200);
-        } else {
-          panel.classList.remove("mns-search-open");
-          toggle.setAttribute("aria-expanded", "false");
+          }, 180);
+          return;
         }
+        panel.classList.remove("mns-search-open");
+        toggle.setAttribute("aria-expanded", "false");
       }
 
       if (toggle && panel) {
-        toggle.addEventListener("click", function (e) {
-          e.preventDefault();
-          var isOpen = panel.classList.contains("mns-search-open");
-          setOpen(!isOpen);
+        toggle.addEventListener("click", function (event) {
+          event.preventDefault();
+          var opened = panel.classList.contains("mns-search-open");
+          setSearchOpen(!opened);
         });
       }
 
-      document.addEventListener("keydown", function (e) {
-        if (e.key === "Escape") setOpen(false);
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape") {
+          setSearchOpen(false);
+        }
       });
 
-      document.addEventListener("click", function (e) {
+      document.addEventListener("click", function (event) {
         if (!panel || !toggle) return;
         if (!panel.classList.contains("mns-search-open")) return;
-        var t = e.target;
-        if (panel.contains(t) || toggle.contains(t)) return;
-        setOpen(false);
+        var target = event.target;
+        if (panel.contains(target) || toggle.contains(target)) return;
+        setSearchOpen(false);
       });
     })();
   </script>
