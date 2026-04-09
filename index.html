@@ -21,7 +21,7 @@
       --deep-slate: #0d172a;
       --teal-cyan: #22d3ee;
       --silver: #e2e8f0;
-      --glass: rgba(7, 18, 34, 0.15);
+      --glass: rgba(8, 51, 116, 0.5);
       --glass-strong: rgba(29, 56, 93, 0.26);
       --border-glass: rgba(26, 103, 205, 0.28);
     }
@@ -36,7 +36,7 @@
       background:
         radial-gradient(circle at 8% 12%, rgba(34, 211, 238, 0.26), transparent 36%),
         radial-gradient(circle at 92% 10%, rgba(59, 130, 246, 0.18), transparent 30%),
-        linear-gradient(145deg, #08101f 0%, #111f35 42%, #1e2f4f 100%);
+        linear-gradient(145deg,rgb(132, 16, 74) 0%, #111f35 42%,rgb(110, 121, 141) 100%);
       color: #e2e8f0;
       font-family: "Roboto", "Segoe UI", Arial, sans-serif;
     }
@@ -50,15 +50,15 @@
       border: 1px solid var(--border-glass);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
-      box-shadow: 0 18px 45px rgba(2, 6, 23, 0.35);
+      box-shadow: 0 18px 45px rgba(167, 27, 59, 0.35);
     }
 
     .glass-panel-strong {
       background: var(--glass-strong);
-      border: 1px solid rgba(226, 232, 240, 0.34);
+      border: 1px solid rgba(38, 153, 30, 0.61);
       backdrop-filter: blur(18px);
       -webkit-backdrop-filter: blur(18px);
-      box-shadow: 0 20px 45px rgba(2, 6, 23, 0.48);
+      box-shadow: 0 20px 45px rgba(24, 129, 82, 0.48);
     }
 
     .nav-link {
@@ -136,7 +136,7 @@
       position: fixed;
       inset: 0;
       z-index: 90;
-      background: rgba(2, 6, 23, 0.75);
+      background: rgba(111, 16, 94, 0.75);
       opacity: 0;
       visibility: hidden;
       transition: opacity 0.25s ease, visibility 0.25s ease;
@@ -217,17 +217,17 @@
       <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         <a href="news-page.html" class="service-card glass-panel rounded-2xl p-6">
           <p class="text-3xl">📰</p>
-          <h4 class="mt-3 text-xl font-bold text-white">Maheshwara News</h4>
+          <h4 class="mt-3 text-xl font-bold text-red-600">Maheshwara News</h4>
           <p class="mt-2 text-sm text-slate-200">Local updates, alerts, and village-level information feed.</p>
         </a>
         <a href="digital-services.html" class="service-card glass-panel rounded-2xl p-6">
           <p class="text-3xl">💻</p>
-          <h4 class="mt-3 text-xl font-bold text-white">Digital Services</h4>
+          <h4 class="mt-3 text-xl font-bold text-red-600">Digital Services</h4>
           <p class="mt-2 text-sm text-slate-200">Online applications, e-services, and citizen document workflows.</p>
         </a>
         <a href="csc-services.html" class="service-card glass-panel rounded-2xl p-6">
           <p class="text-3xl">🏢</p>
-          <h4 class="mt-3 text-xl font-bold text-white">CSC Services</h4>
+          <h4 class="mt-3 text-xl font-bold text-red-600">CSC Services</h4>
           <p class="mt-2 text-sm text-slate-200">Government-to-citizen assistance through integrated service desks.</p>
         </a>
         <a href="agri-services.html" class="service-card glass-panel rounded-2xl p-6">
@@ -237,12 +237,12 @@
         </a>
         <a href="business-services.html" class="service-card glass-panel rounded-2xl p-6">
           <p class="text-3xl">💼</p>
-          <h4 class="mt-3 text-xl font-bold text-white">Business Services</h4>
+          <h4 class="mt-3 text-xl font-bold text-blue-700">Business Services</h4>
           <p class="mt-2 text-sm text-slate-200">GST, PAN, basic banking assistance, and enterprise support.</p>
         </a>
         <a href="edu-services.html" class="service-card glass-panel rounded-2xl p-6">
           <p class="text-3xl">🎓</p>
-          <h4 class="mt-3 text-xl font-bold text-white">Education Services</h4>
+          <h4 class="mt-3 text-xl font-bold text-cyan-200">Education Services</h4>
           <p class="mt-2 text-sm text-slate-200">Digital literacy, foundational tech skills, and learning support.</p>
         </a>
       </div>
