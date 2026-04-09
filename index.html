@@ -1,4 +1,515 @@
 <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Maheshwara Nexlify Nucleus Digital Services</title>
+  <meta
+    name="description"
+    content="Next-Gen AI Technology style portal for Maheshwara Nexlify Nucleus Digital Services."
+  />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Gidugu&family=Roboto:wght@400;500;700;800;900&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css" />
+  <style>
+    :root {
+      --slate-blue: #21314f;
+      --deep-slate: #0d172a;
+      --teal-cyan: #22d3ee;
+      --silver: #e2e8f0;
+      --glass: rgba(148, 163, 184, 0.15);
+      --glass-strong: rgba(148, 163, 184, 0.26);
+      --border-glass: rgba(226, 232, 240, 0.28);
+    }
+
+    * {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 8% 12%, rgba(34, 211, 238, 0.26), transparent 36%),
+        radial-gradient(circle at 92% 10%, rgba(59, 130, 246, 0.18), transparent 30%),
+        linear-gradient(145deg, #08101f 0%, #111f35 42%, #1e2f4f 100%);
+      color: #e2e8f0;
+      font-family: "Roboto", "Segoe UI", Arial, sans-serif;
+    }
+
+    .font-telugu {
+      font-family: "Gidugu", "Roboto", sans-serif;
+    }
+
+    .glass-panel {
+      background: var(--glass);
+      border: 1px solid var(--border-glass);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      box-shadow: 0 18px 45px rgba(2, 6, 23, 0.35);
+    }
+
+    .glass-panel-strong {
+      background: var(--glass-strong);
+      border: 1px solid rgba(226, 232, 240, 0.34);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      box-shadow: 0 20px 45px rgba(2, 6, 23, 0.48);
+    }
+
+    .nav-link {
+      transition: color 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .nav-link:hover {
+      color: #67e8f9;
+      background: rgba(34, 211, 238, 0.1);
+      transform: translateY(-1px);
+    }
+
+    .service-card {
+      transform-style: preserve-3d;
+      transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .service-card::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      background: linear-gradient(120deg, rgba(34, 211, 238, 0), rgba(34, 211, 238, 0.18), rgba(226, 232, 240, 0));
+      opacity: 0;
+      transition: opacity 0.35s ease;
+      pointer-events: none;
+    }
+
+    .service-card:hover {
+      transform: translateY(-7px) rotateX(3deg) rotateY(-3deg);
+      box-shadow: 0 24px 42px rgba(8, 15, 32, 0.5);
+      border-color: rgba(34, 211, 238, 0.62);
+    }
+
+    .service-card:hover::before {
+      opacity: 1;
+    }
+
+    .fade-up {
+      animation: fadeUp 0.8s ease forwards;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(16px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    #search-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 80;
+      background: rgba(3, 8, 20, 0.76);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 6.5rem 1rem 1rem;
+    }
+
+    #search-overlay.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    #admin-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 90;
+      background: rgba(2, 6, 23, 0.75);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.25s ease, visibility 0.25s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    #admin-modal.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .social-icon {
+      transition: transform 0.2s ease, background-color 0.2s ease;
+    }
+
+    .social-icon:hover {
+      transform: translateY(-2px);
+      background-color: rgba(34, 211, 238, 0.22);
+    }
+  </style>
+</head>
+<body>
+  <header class="sticky top-0 z-50 border-b border-blue-200 border-opacity-20 glass-panel">
+    <div class="mx-auto max-w-7xl px-4 py-4">
+      <div class="text-center fade-up">
+        <h1 class="text-3xl font-black tracking-wide text-slate-100 sm:text-4xl md:text-5xl">
+          Maheshwara Nexlify Nucleus Digital Services
+        </h1>
+        <p class="font-telugu mt-2 text-sm text-cyan-200 sm:text-base">
+          Next-Gen AI Technology Company for Smart Village Enablement
+        </p>
+      </div>
+      <nav class="mt-4 overflow-x-auto">
+        <ul class="mx-auto flex min-w-max items-center justify-center gap-1 rounded-xl border border-blue-100 border-opacity-20 bg-black bg-opacity-20 p-2 text-xs font-bold uppercase tracking-wide text-slate-200 sm:gap-2 sm:text-sm">
+          <li><a class="nav-link rounded-md px-3 py-2" href="#home">Home</a></li>
+          <li><a class="nav-link rounded-md px-3 py-2" href="#services">Our Services</a></li>
+          <li><a class="nav-link rounded-md px-3 py-2" href="#about">About Us</a></li>
+          <li><a class="nav-link rounded-md px-3 py-2" href="#contact">Contact Us</a></li>
+          <li><button id="admin-open-btn" class="nav-link rounded-md px-3 py-2" type="button">Admin</button></li>
+          <li><a class="nav-link rounded-md px-3 py-2" href="#gallery">Gallery</a></li>
+          <li><a class="nav-link rounded-md px-3 py-2" href="#testimonials">Testimonials</a></li>
+          <li><a class="nav-link rounded-md px-3 py-2" href="news-page.html">News</a></li>
+          <li><a class="nav-link rounded-md px-3 py-2" href="#faq">FAQ</a></li>
+          <li>
+            <button id="search-open-btn" class="nav-link rounded-md px-3 py-2" type="button" aria-label="Search">
+              <span class="inline-flex items-center">
+                <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-5-5m1-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                </svg>
+              </span>
+            </button>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="home" class="mx-auto max-w-7xl px-4 py-10 sm:py-12">
+    <section class="fade-up rounded-2xl p-6 glass-panel-strong sm:p-8">
+      <p class="text-sm uppercase tracking-[0.25em] text-cyan-200">AI-Driven Citizen Platform</p>
+      <h2 class="mt-3 text-2xl font-extrabold text-white sm:text-3xl md:text-4xl">
+        Building a Smarter, Digitally Empowered Mutharam
+      </h2>
+      <p class="mt-4 max-w-3xl text-sm leading-relaxed text-slate-200 sm:text-base">
+        We combine civic access, digital documentation support, agriculture advisory, and community updates through
+        a premium technology-first portal.
+      </p>
+    </section>
+
+    <section id="services" class="mt-10 scroll-mt-32">
+      <div class="mb-6 text-center">
+        <h3 class="text-2xl font-extrabold text-white sm:text-3xl">Our Services</h3>
+        <p class="mt-2 text-sm text-cyan-100">High-end digital support categories for every citizen segment.</p>
+      </div>
+      <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <a href="news-page.html" class="service-card glass-panel rounded-2xl p-6">
+          <p class="text-3xl">📰</p>
+          <h4 class="mt-3 text-xl font-bold text-white">Maheshwara News</h4>
+          <p class="mt-2 text-sm text-slate-200">Local updates, alerts, and village-level information feed.</p>
+        </a>
+        <a href="digital-services.html" class="service-card glass-panel rounded-2xl p-6">
+          <p class="text-3xl">💻</p>
+          <h4 class="mt-3 text-xl font-bold text-white">Digital Services</h4>
+          <p class="mt-2 text-sm text-slate-200">Online applications, e-services, and citizen document workflows.</p>
+        </a>
+        <a href="csc-services.html" class="service-card glass-panel rounded-2xl p-6">
+          <p class="text-3xl">🏢</p>
+          <h4 class="mt-3 text-xl font-bold text-white">CSC Services</h4>
+          <p class="mt-2 text-sm text-slate-200">Government-to-citizen assistance through integrated service desks.</p>
+        </a>
+        <a href="agri-services.html" class="service-card glass-panel rounded-2xl p-6">
+          <p class="text-3xl">🌱</p>
+          <h4 class="mt-3 text-xl font-bold text-white">Agri Services</h4>
+          <p class="mt-2 text-sm text-slate-200">Smart farming guidance, seeds, planning, and rural agri insights.</p>
+        </a>
+        <a href="business-services.html" class="service-card glass-panel rounded-2xl p-6">
+          <p class="text-3xl">💼</p>
+          <h4 class="mt-3 text-xl font-bold text-white">Business Services</h4>
+          <p class="mt-2 text-sm text-slate-200">GST, PAN, basic banking assistance, and enterprise support.</p>
+        </a>
+        <a href="edu-services.html" class="service-card glass-panel rounded-2xl p-6">
+          <p class="text-3xl">🎓</p>
+          <h4 class="mt-3 text-xl font-bold text-white">Education Services</h4>
+          <p class="mt-2 text-sm text-slate-200">Digital literacy, foundational tech skills, and learning support.</p>
+        </a>
+      </div>
+    </section>
+
+    <section id="about" class="mt-12 scroll-mt-32 rounded-2xl p-7 glass-panel">
+      <h3 class="text-2xl font-extrabold text-white">About Us</h3>
+      <p class="mt-4 text-sm leading-relaxed text-slate-200 sm:text-base">
+        Maheshwara Nexlify Nucleus Digital Services started in 2022 with a mission to bring digital empowerment to
+        Mutharam village. Led by Ammu Srinivas, we bridge the gap between technology and rural society.
+      </p>
+    </section>
+
+    <section id="gallery" class="mt-12 scroll-mt-32">
+      <div class="flex items-end justify-between">
+        <h3 class="text-2xl font-extrabold text-white">Memorable Moments</h3>
+        <span class="text-xs uppercase tracking-wider text-cyan-200">Village Events & Service Milestones</span>
+      </div>
+      <div class="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div class="h-44 rounded-xl border border-slate-200 border-opacity-20 bg-gradient-to-br from-cyan-700 to-blue-900 p-4 glass-panel">
+          <p class="text-sm font-semibold text-cyan-100">Digital Enrollment Camp</p>
+        </div>
+        <div class="h-44 rounded-xl border border-slate-200 border-opacity-20 bg-gradient-to-br from-indigo-700 to-slate-900 p-4 glass-panel">
+          <p class="text-sm font-semibold text-cyan-100">Village Awareness Session</p>
+        </div>
+        <div class="h-44 rounded-xl border border-slate-200 border-opacity-20 bg-gradient-to-br from-teal-700 to-slate-900 p-4 glass-panel">
+          <p class="text-sm font-semibold text-cyan-100">Citizen Service Milestone</p>
+        </div>
+        <div class="h-44 rounded-xl border border-slate-200 border-opacity-20 bg-gradient-to-br from-blue-800 to-indigo-900 p-4 glass-panel">
+          <p class="text-sm font-semibold text-cyan-100">Agri Advisory Program</p>
+        </div>
+        <div class="h-44 rounded-xl border border-slate-200 border-opacity-20 bg-gradient-to-br from-slate-700 to-slate-900 p-4 glass-panel">
+          <p class="text-sm font-semibold text-cyan-100">Women Digital Literacy Drive</p>
+        </div>
+        <div class="h-44 rounded-xl border border-slate-200 border-opacity-20 bg-gradient-to-br from-cyan-800 to-blue-800 p-4 glass-panel">
+          <p class="text-sm font-semibold text-cyan-100">Youth Tech Support Workshop</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="testimonials" class="mt-12 scroll-mt-32">
+      <h3 class="text-2xl font-extrabold text-white">Testimonials</h3>
+      <div class="mt-5 grid gap-4 md:grid-cols-2">
+        <blockquote class="rounded-xl p-5 glass-panel">
+          <p class="font-telugu text-slate-200">"ఇక్కడ సేవలు చాలా వేగంగా జరుగుతున్నాయి. గ్రామ ప్రజలకు నిజమైన డిజిటల్ మద్దతు."</p>
+          <footer class="mt-3 text-xs text-cyan-200">- Local Resident</footer>
+        </blockquote>
+        <blockquote class="rounded-xl p-5 glass-panel">
+          <p class="font-telugu text-slate-200">"Professional process, clear guidance, and modern support for every service need."</p>
+          <footer class="mt-3 text-xs text-cyan-200">- Small Business Owner</footer>
+        </blockquote>
+      </div>
+    </section>
+
+    <section id="faq" class="mt-12 scroll-mt-32 rounded-2xl p-7 glass-panel">
+      <h3 class="text-2xl font-extrabold text-white">FAQ</h3>
+      <div class="mt-4 space-y-4 text-sm text-slate-200">
+        <div>
+          <p class="font-bold text-cyan-200">How do I apply for digital services?</p>
+          <p class="mt-1">Use the service cards above and select the required category to proceed.</p>
+        </div>
+        <div>
+          <p class="font-bold text-cyan-200">Is WhatsApp support available?</p>
+          <p class="mt-1">Yes. Reach us directly using the WhatsApp number listed in Contact.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="mt-12 scroll-mt-32 rounded-2xl p-7 glass-panel-strong">
+      <h3 class="text-2xl font-extrabold text-white">Contact Us</h3>
+      <p class="mt-4 text-sm leading-relaxed text-slate-200">
+        Kasrlagadda Bus Stand, Mutharam, Peddapalli District, Telangana, India - 505184.
+      </p>
+      <p class="mt-3 text-sm text-slate-200">
+        WhatsApp/Cell:
+        <a href="tel:9949122402" class="font-bold text-cyan-200 hover:underline">9949122402</a>
+      </p>
+      <p class="mt-1 text-sm text-slate-200">
+        Email:
+        <a href="mailto:nexlifynucleus@gmail.com" class="font-bold text-cyan-200 hover:underline">nexlifynucleus@gmail.com</a>
+      </p>
+      <div class="mt-5 flex items-center gap-3">
+        <a class="social-icon rounded-full border border-slate-200 border-opacity-25 p-2" href="https://wa.me/919949122402" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+          <svg class="h-5 w-5 text-cyan-200" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M20.5 3.5A11.8 11.8 0 0012.1 0C5.5 0 .1 5.4.1 12c0 2.1.5 4.1 1.5 6L0 24l6.2-1.6a12 12 0 005.8 1.5h.1c6.6 0 12-5.4 12-12 0-3.2-1.3-6.2-3.6-8.4zm-8.4 18.4h-.1a9.8 9.8 0 01-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4a9.8 9.8 0 01-1.5-5.3C2.1 6.6 6.6 2.1 12 2.1c2.7 0 5.1 1 7 2.9a9.8 9.8 0 012.9 7c0 5.4-4.4 9.9-9.8 9.9zm5.4-7.4c-.3-.2-1.8-.9-2-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-.9 1.1-.2.2-.3.2-.6.1-.3-.2-1.3-.5-2.5-1.6-.9-.8-1.5-1.9-1.7-2.2-.2-.3 0-.5.1-.6l.5-.6.3-.5c.1-.2.1-.4 0-.5s-.7-1.8-1-2.4c-.2-.5-.4-.4-.7-.4h-.6c-.2 0-.5.1-.7.4-.3.3-1 1-1 2.3s1 2.5 1.2 2.7c.2.2 2 3.1 4.8 4.3.7.3 1.3.5 1.7.7.7.2 1.4.2 2 .1.6-.1 1.8-.7 2.1-1.4.3-.7.3-1.3.2-1.4-.1-.1-.3-.2-.6-.4z"></path>
+          </svg>
+        </a>
+        <a class="social-icon rounded-full border border-slate-200 border-opacity-25 p-2" href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+          <svg class="h-5 w-5 text-cyan-200" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M24 12.1C24 5.4 18.6 0 12 0S0 5.4 0 12.1c0 6 4.4 11 10.1 12v-8.4H7.1v-3.6h3V9.3c0-3 1.8-4.7 4.5-4.7 1.3 0 2.6.2 2.6.2v2.9h-1.5c-1.5 0-2 .9-2 1.9v2.3h3.4l-.5 3.6h-2.9V24C19.6 23.1 24 18.1 24 12.1z"></path>
+          </svg>
+        </a>
+        <a class="social-icon rounded-full border border-slate-200 border-opacity-25 p-2" href="news-page.html" aria-label="News Page">
+          <svg class="h-5 w-5 text-cyan-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H6a2 2 0 01-2-2V6a2 2 0 012-2h13a1 1 0 011 1v14a1 1 0 01-1 1zM8 8h8M8 12h8M8 16h5"></path>
+          </svg>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-slate-200 border-opacity-20 bg-black bg-opacity-30 py-5 text-center text-xs text-slate-300">
+    © 2026 Maheshwara Nexlify Nucleus Digital Services. All rights reserved.
+  </footer>
+
+  <div id="search-overlay" role="dialog" aria-modal="true" aria-labelledby="search-overlay-title">
+    <div class="w-full max-w-2xl rounded-2xl p-5 glass-panel-strong">
+      <div class="flex items-center justify-between">
+        <h4 id="search-overlay-title" class="text-lg font-bold text-white">Portal Search</h4>
+        <button id="search-close-btn" type="button" class="rounded-md bg-white bg-opacity-10 px-2 py-1 text-sm text-slate-200 hover:bg-opacity-20">
+          Close
+        </button>
+      </div>
+      <form action="news-page.html" method="get" class="mt-4 flex gap-2">
+        <input
+          id="search-input"
+          type="search"
+          name="q"
+          placeholder="Search services, updates, and pages..."
+          class="w-full rounded-md border border-slate-200 border-opacity-25 bg-black bg-opacity-20 px-4 py-3 text-sm text-slate-100 placeholder-slate-400 focus:border-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-opacity-30"
+        />
+        <button type="submit" class="rounded-md bg-cyan-500 px-5 py-3 text-sm font-bold text-slate-900 hover:bg-cyan-400">Search</button>
+      </form>
+    </div>
+  </div>
+
+  <div id="admin-modal" role="dialog" aria-modal="true" aria-labelledby="admin-modal-title">
+    <div class="w-full max-w-md rounded-2xl p-6 glass-panel-strong">
+      <div class="flex items-center justify-between">
+        <h4 id="admin-modal-title" class="text-xl font-bold text-white">Owner Admin Login</h4>
+        <button id="admin-close-btn" class="rounded-md bg-white bg-opacity-10 px-2 py-1 text-sm text-slate-200 hover:bg-opacity-20" type="button">
+          Close
+        </button>
+      </div>
+      <form class="mt-5 space-y-4">
+        <div>
+          <label class="mb-1 block text-xs font-semibold uppercase tracking-wider text-cyan-200" for="admin-email">Email</label>
+          <input
+            id="admin-email"
+            type="email"
+            placeholder="owner@domain.com"
+            class="w-full rounded-md border border-slate-200 border-opacity-25 bg-black bg-opacity-20 px-3 py-2.5 text-sm text-slate-100 placeholder-slate-400 focus:border-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-opacity-30"
+          />
+        </div>
+        <div>
+          <label class="mb-1 block text-xs font-semibold uppercase tracking-wider text-cyan-200" for="admin-password">Password</label>
+          <input
+            id="admin-password"
+            type="password"
+            placeholder="Enter secure password"
+            class="w-full rounded-md border border-slate-200 border-opacity-25 bg-black bg-opacity-20 px-3 py-2.5 text-sm text-slate-100 placeholder-slate-400 focus:border-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-opacity-30"
+          />
+        </div>
+        <button type="submit" class="w-full rounded-md bg-cyan-500 px-4 py-2.5 text-sm font-bold text-slate-900 hover:bg-cyan-400">
+          Login Securely
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var body = document.body;
+      var searchOverlay = document.getElementById("search-overlay");
+      var searchOpenBtn = document.getElementById("search-open-btn");
+      var searchCloseBtn = document.getElementById("search-close-btn");
+      var searchInput = document.getElementById("search-input");
+
+      var adminModal = document.getElementById("admin-modal");
+      var adminOpenBtn = document.getElementById("admin-open-btn");
+      var adminCloseBtn = document.getElementById("admin-close-btn");
+      var adminEmail = document.getElementById("admin-email");
+
+      function lockScroll(lock) {
+        if (lock) {
+          body.style.overflow = "hidden";
+          return;
+        }
+        body.style.overflow = "";
+      }
+
+      function openSearch() {
+        if (!searchOverlay) return;
+        searchOverlay.classList.add("open");
+        lockScroll(true);
+        window.setTimeout(function () {
+          if (searchInput) searchInput.focus();
+        }, 120);
+      }
+
+      function closeSearch() {
+        if (!searchOverlay) return;
+        searchOverlay.classList.remove("open");
+        if (!adminModal || !adminModal.classList.contains("open")) {
+          lockScroll(false);
+        }
+      }
+
+      function openAdmin() {
+        if (!adminModal) return;
+        adminModal.classList.add("open");
+        lockScroll(true);
+        window.setTimeout(function () {
+          if (adminEmail) adminEmail.focus();
+        }, 120);
+      }
+
+      function closeAdmin() {
+        if (!adminModal) return;
+        adminModal.classList.remove("open");
+        if (!searchOverlay || !searchOverlay.classList.contains("open")) {
+          lockScroll(false);
+        }
+      }
+
+      if (searchOpenBtn) {
+        searchOpenBtn.addEventListener("click", function (event) {
+          event.preventDefault();
+          openSearch();
+        });
+      }
+
+      if (searchCloseBtn) {
+        searchCloseBtn.addEventListener("click", function () {
+          closeSearch();
+        });
+      }
+
+      if (searchOverlay) {
+        searchOverlay.addEventListener("click", function (event) {
+          if (event.target === searchOverlay) {
+            closeSearch();
+          }
+        });
+      }
+
+      if (adminOpenBtn) {
+        adminOpenBtn.addEventListener("click", function (event) {
+          event.preventDefault();
+          openAdmin();
+        });
+      }
+
+      if (adminCloseBtn) {
+        adminCloseBtn.addEventListener("click", function () {
+          closeAdmin();
+        });
+      }
+
+      if (adminModal) {
+        adminModal.addEventListener("click", function (event) {
+          if (event.target === adminModal) {
+            closeAdmin();
+          }
+        });
+      }
+
+      document.addEventListener("keydown", function (event) {
+        if (event.key !== "Escape") return;
+        closeSearch();
+        closeAdmin();
+      });
+    })();
+  </script>
+</body>
+</html>
+<!DOCTYPE html>
 <html lang="te">
 <head>
   <meta charset="UTF-8" />
