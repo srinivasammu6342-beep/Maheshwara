@@ -1,634 +1,233 @@
 <!DOCTYPE html>
-<html lang="te">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>వార్తలు — MAHESHWARA NEXLIFY NUCLEUS</title>
-  <meta name="description" content="Maheshwara Nexlify Nucleus — ముత్తారం తాజా వార్తలు, బ్రేకింగ్ అప్‌డేట్స్." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Gidugu&family=Ramabhadra&family=Roboto:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <title>News — Maheshwara Nexlify Nucleus</title>
   <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css" />
   <style>
-    :root {
-      --mns-slate-blue: #1e3a5f;
-      --mns-slate-deep: #0f2744;
-      --mns-gold: #c9a227;
-    }
-
-    body {
-      background: #f4f6f9;
-      color: #0f172a;
-      font-family: "Roboto", "Segoe UI", Arial, sans-serif;
-    }
-
-    .font-telugu {
-      font-family: "Ramabhadra", "Gidugu", "Roboto", sans-serif;
-    }
-
-    .mns-header-shell {
-      background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
-      border-bottom: 1px solid rgba(30, 58, 95, 0.12);
-      box-shadow: 0 4px 24px rgba(15, 39, 68, 0.06);
-    }
-
-    .mns-brand-gold {
-      color: var(--mns-gold);
-    }
-
-    .mns-nav-link {
-      transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease;
-    }
-
-    .mns-nav-link:hover {
-      color: var(--mns-slate-blue);
-      background: rgba(30, 58, 95, 0.06);
-    }
-
-    .mns-nav-link-active {
-      color: var(--mns-slate-deep);
-      background: linear-gradient(180deg, rgba(201, 162, 39, 0.15), rgba(201, 162, 39, 0.08));
-      border-bottom: 2px solid var(--mns-gold);
-    }
-
-    #mns-search-panel {
-      max-height: 0;
-      opacity: 0;
-      transition: max-height 0.45s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s ease, padding 0.35s ease;
-    }
-
-    #mns-search-panel.mns-search-open {
-      max-height: 120px;
-      opacity: 1;
-    }
-
-    .mns-ticker-wrap {
-      background: #b91c1c;
-      background: linear-gradient(90deg, #991b1b 0%, #dc2626 50%, #991b1b 100%);
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15);
-      border-bottom: 2px solid #ffffff;
-    }
-
-    .mns-ticker-label {
-      background: #ffffff;
-      border-right: 3px solid #fecaca;
-    }
-
-    .mns-ticker-label span {
-      color: #b91c1c !important;
-    }
-
-    @keyframes mns-marquee {
-      0% {
-        transform: translate3d(0, 0, 0);
-      }
-      100% {
-        transform: translate3d(-50%, 0, 0);
-      }
-    }
-
-    .mns-ticker-track {
-      display: flex;
-      flex-wrap: nowrap;
-      width: max-content;
-      animation: mns-marquee 55s linear infinite;
-      will-change: transform;
-    }
-
-    .mns-ticker-track:hover {
-      animation-play-state: paused;
-    }
-
-    .mns-card-news {
-      transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
-    }
-
-    .mns-card-news:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 18px 38px rgba(15, 39, 68, 0.12);
-      border-color: rgba(201, 162, 39, 0.5);
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .mns-ticker-track {
-        animation: none;
-      }
-    }
-
-    .mns-gold-rule {
-      height: 3px;
-      background: linear-gradient(90deg, transparent, var(--mns-gold), transparent);
+    body { background: #f8fafc; }
+    .ticker-wrap { background: #b91c1c; }
+    @keyframes mnsTicker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    .ticker-track { display: flex; width: max-content; animation: mnsTicker 45s linear infinite; }
+    .ticker-track:hover { animation-play-state: paused; }
+    .news-shell { display: block; }
+    @media (min-width: 1024px) {
+      .news-shell { display: grid; grid-template-columns: 280px minmax(0, 1fr) 280px; gap: 1rem; height: calc(100vh - 210px); overflow: hidden; }
+      .fixed-col { position: sticky; top: 0.5rem; align-self: start; height: calc(100vh - 225px); overflow-y: auto; }
+      .scroll-col { height: calc(100vh - 225px); overflow-y: auto; padding-right: 0.25rem; }
     }
   </style>
 </head>
-<body class="min-h-screen antialiased">
-  <header class="mns-header-shell sticky top-0 z-50">
-    <div class="mx-auto w-full max-w-7xl px-4 pt-5 pb-1 text-center sm:pt-6">
-      <p class="font-sans text-[10px] font-bold uppercase tracking-[0.35em] text-slate-500">Corporate Services &amp; News</p>
-      <h1 class="mt-1 font-sans text-3xl font-extrabold leading-tight tracking-tight text-slate-800 sm:text-4xl md:text-5xl">
-        MAHESHWARA <span class="mns-brand-gold">NEXLIFY</span> NUCLEUS
-      </h1>
-      <p class="font-telugu mt-2 text-sm text-slate-600 sm:text-base">వార్తలు · ముత్తారం · డిజిటల్ సేవా</p>
-      <div class="mns-gold-rule mx-auto mt-3 max-w-md"></div>
+<body class="min-h-screen text-slate-800">
+  <header class="sticky top-0 z-50 border-b border-slate-200 bg-white">
+    <div class="mx-auto max-w-7xl px-4 py-4">
+      <h1 class="text-center text-2xl font-black tracking-tight sm:text-4xl">MAHESHWARA <span class="text-amber-600">NEXLIFY</span> NUCLEUS</h1>
+      <p class="mt-1 text-center text-sm text-slate-500">Fast local news for Mutharam</p>
+      <div class="mt-3 flex flex-wrap items-center justify-center gap-2 text-sm font-semibold">
+        <a href="index.html" class="rounded-md px-3 py-1.5 hover:bg-slate-100">Home</a>
+        <a href="news.html" class="rounded-md bg-slate-900 px-3 py-1.5 text-white">News</a>
+        <a href="admin.html" class="rounded-md px-3 py-1.5 hover:bg-slate-100">Admin</a>
+      </div>
     </div>
-
-    <nav class="mx-auto flex w-full max-w-7xl flex-col items-stretch px-4 pb-2" aria-label="Primary">
-      <div class="flex flex-wrap items-center justify-center gap-1 border-t border-slate-200/80 pt-3 sm:gap-2">
-        <a href="index.html" class="mns-nav-link rounded-lg px-3 py-2 text-xs font-bold uppercase tracking-wide text-slate-700 sm:text-sm">Home</a>
-        <a href="index.html#services" class="mns-nav-link rounded-lg px-3 py-2 text-xs font-bold uppercase tracking-wide text-slate-700 sm:text-sm">Our Services</a>
-        <a href="index.html#about" class="mns-nav-link rounded-lg px-3 py-2 text-xs font-bold uppercase tracking-wide text-slate-700 sm:text-sm">About Us</a>
-        <a href="index.html#contact" class="mns-nav-link rounded-lg px-3 py-2 text-xs font-bold uppercase tracking-wide text-slate-700 sm:text-sm">Contact Us</a>
-        <a href="index.html#testimonials" class="mns-nav-link rounded-lg px-3 py-2 text-xs font-bold uppercase tracking-wide text-slate-700 sm:text-sm">Testimonials</a>
-        <a href="news.html" class="mns-nav-link mns-nav-link-active rounded-lg px-3 py-2 text-xs font-bold uppercase tracking-wide text-slate-700 sm:text-sm">Blog / News</a>
-        <button
-          type="button"
-          id="mns-search-toggle"
-          class="mns-nav-link inline-flex items-center gap-2 rounded-lg px-3 py-2 text-xs font-bold uppercase tracking-wide text-slate-700 sm:text-sm"
-          aria-expanded="false"
-          aria-controls="mns-search-panel"
-        >
-          <svg class="h-5 w-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-          </svg>
-          <span class="hidden sm:inline">Search</span>
-        </button>
+    <div class="ticker-wrap overflow-hidden text-white">
+      <div class="mx-auto flex max-w-7xl items-center">
+        <div class="shrink-0 bg-white px-3 py-2 text-xs font-black uppercase tracking-wider text-red-700">Breaking</div>
+        <div class="relative flex-1 overflow-hidden py-2">
+          <div id="ticker-track" class="ticker-track"></div>
+        </div>
       </div>
-
-      <div id="mns-search-panel" class="overflow-hidden px-0">
-        <form id="mns-search-form" class="mx-auto mt-2 flex max-w-2xl gap-2 rounded-xl border border-slate-200 bg-white p-3 shadow-inner" action="news.html" method="get" role="search">
-          <label for="mns-search-input" class="sr-only">Search news</label>
-          <input
-            id="mns-search-input"
-            type="search"
-            name="q"
-            placeholder="వార్తల కోసం వెతకండి…"
-            class="font-telugu min-w-0 flex-1 rounded-lg border border-slate-200 px-4 py-2.5 text-sm text-slate-800 placeholder-slate-400 focus:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-200"
-          />
-          <button type="submit" class="shrink-0 rounded-lg bg-slate-800 px-5 py-2.5 text-sm font-bold text-amber-300 transition hover:bg-slate-900">Go</button>
-        </form>
-      </div>
-    </nav>
+    </div>
   </header>
 
-  <!-- TV9-style Breaking News ticker: red band, white text -->
-  <div class="mns-ticker-wrap relative z-40 overflow-hidden">
-    <div class="mx-auto flex max-w-7xl items-stretch">
-      <div class="mns-ticker-label flex shrink-0 items-center px-3 py-2.5 sm:px-5">
-        <span class="whitespace-nowrap font-sans text-[10px] font-black uppercase tracking-[0.25em] sm:text-xs">Breaking News</span>
-      </div>
-      <div class="relative flex min-h-[48px] flex-1 items-center overflow-hidden border-l border-white/30 bg-red-700 py-2">
-        <div id="mns-ticker-track" class="mns-ticker-track items-center pl-2 text-sm font-bold text-white"></div>
-      </div>
-    </div>
-  </div>
-
-  <main class="mx-auto w-full max-w-7xl px-4 py-8 sm:py-10">
-    <div class="flex flex-col gap-4 border-b border-slate-200 pb-6 sm:flex-row sm:items-end sm:justify-between">
-      <div>
-        <h2 class="font-telugu text-2xl font-extrabold text-slate-900 sm:text-3xl">తాజా వార్తలు</h2>
-        <p class="mt-1 text-sm text-slate-600">MAHESHWARA NEXLIFY NUCLEUS — స్థానిక, వేగవంతమైన అప్‌డేట్స్</p>
-      </div>
-      <div
-        id="mns-header-clock"
-        class="hidden text-right text-[10px] font-medium leading-tight text-slate-500 sm:block sm:text-xs"
-        title="Telangana (IST)"
-      ></div>
+  <main class="mx-auto max-w-7xl px-3 py-4 sm:px-4 sm:py-5">
+    <div class="mb-4 flex flex-wrap items-center justify-between gap-2">
+      <h2 class="text-xl font-extrabold sm:text-2xl">Latest News</h2>
       <div id="news-filters" class="flex flex-wrap gap-2"></div>
     </div>
-
-    <div class="mt-8 flex flex-col gap-8 lg:flex-row lg:items-start">
-      <div class="min-w-0 flex-1">
-        <div id="news-list" class="grid grid-cols-1 gap-5 sm:grid-cols-2">
-          <p id="news-loading" class="col-span-full font-telugu text-slate-500">లోడ్ అవుతోంది…</p>
+    <div class="news-shell">
+      <aside class="fixed-col space-y-3">
+        <div class="rounded-xl border border-slate-200 bg-white p-4">
+          <h3 class="text-sm font-bold uppercase tracking-wide text-slate-600">Left Sidebar</h3>
+          <p class="mt-2 text-sm text-slate-600">Top headlines quick links.</p>
+          <ul id="left-headlines" class="mt-2 space-y-2 text-sm"></ul>
         </div>
-        <p id="news-empty" class="hidden py-16 text-center font-telugu text-slate-500">ఇంకా వార్తలు లేవు. అడ్మిన్ నుండి ప్రచురించండి.</p>
-        <p id="news-err" class="hidden py-6 text-center text-red-600"></p>
-      </div>
+      </aside>
 
-      <aside class="w-full shrink-0 lg:w-80">
-        <div class="sticky top-4 space-y-4">
-          <div class="rounded-xl border border-slate-200 bg-white p-4 shadow-sm transition hover:shadow-md">
-            <h3 class="border-b border-slate-200 pb-2 font-sans text-xs font-bold uppercase tracking-wider text-slate-700">Advertisement</h3>
-            <div
-              id="mns-sidebar-ad-root"
-              class="mt-3 rounded-lg border-2 border-dashed border-amber-200 bg-gradient-to-br from-slate-50 to-white p-4 text-center text-sm text-slate-500"
-            >
-              <p class="font-sans text-[10px] font-bold uppercase tracking-widest text-slate-600">Ad Space</p>
-              <p class="mt-2 font-sans font-semibold text-slate-800">MAHESHWARA NEXLIFY NUCLEUS</p>
-              <p class="mt-1 font-telugu text-xs text-slate-600">అడ్ లోడ్ అవుతోంది…</p>
-            </div>
+      <section class="scroll-col rounded-xl border border-slate-200 bg-white p-4 sm:p-5">
+        <div id="news-list" class="space-y-4">
+          <p id="news-loading" class="text-slate-500">Loading news...</p>
+        </div>
+        <p id="news-empty" class="hidden py-10 text-center text-slate-500">No news yet.</p>
+        <p id="news-err" class="hidden py-4 text-center text-red-600"></p>
+      </section>
+
+      <aside class="fixed-col space-y-3">
+        <div class="rounded-xl border border-slate-200 bg-white p-4">
+          <h3 class="text-sm font-bold uppercase tracking-wide text-slate-600">Advertisement</h3>
+          <div id="mns-sidebar-ad-root" class="mt-2 rounded-lg border-2 border-dashed border-amber-200 bg-slate-50 p-3 text-center text-sm text-slate-500">
+            Ad loading...
           </div>
+        </div>
+        <div class="rounded-xl border border-slate-200 bg-white p-4 text-sm text-slate-600">
+          <h3 class="font-bold uppercase tracking-wide text-slate-600">Right Sidebar</h3>
+          <p class="mt-2">These side panels stay fixed on desktop while middle column scrolls.</p>
         </div>
       </aside>
     </div>
   </main>
 
-  <footer class="border-t border-slate-200 bg-slate-900 py-10 text-xs text-slate-400">
-    <div class="mx-auto max-w-7xl space-y-4 px-4">
-      <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between sm:text-left">
-        <div>
-          <p class="font-sans font-bold uppercase tracking-wide text-white">MAHESHWARA NEXLIFY NUCLEUS</p>
-          <p class="mt-1">ముత్తారం, పెద్దపల్లి జిల్లా, తెలంగాణ — 505184</p>
-          <p class="mt-1">
-            <a href="tel:9949122402" class="font-bold text-amber-300 hover:underline">9949122402</a>
-          </p>
-        </div>
-        <div class="rounded-lg border border-slate-700 bg-slate-800/80 px-4 py-3 text-center sm:text-right">
-          <p class="font-semibold text-slate-200">సందర్శకులు</p>
-          <p class="mt-1 tabular-nums text-slate-300">
-            మొత్తం: <strong id="mns-visitor-total" class="text-amber-300">—</strong>
-            <span class="mx-2 text-slate-600">|</span>
-            ఈరోజు: <strong id="mns-visitor-today" class="text-amber-300">—</strong>
-          </p>
-        </div>
-      </div>
-      <p class="text-center text-[11px] text-slate-500">© 2026 Maheshwara Nexlify Nucleus</p>
-      <p class="text-center">
-        <a href="admin.html" class="text-[11px] text-slate-500 hover:text-amber-300">Admin</a>
-      </p>
-    </div>
-  </footer>
-
   <script src="config.js"></script>
-  <script src="js/mns-site.js"></script>
-  <script>
-    (function () {
-      var toggle = document.getElementById("mns-search-toggle");
-      var panel = document.getElementById("mns-search-panel");
-      var input = document.getElementById("mns-search-input");
-
-      function setOpen(open) {
-        if (!panel || !toggle) return;
-        if (open) {
-          panel.classList.add("mns-search-open");
-          toggle.setAttribute("aria-expanded", "true");
-          setTimeout(function () {
-            if (input) input.focus();
-          }, 200);
-        } else {
-          panel.classList.remove("mns-search-open");
-          toggle.setAttribute("aria-expanded", "false");
-        }
-      }
-
-      if (toggle && panel) {
-        toggle.addEventListener("click", function (e) {
-          e.preventDefault();
-          setOpen(!panel.classList.contains("mns-search-open"));
-        });
-      }
-
-      document.addEventListener("keydown", function (e) {
-        if (e.key === "Escape") setOpen(false);
-      });
-
-      document.addEventListener("click", function (e) {
-        if (!panel || !toggle) return;
-        if (!panel.classList.contains("mns-search-open")) return;
-        var t = e.target;
-        if (panel.contains(t) || toggle.contains(t)) return;
-        setOpen(false);
-      });
-
-      var params = new URLSearchParams(window.location.search);
-      var q = params.get("q");
-      if (q && input) input.value = q;
-    })();
-  </script>
   <script>
     (function () {
       var cfg = window.MNS_CONFIG || {};
+      var ALL_ROWS = [];
+      var currentFilter = "all";
+      var CATEGORIES = ["all", "Top News", "Local", "Regional", "Sports", "Movies", "Politics", "Business", "Technology", "Health"];
 
-      function apiBase() {
-        return typeof cfg.apiBase === "string" ? cfg.apiBase.replace(/\/$/, "") : "";
+      function apiBase() { return typeof cfg.apiBase === "string" ? cfg.apiBase.replace(/\/$/, "") : ""; }
+      function escapeHtml(s) { var d = document.createElement("div"); d.textContent = s == null ? "" : String(s); return d.innerHTML; }
+      function wordCount(text) { return (String(text || "").trim().match(/\S+/g) || []).length; }
+      function validHeadline(t) {
+        var h = String(t || "").trim();
+        var wc = wordCount(h);
+        return wc >= 5 && wc <= 12 && h.slice(-1) !== ".";
       }
-
-      function escapeHtml(s) {
-        var d = document.createElement("div");
-        d.textContent = s == null ? "" : String(s);
-        return d.innerHTML;
+      function snippet(text, max) {
+        var s = String(text || "").replace(/\s+/g, " ").trim();
+        if (s.length <= max) return s;
+        return s.slice(0, max - 1) + "...";
       }
-
-      async function loadTicker() {
-        var el = document.getElementById("mns-ticker-track");
-        if (!el) return;
-        var fallback =
-          '<span class="inline-flex items-center gap-2 pr-10 text-white"><span aria-hidden="true" class="text-yellow-200">●</span>MAHESHWARA NEXLIFY NUCLEUS — ముత్తారం</span>' +
-          '<span class="inline-flex items-center gap-2 pr-10 text-white"><span aria-hidden="true" class="text-yellow-200">●</span><span class="font-telugu font-bold">పెద్దపల్లి జిల్లా, తెలంగాణ — 505184</span></span>';
+      function heroImage(row) {
+        if (row.image_url) return row.image_url;
         try {
-          var r = await fetch(apiBase() + "/api/flash-news/ticker", { cache: "no-store" });
-          var j = await r.json();
-          var items = (j.items || [])
-            .map(function (x) {
-              return x.message;
-            })
-            .filter(Boolean);
-          if (!items.length) {
-            var r2 = await fetch(apiBase() + "/api/news/ticker", { cache: "no-store" });
-            var j2 = await r2.json();
-            items = (j2.items || [])
-              .map(function (x) {
-                return x.title;
-              })
-              .filter(Boolean);
+          var g = row.gallery_json;
+          if (Array.isArray(g) && g[0]) return String(g[0]);
+          if (typeof g === "string") {
+            var p = JSON.parse(g);
+            if (Array.isArray(p) && p[0]) return String(p[0]);
           }
-          if (!items.length) {
-            el.innerHTML = fallback;
-            return;
-          }
-          var dup = items.concat(items);
-          var html = "";
-          dup.forEach(function (t, idx) {
-            var accent = idx % 2 === 1 ? " text-yellow-100" : " text-white";
-            html +=
-              '<span class="inline-flex items-center gap-2 pr-10 font-telugu font-bold' +
-              accent +
-              '">' +
-              '<span class="shrink-0 text-yellow-300" aria-hidden="true">●</span>' +
-              escapeHtml(t) +
-              "</span>";
-          });
-          el.innerHTML = html;
-        } catch (e) {
-          el.innerHTML = fallback;
-        }
+        } catch (e) {}
+        return "";
       }
 
       function normalizeAdImageUrl(raw) {
         var s = String(raw == null ? "" : raw).trim().replace(/^\uFEFF/, "");
         if (!s) return "";
-        if (/^https?:\/\//i.test(s)) return s;
-        if (/^data:image\//i.test(s)) {
-          var i = s.indexOf("base64,");
-          if (i !== -1) return s.slice(0, i + 7) + s.slice(i + 7).replace(/\s+/g, "");
-          return s;
-        }
+        if (/^https?:\/\//i.test(s) || /^data:image\//i.test(s)) return s;
         var b64 = s.replace(/\s+/g, "");
-        if (/^[A-Za-z0-9+/]+=*$/.test(b64) && b64.length >= 32) {
-          if (b64.indexOf("iVBOR") === 0) return "data:image/png;base64," + b64;
-          if (b64.indexOf("/9j/") === 0) return "data:image/jpeg;base64," + b64;
-          if (b64.indexOf("R0lGOD") === 0) return "data:image/gif;base64," + b64;
-          return "data:image/jpeg;base64," + b64;
-        }
+        if (/^[A-Za-z0-9+/]+=*$/.test(b64) && b64.length > 32) return "data:image/jpeg;base64," + b64;
         return s;
       }
 
-      async function loadSidebarAd() {
-        var root = document.getElementById("mns-sidebar-ad-root");
-        if (!root) return;
-        var ph =
-          '<p class="font-sans text-[10px] font-bold uppercase tracking-widest text-slate-600">Ad Space</p>' +
-          '<p class="mt-2 font-sans font-semibold text-slate-800">MAHESHWARA NEXLIFY NUCLEUS</p>' +
-          '<p class="mt-1 font-telugu text-xs text-slate-600">ప్రకటన లభ్యం కావడం లేదు.</p>';
-        function showPh() {
-          root.className =
-            "mt-3 rounded-lg border-2 border-dashed border-amber-200 bg-gradient-to-br from-slate-50 to-white p-4 text-center text-sm text-slate-500";
-          root.innerHTML = ph;
+      function renderTicker(items) {
+        var track = document.getElementById("ticker-track");
+        if (!track) return;
+        var src = (items || []).filter(function (x) { return x && x.id && x.title; });
+        if (!src.length) {
+          track.innerHTML = '<span class="px-8 text-sm font-semibold">Maheshwara Nexlify Nucleus updates</span>';
+          return;
         }
-        try {
-          var r = await fetch(apiBase() + "/api/ads/sidebar?_=" + Date.now(), { cache: "no-store" });
-          var j = await r.json().catch(function () {
-            return {};
-          });
-          var ad = j && j.ok && j.ad ? j.ad : null;
-          if (!ad || !j.ok) {
-            r = await fetch(apiBase() + "/api/ads?_=" + Date.now(), { cache: "no-store" });
-            j = await r.json().catch(function () {
-              return {};
-            });
-            if (!j.ok) {
-              showPh();
-              return;
-            }
-            var items = j.items || [];
-            items.sort(function (a, b) {
-              return new Date(b.created_at || 0) - new Date(a.created_at || 0);
-            });
-            for (var i = 0; i < items.length; i++) {
-              if (items[i].image_url && String(items[i].image_url).trim()) {
-                ad = items[i];
-                break;
-              }
-            }
-          }
-          if (!ad || ad.image_url == null) {
-            showPh();
-            return;
-          }
-          var raw = String(ad.image_url).trim();
-          if (!raw) {
-            showPh();
-            return;
-          }
-          root.className = "mt-3 overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm";
-          root.innerHTML = "";
-          var link = ad.link_url && String(ad.link_url).trim() ? String(ad.link_url).trim() : "";
-          var wrap = document.createElement(link ? "a" : "div");
-          if (link) {
-            wrap.href = link;
-            wrap.target = "_blank";
-            wrap.rel = "noopener noreferrer";
-            wrap.className = "block";
-          }
-          var im = document.createElement("img");
-          im.alt = "Advertisement";
-          im.className = "h-auto w-full object-contain";
-          im.loading = "lazy";
-          im.decoding = "async";
-          im.onerror = function () {
-            showPh();
-          };
-          im.src = normalizeAdImageUrl(raw) || raw;
-          wrap.appendChild(im);
-          root.appendChild(wrap);
-        } catch (e) {
-          showPh();
-        }
-      }
-
-      var ALL_ROWS = [];
-      var currentFilter = "all";
-
-      var CATEGORIES = [
-        { id: "all", label: "అన్నీ" },
-        { id: "Local", label: "స్థానిక" },
-        { id: "Agriculture", label: "వ్యవసాయం" },
-        { id: "Politics", label: "రాజకీయాలు" },
-        { id: "General", label: "సాధారణ" },
-        { id: "Business", label: "వ్యాపారం" },
-        { id: "Health", label: "ఆరోగ్యం" },
-        { id: "Technology", label: "టెక్నాలజీ" },
-        { id: "Grama Panchayath", label: "గ్రామ పంచాయతీ" },
-      ];
-
-      function timeAgo(iso) {
-        if (iso == null || iso === "") return "";
-        var t = new Date(iso).getTime();
-        if (!Number.isFinite(t)) return "";
-        var s = Math.floor((Date.now() - t) / 1000);
-        if (s < 60) return s + " సెకన్ల క్రితం";
-        var m = Math.floor(s / 60);
-        if (m < 60) return m + " నిమిషాల క్రితం";
-        var h = Math.floor(m / 60);
-        if (h < 24) return h + " గంటల క్రితం";
-        var d = Math.floor(h / 24);
-        if (d < 7) return d + " రోజుల క్రితం";
-        return new Date(iso).toLocaleDateString("te-IN");
-      }
-
-      function snippet(text, max) {
-        if (!text) return "";
-        var one = text.replace(/\s+/g, " ").trim();
-        if (one.length <= max) return one;
-        return one.slice(0, max - 1) + "…";
-      }
-
-      function rowMatchesQuery(row, q) {
-        if (!q) return true;
-        var hay = (
-          (row.title || "") +
-          " " +
-          (row.sub_headline || "") +
-          " " +
-          (row.content || "") +
-          " " +
-          (row.category || "")
-        ).toLowerCase();
-        return hay.indexOf(q) !== -1;
+        var doubled = src.concat(src);
+        track.innerHTML = doubled.map(function (row) {
+          return '<a class="px-6 text-sm font-semibold hover:underline whitespace-nowrap" href="news-detail.html?id=' + encodeURIComponent(row.id) + '">' + escapeHtml(row.title) + "</a>";
+        }).join("");
       }
 
       function renderFilters() {
         var wrap = document.getElementById("news-filters");
-        if (!wrap) return;
         wrap.innerHTML = "";
-        CATEGORIES.forEach(function (c) {
+        CATEGORIES.forEach(function (cat) {
           var b = document.createElement("button");
           b.type = "button";
-          b.setAttribute("data-cat", c.id);
-          b.className =
-            "rounded-full border px-3 py-1.5 text-xs font-semibold transition sm:text-sm " +
-            (currentFilter === c.id
-              ? "border-slate-800 bg-slate-800 text-amber-300"
-              : "border-slate-200 bg-white text-slate-700 hover:border-amber-400");
-          b.textContent = c.label;
-          b.addEventListener("click", function () {
-            currentFilter = c.id;
-            renderFilters();
-            renderNews();
-          });
+          b.textContent = cat;
+          b.className = "rounded-full border px-3 py-1 text-xs font-semibold " + (currentFilter === cat ? "bg-slate-900 text-white border-slate-900" : "border-slate-300 text-slate-700");
+          b.addEventListener("click", function () { currentFilter = cat; renderFilters(); renderNews(); });
           wrap.appendChild(b);
         });
       }
 
-      function renderNews() {
-        var listEl = document.getElementById("news-list");
-        var empty = document.getElementById("news-empty");
-        if (!listEl) return;
-        listEl.innerHTML = "";
-        var params = new URLSearchParams(window.location.search);
-        var qRaw = params.get("q");
-        var q = qRaw != null ? String(qRaw).trim().toLowerCase() : "";
-
-        var rows = ALL_ROWS.filter(function (row) {
-          if (currentFilter === "all") return true;
-          var cat = (row.category || "General").trim();
-          return cat === currentFilter;
-        }).filter(function (row) {
-          return rowMatchesQuery(row, q);
-        });
-
-        if (!rows.length) {
-          empty.classList.remove("hidden");
-          return;
-        }
-        empty.classList.add("hidden");
-        rows.forEach(function (row) {
-          var nid = row.id != null ? String(row.id).trim() : "";
-          if (!nid) return;
-          var thumb = row.image_url || "";
-          if (!thumb && row.gallery_json) {
-            try {
-              var g = row.gallery_json;
-              if (Array.isArray(g) && g[0]) thumb = String(g[0]);
-            } catch (e) {}
-          }
-          var card = document.createElement("a");
-          card.href = "news-detail.html?id=" + encodeURIComponent(nid);
-          card.className =
-            "mns-card-news group flex flex-col overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm ring-1 ring-slate-100 sm:flex-row";
-
-          var imgWrap = document.createElement("div");
-          imgWrap.className =
-            "relative h-40 w-full shrink-0 bg-gradient-to-br from-slate-100 to-slate-200 sm:h-auto sm:min-h-[140px] sm:w-44";
-          if (thumb) {
-            var im = document.createElement("img");
-            im.src = thumb;
-            im.alt = "";
-            im.className = "h-full w-full object-cover sm:h-full sm:min-h-[140px]";
-            im.loading = "lazy";
-            im.decoding = "async";
-            im.onerror = function () {
-              imgWrap.innerHTML =
-                '<div class="flex h-full min-h-[140px] w-full items-center justify-center font-telugu text-xs text-slate-400">ఫోటో</div>';
-            };
-            imgWrap.appendChild(im);
-          } else {
-            imgWrap.innerHTML =
-              '<div class="flex h-full min-h-[140px] w-full items-center justify-center font-telugu text-xs text-slate-400">ఫోటో</div>';
-          }
-
-          var body = document.createElement("div");
-          body.className = "flex min-w-0 flex-1 flex-col justify-center p-4";
-          var tag = document.createElement("span");
-          tag.className = "font-sans text-[10px] font-bold uppercase tracking-wider text-slate-600";
-          tag.textContent = row.category || "News";
-          var h = document.createElement("h3");
-          h.className =
-            "font-telugu line-clamp-2 text-lg font-bold leading-snug text-slate-900 group-hover:text-slate-700";
-          h.textContent = row.title || "";
-          var sub = document.createElement("p");
-          sub.className = "mt-1 line-clamp-2 font-telugu text-sm text-slate-600";
-          sub.textContent = row.sub_headline ? row.sub_headline : snippet(row.content, 120);
-          var time = document.createElement("p");
-          time.className = "font-sans mt-auto pt-3 text-xs font-medium text-slate-400";
-          time.textContent = timeAgo(row.created_at);
-          body.appendChild(tag);
-          body.appendChild(h);
-          body.appendChild(sub);
-          body.appendChild(time);
-
-          card.appendChild(imgWrap);
-          card.appendChild(body);
-          listEl.appendChild(card);
+      function renderSideLinks(rows) {
+        var ul = document.getElementById("left-headlines");
+        ul.innerHTML = "";
+        rows.slice(0, 12).forEach(function (r) {
+          var li = document.createElement("li");
+          li.innerHTML = '<a class="block hover:text-blue-700 hover:underline" href="news-detail.html?id=' + encodeURIComponent(r.id) + '">' + escapeHtml(r.title) + "</a>";
+          ul.appendChild(li);
         });
       }
 
-      document.addEventListener("DOMContentLoaded", function () {
-        loadTicker();
-        loadSidebarAd();
-        renderFilters();
+      function renderNews() {
+        var list = document.getElementById("news-list");
+        var empty = document.getElementById("news-empty");
+        list.innerHTML = "";
+        var rows = ALL_ROWS.filter(function (r) {
+          return (currentFilter === "all" || String(r.category || "").trim() === currentFilter) && validHeadline(r.title || "");
+        });
+        if (!rows.length) { empty.classList.remove("hidden"); return; }
+        empty.classList.add("hidden");
+        rows.forEach(function (row) {
+          var id = row.id != null ? String(row.id) : "";
+          if (!id) return;
+          var img = heroImage(row);
+          var card = document.createElement("article");
+          card.className = "overflow-hidden rounded-xl border border-slate-200";
+          card.innerHTML =
+            '<div class="flex flex-col sm:flex-row">' +
+            '<a class="block sm:w-52 shrink-0 bg-slate-100" href="news-detail.html?id=' + encodeURIComponent(id) + '">' +
+            (img ? '<img src="' + escapeHtml(img) + '" alt="" class="h-44 w-full object-cover sm:h-full">' : '<div class="flex h-44 items-center justify-center text-sm text-slate-400">No Image</div>') +
+            "</a>" +
+            '<div class="flex-1 p-4">' +
+            '<p class="text-xs font-semibold uppercase tracking-wide text-slate-500">' + escapeHtml(row.category || "News") + "</p>" +
+            '<a href="news-detail.html?id=' + encodeURIComponent(id) + '" class="mt-1 block text-lg font-bold leading-snug text-slate-900 hover:text-blue-700">' + escapeHtml(row.title || "") + "</a>" +
+            '<p class="mt-2 text-sm text-slate-600">' + escapeHtml(row.sub_headline || snippet(row.content, 150)) + "</p>" +
+            "</div></div>";
+          list.appendChild(card);
+        });
+      }
 
-        (async function () {
-          var loading = document.getElementById("news-loading");
-          var errEl = document.getElementById("news-err");
-          try {
-            var res = await fetch(apiBase() + "/api/news?limit=100", { cache: "no-store" });
-            var data = await res.json();
-            if (loading) loading.classList.add("hidden");
-            if (!res.ok || !data.ok) {
-              errEl.textContent = (data && data.error) || "వార్తలు లోడ్ కాలేదు";
-              errEl.classList.remove("hidden");
-              return;
-            }
-            ALL_ROWS = data.items || [];
-            renderNews();
-          } catch (e) {
-            if (loading) loading.classList.add("hidden");
-            errEl.textContent = "నెట్‌వర్క్ లోపం — సర్వర్ నడుస్తోందో చూడండి.";
-            errEl.classList.remove("hidden");
+      async function loadSidebarAd() {
+        var root = document.getElementById("mns-sidebar-ad-root");
+        try {
+          var r = await fetch(apiBase() + "/api/ads/sidebar?_=" + Date.now(), { cache: "no-store" });
+          var j = await r.json().catch(function () { return {}; });
+          var ad = j && j.ok && j.ad ? j.ad : null;
+          if (!ad) {
+            r = await fetch(apiBase() + "/api/ads?_=" + Date.now(), { cache: "no-store" });
+            j = await r.json().catch(function () { return {}; });
+            var items = j && j.ok ? (j.items || []) : [];
+            ad = items[0] || null;
           }
-        })();
-      });
+          if (!ad || !ad.image_url) throw new Error("No ad");
+          var src = normalizeAdImageUrl(ad.image_url);
+          var href = ad.link_url ? String(ad.link_url).trim() : "";
+          root.className = "mt-2 overflow-hidden rounded-lg border border-slate-200 bg-white";
+          root.innerHTML = (href ? '<a href="' + escapeHtml(href) + '" target="_blank" rel="noopener noreferrer">' : "") + '<img src="' + escapeHtml(src) + '" alt="Ad" class="w-full h-auto object-contain">' + (href ? "</a>" : "");
+        } catch (e) {
+          root.textContent = "Ad not available.";
+        }
+      }
+
+      (async function () {
+        renderFilters();
+        loadSidebarAd();
+        var loading = document.getElementById("news-loading");
+        var err = document.getElementById("news-err");
+        try {
+          var res = await fetch(apiBase() + "/api/news?limit=120", { cache: "no-store" });
+          var data = await res.json().catch(function () { return {}; });
+          if (!res.ok || !data.ok) throw new Error(data.error || "Failed loading news");
+          ALL_ROWS = (data.items || []).filter(function (x) { return x && x.id && x.title; });
+          loading.classList.add("hidden");
+          renderTicker(ALL_ROWS);
+          renderSideLinks(ALL_ROWS);
+          renderNews();
+        } catch (e) {
+          loading.classList.add("hidden");
+          err.classList.remove("hidden");
+          err.textContent = e.message || "Network error";
+        }
+      })();
     })();
   </script>
 </body>
