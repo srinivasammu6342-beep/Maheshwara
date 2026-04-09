@@ -81,7 +81,7 @@
               </button>
             </div>
             <textarea id="body" name="body" rows="8" required class="mns-input" style="resize: vertical"></textarea>
-            <p id="body-meta" class="mt-1 text-xs text-slate-500">0 words (target around 99)</p>
+            <p id="body-meta" class="mt-1 text-xs text-slate-500">0 words (target around 99, max 120)</p>
           </div>
           <div>
             <label class="text-sm font-semibold">Multiple Image Upload (first image becomes hero)</label>
@@ -274,8 +274,8 @@
           return;
         }
         var wc = wordCount(content);
-        if (wc < 60 || wc > 170) {
-          msg.textContent = "Body should be near 99 words (accepted range: 60-170).";
+        if (wc < 60 || wc > 120) {
+          msg.textContent = "Body should be near 99 words (accepted range: 60-120).";
           msg.className = "text-center text-sm text-red-600";
           return;
         }
