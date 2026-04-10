@@ -3,152 +3,250 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>News Detail • MNS Dark Tech</title>
+    <title>Upload News • MNS News</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu:wght@400;500;700&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu:wght@400;500;700&display=swap');
         
         body {
-            background: linear-gradient(180deg, #0f172a 0%, #020617 100%);
+            background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
         }
         
-        .neon-cyan {
-            text-shadow: 0 0 20px #22d3ee;
+        .neon-blue {
+            color: #2563eb;
+            text-shadow: 0 0 12px rgba(37, 99, 235, 0.5);
         }
         
-        .share-btn {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        .card {
+            background: white;
+            border: 2px solid #3b82f6;
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.15);
+            transition: all 0.3s ease;
         }
         
-        .share-btn:hover {
-            transform: translateY(-4px) scale(1.15);
+        .card:hover {
+            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.25);
+            transform: translateY(-4px);
+        }
+        
+        .form-label {
+            color: #1e40af;
+            font-weight: 600;
+        }
+        
+        .success-modal {
+            animation: popIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        
+        @keyframes popIn {
+            0% { transform: scale(0.7); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
         }
     </style>
 </head>
-<body class="text-slate-200">
+<body class="text-slate-800 min-h-screen pb-12">
     <!-- Navbar -->
-    <nav class="bg-slate-950 border-b-2 border-[#22d3ee] sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+    <nav class="bg-white border-b-4 border-blue-600 sticky top-0 z-50 shadow">
+        <div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
             <div class="flex items-center gap-x-3">
-                <div class="w-9 h-9 bg-[#22d3ee] text-slate-950 rounded-xl flex items-center justify-center font-bold text-2xl rotate-12">M</div>
-                <h1 class="text-3xl font-bold tracking-tighter neon-cyan">MNS NEWS</h1>
-                <span class="px-3 py-1 text-xs font-mono bg-red-600 text-white rounded-full uppercase tracking-[2px] text-[10px]">DARK•TECH</span>
+                <div class="w-10 h-10 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-3xl">M</div>
+                <h1 class="text-4xl font-bold tracking-tight neon-blue">MNS NEWS</h1>
             </div>
-            <a href="news.html" class="flex items-center gap-x-2 text-sm font-medium hover:text-[#22d3ee]">
-                ← BACK TO FEED
-            </a>
+            <div class="flex items-center gap-x-8 text-base font-medium">
+                <a href="news.html" class="hover:text-blue-600 transition-colors">News Feed</a>
+                <a href="upload-news.html" class="text-blue-600 font-semibold">Upload News</a>
+            </div>
         </div>
     </nav>
 
-    <div id="detailContainer" class="max-w-5xl mx-auto px-6 py-10">
-        <!-- Dynamically populated by JS -->
+    <div class="max-w-5xl mx-auto px-6 pt-12">
+        <h2 class="text-5xl font-bold tracking-tight neon-blue mb-2">Upload News</h2>
+        <p class="text-slate-600 text-xl mb-10">Share your story with the community</p>
+
+        <form id="newsForm" class="card rounded-3xl p-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-8">
+                <!-- Category, News Code, Date, Village/Town -->
+                <div>
+                    <label class="form-label block mb-2">Category</label>
+                    <select id="category" class="w-full border-2 border-blue-200 focus:border-blue-600 rounded-2xl px-6 py-5 text-lg outline-none">
+                        <option value="Politics">Politics • రాజకీయాలు</option>
+                        <option value="Agri">Agriculture • వ్యవసాయం</option>
+                        <option value="Local">Local • స్థానికం</option>
+                        <option value="Business">Business • వ్యాపారం</option>
+                        <option value="Sports">Sports • క్రీడలు</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="form-label block mb-2">News Code</label>
+                    <input type="text" id="newsCode" placeholder="MNS-2026-XXXX" 
+                           class="w-full border-2 border-blue-200 focus:border-blue-600 rounded-2xl px-6 py-5 text-lg outline-none font-mono">
+                </div>
+
+                <div>
+                    <label class="form-label block mb-2">Date</label>
+                    <input type="date" id="date" value="2026-04-10" class="w-full border-2 border-blue-200 focus:border-blue-600 rounded-2xl px-6 py-5 text-lg outline-none">
+                </div>
+
+                <div>
+                    <label class="form-label block mb-2">Village / Town</label>
+                    <input type="text" id="villageTown" placeholder="హైదరాబాద్ / నల్గొండ" 
+                           class="w-full border-2 border-blue-200 focus:border-blue-600 rounded-2xl px-6 py-5 text-lg outline-none">
+                </div>
+
+                <!-- Headline -->
+                <div class="md:col-span-2">
+                    <label class="form-label block mb-2">Headline (తెలుగు)</label>
+                    <input type="text" id="headline" placeholder="గ్రామంలో భారీ వర్షం..." 
+                           class="w-full border-2 border-blue-200 focus:border-blue-600 rounded-3xl px-6 py-6 text-2xl outline-none font-semibold">
+                </div>
+
+                <!-- Sub-headline -->
+                <div class="md:col-span-2">
+                    <label class="form-label block mb-2">Sub Headline</label>
+                    <input type="text" id="subHeadline" placeholder="ప్రజలు భయాందోళనలో..." 
+                           class="w-full border-2 border-blue-200 focus:border-blue-600 rounded-3xl px-6 py-6 text-xl outline-none">
+                </div>
+
+                <!-- Body -->
+                <div class="md:col-span-2">
+                    <label class="form-label block mb-2">News Body</label>
+                    <textarea id="body" rows="7" placeholder="వివరాలు ఇక్కడ టైప్ చేయండి..."
+                              class="w-full border-2 border-blue-200 focus:border-blue-600 rounded-3xl px-6 py-6 text-lg outline-none"></textarea>
+                </div>
+
+                <!-- Bullet Points -->
+                <div class="md:col-span-2">
+                    <label class="form-label block mb-2">Bullet Points</label>
+                    <div class="flex gap-3 mb-3">
+                        <input id="bulletInput" type="text" placeholder="Add bullet point..." 
+                               class="flex-1 border-2 border-blue-200 focus:border-blue-600 rounded-2xl px-6 py-5 text-lg outline-none">
+                        <button type="button" onclick="addBullet()" 
+                                class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 rounded-2xl">+ ADD</button>
+                    </div>
+                    <ul id="bulletsList" class="space-y-3 min-h-[140px] bg-slate-50 border border-blue-100 rounded-3xl p-5"></ul>
+                </div>
+
+                <!-- Closing Line -->
+                <div class="md:col-span-2">
+                    <label class="form-label block mb-2">Closing Line</label>
+                    <input type="text" id="closingLine" placeholder="మరిన్ని వివరాలు త్వరలో..." 
+                           class="w-full border-2 border-blue-200 focus:border-blue-600 rounded-3xl px-6 py-6 text-xl outline-none">
+                </div>
+
+                <!-- Media Upload -->
+                <div class="md:col-span-2">
+                    <label class="form-label block mb-2">Media (Images / Videos)</label>
+                    <div onclick="document.getElementById('mediaUpload').click()" 
+                         class="border-2 border-dashed border-blue-300 hover:border-blue-600 rounded-3xl p-12 text-center cursor-pointer transition-all">
+                        <p class="text-6xl mb-4">📸📹</p>
+                        <p class="text-xl font-medium text-blue-600">Click or drop files here</p>
+                    </div>
+                    <input type="file" id="mediaUpload" multiple accept="image/*,video/*" class="hidden">
+                    <div id="mediaPreview" class="flex flex-wrap gap-4 mt-6"></div>
+                </div>
+
+                <!-- Flash News -->
+                <div class="md:col-span-2 bg-orange-50 border-2 border-orange-400 rounded-3xl p-6 flex items-center gap-4">
+                    <input type="checkbox" id="isFlash" class="w-6 h-6 accent-orange-500">
+                    <div>
+                        <span class="text-2xl font-bold text-orange-600">Flash News / Ticker</span>
+                        <p class="text-orange-700">Check this to show headline in scrolling ticker</p>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" 
+                    class="mt-12 w-full bg-blue-600 hover:bg-blue-700 text-white font-bold text-2xl py-7 rounded-3xl transition-all">
+                PUBLISH NEWS
+            </button>
+        </form>
     </div>
 
-    <!-- Floating Share Bar -->
-    <div id="shareBar" class="hidden fixed bottom-8 right-8 bg-slate-900 border-2 border-[#22d3ee] rounded-3xl shadow-2xl p-2 flex items-center gap-x-2 z-50">
-        <!-- Populated by JS -->
+    <!-- Success Modal -->
+    <div id="successModal" class="hidden fixed inset-0 bg-black/60 flex items-center justify-center z-[100]">
+        <div class="success-modal bg-white rounded-3xl p-16 text-center max-w-md w-full mx-4 border-4 border-blue-600">
+            <div class="text-8xl mb-6">🎉</div>
+            <h3 class="text-4xl font-bold text-blue-600">News Published Successfully!</h3>
+            <p class="mt-4 text-slate-600">Redirecting to news feed...</p>
+        </div>
     </div>
 
     <script>
-        // Tailwind init
-        function initializeTailwind() {
-            return { config(userConfig = {}) { return { content: [], theme: { extend: {} }, plugins: [], ...userConfig } }, theme: { extend: {} } }
-        }
-        document.addEventListener('DOMContentLoaded', initializeTailwind)
+        let mediaFiles = [];
 
-        function getNewsById(id) {
-            const allNews = JSON.parse(localStorage.getItem('mns_news_data')) || []
-            return allNews.find(n => n.id === id)
+        function addBullet() {
+            const input = document.getElementById('bulletInput');
+            const value = input.value.trim();
+            if (!value) return;
+
+            const list = document.getElementById('bulletsList');
+            const li = document.createElement('li');
+            li.className = "flex justify-between bg-white border border-blue-100 px-5 py-4 rounded-2xl";
+            li.innerHTML = `
+                <span>${value}</span>
+                <button onclick="this.parentElement.remove()" class="text-red-500 text-2xl">×</button>
+            `;
+            list.appendChild(li);
+            input.value = '';
         }
 
-        function renderDetail() {
-            const urlParams = new URLSearchParams(window.location.search)
-            const id = urlParams.get('id')
-            
-            if (!id) {
-                document.getElementById('detailContainer').innerHTML = `
-                    <div class="text-center py-20">
-                        <h1 class="text-4xl text-red-400">⚠️ No news ID found in URL</h1>
-                        <p class="mt-4 text-slate-400">Go back to <a href="news.html" class="text-[#22d3ee] underline">news feed</a></p>
-                    </div>`
-                return
-            }
-            
-            const news = getNewsById(id)
-            
-            if (!news) {
-                document.getElementById('detailContainer').innerHTML = `
-                    <div class="text-center py-20">
-                        <h1 class="text-4xl text-red-400">📰 News not found</h1>
-                        <p class="mt-4 text-slate-400">This story may have been deleted or never existed.</p>
-                    </div>`
-                return
-            }
-            
-            // Main content
-            let mediaHTML = ''
-            if (news.media && news.media.length > 0) {
-                const first = news.media[0]
-                if (first.type.startsWith('image/')) {
-                    mediaHTML = `<img src="${first.dataUrl}" class="w-full max-h-[560px] object-cover rounded-3xl border border-[#22d3ee]/40 shadow-2xl">`
+        function renderPreviews() {
+            const container = document.getElementById('mediaPreview');
+            container.innerHTML = '';
+            mediaFiles.forEach((file, i) => {
+                const div = document.createElement('div');
+                div.className = 'relative';
+                if (file.type.startsWith('image/')) {
+                    div.innerHTML = `<img src="${file.dataUrl}" class="w-32 h-32 object-cover rounded-2xl border border-blue-300">`;
                 } else {
-                    mediaHTML = `<video src="${first.dataUrl}" controls autoplay class="w-full max-h-[560px] object-cover rounded-3xl border border-[#22d3ee]/40 shadow-2xl"></video>`
+                    div.innerHTML = `<video src="${file.dataUrl}" class="w-32 h-32 object-cover rounded-2xl border border-blue-300" muted></video>`;
                 }
-            }
-            
-            const bulletsHTML = news.bullets && news.bullets.length 
-                ? `<ul class="list-disc pl-8 space-y-4 text-xl">${news.bullets.map(b => `<li>${b}</li>`).join('')}</ul>` 
-                : ''
-            
-            document.getElementById('detailContainer').innerHTML = `
-                <div class="flex justify-between items-start mb-6">
-                    <div>
-                        <span class="inline-block bg-[#22d3ee] text-slate-950 text-xs font-bold px-6 h-8 rounded-3xl flex items-center">${news.category}</span>
-                        <p class="text-sm font-mono text-slate-400 mt-4">${news.date} • ${news.villageTown} • ${news.newsCode}</p>
-                    </div>
-                    ${news.isFlash ? `<div class="text-4xl font-black text-red-500 flex items-center gap-x-3"><span class="animate-pulse">🔴</span>FLASH NEWS</div>` : ''}
-                </div>
-                
-                <h1 class="text-6xl leading-none font-bold neon-cyan mb-6">${news.headline}</h1>
-                <p class="text-3xl text-slate-300 mb-10">${news.subHeadline}</p>
-                
-                ${mediaHTML}
-                
-                <div class="prose prose-invert max-w-none mt-12 text-xl leading-relaxed">
-                    <p class="mb-10">${news.body}</p>
-                    ${bulletsHTML}
-                    <p class="mt-12 font-semibold text-2xl text-[#22d3ee]">${news.closingLine}</p>
-                </div>
-                
-                <div class="mt-16 pt-10 border-t border-[#22d3ee]/30 text-xs font-mono flex justify-between text-slate-400">
-                    <div>Published via MNS Dark-Tech • ID: ${news.id}</div>
-                    <div>${new Date(news.timestamp).toLocaleString('en-IN')}</div>
-                </div>
-            `
-            // Render floating share bar
-            renderShareBar(news)
+                container.appendChild(div);
+            });
         }
-        
-        function renderShareBar(news) {
-            const bar = document.getElementById('shareBar')
-            const currentUrl = encodeURIComponent(window.location.href)
-            const text = encodeURIComponent(news.headline)
-            
-            bar.innerHTML = `
-                <a href="https://wa.me/?text=${text}%0A${currentUrl}" target="_blank" 
-                   class="share-btn flex items-center justify-center w-12 h-12 bg-green-500 text-white rounded-2xl text-3xl">📱</a>
-                <a href="https://www.facebook.com/sharer/sharer.php?u=${currentUrl}" target="_blank" 
-                   class="share-btn flex items-center justify-center w-12 h-12 bg-blue-600 text-white rounded-2xl text-3xl">📘</a>
-                <a href="https://t.me/share/url?url=${currentUrl}&text=${text}" target="_blank" 
-                   class="share-btn flex items-center justify-center w-12 h-12 bg-sky-500 text-white rounded-2xl text-3xl">📨</a>
-                <a href="https://twitter.com/intent/tweet?text=${text}&url=${currentUrl}" target="_blank" 
-                   class="share-btn flex items-center justify-center w-12 h-12 bg-black text-white rounded-2xl text-3xl">𝕏</a>
-            `
-            bar.classList.remove('hidden')
-        }
-        
-        window.onload = renderDetail
+
+        document.getElementById('mediaUpload').addEventListener('change', (e) => {
+            Array.from(e.target.files).forEach(file => {
+                const reader = new FileReader();
+                reader.onload = (ev) => {
+                    mediaFiles.push({ type: file.type, dataUrl: ev.target.result });
+                    renderPreviews();
+                };
+                reader.readAsDataURL(file);
+            });
+        });
+
+        document.getElementById('newsForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const bullets = Array.from(document.getElementById('bulletsList').children)
+                                .map(li => li.querySelector('span').textContent);
+
+            const newsItem = {
+                id: 'mns-' + Date.now().toString(36),
+                timestamp: new Date().toISOString(),
+                category: document.getElementById('category').value,
+                newsCode: document.getElementById('newsCode').value || 'MNS-' + Date.now(),
+                date: document.getElementById('date').value,
+                villageTown: document.getElementById('villageTown').value,
+                headline: document.getElementById('headline').value,
+                subHeadline: document.getElementById('subHeadline').value,
+                body: document.getElementById('body').value,
+                bullets: bullets,
+                closingLine: document.getElementById('closingLine').value,
+                isFlash: document.getElementById('isFlash').checked,
+                media: [...mediaFiles]
+            };
+
+            let allNews = JSON.parse(localStorage.getItem('mns_news_data')) || [];
+            allNews.unshift(newsItem);
+            localStorage.setItem('mns_news_data', JSON.stringify(allNews));
+
+            document.getElementById('successModal').classList.remove('hidden');
+            setTimeout(() => window.location.href = 'news.html', 1800);
+        });
     </script>
 </body>
 </html>
