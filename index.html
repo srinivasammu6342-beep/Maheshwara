@@ -377,13 +377,15 @@
           Close
         </button>
       </div>
-      <form class="mt-5 space-y-4">
+
+      <form id="admin-login-form" class="mt-5 space-y-4">
         <div>
           <label class="mb-1 block text-xs font-semibold uppercase tracking-wider text-cyan-200" for="admin-email">Email</label>
           <input
-            id="text"
-            type="text"
-            placeholder="admin"
+            id="admin-email"
+            type="email"
+            placeholder="admin@example.com"
+            required
             class="w-full rounded-md border border-slate-200 border-opacity-25 bg-black bg-opacity-20 px-3 py-2.5 text-sm text-slate-100 placeholder-slate-400 focus:border-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-opacity-30"
           />
         </div>
@@ -393,6 +395,7 @@
             id="admin-password"
             type="password"
             placeholder="Enter secure password"
+            required
             class="w-full rounded-md border border-slate-200 border-opacity-25 bg-black bg-opacity-20 px-3 py-2.5 text-sm text-slate-100 placeholder-slate-400 focus:border-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-opacity-30"
           />
         </div>
@@ -401,8 +404,30 @@
         </button>
       </form>
     </div>
-  </div>
+</div>
 
+<script>
+  document.getElementById('admin-login-form').addEventListener('submit', function(event) {
+    // పేజీ రీఫ్రెష్ అవ్వకుండా ఆపుతుంది
+    event.preventDefault();
+
+    // యూజర్ బాక్సుల్లో టైప్ చేసిన వివరాలు తీసుకోవడం
+    const enteredEmail = document.getElementById('admin-email').value;
+    const enteredPassword = document.getElementById('admin-password').value;
+
+    // మీరు చెప్పిన వివరాలతో సరిపోల్చడం
+    const correctEmail = "nexlifynucleus@gmail.com";
+    const correctPassword = "Maheshwara2026#";
+
+    if (enteredEmail === correctEmail && enteredPassword === correctPassword) {
+      // వివరాలు సరిపోతే news.html పేజీకి పంపిస్తుంది
+      window.location.href = 'news.html';
+    } else {
+      // వివరాలు తప్పు అయితే ఈ మెసేజ్ చూపిస్తుంది
+      alert('తప్పుడు వివరాలు! దయచేసి సరైన ఈమెయిల్ మరియు పాస్‌వర్డ్ ఇవ్వండి.');
+    }
+  });
+</script>
   <script>
     (function () {
       var body = document.body;
@@ -414,7 +439,7 @@
       var adminModal = document.getElementById("admin-modal");
       var adminOpenBtn = document.getElementById("admin-open-btn");
       var adminCloseBtn = document.getElementById("admin-close-btn");
-      var adminEmail = document.getElementById("admin-email");
+      var adminEmail = document.getElementById("admin-text");
 
       function lockScroll(lock) {
         if (lock) {
