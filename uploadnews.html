@@ -1,252 +1,636 @@
 <!DOCTYPE html>
-<html lang="te">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Upload News • MNS News</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu:wght@400;500;700&display=swap" rel="stylesheet">
+    <title>Maheshwara Nexlify News - Upload</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <!-- Gidugu Telugu Font (fallback to system if not loaded; use Noto Sans Telugu or similar for better support) -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu:wght@400;500;700&display=swap');
-        
+        :root {
+            --neon-cyan: #00f5ff;
+            --royal-red: #ff0033;
+            --emerald-green: #00ff9d;
+            --midnight-blue: #0a0f2c;
+            --glass-bg: rgba(15, 23, 42, 0.75);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+            font-family: 'Inter', system-ui, sans-serif;
+            background: linear-gradient(135deg, #0a0f2c 0%, #1a1f3d 100%);
+            color: #e0f7ff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
         }
-        
-        .neon-blue {
-            color: #2563eb;
-            text-shadow: 0 0 12px rgba(37, 99, 235, 0.5);
+
+        /* Subtle animated grid background for futuristic feel */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 245, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 245, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: -1;
         }
-        
-        .card {
-            background: white;
-            border: 2px solid #3b82f6;
-            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.15);
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        header {
+            background: rgba(10, 15, 44, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 245, 255, 0.3);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 10px 30px rgba(0, 245, 255, 0.1);
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .main-heading {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, #00f5ff, #a0f7ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 
+                0 0 10px #00f5ff,
+                0 0 20px #00f5ff,
+                0 0 40px #00f5ff;
+            letter-spacing: 2px;
+        }
+
+        .sub-heading {
+            font-size: 1.1rem;
+            color: #ff3366;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-shadow: 0 0 15px rgba(255, 51, 102, 0.6);
+        }
+
+        /* Main Content */
+        main {
+            padding: 40px 0;
+        }
+
+        .form-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 245, 255, 0.4);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 
+                0 25px 50px -12px rgba(0, 0, 0, 0.5),
+                inset 0 2px 0 rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .form-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 245, 255, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+            animation: pulse 15s infinite ease-in-out;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            color: var(--neon-cyan);
+            text-shadow: 0 0 15px var(--neon-cyan);
+            text-align: center;
+        }
+
+        /* Grid Layout */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-size: 0.95rem;
+            margin-bottom: 8px;
+            color: #a0d8ff;
+            font-weight: 500;
+        }
+
+        input, select, textarea {
+            background: rgba(10, 15, 44, 0.8);
+            border: 1px solid rgba(0, 245, 255, 0.5);
+            border-radius: 12px;
+            padding: 14px 18px;
+            color: #e0f7ff;
+            font-size: 1rem;
             transition: all 0.3s ease;
         }
-        
-        .card:hover {
-            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.25);
-            transform: translateY(-4px);
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 0 4px rgba(0, 245, 255, 0.2);
+            background: rgba(15, 23, 60, 0.9);
         }
-        
-        .form-label {
-            color: #1e40af;
-            font-weight: 600;
+
+        /* Headline with Telugu support */
+        #headline {
+            font-family: 'Noto Sans Telugu', 'Inter', sans-serif;
+            font-size: 1.35rem;
+            font-weight: 700;
+            min-height: 60px;
         }
-        
-        .success-modal {
-            animation: popIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+        #subheadline {
+            font-style: italic;
+            font-size: 1.05rem;
         }
-        
-        @keyframes popIn {
-            0% { transform: scale(0.7); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
+
+        /* Large Body */
+        #body {
+            min-height: 220px;
+            resize: vertical;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        /* Bullet Points & Closing */
+        .special-box {
+            background: rgba(10, 15, 44, 0.6);
+            border: 1px dashed rgba(0, 245, 255, 0.6);
+            border-radius: 16px;
+            padding: 20px;
+        }
+
+        /* Media Upload Zone */
+        .upload-zone {
+            border: 3px dashed var(--neon-cyan);
+            border-radius: 20px;
+            padding: 50px 30px;
+            text-align: center;
+            background: rgba(10, 15, 44, 0.6);
+            transition: all 0.4s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .upload-zone:hover {
+            background: rgba(0, 245, 255, 0.08);
+            border-color: #00ff9d;
+            transform: scale(1.02);
+        }
+
+        .upload-zone::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, transparent, rgba(0, 245, 255, 0.15), transparent);
+            animation: scanline 4s linear infinite;
+        }
+
+        @keyframes scanline {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(300%); }
+        }
+
+        .previews {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .preview-item {
+            width: 90px;
+            height: 90px;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 2px solid rgba(0, 245, 255, 0.5);
+            position: relative;
+        }
+
+        .preview-item img, .preview-item video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Neon Toggle */
+        .toggle-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 1.1rem;
+        }
+
+        .neon-switch {
+            position: relative;
+            display: inline-block;
+            width: 68px;
+            height: 34px;
+        }
+
+        .neon-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: #1a233f;
+            border: 2px solid #334155;
+            border-radius: 50px;
+            transition: 0.4s;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.6);
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 2px;
+            background: linear-gradient(#ff3366, #ff6699);
+            border-radius: 50%;
+            transition: 0.4s;
+            box-shadow: 
+                0 0 15px #ff3366,
+                inset 0 0 8px rgba(255,255,255,0.8);
+        }
+
+        input:checked + .slider {
+            background: linear-gradient(90deg, #00ff9d, #00cc7a);
+            border-color: var(--emerald-green);
+            box-shadow: 0 0 25px rgba(0, 255, 157, 0.7);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(32px);
+            background: linear-gradient(#00f5ff, #00ccff);
+            box-shadow: 
+                0 0 20px #00f5ff,
+                inset 0 0 8px rgba(255,255,255,0.9);
+        }
+
+        /* Publish Button */
+        .publish-btn {
+            background: linear-gradient(90deg, #00ff9d, #00cc7a);
+            color: #0a0f2c;
+            font-size: 1.25rem;
+            font-weight: 700;
+            padding: 18px 60px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 30px;
+            box-shadow: 
+                0 0 30px rgba(0, 255, 157, 0.6),
+                0 10px 20px rgba(0, 0, 0, 0.4);
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .publish-btn:hover {
+            transform: translateY(-4px) scale(1.03);
+            box-shadow: 
+                0 0 50px rgba(0, 255, 157, 0.9),
+                0 15px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Social Preview */
+        .social-preview {
+            margin-top: 40px;
+            padding: 20px;
+            background: rgba(10, 15, 44, 0.5);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 12px;
+        }
+
+        .social-icons i {
+            font-size: 2rem;
+            color: #a0d8ff;
+            transition: all 0.3s;
+        }
+
+        .social-icons i:hover {
+            color: var(--neon-cyan);
+            transform: scale(1.2) rotate(10deg);
+            text-shadow: 0 0 15px var(--neon-cyan);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main-heading {
+                font-size: 1.8rem;
+            }
+            .form-card {
+                padding: 25px 20px;
+            }
         }
     </style>
 </head>
-<body class="text-slate-800 min-h-screen pb-12">
-    <!-- Navbar -->
-    <nav class="bg-white border-b-4 border-blue-600 sticky top-0 z-50 shadow">
-        <div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
-            <div class="flex items-center gap-x-3">
-                <div class="w-10 h-10 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-3xl">M</div>
-                <h1 class="text-4xl font-bold tracking-tight neon-blue">MNS NEWS</h1>
+<body>
+    <header>
+        <div class="container header-content">
+            <div>
+                <h1 class="main-heading">MAHESHWARA NEXLIFY NUCLEUS DIGITAL SERVICES</h1>
+                <p class="sub-heading">Maheshwara Nexlify News - News Management Portal</p>
             </div>
-            <div class="flex items-center gap-x-8 text-base font-medium">
-                <a href="news.html" class="hover:text-blue-600 transition-colors">News Feed</a>
-                <a href="upload-news.html" class="text-blue-600 font-semibold">Upload News</a>
+            <div style="text-align: right; color: #64748b; font-size: 0.9rem;">
+                Premium Newsroom Dashboard<br>
+                <span style="color: #00f5ff;">● LIVE</span>
             </div>
         </div>
-    </nav>
+    </header>
 
-    <div class="max-w-5xl mx-auto px-6 pt-12">
-        <h2 class="text-5xl font-bold tracking-tight neon-blue mb-2">Upload News</h2>
-        <p class="text-slate-600 text-xl mb-10">Share your story with the community</p>
+    <main class="container">
+        <div class="form-card">
+            <h2>UPLOAD NEW STORY</h2>
 
-        <form id="newsForm" class="card rounded-3xl p-10">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-8">
-                <!-- Category, News Code, Date, Village/Town -->
-                <div>
-                    <label class="form-label block mb-2">Category</label>
-                    <select id="category" class="w-full border-2 border-blue-200 focus:border-blue-600 rounded-2xl px-6 py-5 text-lg outline-none">
-                        <option value="Politics">Politics • రాజకీయాలు</option>
-                        <option value="Agri">Agriculture • వ్యవసాయం</option>
-                        <option value="Local">Local • స్థానికం</option>
-                        <option value="Business">Business • వ్యాపారం</option>
-                        <option value="Sports">Sports • క్రీడలు</option>
-                    </select>
-                </div>
-
-                <div>
-                    <label class="form-label block mb-2">News Code</label>
-                    <input type="text" id="newsCode" placeholder="MNS-2026-XXXX" 
-                           class="w-full border-2 border-blue-200 focus:border-blue-600 rounded-2xl px-6 py-5 text-lg outline-none font-mono">
-                </div>
-
-                <div>
-                    <label class="form-label block mb-2">Date</label>
-                    <input type="date" id="date" value="2026-04-10" class="w-full border-2 border-blue-200 focus:border-blue-600 rounded-2xl px-6 py-5 text-lg outline-none">
-                </div>
-
-                <div>
-                    <label class="form-label block mb-2">Village / Town</label>
-                    <input type="text" id="villageTown" placeholder="హైదరాబాద్ / నల్గొండ" 
-                           class="w-full border-2 border-blue-200 focus:border-blue-600 rounded-2xl px-6 py-5 text-lg outline-none">
-                </div>
-
-                <!-- Headline -->
-                <div class="md:col-span-2">
-                    <label class="form-label block mb-2">Headline (తెలుగు)</label>
-                    <input type="text" id="headline" placeholder="గ్రామంలో భారీ వర్షం..." 
-                           class="w-full border-2 border-blue-200 focus:border-blue-600 rounded-3xl px-6 py-6 text-2xl outline-none font-semibold">
-                </div>
-
-                <!-- Sub-headline -->
-                <div class="md:col-span-2">
-                    <label class="form-label block mb-2">Sub Headline</label>
-                    <input type="text" id="subHeadline" placeholder="ప్రజలు భయాందోళనలో..." 
-                           class="w-full border-2 border-blue-200 focus:border-blue-600 rounded-3xl px-6 py-6 text-xl outline-none">
-                </div>
-
-                <!-- Body -->
-                <div class="md:col-span-2">
-                    <label class="form-label block mb-2">News Body</label>
-                    <textarea id="body" rows="7" placeholder="వివరాలు ఇక్కడ టైప్ చేయండి..."
-                              class="w-full border-2 border-blue-200 focus:border-blue-600 rounded-3xl px-6 py-6 text-lg outline-none"></textarea>
-                </div>
-
-                <!-- Bullet Points -->
-                <div class="md:col-span-2">
-                    <label class="form-label block mb-2">Bullet Points</label>
-                    <div class="flex gap-3 mb-3">
-                        <input id="bulletInput" type="text" placeholder="Add bullet point..." 
-                               class="flex-1 border-2 border-blue-200 focus:border-blue-600 rounded-2xl px-6 py-5 text-lg outline-none">
-                        <button type="button" onclick="addBullet()" 
-                                class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 rounded-2xl">+ ADD</button>
+            <form id="newsForm">
+                <!-- Metadata Row -->
+                <div class="grid">
+                    <div class="form-group">
+                        <label for="category">Category</label>
+                        <select id="category" required>
+                            <option value="">Select Category</option>
+                            <option value="village">Village News</option>
+                            <option value="politics">Politics</option>
+                            <option value="development">Development</option>
+                            <option value="culture">Culture &amp; Tradition</option>
+                            <option value="agriculture">Agriculture</option>
+                            <option value="other">Other</option>
+                        </select>
                     </div>
-                    <ul id="bulletsList" class="space-y-3 min-h-[140px] bg-slate-50 border border-blue-100 rounded-3xl p-5"></ul>
+
+                    <div class="form-group">
+                        <label for="newsCode">News Code</label>
+                        <input type="text" id="newsCode" placeholder="e.g. MNX-20260410-001" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="date">Date</label>
+                        <input type="date" id="date" readonly>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="location">Village / Town</label>
+                        <input type="text" id="location" placeholder="e.g. Anantapur Rural" required>
+                    </div>
                 </div>
 
-                <!-- Closing Line -->
-                <div class="md:col-span-2">
-                    <label class="form-label block mb-2">Closing Line</label>
-                    <input type="text" id="closingLine" placeholder="మరిన్ని వివరాలు త్వరలో..." 
-                           class="w-full border-2 border-blue-200 focus:border-blue-600 rounded-3xl px-6 py-6 text-xl outline-none">
+                <!-- Headline Section -->
+                <div class="grid">
+                    <div class="form-group" style="grid-column: 1 / -1;">
+                        <label for="headline">Headline (Main Title)</label>
+                        <input type="text" id="headline" placeholder="Enter impactful headline..." required>
+                    </div>
+
+                    <div class="form-group" style="grid-column: 1 / -1;">
+                        <label for="subheadline">Sub-headline</label>
+                        <input type="text" id="subheadline" placeholder="Supporting sub-headline (optional)">
+                    </div>
+                </div>
+
+                <!-- Body Section -->
+                <div class="form-group" style="margin-bottom: 24px;">
+                    <label for="body">News Body</label>
+                    <textarea id="body" placeholder="Write the full news story here..."></textarea>
+                </div>
+
+                <div class="grid">
+                    <div class="form-group">
+                        <label>Bullet Points (Key Highlights)</label>
+                        <textarea id="bullets" class="special-box" rows="5" placeholder="• Point 1&#10;• Point 2&#10;..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="closing">Closing Line</label>
+                        <textarea id="closing" class="special-box" rows="5" placeholder="End the story with a powerful line..."></textarea>
+                    </div>
                 </div>
 
                 <!-- Media Upload -->
-                <div class="md:col-span-2">
-                    <label class="form-label block mb-2">Media (Images / Videos)</label>
-                    <div onclick="document.getElementById('mediaUpload').click()" 
-                         class="border-2 border-dashed border-blue-300 hover:border-blue-600 rounded-3xl p-12 text-center cursor-pointer transition-all">
-                        <p class="text-6xl mb-4">📸📹</p>
-                        <p class="text-xl font-medium text-blue-600">Click or drop files here</p>
+                <div style="margin: 35px 0;">
+                    <label style="display: block; margin-bottom: 12px; font-size: 1.1rem;">Multi-Media Upload (Images / Videos)</label>
+                    <div class="upload-zone" id="dropZone">
+                        <div style="font-size: 3rem; margin-bottom: 15px; color: var(--neon-cyan);">📤</div>
+                        <h3 style="margin-bottom: 8px; color: #e0f7ff;">Drag &amp; Drop Files Here</h3>
+                        <p style="color: #94a3b8;">or <span style="color: var(--neon-cyan); text-decoration: underline;">browse from device</span></p>
+                        <p style="font-size: 0.85rem; margin-top: 10px; color: #64748b;">Supports JPG, PNG, MP4 • Max 50MB per file</p>
+                        <input type="file" id="mediaInput" multiple accept="image/*,video/*" style="display: none;">
                     </div>
-                    <input type="file" id="mediaUpload" multiple accept="image/*,video/*" class="hidden">
-                    <div id="mediaPreview" class="flex flex-wrap gap-4 mt-6"></div>
+                    <div class="previews" id="previews"></div>
                 </div>
 
-                <!-- Flash News -->
-                <div class="md:col-span-2 bg-orange-50 border-2 border-orange-400 rounded-3xl p-6 flex items-center gap-4">
-                    <input type="checkbox" id="isFlash" class="w-6 h-6 accent-orange-500">
-                    <div>
-                        <span class="text-2xl font-bold text-orange-600">Flash News / Ticker</span>
-                        <p class="text-orange-700">Check this to show headline in scrolling ticker</p>
+                <!-- Flash News Toggle -->
+                <div class="toggle-container">
+                    <label class="neon-switch">
+                        <input type="checkbox" id="flashToggle">
+                        <span class="slider"></span>
+                    </label>
+                    <span>Add to <strong style="color: #ff3366;">Flash News Ticker</strong></span>
+                </div>
+
+                <!-- Social Preview -->
+                <div class="social-preview">
+                    <p style="text-align: center; margin-bottom: 10px; color: #94a3b8;">Social Sharing Preview (will appear on published post)</p>
+                    <div class="social-icons">
+                        <i class="fab fa-whatsapp"></i>
+                        <i class="fab fa-facebook"></i>
+                        <i class="fab fa-twitter"></i>
+                        <i class="fab fa-telegram"></i>
+                        <i class="fab fa-linkedin"></i>
                     </div>
                 </div>
-            </div>
 
-            <button type="submit" 
-                    class="mt-12 w-full bg-blue-600 hover:bg-blue-700 text-white font-bold text-2xl py-7 rounded-3xl transition-all">
-                PUBLISH NEWS
-            </button>
-        </form>
-    </div>
-
-    <!-- Success Modal -->
-    <div id="successModal" class="hidden fixed inset-0 bg-black/60 flex items-center justify-center z-[100]">
-        <div class="success-modal bg-white rounded-3xl p-16 text-center max-w-md w-full mx-4 border-4 border-blue-600">
-            <div class="text-8xl mb-6">🎉</div>
-            <h3 class="text-4xl font-bold text-blue-600">News Published Successfully!</h3>
-            <p class="mt-4 text-slate-600">Redirecting to news feed...</p>
+                <button type="submit" class="publish-btn">PUBLISH NEWS TO NEXLIFY NETWORK</button>
+            </form>
         </div>
-    </div>
+    </main>
 
     <script>
-        let mediaFiles = [];
+        // Font Awesome for icons (social)
+        const faLink = document.createElement('link');
+        faLink.rel = 'stylesheet';
+        faLink.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css';
+        document.head.appendChild(faLink);
 
-        function addBullet() {
-            const input = document.getElementById('bulletInput');
-            const value = input.value.trim();
-            if (!value) return;
-
-            const list = document.getElementById('bulletsList');
-            const li = document.createElement('li');
-            li.className = "flex justify-between bg-white border border-blue-100 px-5 py-4 rounded-2xl";
-            li.innerHTML = `
-                <span>${value}</span>
-                <button onclick="this.parentElement.remove()" class="text-red-500 text-2xl">×</button>
-            `;
-            list.appendChild(li);
-            input.value = '';
+        // Auto-fill today's date
+        function setTodayDate() {
+            const dateInput = document.getElementById('date');
+            const today = new Date().toISOString().split('T')[0];
+            dateInput.value = today;
         }
 
-        function renderPreviews() {
-            const container = document.getElementById('mediaPreview');
-            container.innerHTML = '';
-            mediaFiles.forEach((file, i) => {
-                const div = document.createElement('div');
-                div.className = 'relative';
-                if (file.type.startsWith('image/')) {
-                    div.innerHTML = `<img src="${file.dataUrl}" class="w-32 h-32 object-cover rounded-2xl border border-blue-300">`;
-                } else {
-                    div.innerHTML = `<video src="${file.dataUrl}" class="w-32 h-32 object-cover rounded-2xl border border-blue-300" muted></video>`;
-                }
-                container.appendChild(div);
+        // Drag & Drop + Preview
+        let uploadedFiles = [];
+
+        function setupDropZone() {
+            const dropZone = document.getElementById('dropZone');
+            const fileInput = document.getElementById('mediaInput');
+            const previewsContainer = document.getElementById('previews');
+
+            dropZone.addEventListener('click', () => fileInput.click());
+
+            fileInput.addEventListener('change', handleFiles);
+
+            // Drag events
+            ['dragover', 'dragenter'].forEach(eventName => {
+                dropZone.addEventListener(eventName, (e) => {
+                    e.preventDefault();
+                    dropZone.style.borderColor = '#00ff9d';
+                    dropZone.style.background = 'rgba(0, 255, 157, 0.1)';
+                });
             });
+
+            ['dragleave', 'dragend'].forEach(eventName => {
+                dropZone.addEventListener(eventName, () => {
+                    dropZone.style.borderColor = 'var(--neon-cyan)';
+                    dropZone.style.background = 'rgba(10, 15, 44, 0.6)';
+                });
+            });
+
+            dropZone.addEventListener('drop', (e) => {
+                e.preventDefault();
+                dropZone.style.borderColor = 'var(--neon-cyan)';
+                dropZone.style.background = 'rgba(10, 15, 44, 0.6)';
+                handleFiles(e.dataTransfer);
+            });
+
+            function handleFiles(source) {
+                const files = source.files || source;
+                Array.from(files).forEach(file => {
+                    if (file.size > 50 * 1024 * 1024) {
+                        alert("File too large! Max 50MB allowed.");
+                        return;
+                    }
+                    uploadedFiles.push(file);
+
+                    const reader = new FileReader();
+                    reader.onload = (ev) => {
+                        const div = document.createElement('div');
+                        div.className = 'preview-item';
+
+                        if (file.type.startsWith('image/')) {
+                            div.innerHTML = `<img src="${ev.target.result}" alt="preview">`;
+                        } else if (file.type.startsWith('video/')) {
+                            div.innerHTML = `<video src="${ev.target.result}" muted></video>`;
+                        }
+                        previewsContainer.appendChild(div);
+                    };
+                    reader.readAsDataURL(file);
+                });
+            }
         }
 
-        document.getElementById('mediaUpload').addEventListener('change', (e) => {
-            Array.from(e.target.files).forEach(file => {
-                const reader = new FileReader();
-                reader.onload = (ev) => {
-                    mediaFiles.push({ type: file.type, dataUrl: ev.target.result });
-                    renderPreviews();
+        // Form Submission & localStorage
+        function setupForm() {
+            const form = document.getElementById('newsForm');
+
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+
+                const newsData = {
+                    id: 'MNX-' + Date.now().toString(36).toUpperCase(),
+                    category: document.getElementById('category').value,
+                    newsCode: document.getElementById('newsCode').value,
+                    date: document.getElementById('date').value,
+                    location: document.getElementById('location').value,
+                    headline: document.getElementById('headline').value,
+                    subheadline: document.getElementById('subheadline').value,
+                    body: document.getElementById('body').value,
+                    bullets: document.getElementById('bullets').value,
+                    closing: document.getElementById('closing').value,
+                    isFlash: document.getElementById('flashToggle').checked,
+                    timestamp: new Date().toISOString(),
+                    // Media would be base64 or URLs in real implementation
+                    mediaCount: uploadedFiles.length
                 };
-                reader.readAsDataURL(file);
+
+                // Load existing or create new array
+                let allNews = JSON.parse(localStorage.getItem('mns_news_data')) || [];
+                allNews.unshift(newsData); // newest first
+                localStorage.setItem('mns_news_data', JSON.stringify(allNews));
+
+                alert(`✅ News published successfully!\n\nID: ${newsData.id}\nHeadline: ${newsData.headline.substring(0, 60)}...`);
+
+                // Optional: Reset form
+                form.reset();
+                document.getElementById('previews').innerHTML = '';
+                uploadedFiles = [];
+                setTodayDate();
             });
-        });
+        }
 
-        document.getElementById('newsForm').addEventListener('submit', function(e) {
-            e.preventDefault();
+        // Initialize everything
+        window.onload = function() {
+            setTodayDate();
+            setupDropZone();
+            setupForm();
 
-            const bullets = Array.from(document.getElementById('bulletsList').children)
-                                .map(li => li.querySelector('span').textContent);
-
-            const newsItem = {
-                id: 'mns-' + Date.now().toString(36),
-                timestamp: new Date().toISOString(),
-                category: document.getElementById('category').value,
-                newsCode: document.getElementById('newsCode').value || 'MNS-' + Date.now(),
-                date: document.getElementById('date').value,
-                villageTown: document.getElementById('villageTown').value,
-                headline: document.getElementById('headline').value,
-                subHeadline: document.getElementById('subHeadline').value,
-                body: document.getElementById('body').value,
-                bullets: bullets,
-                closingLine: document.getElementById('closingLine').value,
-                isFlash: document.getElementById('isFlash').checked,
-                media: [...mediaFiles]
-            };
-
-            let allNews = JSON.parse(localStorage.getItem('mns_news_data')) || [];
-            allNews.unshift(newsItem);
-            localStorage.setItem('mns_news_data', JSON.stringify(allNews));
-
-            document.getElementById('successModal').classList.remove('hidden');
-            setTimeout(() => window.location.href = 'news.html', 1800);
-        });
+            // Optional keyboard shortcut hint
+            console.log('%c🚀 Upload portal ready. Press Ctrl/Cmd + Enter to submit (not implemented yet).', 'color:#00f5ff; font-family:monospace');
+        };
     </script>
 </body>
 </html>
