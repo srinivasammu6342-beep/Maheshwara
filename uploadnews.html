@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="te">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News Detail • MNS Dark Tech</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu:wght@400;500;700&amp;display=swap" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu:wght@400;500;700&display=swap');
+        
+        body {
+            background: linear-gradient(180deg, #0f172a 0%, #020617 100%);
+        }
+        
+        .neon-cyan {
+            text-shadow: 0 0 20px #22d3ee;
+        }
+        
+        .share-btn {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .share-btn:hover {
+            transform: translateY(-4px) scale(1.15);
+        }
+    </style>
+</head>
+<body class="text-slate-200">
+    <!-- Navbar -->
+    <nav class="bg-slate-950 border-b-2 border-[#22d3ee] sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+            <div class="flex items-center gap-x-3">
+                <div class="w-9 h-9 bg-[#22d3ee] text-slate-950 rounded-xl flex items-center justify-center font-bold text-2xl rotate-12">M</div>
+                <h1 class="text-3xl font-bold tracking-tighter neon-cyan">MNS NEWS</h1>
+                <span class="px-3 py-1 text-xs font-mono bg-red-600 text-white rounded-full uppercase tracking-[2px] text-[10px]">DARK•TECH</span>
+            </div>
+            <a href="news.html" class="flex items-center gap-x-2 text-sm font-medium hover:text-[#22d3ee]">
+                ← BACK TO FEED
+            </a>
+        </div>
+    </nav>
+
+    <div id="detailContainer" class="max-w-5xl mx-auto px-6 py-10">
+        <!-- Dynamically populated by JS -->
+    </div>
+
+    <!-- Floating Share Bar -->
+    <div id="shareBar" class="hidden fixed bottom-8 right-8 bg-slate-900 border-2 border-[#22d3ee] rounded-3xl shadow-2xl p-2 flex items-center gap-x-2 z-50">
+        <!-- Populated by JS -->
+    </div>
+
+    <script>
+        // Tailwind init
+        function initializeTailwind() {
+            return { config(userConfig = {}) { return { content: [], theme: { extend: {} }, plugins: [], ...userConfig } }, theme: { extend: {} } }
+        }
+        document.addEventListener('DOMContentLoaded', initializeTailwind)
+
+        function getNewsById(id) {
+            const allNews = JSON.parse(localStorage.getItem('mns_news_data')) || []
+            return allNews.find(n => n.id === id)
+        }
+
+        function renderDetail() {
+            const urlParams = new URLSearchParams(window.location.search)
+            const id = urlParams.get('id')
+            
+            if (!id) {
+                document.getElementById('detailContainer').innerHTML = `
+                    <div class="text-center py-20">
+                        <h1 class="text-4xl text-red-400">⚠️ No news ID found in URL</h1>
+                        <p class="mt-4 text-slate-400">Go back to <a href="news.html" class="text-[#22d3ee] underline">news feed</a></p>
+                    </div>`
+                return
+            }
+            
+            const news = getNewsById(id)
+            
+            if (!news) {
+                document.getElementById('detailContainer').innerHTML = `
+                    <div class="text-center py-20">
+                        <h1 class="text-4xl text-red-400">📰 News not found</h1>
+                        <p class="mt-4 text-slate-400">This story may have been deleted or never existed.</p>
+                    </div>`
+                return
+            }
+            
+            // Main content
+            let mediaHTML = ''
+            if (news.media && news.media.length > 0) {
+                const first = news.media[0]
+                if (first.type.startsWith('image/')) {
+                    mediaHTML = `<img src="${first.dataUrl}" class="w-full max-h-[560px] object-cover rounded-3xl border border-[#22d3ee]/40 shadow-2xl">`
+                } else {
+                    mediaHTML = `<video src="${first.dataUrl}" controls autoplay class="w-full max-h-[560px] object-cover rounded-3xl border border-[#22d3ee]/40 shadow-2xl"></video>`
+                }
+            }
+            
+            const bulletsHTML = news.bullets && news.bullets.length 
+                ? `<ul class="list-disc pl-8 space-y-4 text-xl">${news.bullets.map(b => `<li>${b}</li>`).join('')}</ul>` 
+                : ''
+            
+            document.getElementById('detailContainer').innerHTML = `
+                <div class="flex justify-between items-start mb-6">
+                    <div>
+                        <span class="inline-block bg-[#22d3ee] text-slate-950 text-xs font-bold px-6 h-8 rounded-3xl flex items-center">${news.category}</span>
+                        <p class="text-sm font-mono text-slate-400 mt-4">${news.date} • ${news.villageTown} • ${news.newsCode}</p>
+                    </div>
+                    ${news.isFlash ? `<div class="text-4xl font-black text-red-500 flex items-center gap-x-3"><span class="animate-pulse">🔴</span>FLASH NEWS</div>` : ''}
+                </div>
+                
+                <h1 class="text-6xl leading-none font-bold neon-cyan mb-6">${news.headline}</h1>
+                <p class="text-3xl text-slate-300 mb-10">${news.subHeadline}</p>
+                
+                ${mediaHTML}
+                
+                <div class="prose prose-invert max-w-none mt-12 text-xl leading-relaxed">
+                    <p class="mb-10">${news.body}</p>
+                    ${bulletsHTML}
+                    <p class="mt-12 font-semibold text-2xl text-[#22d3ee]">${news.closingLine}</p>
+                </div>
+                
+                <div class="mt-16 pt-10 border-t border-[#22d3ee]/30 text-xs font-mono flex justify-between text-slate-400">
+                    <div>Published via MNS Dark-Tech • ID: ${news.id}</div>
+                    <div>${new Date(news.timestamp).toLocaleString('en-IN')}</div>
+                </div>
+            `
+            // Render floating share bar
+            renderShareBar(news)
+        }
+        
+        function renderShareBar(news) {
+            const bar = document.getElementById('shareBar')
+            const currentUrl = encodeURIComponent(window.location.href)
+            const text = encodeURIComponent(news.headline)
+            
+            bar.innerHTML = `
+                <a href="https://wa.me/?text=${text}%0A${currentUrl}" target="_blank" 
+                   class="share-btn flex items-center justify-center w-12 h-12 bg-green-500 text-white rounded-2xl text-3xl">📱</a>
+                <a href="https://www.facebook.com/sharer/sharer.php?u=${currentUrl}" target="_blank" 
+                   class="share-btn flex items-center justify-center w-12 h-12 bg-blue-600 text-white rounded-2xl text-3xl">📘</a>
+                <a href="https://t.me/share/url?url=${currentUrl}&text=${text}" target="_blank" 
+                   class="share-btn flex items-center justify-center w-12 h-12 bg-sky-500 text-white rounded-2xl text-3xl">📨</a>
+                <a href="https://twitter.com/intent/tweet?text=${text}&url=${currentUrl}" target="_blank" 
+                   class="share-btn flex items-center justify-center w-12 h-12 bg-black text-white rounded-2xl text-3xl">𝕏</a>
+            `
+            bar.classList.remove('hidden')
+        }
+        
+        window.onload = renderDetail
+    </script>
+</body>
+</html>
