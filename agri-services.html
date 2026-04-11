@@ -1,16 +1,284 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="te">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Agri Services | Coming Soon</title>
-  <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>రైతు సేవలు - మహేశ్వర నెక్స్లిఫై (Agri Services)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@700&family=Noto+Sans+Telugu:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="shared-header.css">
+    
+    <!-- Supabase Client Library -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="shared-ticker.js"></script>
+
+    <style>
+        :root {
+            --agri-green: #15803d;
+            --agri-light: #f0fdf4;
+            --primary-color: #0f172a;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Inter', 'Noto Sans Telugu', sans-serif;
+            background-color: #f8fafc;
+            color: var(--text-main);
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Hero Section */
+        .hero-agri {
+            background: linear-gradient(rgba(21, 128, 61, 0.9), rgba(21, 128, 61, 0.9)), url('https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?auto=format&fit=crop&q=80&w=1200');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+            border-radius: 20px;
+            margin-bottom: 40px;
+        }
+
+        .hero-agri h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        /* Dashboard Grid */
+        .agri-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .agri-card {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+            transition: transform 0.2s;
+        }
+
+        .agri-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-icon {
+            font-size: 2rem;
+            color: var(--agri-green);
+            margin-bottom: 16px;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--primary-color);
+        }
+
+        /* Weather & Mandi specific */
+        .weather-info, .mandi-info {
+            background: var(--agri-light);
+            padding: 15px;
+            border-radius: 12px;
+            margin-top: 10px;
+        }
+
+        .price-tag {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px dashed #cbd5e1;
+        }
+
+        .price-tag:last-child { border-bottom: none; }
+
+        /* Links List */
+        .links-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .links-list li {
+            margin-bottom: 10px;
+        }
+
+        .links-list a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 500;
+            padding: 10px;
+            background: #f1f5f9;
+            border-radius: 8px;
+            transition: background 0.2s;
+        }
+
+        .links-list a:hover {
+            background: #e2e8f0;
+            color: var(--agri-green);
+        }
+
+        /* WhatsApp Button */
+        .whatsapp-btn {
+            background-color: #25d366;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 15px;
+            border-radius: 12px;
+            font-weight: 700;
+            margin-top: 20px;
+            transition: opacity 0.2s;
+        }
+
+        .whatsapp-btn:hover {
+            opacity: 0.9;
+        }
+
+        /* Badge */
+        .badge {
+            background: var(--agri-green);
+            color: white;
+            font-size: 0.75rem;
+            padding: 2px 8px;
+            border-radius: 10px;
+            text-transform: uppercase;
+        }
+
+        @media (max-width: 768px) {
+            .hero-agri h2 { font-size: 1.75rem; }
+        }
+    </style>
 </head>
-<body class="min-h-screen bg-black text-gray-100 flex items-center justify-center px-4">
-  <main class="text-center">
-    <h1 class="text-3xl sm:text-4xl font-extrabold">Agri Services</h1>
-    <p class="mt-4 text-lg text-gray-300">Coming Soon - Maheshwara Nexlify</p>
-    <a href="index.html" class="inline-block mt-8 rounded-md bg-cyan-500 px-6 py-3 text-sm font-bold text-black hover:bg-cyan-400">Back to Home</a>
-  </main>
+<body>
+    <!-- Universal Header -->
+    <header class="universal-header sticky top-0 z-50">
+        <div class="header-inner">
+            <a href="index.html" class="branding-link">
+                <h1 class="branding-title">MAHESHWARA NEXLIFY</h1>
+                <span class="branding-subtitle">Nucleus Digital Services</span>
+            </a>
+            <nav class="universal-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="news-page.html">News Portal</a></li>
+                    <li><a href="uploadnews.html">Upload News</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Flash News Ticker -->
+    <div class="ticker-wrapper">
+        <div class="ticker-label"><i class="fas fa-bolt mr-2"></i> FLASH NEWS</div>
+        <div class="ticker-content">
+            <div id="ticker-scroll" class="ticker-scroll">
+                <span class="ticker-item">రైతు సోదరులకు నమస్కారం.. తాజా వ్యవసాయ సమాచారం కోసం ఇక్కడ చూడండి.</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Hero Section -->
+        <div class="hero-agri">
+            <h2>మన ముత్తారం రైతు డిజిటల్ కేంద్రం</h2>
+            <p>వ్యవసాయ సమాచారం, ప్రభుత్వ పథకాలు మరియు ఆధునిక పద్ధతులు - అంతా ఒకే చోట!</p>
+        </div>
+
+        <div class="agri-grid">
+            <!-- Weather & Mandi -->
+            <div class="agri-card">
+                <div class="card-icon"><i class="fas fa-cloud-sun-rain"></i></div>
+                <div class="card-title">వాతావరణం & మార్కెట్ ధరలు</div>
+                <div class="weather-info">
+                    <p><strong>ముత్తారం:</strong> <span id="temp">28°C</span> - పాక్షికంగా మేఘావృతం</p>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">వర్షం కురిసే అవకాశం తక్కువగా ఉంది.</p>
+                </div>
+                <div class="mandi-info">
+                    <p style="font-weight: 700; margin-bottom: 8px;">నేటి మండి ధరలు (క్వింటాల్‌కి):</p>
+                    <div class="price-tag">
+                        <span>వరి (Paddy)</span>
+                        <strong>₹2,183 - ₹2,320</strong>
+                    </div>
+                    <div class="price-tag">
+                        <span>మక్కజొన్న (Maize)</span>
+                        <strong>₹1,960 - ₹2,100</strong>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Govt Services -->
+            <div class="agri-card">
+                <div class="card-icon"><i class="fas fa-university"></i></div>
+                <div class="card-title">ప్రభుత్వ సేవలు (Quick Links)</div>
+                <ul class="links-list">
+                    <li><a href="https://pmkisan.gov.in/BeneficiaryStatus_New.aspx" target="_blank"><i class="fas fa-check-circle"></i> PM-Kisan స్టేటస్ చెక్</a></li>
+                    <li><a href="https://dharani.telangana.gov.in/" target="_blank"><i class="fas fa-map"></i> ధరణి పోర్టల్ (భూమి రికార్డులు)</a></li>
+                    <li><a href="http://rythubandhu.telangana.gov.in/" target="_blank"><i class="fas fa-hand-holding-usd"></i> రైతు బంధు/బీమా వివరాలు</a></li>
+                    <li><a href="http://tsmarketing.in/" target="_blank"><i class="fas fa-chart-line"></i> తెలంగాణ అగ్రి-మార్కెట్ ధరలు</a></li>
+                </ul>
+            </div>
+
+            <!-- Modern Tech -->
+            <div class="agri-card">
+                <div class="card-icon"><i class="fas fa-microchip"></i></div>
+                <div class="card-title">ఆధునిక వ్యవసాయం & టెక్నాలజీ</div>
+                <div style="margin-bottom: 15px;">
+                    <p><strong>డ్రోన్ స్ప్రేయింగ్ సేవలు:</strong> <span class="badge">Available</span></p>
+                    <p style="font-size: 0.875rem; color: var(--text-muted);">తక్కువ ఖర్చుతో, తక్కువ సమయంలో మందుల పిచికారీ చేయించుకోండి.</p>
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <p><strong>సాయిల్ టెస్టింగ్ (మట్టి పరీక్ష):</strong></p>
+                    <p style="font-size: 0.875rem; color: var(--text-muted);">మీ భూమి సారాన్ని తెలుసుకోండి. దగ్గరలోని ల్యాబ్ వివరాల కోసం సంప్రదించండి.</p>
+                </div>
+                <ul class="links-list">
+                    <li><a href="https://pmfby.gov.in/" target="_blank"><i class="fas fa-shield-alt"></i> ఫసల్ బీమా యోజన (ఇన్సూరెన్స్)</a></li>
+                </ul>
+            </div>
+
+            <!-- Expert Advisory -->
+            <div class="agri-card">
+                <div class="card-icon"><i class="fas fa-user-tie"></i></div>
+                <div class="card-title">నిపుణుల సలహాలు (Digital Support)</div>
+                <p>పంటలకు తెగుళ్లు సోకినప్పుడు లేదా ఎరువుల వాడకం పై సందేహాలు ఉంటే మన అగ్రి నిపుణులను అడగండి.</p>
+                <p style="font-size: 0.875rem; color: var(--text-muted); margin-top: 10px;">పంట ఫోటో తీసి వాట్సాప్ చేయండి, వెంటనే పరిష్కారం తెలుసుకోండి.</p>
+                <a href="https://wa.me/91XXXXXXXXXX?text=నమస్కారం, నా పంటకు సంబంధించిన సలహా కావాలి." class="whatsapp-btn">
+                    <i class="fab fa-whatsapp"></i> నిపుణులతో మాట్లాడండి
+                </a>
+                <p style="text-align: center; font-size: 0.75rem; margin-top: 10px; color: var(--text-muted);">Agriculture Officer (AO) ముత్తారం అందుబాటులో ఉంటారు.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- Supabase Configuration ---
+        const SUPABASE_URL = 'https://ndorwpcjwzvygvrstdks.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5kb3J3cGNqd3p2eWd2cnN0ZGtzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU0MDEyOTMsImV4cCI6MjA5MDk3NzI5M30.eUISNWLqFwZG9IKCZSXn9tC9RyRWdGbn-9j0jYAfPxQ';
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        // Initialize Universal Ticker
+        window.onload = function() {
+            initUniversalTicker(supabaseClient);
+        };
+    </script>
 </body>
 </html>

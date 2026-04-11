@@ -1,16 +1,366 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="te">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Business Services | Coming Soon</title>
-  <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>బిజినెస్ టూల్‌కిట్ - మహేశ్వర నెక్స్లిఫై (Business Services)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@700&family=Noto+Sans+Telugu:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="shared-header.css">
+    
+    <!-- Supabase Client Library -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="shared-ticker.js"></script>
+
+    <style>
+        :root {
+            --biz-blue: #2563eb;
+            --biz-light: #eff6ff;
+            --primary-color: #0f172a;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Inter', 'Noto Sans Telugu', sans-serif;
+            background-color: #f8fafc;
+            color: var(--text-main);
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Hero Section */
+        .hero-biz {
+            background: linear-gradient(rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.9)), url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=1200');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+            border-radius: 20px;
+            margin-bottom: 40px;
+        }
+
+        .hero-biz h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        /* Grid Layout */
+        .biz-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .biz-card {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+            transition: transform 0.2s;
+        }
+
+        .biz-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-icon {
+            font-size: 2rem;
+            color: var(--biz-blue);
+            margin-bottom: 16px;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Calculator Styles */
+        .calc-group {
+            margin-bottom: 15px;
+        }
+
+        .calc-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--text-muted);
+        }
+
+        .calc-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .calc-result {
+            background: var(--biz-light);
+            padding: 15px;
+            border-radius: 12px;
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        .calc-result h4 {
+            margin: 0;
+            color: var(--biz-blue);
+            font-size: 1.5rem;
+        }
+
+        /* Service Links */
+        .links-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .links-list li {
+            margin-bottom: 10px;
+        }
+
+        .links-list a {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 500;
+            padding: 12px 15px;
+            background: #f1f5f9;
+            border-radius: 10px;
+            transition: all 0.2s;
+        }
+
+        .links-list a:hover {
+            background: var(--biz-blue);
+            color: white;
+        }
+
+        /* Bank List */
+        .bank-list {
+            font-size: 0.9rem;
+        }
+
+        .bank-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .bank-item:last-child { border-bottom: none; }
+
+        .call-btn {
+            color: var(--biz-blue);
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        @media (max-width: 768px) {
+            .hero-biz h2 { font-size: 1.75rem; }
+            .biz-grid { grid-template-columns: 1fr; }
+        }
+    </style>
 </head>
-<body class="min-h-screen bg-black text-gray-100 flex items-center justify-center px-4">
-  <main class="text-center">
-    <h1 class="text-3xl sm:text-4xl font-extrabold">Business Services</h1>
-    <p class="mt-4 text-lg text-gray-300">Coming Soon - Maheshwara Nexlify</p>
-    <a href="index.html" class="inline-block mt-8 rounded-md bg-cyan-500 px-6 py-3 text-sm font-bold text-black hover:bg-cyan-400">Back to Home</a>
-  </main>
+<body>
+    <!-- Universal Header -->
+    <header class="universal-header sticky top-0 z-50">
+        <div class="header-inner">
+            <a href="index.html" class="branding-link">
+                <h1 class="branding-title">MAHESHWARA NEXLIFY</h1>
+                <span class="branding-subtitle">Nucleus Digital Services</span>
+            </a>
+            <nav class="universal-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="news-page.html">News Portal</a></li>
+                    <li><a href="uploadnews.html">Upload News</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Flash News Ticker -->
+    <div class="ticker-wrapper">
+        <div class="ticker-label"><i class="fas fa-bolt mr-2"></i> FLASH NEWS</div>
+        <div class="ticker-content">
+            <div id="ticker-scroll" class="ticker-scroll">
+                <span class="ticker-item">వ్యాపారులకు మరియు ప్రజలకు అవసరమైన డిజిటల్ టూల్స్ ఇక్కడ అందుబాటులో ఉన్నాయి.</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Hero Section -->
+        <div class="hero-biz">
+            <h2>డిజిటల్ బిజినెస్ టూల్‌కిట్</h2>
+            <p>మీ వ్యాపార గణనలు మరియు ప్రభుత్వ సేవలు - ఇప్పుడు మీ చేతుల్లో!</p>
+        </div>
+
+        <div class="biz-grid">
+            <!-- EMI Calculator -->
+            <div class="biz-card">
+                <div class="card-icon"><i class="fas fa-calculator"></i></div>
+                <div class="card-title">EMI క్యాలిక్యులేటర్</div>
+                <div class="calc-group">
+                    <label>లోన్ మొత్తం (Loan Amount)</label>
+                    <input type="number" id="loanAmount" placeholder="Ex: 100000" oninput="calculateEMI()">
+                </div>
+                <div class="calc-group">
+                    <label>వడ్డీ రేటు (Interest Rate %)</label>
+                    <input type="number" id="interestRate" placeholder="Ex: 10.5" oninput="calculateEMI()">
+                </div>
+                <div class="calc-group">
+                    <label>కాలపరిమితి (Months)</label>
+                    <input type="number" id="tenure" placeholder="Ex: 12" oninput="calculateEMI()">
+                </div>
+                <div class="calc-result">
+                    <p style="font-size: 0.8rem; margin-bottom: 5px;">మీ నెలవారీ EMI:</p>
+                    <h4 id="emiResult">₹ 0</h4>
+                </div>
+            </div>
+
+            <!-- GST Calculator -->
+            <div class="biz-card">
+                <div class="card-icon"><i class="fas fa-percent"></i></div>
+                <div class="card-title">GST క్యాలిక్యులేటర్</div>
+                <div class="calc-group">
+                    <label>అసలు ధర (Base Amount)</label>
+                    <input type="number" id="gstAmount" placeholder="Ex: 5000" oninput="calculateGST()">
+                </div>
+                <div class="calc-group">
+                    <label>GST శాతం (Tax Rate)</label>
+                    <select id="gstRate" style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid var(--border-color);" onchange="calculateGST()">
+                        <option value="5">5%</option>
+                        <option value="12">12%</option>
+                        <option value="18" selected>18%</option>
+                        <option value="28">28%</option>
+                    </select>
+                </div>
+                <div class="calc-result" style="display: flex; justify-content: space-around; padding: 10px;">
+                    <div>
+                        <p style="font-size: 0.75rem;">Add GST</p>
+                        <strong id="gstAdd" style="color: var(--biz-blue);">₹ 0</strong>
+                    </div>
+                    <div style="border-left: 1px solid #cbd5e1;"></div>
+                    <div>
+                        <p style="font-size: 0.75rem;">Remove GST</p>
+                        <strong id="gstRemove" style="color: #ef4444;">₹ 0</strong>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Business Links -->
+            <div class="biz-card">
+                <div class="card-icon"><i class="fas fa-briefcase"></i></div>
+                <div class="card-title">ముఖ్యమైన వ్యాపార లింకులు</div>
+                <ul class="links-list">
+                    <li><a href="https://www.mca.gov.in/" target="_blank">MCA (కంపెనీ రిజిస్ట్రేషన్) <i class="fas fa-external-link-alt"></i></a></li>
+                    <li><a href="https://www.gst.gov.in/" target="_blank">GST పోర్టల్ (Login/Filing) <i class="fas fa-external-link-alt"></i></a></li>
+                    <li><a href="https://www.incometax.gov.in/" target="_blank">Income Tax (ITR Filing) <i class="fas fa-external-link-alt"></i></a></li>
+                    <li><a href="https://udyamregistration.gov.in/" target="_blank">MSME (Udyam) రిజిస్ట్రేషన్ <i class="fas fa-external-link-alt"></i></a></li>
+                </ul>
+            </div>
+
+            <!-- Bank Balance Check -->
+            <div class="biz-card">
+                <div class="card-icon"><i class="fas fa-university"></i></div>
+                <div class="card-title">Bank Balance Check (Missed Call)</div>
+                <div class="bank-list">
+                    <div class="bank-item">
+                        <span>SBI (State Bank)</span>
+                        <a href="tel:09223766666" class="call-btn">09223766666</a>
+                    </div>
+                    <div class="bank-item">
+                        <span>HDFC Bank</span>
+                        <a href="tel:18002703333" class="call-btn">18002703333</a>
+                    </div>
+                    <div class="bank-item">
+                        <span>ICICI Bank</span>
+                        <a href="tel:9594612612" class="call-btn">9594612612</a>
+                    </div>
+                    <div class="bank-item">
+                        <span>Andhra/Union Bank</span>
+                        <a href="tel:09223008586" class="call-btn">09223008586</a>
+                    </div>
+                </div>
+                <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 10px;">*మీ మొబైల్ నంబర్ బ్యాంకులో రిజిస్టర్ అయి ఉండాలి.</p>
+            </div>
+
+            <!-- Aadhaar & DSC -->
+            <div class="biz-card">
+                <div class="card-icon"><i class="fas fa-id-card"></i></div>
+                <div class="card-title">ఆధార్ & డిజిటల్ సేవలు</div>
+                <ul class="links-list">
+                    <li><a href="https://myaadhaar.uidai.gov.in/" target="_blank">ఆధార్ అడ్రస్ అప్‌డేట్ <i class="fas fa-user-edit"></i></a></li>
+                    <li><a href="https://myaadhaar.uidai.gov.in/genricPVC" target="_blank">Aadhaar PVC కార్డ్ ఆర్డర్ <i class="fas fa-credit-card"></i></a></li>
+                </ul>
+                <div style="margin-top: 20px; padding: 15px; background: #fffbeb; border-radius: 10px; border: 1px solid #fef3c7;">
+                    <p style="font-weight: 700; color: #92400e;"><i class="fas fa-pen-nib"></i> Digital Signature (DSC):</p>
+                    <p style="font-size: 0.85rem;">వ్యాపార టెండర్లు మరియు రిజిస్ట్రేషన్ల కోసం DSC కావాలంటే మమ్మల్ని సంప్రదించండి.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- Supabase Configuration ---
+        const SUPABASE_URL = 'https://ndorwpcjwzvygvrstdks.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5kb3J3cGNqd3p2eWd2cnN0ZGtzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU0MDEyOTMsImV4cCI6MjA5MDk3NzI5M30.eUISNWLqFwZG9IKCZSXn9tC9RyRWdGbn-9j0jYAfPxQ';
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        // EMI Logic
+        function calculateEMI() {
+            const P = parseFloat(document.getElementById('loanAmount').value);
+            const r = parseFloat(document.getElementById('interestRate').value) / 12 / 100;
+            const n = parseFloat(document.getElementById('tenure').value);
+
+            if (P && r && n) {
+                const emi = (P * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
+                document.getElementById('emiResult').innerText = '₹ ' + emi.toLocaleString('en-IN', { maximumFractionDigits: 0 });
+            } else {
+                document.getElementById('emiResult').innerText = '₹ 0';
+            }
+        }
+
+        // GST Logic
+        function calculateGST() {
+            const amount = parseFloat(document.getElementById('gstAmount').value);
+            const rate = parseFloat(document.getElementById('gstRate').value);
+
+            if (amount && rate) {
+                const add = amount + (amount * rate / 100);
+                const remove = amount / (1 + (rate / 100));
+                document.getElementById('gstAdd').innerText = '₹ ' + add.toLocaleString('en-IN', { maximumFractionDigits: 0 });
+                document.getElementById('gstRemove').innerText = '₹ ' + remove.toLocaleString('en-IN', { maximumFractionDigits: 0 });
+            } else {
+                document.getElementById('gstAdd').innerText = '₹ 0';
+                document.getElementById('gstRemove').innerText = '₹ 0';
+            }
+        }
+
+        window.onload = function() {
+            initUniversalTicker(supabaseClient);
+        };
+    </script>
 </body>
 </html>

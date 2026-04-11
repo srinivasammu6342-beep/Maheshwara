@@ -1,16 +1,463 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="te">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Digital Services | Coming Soon</title>
-  <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>డిజిటల్ హబ్ & AI సెంటర్ - మహేశ్వర నెక్స్లిఫై</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@700&family=Noto+Sans+Telugu:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="shared-header.css">
+    
+    <!-- Supabase Client Library -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="shared-ticker.js"></script>
+
+    <style>
+        :root {
+            --dark-bg: #020617;
+            --card-bg: #0f172a;
+            --neon-blue: #38bdf8;
+            --neon-purple: #a855f7;
+            --neon-green: #22c55e;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --border-color: #1e293b;
+        }
+
+        body {
+            font-family: 'Inter', 'Noto Sans Telugu', sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-main);
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Hero Section - Futuristic */
+        .hero-digital {
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+            padding: 60px 20px;
+            text-align: center;
+            border-radius: 24px;
+            margin-bottom: 40px;
+            border: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-digital::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(56, 189, 248, 0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-digital h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(to right, var(--neon-blue), var(--neon-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Section Headings */
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .section-header i {
+            font-size: 1.5rem;
+            color: var(--neon-blue);
+        }
+
+        .section-header h3 {
+            font-size: 1.5rem;
+            font-family: 'Space Grotesk', sans-serif;
+            margin: 0;
+        }
+
+        /* Grid Layout */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 24px;
+            margin-bottom: 50px;
+        }
+
+        .digital-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 24px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .digital-card:hover {
+            border-color: var(--neon-blue);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px -10px rgba(56, 189, 248, 0.2);
+        }
+
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(56, 189, 248, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--neon-blue);
+            margin-bottom: 20px;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: white;
+        }
+
+        /* Form Inputs */
+        .tool-form {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .tool-form label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .tool-form input, .tool-form select {
+            background: var(--dark-bg);
+            border: 1px solid var(--border-color);
+            padding: 12px;
+            border-radius: 10px;
+            color: white;
+            font-size: 1rem;
+        }
+
+        .tool-form input:focus {
+            outline: none;
+            border-color: var(--neon-blue);
+        }
+
+        .result-box {
+            background: rgba(56, 189, 248, 0.05);
+            padding: 15px;
+            border-radius: 12px;
+            margin-top: 15px;
+            text-align: center;
+            border: 1px dashed var(--border-color);
+        }
+
+        .result-box p {
+            margin: 0;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--neon-blue);
+        }
+
+        /* Links List */
+        .links-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .links-list li {
+            margin-bottom: 12px;
+        }
+
+        .links-list a {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 18px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 500;
+            border: 1px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .links-list a:hover {
+            background: rgba(56, 189, 248, 0.1);
+            border-color: var(--neon-blue);
+            color: var(--neon-blue);
+        }
+
+        /* Neon Labels */
+        .neon-label {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-size: 0.7rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            margin-left: 8px;
+        }
+
+        .label-ai { background: var(--neon-purple); color: white; }
+        .label-free { background: var(--neon-green); color: white; }
+
+        @media (max-width: 768px) {
+            .hero-digital h2 { font-size: 1.75rem; }
+            .tools-grid { grid-template-columns: 1fr; }
+        }
+    </style>
 </head>
-<body class="min-h-screen bg-black text-gray-100 flex items-center justify-center px-4">
-  <main class="text-center">
-    <h1 class="text-3xl sm:text-4xl font-extrabold">Digital Services</h1>
-    <p class="mt-4 text-lg text-gray-300">Coming Soon - Maheshwara Nexlify</p>
-    <a href="index.html" class="inline-block mt-8 rounded-md bg-cyan-500 px-6 py-3 text-sm font-bold text-black hover:bg-cyan-400">Back to Home</a>
-  </main>
+<body>
+    <!-- Universal Header -->
+    <header class="universal-header sticky top-0 z-50">
+        <div class="header-inner">
+            <a href="index.html" class="branding-link">
+                <h1 class="branding-title">MAHESHWARA NEXLIFY</h1>
+                <span class="branding-subtitle">Nucleus Digital Services</span>
+            </a>
+            <nav class="universal-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="news-page.html">News Portal</a></li>
+                    <li><a href="uploadnews.html">Upload News</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Flash News Ticker -->
+    <div class="ticker-wrapper">
+        <div class="ticker-label"><i class="fas fa-bolt mr-2"></i> FLASH NEWS</div>
+        <div class="ticker-content">
+            <div id="ticker-scroll" class="ticker-scroll">
+                <span class="ticker-item">మీకు అవసరమైన ఏజ్ క్యాలిక్యులేటర్, AI టూల్స్ మరియు అన్ని డిజిటల్ సర్వీసులు ఇప్పుడు ఒకే చోట!</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Hero Section -->
+        <div class="hero-digital">
+            <h2>డిజిటల్ మ్యాజిక్ బాక్స్ & AI హబ్</h2>
+            <p style="color: var(--text-muted);">అత్యాధునిక సాంకేతికతతో మీ రోజువారీ పనులను సులభం చేసుకోండి.</p>
+        </div>
+
+        <!-- Utility Tools Section -->
+        <div class="section-header">
+            <i class="fas fa-tools"></i>
+            <h3>నిత్యం అవసరమయ్యే టూల్స్ (Utility Tools)</h3>
+        </div>
+        <div class="tools-grid">
+            <!-- Age Calculator -->
+            <div class="digital-card">
+                <div class="card-icon"><i class="fas fa-birthday-cake"></i></div>
+                <div class="card-title">మీ వయస్సు తెలుసుకోండి (Age Calc)</div>
+                <div class="tool-form">
+                    <label>పుట్టిన తేదీని ఎంచుకోండి (Date of Birth)</label>
+                    <input type="date" id="dob" onchange="calculateAge()">
+                </div>
+                <div id="ageResult" class="result-box">
+                    <p>తేదీని ఎంచుకోండి...</p>
+                </div>
+            </div>
+
+            <!-- Unit Converter -->
+            <div class="digital-card">
+                <div class="card-icon"><i class="fas fa-ruler-combined"></i></div>
+                <div class="card-title">కొలతల మార్పిడి (Unit Converter)</div>
+                <div class="tool-form">
+                    <input type="number" id="unitInput" placeholder="విలువను టైప్ చేయండి" oninput="convertUnit()">
+                    <select id="convertType" onchange="convertUnit()">
+                        <option value="ft-m">అడుగులు ➔ మీటర్లు (Feet to Meters)</option>
+                        <option value="m-ft">మీటర్లు ➔ అడుగులు (Meters to Feet)</option>
+                        <option value="kg-lb">కిలోలు ➔ పౌండ్లు (Kg to Lbs)</option>
+                        <option value="g-kg">గ్రాములు ➔ కిలోలు (Grams to Kg)</option>
+                    </select>
+                </div>
+                <div id="unitResult" class="result-box">
+                    <p>0</p>
+                </div>
+            </div>
+
+            <!-- Translator -->
+            <div class="digital-card">
+                <div class="card-icon"><i class="fas fa-language"></i></div>
+                <div class="card-title">ట్రాన్స్‌లేటర్ (Google Translate)</div>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 15px;">ఏదైనా ఇంగ్లీష్ సమాచారాన్ని తెలుగులోకి మార్చుకోవడానికి కింద ఉన్న బటన్ నొక్కండి.</p>
+                <div id="google_translate_element"></div>
+            </div>
+        </div>
+
+        <!-- AI Tools Section -->
+        <div class="section-header">
+            <i class="fas fa-robot"></i>
+            <h3>అత్యాధునిక ఏఐ టూల్స్ (AI Hub)</h3>
+        </div>
+        <div class="tools-grid">
+            <!-- Content AI -->
+            <div class="digital-card">
+                <div class="card-icon" style="color: var(--neon-purple); background: rgba(168, 85, 247, 0.1);"><i class="fas fa-pen-fancy"></i></div>
+                <div class="card-title">రాత సహాయం (Writing AI)</div>
+                <ul class="links-list">
+                    <li><a href="https://chat.openai.com/" target="_blank">ChatGPT (OpenAI) <span class="neon-label label-ai">AI</span></a></li>
+                    <li><a href="https://gemini.google.com/" target="_blank">Google Gemini <span class="neon-label label-ai">AI</span></a></li>
+                </ul>
+            </div>
+
+            <!-- Design AI -->
+            <div class="digital-card">
+                <div class="card-icon" style="color: var(--neon-purple); background: rgba(168, 85, 247, 0.1);"><i class="fas fa-magic"></i></div>
+                <div class="card-title">డిజైన్ & ఇమేజ్ ఏఐ</div>
+                <ul class="links-list">
+                    <li><a href="https://www.canva.com/magic-home" target="_blank">Canva Magic AI <i class="fas fa-external-link-alt"></i></a></li>
+                    <li><a href="https://www.adobe.com/sensei/generative-ai/firefly.html" target="_blank">Adobe Firefly <i class="fas fa-external-link-alt"></i></a></li>
+                </ul>
+            </div>
+
+            <!-- Audio AI -->
+            <div class="digital-card">
+                <div class="card-icon" style="color: var(--neon-purple); background: rgba(168, 85, 247, 0.1);"><i class="fas fa-microphone-alt"></i></div>
+                <div class="card-title">వాయిస్ & ఆడియో ఏఐ</div>
+                <ul class="links-list">
+                    <li><a href="https://elevenlabs.io/" target="_blank">ElevenLabs (Text to Speech) <i class="fas fa-external-link-alt"></i></a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Image & Document Section -->
+        <div class="section-header">
+            <i class="fas fa-file-image"></i>
+            <h3>ఇమేజ్ & డాక్యుమెంట్ టూల్స్</h3>
+        </div>
+        <div class="tools-grid">
+            <div class="digital-card">
+                <div class="card-title">ఫొటో బ్యాక్ గ్రౌండ్ తీసేయండి</div>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 15px;">కేవలం ఒక్క క్లిక్‌తో మీ ఫొటో వెనుక ఉన్న బ్యాక్‌గ్రౌండ్‌ను క్లీన్ చేయవచ్చు.</p>
+                <ul class="links-list">
+                    <li><a href="https://www.remove.bg/" target="_blank">Remove.bg (Instant) <span class="neon-label label-free">Free</span></a></li>
+                </ul>
+            </div>
+
+            <div class="digital-card">
+                <div class="card-title">ఫార్మాట్ మార్చండి (Converter)</div>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 15px;">JPG నుండి PNG కి లేదా PDF లోకి మార్చడానికి ఇక్కడ క్లిక్ చేయండి.</p>
+                <ul class="links-list">
+                    <li><a href="https://cloudconvert.com/" target="_blank">CloudConvert <i class="fas fa-sync"></i></a></li>
+                    <li><a href="https://ilovepdf.com/" target="_blank">iLovePDF (PDF టూల్స్) <i class="fas fa-file-pdf"></i></a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Useful Websites Section -->
+        <div class="section-header">
+            <i class="fas fa-globe"></i>
+            <h3>ముఖ్యమైన వెబ్‌సైట్లు & పోర్టల్స్</h3>
+        </div>
+        <div class="tools-grid">
+            <div class="digital-card">
+                <div class="card-title">విద్య & ఉద్యోగ సమాచారం</div>
+                <ul class="links-list">
+                    <li><a href="https://tspsc.gov.in/" target="_blank">TSPSC (ఉద్యోగ నోటిఫికేషన్లు)</a></li>
+                    <li><a href="https://t-sats.telangana.gov.in/" target="_blank">T-SATS (విద్యా చానల్స్)</a></li>
+                    <li><a href="https://www.sakshieducation.com/" target="_blank">ఎగ్జామ్ రిజల్ట్స్ & గైడెన్స్</a></li>
+                </ul>
+            </div>
+
+            <div class="digital-card">
+                <div class="card-title">ప్రభుత్వ గుర్తింపు కార్డులు (Govt IDs)</div>
+                <ul class="links-list">
+                    <li><a href="https://voters.eci.gov.in/" target="_blank">Voter ID స్టేటస్ చెక్</a></li>
+                    <li><a href="https://www.onlineservices.nsdl.com/paam/endUserRegisterContact.html" target="_blank">PAN కార్డు ట్రాకింగ్</a></li>
+                    <li><a href="https://epds.telangana.gov.in/" target="_blank">రేషన్ కార్డు సెర్చ్</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- Supabase Configuration ---
+        const SUPABASE_URL = 'https://ndorwpcjwzvygvrstdks.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5kb3J3cGNqd3p2eWd2cnN0ZGtzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU0MDEyOTMsImV4cCI6MjA5MDk3NzI5M30.eUISNWLqFwZG9IKCZSXn9tC9RyRWdGbn-9j0jYAfPxQ';
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        // Age Calculator Logic
+        function calculateAge() {
+            const dobValue = document.getElementById('dob').value;
+            if (!dobValue) return;
+
+            const dob = new Date(dobValue);
+            const now = new Date();
+            
+            let years = now.getFullYear() - dob.getFullYear();
+            let months = now.getMonth() - dob.getMonth();
+            let days = now.getDate() - dob.getDate();
+
+            if (days < 0) {
+                months--;
+                days += new Date(now.getFullYear(), now.getMonth(), 0).getDate();
+            }
+            if (months < 0) {
+                years--;
+                months += 12;
+            }
+
+            document.getElementById('ageResult').innerHTML = 
+                `<p>${years} ఏళ్ల, ${months} నెలల, ${days} రోజుల వయస్సు</p>`;
+        }
+
+        // Unit Converter Logic
+        function convertUnit() {
+            const val = parseFloat(document.getElementById('unitInput').value);
+            const type = document.getElementById('convertType').value;
+            const resBox = document.getElementById('unitResult');
+
+            if (isNaN(val)) {
+                resBox.innerHTML = '<p>0</p>';
+                return;
+            }
+
+            let res = 0;
+            let unit = "";
+
+            switch(type) {
+                case 'ft-m': res = val * 0.3048; unit = "మీటర్లు"; break;
+                case 'm-ft': res = val * 3.28084; unit = "అడుగులు"; break;
+                case 'kg-lb': res = val * 2.20462; unit = "పౌండ్లు"; break;
+                case 'g-kg': res = val / 1000; unit = "కిలోలు"; break;
+            }
+
+            resBox.innerHTML = `<p>${res.toFixed(2)} ${unit}</p>`;
+        }
+
+        // Google Translate
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages: 'te', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+        }
+
+        window.onload = function() {
+            initUniversalTicker(supabaseClient);
+        };
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>
