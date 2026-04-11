@@ -5,15 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Maheshwara Nexlify News - Upload</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
-    <!-- Gidugu Telugu Font (fallback to system if not loaded; use Noto Sans Telugu or similar for better support) -->
+    <!-- Noto Sans Telugu for better support -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Supabase Client Library -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="shared-ticker.js"></script>
+    <link rel="stylesheet" href="shared-header.css">
+
     <style>
         :root {
-            --neon-cyan: #00f5ff;
-            --royal-red: #ff0033;
-            --emerald-green: #00ff9d;
-            --midnight-blue: #0a0f2c;
-            --glass-bg: rgba(15, 23, 42, 0.75);
+            --primary-color: #0f172a; /* Deep Blue */
+            --accent-color: #10b981;  /* Emerald Green */
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --input-bg: #ffffff;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
         }
 
         * {
@@ -23,233 +34,183 @@
         }
 
         body {
-            font-family: 'Inter', system-ui, sans-serif;
-            background: linear-gradient(135deg, #0a0f2c 0%, #1a1f3d 100%);
-            color: #e0f7ff;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
             min-height: 100vh;
-            overflow-x: hidden;
-            position: relative;
-        }
-
-        /* Subtle animated grid background for futuristic feel */
-        body::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                linear-gradient(rgba(0, 245, 255, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 245, 255, 0.03) 1px, transparent 1px);
-            background-size: 50px 50px;
-            pointer-events: none;
-            z-index: -1;
+            line-height: 1.6;
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1000px;
             margin: 0 auto;
             padding: 20px;
         }
 
-        /* Header */
+        /* Header & Navigation */
         header {
-            background: rgba(10, 15, 44, 0.95);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(0, 245, 255, 0.3);
-            padding: 20px 0;
+            background: var(--card-bg);
+            border-bottom: 1px solid var(--border-color);
+            padding: 16px 0;
             position: sticky;
             top: 0;
             z-index: 100;
-            box-shadow: 0 10px 30px rgba(0, 245, 255, 0.1);
+            box-shadow: var(--shadow);
         }
 
         .header-content {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            flex-wrap: wrap;
             gap: 20px;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .home-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 600;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.2s;
+            border: 1px solid var(--border-color);
+            background: var(--card-bg);
+        }
+
+        .home-btn:hover {
+            background: var(--bg-color);
+            border-color: var(--text-muted);
+            transform: translateY(-1px);
         }
 
         .main-heading {
             font-family: 'Space Grotesk', sans-serif;
-            font-size: 2.2rem;
+            font-size: 1.5rem;
             font-weight: 700;
-            background: linear-gradient(90deg, #00f5ff, #a0f7ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 
-                0 0 10px #00f5ff,
-                0 0 20px #00f5ff,
-                0 0 40px #00f5ff;
-            letter-spacing: 2px;
+            color: var(--primary-color);
+            letter-spacing: -0.02em;
         }
 
-        .sub-heading {
-            font-size: 1.1rem;
-            color: #ff3366;
-            font-weight: 600;
-            letter-spacing: 1px;
-            text-shadow: 0 0 15px rgba(255, 51, 102, 0.6);
-        }
-
-        /* Main Content */
+        /* Form Card */
         main {
             padding: 40px 0;
         }
 
         .form-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(0, 245, 255, 0.4);
-            border-radius: 24px;
+            background: var(--card-bg);
+            border-radius: 16px;
             padding: 40px;
-            box-shadow: 
-                0 25px 50px -12px rgba(0, 0, 0, 0.5),
-                inset 0 2px 0 rgba(255, 255, 255, 0.1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .form-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(0, 245, 255, 0.08) 0%, transparent 70%);
-            pointer-events: none;
-            animation: pulse 15s infinite ease-in-out;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 0.6; }
-            50% { opacity: 1; }
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border-color);
         }
 
         h2 {
-            font-size: 1.8rem;
-            margin-bottom: 30px;
-            color: var(--neon-cyan);
-            text-shadow: 0 0 15px var(--neon-cyan);
+            font-size: 1.75rem;
+            margin-bottom: 32px;
+            color: var(--primary-color);
+            font-weight: 700;
             text-align: center;
+            font-family: 'Space Grotesk', sans-serif;
         }
 
         /* Grid Layout */
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 24px;
-            margin-bottom: 32px;
+            margin-bottom: 24px;
         }
 
         .form-group {
             display: flex;
             flex-direction: column;
+            gap: 8px;
         }
 
         label {
-            font-size: 0.95rem;
-            margin-bottom: 8px;
-            color: #a0d8ff;
-            font-weight: 500;
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
 
         input, select, textarea {
-            background: rgba(10, 15, 44, 0.8);
-            border: 1px solid rgba(0, 245, 255, 0.5);
-            border-radius: 12px;
-            padding: 14px 18px;
-            color: #e0f7ff;
+            background: var(--input-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 12px 16px;
+            color: var(--text-main);
             font-size: 1rem;
-            transition: all 0.3s ease;
+            transition: all 0.2s;
+            width: 100%;
         }
 
         input:focus, select:focus, textarea:focus {
             outline: none;
-            border-color: var(--neon-cyan);
-            box-shadow: 0 0 0 4px rgba(0, 245, 255, 0.2);
-            background: rgba(15, 23, 60, 0.9);
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
         }
 
-        /* Headline with Telugu support */
+        /* Telugu Support */
         #headline {
             font-family: 'Noto Sans Telugu', 'Inter', sans-serif;
-            font-size: 1.35rem;
-            font-weight: 700;
-            min-height: 60px;
+            font-size: 1.25rem;
+            font-weight: 600;
         }
 
-        #subheadline {
-            font-style: italic;
-            font-size: 1.05rem;
-        }
-
-        /* Large Body */
         #body {
-            min-height: 220px;
+            min-height: 200px;
             resize: vertical;
-            font-size: 1.05rem;
-            line-height: 1.7;
+            line-height: 1.8;
         }
 
-        /* Bullet Points & Closing */
         .special-box {
-            background: rgba(10, 15, 44, 0.6);
-            border: 1px dashed rgba(0, 245, 255, 0.6);
-            border-radius: 16px;
-            padding: 20px;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 16px;
+            font-size: 0.95rem;
         }
 
-        /* Media Upload Zone */
+        /* Media Upload */
         .upload-zone {
-            border: 3px dashed var(--neon-cyan);
-            border-radius: 20px;
-            padding: 50px 30px;
+            border: 2px dashed var(--border-color);
+            border-radius: 12px;
+            padding: 40px 20px;
             text-align: center;
-            background: rgba(10, 15, 44, 0.6);
-            transition: all 0.4s ease;
+            background: var(--bg-color);
+            transition: all 0.2s;
             cursor: pointer;
-            position: relative;
-            overflow: hidden;
+            margin: 24px 0;
         }
 
         .upload-zone:hover {
-            background: rgba(0, 245, 255, 0.08);
-            border-color: #00ff9d;
-            transform: scale(1.02);
-        }
-
-        .upload-zone::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(90deg, transparent, rgba(0, 245, 255, 0.15), transparent);
-            animation: scanline 4s linear infinite;
-        }
-
-        @keyframes scanline {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(300%); }
+            border-color: var(--accent-color);
+            background: #f0fdf4;
         }
 
         .previews {
             display: flex;
             flex-wrap: wrap;
             gap: 12px;
-            margin-top: 20px;
+            margin-top: 16px;
         }
 
         .preview-item {
-            width: 90px;
-            height: 90px;
-            border-radius: 12px;
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
             overflow: hidden;
-            border: 2px solid rgba(0, 245, 255, 0.5);
-            position: relative;
+            border: 1px solid var(--border-color);
         }
 
         .preview-item img, .preview-item video {
@@ -258,22 +219,26 @@
             object-fit: cover;
         }
 
-        /* Neon Toggle */
+        /* Toggle Switch */
         .toggle-container {
             display: flex;
             align-items: center;
-            gap: 15px;
-            font-size: 1.1rem;
+            gap: 12px;
+            margin: 24px 0;
+            padding: 16px;
+            background: var(--bg-color);
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
         }
 
-        .neon-switch {
+        .switch {
             position: relative;
             display: inline-block;
-            width: 68px;
-            height: 34px;
+            width: 48px;
+            height: 24px;
         }
 
-        .neon-switch input {
+        .switch input {
             opacity: 0;
             width: 0;
             height: 0;
@@ -286,128 +251,142 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: #1a233f;
-            border: 2px solid #334155;
-            border-radius: 50px;
-            transition: 0.4s;
-            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.6);
+            background-color: #cbd5e1;
+            transition: .4s;
+            border-radius: 24px;
         }
 
         .slider:before {
             position: absolute;
             content: "";
-            height: 26px;
-            width: 26px;
-            left: 4px;
-            bottom: 2px;
-            background: linear-gradient(#ff3366, #ff6699);
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
             border-radius: 50%;
-            transition: 0.4s;
-            box-shadow: 
-                0 0 15px #ff3366,
-                inset 0 0 8px rgba(255,255,255,0.8);
         }
 
         input:checked + .slider {
-            background: linear-gradient(90deg, #00ff9d, #00cc7a);
-            border-color: var(--emerald-green);
-            box-shadow: 0 0 25px rgba(0, 255, 157, 0.7);
+            background-color: var(--accent-color);
         }
 
         input:checked + .slider:before {
-            transform: translateX(32px);
-            background: linear-gradient(#00f5ff, #00ccff);
-            box-shadow: 
-                0 0 20px #00f5ff,
-                inset 0 0 8px rgba(255,255,255,0.9);
+            transform: translateX(24px);
         }
 
         /* Publish Button */
         .publish-btn {
-            background: linear-gradient(90deg, #00ff9d, #00cc7a);
-            color: #0a0f2c;
-            font-size: 1.25rem;
-            font-weight: 700;
-            padding: 18px 60px;
+            background-color: var(--primary-color);
+            color: white;
+            font-size: 1.125rem;
+            font-weight: 600;
+            padding: 16px 32px;
             border: none;
-            border-radius: 50px;
+            border-radius: 10px;
             cursor: pointer;
             width: 100%;
-            margin-top: 30px;
-            box-shadow: 
-                0 0 30px rgba(0, 255, 157, 0.6),
-                0 10px 20px rgba(0, 0, 0, 0.4);
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+            transition: all 0.2s;
+            margin-top: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
 
         .publish-btn:hover {
-            transform: translateY(-4px) scale(1.03);
-            box-shadow: 
-                0 0 50px rgba(0, 255, 157, 0.9),
-                0 15px 30px rgba(0, 0, 0, 0.5);
+            background-color: #1e293b;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.2);
+        }
+
+        .publish-btn:active {
+            transform: translateY(0);
+        }
+
+        .publish-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
         }
 
         /* Social Preview */
         .social-preview {
-            margin-top: 40px;
-            padding: 20px;
-            background: rgba(10, 15, 44, 0.5);
-            border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 32px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border-color);
+            text-align: center;
         }
 
         .social-icons {
             display: flex;
-            gap: 20px;
+            gap: 16px;
             justify-content: center;
-            margin-top: 12px;
+            margin-top: 16px;
         }
 
         .social-icons i {
-            font-size: 2rem;
-            color: #a0d8ff;
-            transition: all 0.3s;
+            font-size: 1.5rem;
+            color: var(--text-muted);
+            transition: color 0.2s;
+            cursor: pointer;
         }
 
         .social-icons i:hover {
-            color: var(--neon-cyan);
-            transform: scale(1.2) rotate(10deg);
-            text-shadow: 0 0 15px var(--neon-cyan);
+            color: var(--primary-color);
         }
 
         /* Responsive */
-        @media (max-width: 768px) {
-            .main-heading {
-                font-size: 1.8rem;
-            }
+        @media (max-width: 640px) {
             .form-card {
-                padding: 25px 20px;
+                padding: 24px 16px;
+            }
+            .header-content {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+            .nav-left {
+                width: 100%;
+                justify-content: space-between;
             }
         }
     </style>
 </head>
 <body>
-    <header>
-        <div class="container header-content">
-            <div>
-                <h1 class="main-heading">MAHESHWARA NEXLIFY NUCLEUS DIGITAL SERVICES</h1>
-                <p class="sub-heading">Maheshwara Nexlify News - News Management Portal</p>
-            </div>
-            <div style="text-align: right; color: #64748b; font-size: 0.9rem;">
-                Premium Newsroom Dashboard<br>
-                <span style="color: #00f5ff;">● LIVE</span>
-            </div>
+    <!-- Universal Header -->
+    <header class="universal-header sticky top-0 z-50">
+        <div class="header-inner">
+            <a href="index.html" class="branding-link">
+                <h1 class="branding-title">MAHESHWARA NEXLIFY</h1>
+                <span class="branding-subtitle">Nucleus Digital Services</span>
+            </a>
+            <nav class="universal-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="news-page.html">News Portal</a></li>
+                    <li><a href="uploadnews.html">Upload News</a></li>
+                </ul>
+            </nav>
         </div>
     </header>
+
+    <!-- Flash News Ticker -->
+    <div class="ticker-wrapper">
+        <div class="ticker-label"><i class="fas fa-bolt mr-2"></i> FLASH NEWS</div>
+        <div class="ticker-content">
+            <div id="ticker-scroll" class="ticker-scroll">
+                <span class="ticker-item">Loading latest village updates...</span>
+            </div>
+        </div>
+    </div>
 
     <main class="container">
         <div class="form-card">
             <h2>UPLOAD NEW STORY</h2>
 
             <form id="newsForm">
-                <!-- Metadata Row -->
+                <!-- Row 1: Category & Author & Location -->
                 <div class="grid">
                     <div class="form-group">
                         <label for="category">Category</label>
@@ -423,17 +402,12 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="newsCode">News Code</label>
-                        <input type="text" id="newsCode" placeholder="e.g. MNX-20260410-001" required>
+                        <label for="author_name">Reporter Name</label>
+                        <input type="text" id="author_name" placeholder="Enter your name" required>
                     </div>
 
                     <div class="form-group">
-                        <label for="date">Date</label>
-                        <input type="date" id="date" readonly>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="location">Village / Town</label>
+                        <label for="location">City / Village Name</label>
                         <input type="text" id="location" placeholder="e.g. Anantapur Rural" required>
                     </div>
                 </div>
@@ -441,59 +415,47 @@
                 <!-- Headline Section -->
                 <div class="grid">
                     <div class="form-group" style="grid-column: 1 / -1;">
-                        <label for="headline">Headline (Main Title)</label>
-                        <input type="text" id="headline" placeholder="Enter impactful headline..." required>
+                        <label for="title">Main Headline</label>
+                        <input type="text" id="title" placeholder="Enter impactful headline..." required>
                     </div>
 
                     <div class="form-group" style="grid-column: 1 / -1;">
-                        <label for="subheadline">Sub-headline</label>
-                        <input type="text" id="subheadline" placeholder="Supporting sub-headline (optional)">
+                        <label for="sub_headline">Secondary Headline</label>
+                        <input type="text" id="sub_headline" placeholder="Supporting sub-headline (optional)">
                     </div>
                 </div>
 
                 <!-- Body Section -->
                 <div class="form-group" style="margin-bottom: 24px;">
-                    <label for="body">News Body</label>
-                    <textarea id="body" placeholder="Write the full news story here..."></textarea>
+                    <label for="content">Main News Body</label>
+                    <textarea id="content" placeholder="Write the full news story here..."></textarea>
                 </div>
 
+                <!-- Media Section -->
                 <div class="grid">
                     <div class="form-group">
-                        <label>Bullet Points (Key Highlights)</label>
-                        <textarea id="bullets" class="special-box" rows="5" placeholder="• Point 1&#10;• Point 2&#10;..."></textarea>
+                        <label for="image_file">Main Image (File Upload)</label>
+                        <input type="file" id="image_file" accept="image/*">
                     </div>
 
                     <div class="form-group">
-                        <label for="closing">Closing Line</label>
-                        <textarea id="closing" class="special-box" rows="5" placeholder="End the story with a powerful line..."></textarea>
+                        <label for="video_file">Video File (Optional)</label>
+                        <input type="file" id="video_file" accept="video/mp4,video/x-m4v,video/*">
                     </div>
-                </div>
-
-                <!-- Media Upload -->
-                <div style="margin: 35px 0;">
-                    <label style="display: block; margin-bottom: 12px; font-size: 1.1rem;">Multi-Media Upload (Images / Videos)</label>
-                    <div class="upload-zone" id="dropZone">
-                        <div style="font-size: 3rem; margin-bottom: 15px; color: var(--neon-cyan);">📤</div>
-                        <h3 style="margin-bottom: 8px; color: #e0f7ff;">Drag &amp; Drop Files Here</h3>
-                        <p style="color: #94a3b8;">or <span style="color: var(--neon-cyan); text-decoration: underline;">browse from device</span></p>
-                        <p style="font-size: 0.85rem; margin-top: 10px; color: #64748b;">Supports JPG, PNG, MP4 • Max 50MB per file</p>
-                        <input type="file" id="mediaInput" multiple accept="image/*,video/*" style="display: none;">
-                    </div>
-                    <div class="previews" id="previews"></div>
                 </div>
 
                 <!-- Flash News Toggle -->
                 <div class="toggle-container">
-                    <label class="neon-switch">
+                    <label class="switch">
                         <input type="checkbox" id="flashToggle">
                         <span class="slider"></span>
                     </label>
-                    <span>Add to <strong style="color: #ff3366;">Flash News Ticker</strong></span>
+                    <span style="font-weight: 500;">Add to <strong style="color: var(--primary-color);">Flash News Ticker</strong></span>
                 </div>
 
                 <!-- Social Preview -->
                 <div class="social-preview">
-                    <p style="text-align: center; margin-bottom: 10px; color: #94a3b8;">Social Sharing Preview (will appear on published post)</p>
+                    <p style="text-align: center; margin-bottom: 10px; color: var(--text-muted); font-size: 0.875rem;">Social Sharing Preview (will appear on published post)</p>
                     <div class="social-icons">
                         <i class="fab fa-whatsapp"></i>
                         <i class="fab fa-facebook"></i>
@@ -515,121 +477,178 @@
         faLink.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css';
         document.head.appendChild(faLink);
 
+        // --- Supabase Configuration ---
+        const SUPABASE_URL = 'https://ndorwpcjwzvygvrstdks.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5kb3J3cGNqd3p2eWd2cnN0ZGtzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU0MDEyOTMsImV4cCI6MjA5MDk3NzI5M30.eUISNWLqFwZG9IKCZSXn9tC9RyRWdGbn-9j0jYAfPxQ';
+        
+        // Use the global 'supabase' object provided by the CDN
+        let supabaseClient;
+        try {
+            supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        } catch (e) {
+            console.error('Supabase library not loaded correctly:', e);
+        }
+
         // Auto-fill today's date
         function setTodayDate() {
             const dateInput = document.getElementById('date');
-            const today = new Date().toISOString().split('T')[0];
-            dateInput.value = today;
-        }
-
-        // Drag & Drop + Preview
-        let uploadedFiles = [];
-
-        function setupDropZone() {
-            const dropZone = document.getElementById('dropZone');
-            const fileInput = document.getElementById('mediaInput');
-            const previewsContainer = document.getElementById('previews');
-
-            dropZone.addEventListener('click', () => fileInput.click());
-
-            fileInput.addEventListener('change', handleFiles);
-
-            // Drag events
-            ['dragover', 'dragenter'].forEach(eventName => {
-                dropZone.addEventListener(eventName, (e) => {
-                    e.preventDefault();
-                    dropZone.style.borderColor = '#00ff9d';
-                    dropZone.style.background = 'rgba(0, 255, 157, 0.1)';
-                });
-            });
-
-            ['dragleave', 'dragend'].forEach(eventName => {
-                dropZone.addEventListener(eventName, () => {
-                    dropZone.style.borderColor = 'var(--neon-cyan)';
-                    dropZone.style.background = 'rgba(10, 15, 44, 0.6)';
-                });
-            });
-
-            dropZone.addEventListener('drop', (e) => {
-                e.preventDefault();
-                dropZone.style.borderColor = 'var(--neon-cyan)';
-                dropZone.style.background = 'rgba(10, 15, 44, 0.6)';
-                handleFiles(e.dataTransfer);
-            });
-
-            function handleFiles(source) {
-                const files = source.files || source;
-                Array.from(files).forEach(file => {
-                    if (file.size > 50 * 1024 * 1024) {
-                        alert("File too large! Max 50MB allowed.");
-                        return;
-                    }
-                    uploadedFiles.push(file);
-
-                    const reader = new FileReader();
-                    reader.onload = (ev) => {
-                        const div = document.createElement('div');
-                        div.className = 'preview-item';
-
-                        if (file.type.startsWith('image/')) {
-                            div.innerHTML = `<img src="${ev.target.result}" alt="preview">`;
-                        } else if (file.type.startsWith('video/')) {
-                            div.innerHTML = `<video src="${ev.target.result}" muted></video>`;
-                        }
-                        previewsContainer.appendChild(div);
-                    };
-                    reader.readAsDataURL(file);
-                });
+            if (dateInput) {
+                const today = new Date().toISOString().split('T')[0];
+                dateInput.value = today;
             }
         }
 
-        // Form Submission & localStorage
+        // Form Submission to Supabase
         function setupForm() {
             const form = document.getElementById('newsForm');
+            const publishBtn = form.querySelector('.publish-btn');
 
-            form.addEventListener('submit', (e) => {
+            async function uploadFile(file, bucket) {
+                if (!file) return null;
+                
+                const fileExt = file.name.split('.').pop();
+                const fileName = `${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExt}`;
+                const filePath = fileName;
+
+                console.log(`[Storage] Starting upload to bucket "${bucket}":`, fileName);
+                const { data, error } = await supabaseClient.storage
+                    .from(bucket)
+                    .upload(filePath, file);
+
+                if (error) {
+                    console.error(`[Storage Error] Bucket: ${bucket}`, error);
+                    throw error;
+                }
+
+                console.log(`[Storage] Upload successful for "${bucket}". Generating public URL...`);
+                const { data: { publicUrl } } = supabaseClient.storage
+                    .from(bucket)
+                    .getPublicUrl(filePath);
+
+                console.log(`[Storage] Public URL generated:`, publicUrl);
+                return publicUrl;
+            }
+
+            form.addEventListener('submit', async (e) => {
                 e.preventDefault();
+                
+                if (!supabaseClient) {
+                    const msg = 'Supabase client is not initialized. Check console for script loading errors.';
+                    console.error(msg);
+                    alert(msg);
+                    return;
+                }
 
-                const newsData = {
-                    id: 'MNX-' + Date.now().toString(36).toUpperCase(),
-                    category: document.getElementById('category').value,
-                    newsCode: document.getElementById('newsCode').value,
-                    date: document.getElementById('date').value,
-                    location: document.getElementById('location').value,
-                    headline: document.getElementById('headline').value,
-                    subheadline: document.getElementById('subheadline').value,
-                    body: document.getElementById('body').value,
-                    bullets: document.getElementById('bullets').value,
-                    closing: document.getElementById('closing').value,
-                    isFlash: document.getElementById('flashToggle').checked,
-                    timestamp: new Date().toISOString(),
-                    // Media would be base64 or URLs in real implementation
-                    mediaCount: uploadedFiles.length
-                };
+                // Show loading state
+                publishBtn.disabled = true;
+                publishBtn.innerText = 'Uploading media... Please wait';
 
-                // Load existing or create new array
-                let allNews = JSON.parse(localStorage.getItem('mns_news_data')) || [];
-                allNews.unshift(newsData); // newest first
-                localStorage.setItem('mns_news_data', JSON.stringify(allNews));
+                try {
+                    const title = document.getElementById('title').value;
+                    const sub_headline = document.getElementById('sub_headline').value;
+                    const content = document.getElementById('content').value;
+                    const category = document.getElementById('category').value;
+                    const author_name = document.getElementById('author_name').value;
+                    const location = document.getElementById('location').value;
+                    const isFlash = document.getElementById('flashToggle').checked;
 
-                alert(`✅ News published successfully!\n\nID: ${newsData.id}\nHeadline: ${newsData.headline.substring(0, 60)}...`);
+                    // Files from inputs
+                    const imageFile = document.getElementById('image_file').files[0];
+                    const videoFile = document.getElementById('video_file').files[0];
 
-                // Optional: Reset form
-                form.reset();
-                document.getElementById('previews').innerHTML = '';
-                uploadedFiles = [];
-                setTodayDate();
+                    console.log('[Form Data] Captured fields:', { title, category, author_name, location, isFlash });
+
+                    // 1. Upload files to Storage
+                    let imageUrl = null;
+                    let videoUrl = null;
+
+                    if (imageFile) {
+                        try {
+                            imageUrl = await uploadFile(imageFile, 'news-images');
+                        } catch (err) {
+                            throw new Error(`Image Upload Failed: ${err.message || 'Check console'}`);
+                        }
+                    }
+
+                    if (videoFile) {
+                        try {
+                            videoUrl = await uploadFile(videoFile, 'news-videos');
+                        } catch (err) {
+                            throw new Error(`Video Upload Failed: ${err.message || 'Check console'}`);
+                        }
+                    }
+
+                    // 2. Upload to 'news' table
+                    console.log('[Database] Inserting into "news" table...');
+                    const newsPayload = {
+                        title: title,
+                        sub_headline: sub_headline,
+                        content: content,
+                        category: category,
+                        author_name: author_name,
+                        location: location,
+                        video_url: videoUrl,
+                        image_url: imageUrl,
+                        created_at: new Date().toISOString()
+                    };
+
+                    const { data: newsData, error: newsError } = await supabaseClient
+                        .from('news')
+                        .insert([newsPayload])
+                        .select();
+
+                    if (newsError) {
+                        console.error('[Database Error] News Table Insert:', newsError);
+                        const detailedMsg = `News Table Insert Error:\nMessage: ${newsError.message}\nDetails: ${newsError.details || 'None'}\nHint: ${newsError.hint || 'None'}`;
+                        throw new Error(detailedMsg);
+                    }
+
+                    console.log('[Database] News successfully inserted:', newsData);
+
+                    // 3. If Flash News is checked, upload to 'flash_news' table
+                    if (isFlash) {
+                        console.log('[Database] Inserting into "flash_news" table...');
+                        const { error: flashError } = await supabaseClient
+                            .from('flash_news')
+                            .insert([{
+                                message: title
+                            }]);
+                        
+                        if (flashError) {
+                            console.error('[Database Error] Flash News Insert:', flashError);
+                            // Only alert, don't throw, as the main news is already saved
+                            alert(`⚠️ News saved, but Flash Ticker failed:\n${flashError.message}`);
+                        } else {
+                            console.log('[Database] Flash news successfully inserted.');
+                        }
+                    }
+
+                    alert(`✅ News published successfully!\n\nHeadline: ${title.substring(0, 60)}...`);
+
+                    // Reset form
+                    form.reset();
+                    setTodayDate();
+
+                } catch (error) {
+                    console.error('[Submission Failure] Root Cause:', error);
+                    alert(`❌ Failed to publish news:\n\n${error.message}`);
+                } finally {
+                    publishBtn.disabled = false;
+                    publishBtn.innerText = 'PUBLISH NEWS TO NEXLIFY NETWORK';
+                }
             });
         }
 
         // Initialize everything
         window.onload = function() {
+            // Initialize Universal Ticker
+            initUniversalTicker(supabaseClient);
+
             setTodayDate();
-            setupDropZone();
             setupForm();
 
             // Optional keyboard shortcut hint
-            console.log('%c🚀 Upload portal ready. Press Ctrl/Cmd + Enter to submit (not implemented yet).', 'color:#00f5ff; font-family:monospace');
+            console.log('%c🚀 Upload portal ready.', 'color:var(--accent-color); font-family:monospace');
         };
     </script>
 </body>

@@ -1,177 +1,447 @@
-﻿<!<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Maheshwara News - ముత్తారం తాజా వార్తలు</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Maheshwara Nexlify News - All Stories</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Supabase Client Library -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="shared-ticker.js"></script>
+    <link rel="stylesheet" href="shared-header.css">
+
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-        .telugu { font-family: 'Gidugu', 'Noto Sans Telugu', system-ui, sans-serif; }
-        .dark-tech-bg { background: linear-gradient(180deg, #0a1128 0%, #02040f 100%); }
-        .neon-cyan-glow { text-shadow: 0 0 20px #00f7ff, 0 0 40px #00f7ff; }
-        .ticker { overflow: hidden; white-space: nowrap; }
-        .news-card { transition: all 0.3s ease; }
-        .news-card:hover { transform: translateY(-8px); box-shadow: 0 0 40px -10px #ff0033; }
+        :root {
+            --primary-color: #0f172a; /* Deep Blue */
+            --accent-color: #10b981;  /* Emerald Green */
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header & Navigation */
+        header {
+            background: var(--card-bg);
+            border-bottom: 1px solid var(--border-color);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow);
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .branding {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .main-heading {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            letter-spacing: -0.02em;
+            text-decoration: none;
+        }
+
+        .sub-heading {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.875rem;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #1e293b;
+            transform: translateY(-1px);
+        }
+
+        /* Page Title */
+        .page-header {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .page-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        /* News Grid */
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        /* Clipping Card Style */
+        .news-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .card-image {
+            width: 100%;
+            height: 220px;
+            background-color: #f1f5f9;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .placeholder-image {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            background: #e2e8f0;
+            font-size: 3rem;
+        }
+
+        .card-content {
+            padding: 24px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-category {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            letter-spacing: 0.05em;
+        }
+
+        .card-title {
+            font-family: 'Noto Sans Telugu', 'Inter', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            line-height: 1.4;
+            margin-bottom: 12px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .card-excerpt {
+            font-size: 0.9375rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 20px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .card-footer {
+            margin-top: auto;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .read-more {
+            color: var(--primary-color);
+            font-weight: 700;
+            text-decoration: none;
+            font-size: 0.875rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: gap 0.2s;
+        }
+
+        .read-more:hover {
+            gap: 10px;
+        }
+
+        .share-icons {
+            display: flex;
+            gap: 12px;
+        }
+
+        .share-icons a {
+            color: var(--text-muted);
+            font-size: 1rem;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #f1f5f9;
+        }
+
+        .share-icons a:hover {
+            transform: translateY(-2px);
+            color: white;
+        }
+
+        .share-icons .fa-whatsapp:hover { background-color: #25d366; }
+        .share-icons .fa-facebook:hover { background-color: #1877f2; }
+        .share-icons .fa-x-twitter:hover { background-color: #000000; }
+        .share-icons .fa-link:hover { background-color: #64748b; }
+
+        /* Loading Spinner */
+        #loadingSpinner {
+            text-align: center;
+            padding: 60px 0;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid var(--border-color);
+            border-top: 5px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Responsive */
+        @media (max-width: 640px) {
+            .page-title {
+                font-size: 1.75rem;
+            }
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
-<body class="dark-tech-bg text-white min-h-screen">
-    
-    <!-- BREAKING NEWS TICKER -->
-    <div class="bg-red-600 py-2 text-white text-sm font-medium overflow-hidden">
-        <div class="ticker flex items-center gap-8 animate-marquee">
-            <span class="bg-white text-red-600 px-4 py-1 text-xs font-bold">BREAKING</span>
-            <span id="ticker-text">Heavy rains expected in Hyderabad • PM Kisan 17th installment released • TSRTC announces new bus routes • Local youth wins national AI competition • </span>
-        </div>
-    </div>
-
-    <!-- HEADER -->
-    <header class="border-b border-white/10 bg-black/70 backdrop-blur-xl sticky top-0 z-50">
-        <div class="max-w-screen-2xl mx-auto px-8 py-6 flex items-center justify-between">
-            <div class="flex items-center gap-4">
-                <div class="w-12 h-12 bg-gradient-to-br from-red-500 to-rose-600 rounded-2xl flex items-center justify-center">
-                    <i class="fa-solid fa-newspaper text-3xl"></i>
-                </div>
-                <div>
-                    <h1 class="text-4xl font-bold tracking-tighter neon-cyan-glow">MAHESHWARA NEWS</h1>
-                    <p class="telugu text-xl text-white/80 -mt-1">ముత్తారం తాజా వార్తలు</p>
-                </div>
-            </div>
-            
-            <button onclick="openPostNewsModal()" 
-                    class="flex items-center gap-3 bg-gradient-to-r from-red-500 to-rose-600 hover:from-red-600 hover:to-rose-700 px-8 py-4 rounded-3xl font-bold text-sm uppercase tracking-widest">
-                <i class="fa-solid fa-plus"></i>
-                POST YOUR NEWS / మీ వార్తను పంపండి
-            </button>
+<body>
+    <!-- Universal Header -->
+    <header class="universal-header sticky top-0 z-50">
+        <div class="header-inner">
+            <a href="index.html" class="branding-link">
+                <h1 class="branding-title">MAHESHWARA NEXLIFY</h1>
+                <span class="branding-subtitle">Nucleus Digital Services</span>
+            </a>
+            <nav class="universal-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="news-page.html">News Portal</a></li>
+                    <li><a href="uploadnews.html">Upload News</a></li>
+                </ul>
+            </nav>
         </div>
     </header>
 
-    <div class="max-w-screen-2xl mx-auto px-6 lg:px-8 py-10">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
-            
-            <!-- MAIN NEWS FEED -->
-            <div class="lg:col-span-8 space-y-12" id="news-feed">
-                <!-- Populated by JavaScript -->
-            </div>
-            
-            <!-- RIGHT SIDEBAR -->
-            <div class="lg:col-span-4 space-y-10">
-                
-                <!-- E-Papers -->
-                <div class="glass bg-slate-900/80 border border-white/10 rounded-3xl p-6">
-                    <h3 class="uppercase text-xs tracking-[3px] text-red-400 mb-6">తెలుగు ఈ-పేపర్లు</h3>
-                    <div class="grid grid-cols-2 gap-4">
-                        <a href="https://www.sakshi.com/" target="_blank" class="block p-4 bg-white/5 hover:bg-white/10 rounded-2xl text-center">Sakshi</a>
-                        <a href="https://www.eenadu.net/" target="_blank" class="block p-4 bg-white/5 hover:bg-white/10 rounded-2xl text-center">Eenadu</a>
-                        <a href="https://namasthetelangana.com/" target="_blank" class="block p-4 bg-white/5 hover:bg-white/10 rounded-2xl text-center">Namaste Telangana</a>
-                    </div>
-                    <h3 class="uppercase text-xs tracking-[3px] text-red-400 mt-10 mb-6">English Newspapers</h3>
-                    <div class="space-y-3">
-                        <a href="https://www.thehindu.com/" target="_blank" class="flex items-center gap-3 hover:text-cyan-400">The Hindu</a>
-                        <a href="https://timesofindia.indiatimes.com/" target="_blank" class="flex items-center gap-3 hover:text-cyan-400">Times of India</a>
-                    </div>
-                </div>
-                
-                <!-- Trending -->
-                <div class="glass bg-slate-900/80 border border-white/10 rounded-3xl p-6">
-                    <h3 class="uppercase text-xs tracking-[3px] text-amber-400 mb-6">Trending Now</h3>
-                    <div class="space-y-6 text-sm">
-                        <div class="border-l-4 border-red-500 pl-4">Hyderabad Metro Phase II approved</div>
-                        <div class="border-l-4 border-red-500 pl-4">Record paddy procurement in Telangana</div>
-                        <div class="border-l-4 border-red-500 pl-4">AI talent from local colleges shines</div>
-                    </div>
-                </div>
+    <!-- Flash News Ticker -->
+    <div class="ticker-wrapper">
+        <div class="ticker-label"><i class="fas fa-bolt mr-2"></i> FLASH NEWS</div>
+        <div class="ticker-content">
+            <div id="ticker-scroll" class="ticker-scroll">
+                <span class="ticker-item">Loading latest village updates...</span>
             </div>
         </div>
     </div>
 
-    <!-- FOOTER -->
-    <footer class="bg-black/90 border-t border-white/10 py-12">
-        <div class="max-w-screen-2xl mx-auto px-8 text-center">
-            <p class="text-white/60">Kasrlagadda Bus Stand, Hyderabad, Telangana</p>
-            <div class="flex justify-center gap-8 text-3xl mt-8">
-                <a href="https://wa.me/919949122402" target="_blank" class="hover:text-green-400"><i class="fa-brands fa-whatsapp"></i></a>
-                <a href="#" class="hover:text-blue-400"><i class="fa-brands fa-facebook"></i></a>
-            </div>
-            <p class="text-xs text-white/40 mt-10">© 2026 Maheshwara News • Digital Media House</p>
+    <main class="container">
+        <div class="page-header">
+            <h2 class="page-title">Latest News Stories</h2>
+            <p style="color: var(--text-muted); margin-top: 10px;">Stay updated with the latest happenings around you.</p>
         </div>
-    </footer>
+
+        <div id="loadingSpinner">
+            <div class="spinner"></div>
+            <p style="color: var(--text-muted);">Loading news...</p>
+        </div>
+
+        <div class="news-grid" id="newsGrid" style="display: none;">
+            <!-- News cards will be loaded here -->
+        </div>
+
+        <div id="noNews" style="display: none; text-align: center; padding: 60px 0;">
+            <i class="fas fa-newspaper" style="font-size: 4rem; color: var(--border-color); margin-bottom: 20px;"></i>
+            <h3 style="color: var(--text-main);">No News Stories Found</h3>
+            <p style="color: var(--text-muted); margin-top: 10px;">Check back later for fresh updates.</p>
+        </div>
+    </main>
 
     <script>
-        // Sample News Data + localStorage support
-        let newsData = JSON.parse(localStorage.getItem('maheshwaraNews')) || [
-            {
-                id: 1,
-                headline: "హైదరాబాద్‌లో భారీ వర్షాలు.. రాష్ట్రవ్యాప్తంగా అలర్ట్",
-                headlineEn: "Heavy Rains Lash Hyderabad, Alert Issued",
-                body: "రాష్ట్ర రాజధాని హైదరాబాద్‌లో గత రెండు రోజులుగా కురుస్తున్న భారీ వర్షాలు...",
-                image: "https://picsum.photos/id/1015/800/450",
-                category: "Local",
-                date: "April 9, 2026"
-            },
-            {
-                id: 2,
-                headline: "పీఎం కిసాన్ 17వ వాయిదా విడుదల.. రైతులు సంతోషం",
-                headlineEn: "PM Kisan 17th Installment Released",
-                body: "ప్రధాని కిసాన్ సమ్మాన్ నిధి కింద 17వ వాయిదా మొత్తం రైతుల ఖాతాల్లో జమ చేయబడింది...",
-                image: "https://picsum.photos/id/201/800/450",
-                category: "Agri",
-                date: "April 8, 2026"
-            }
-        ];
+        // --- Supabase Configuration ---
+        const SUPABASE_URL = 'https://ndorwpcjwzvygvrstdks.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5kb3J3cGNqd3p2eWd2cnN0ZGtzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU0MDEyOTMsImV4cCI6MjA5MDk3NzI5M30.eUISNWLqFwZG9IKCZSXn9tC9RyRWdGbn-9j0jYAfPxQ';
+        
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-        function renderNews() {
-            const container = document.getElementById('news-feed');
-            container.innerHTML = '';
-            
-            newsData.forEach(news => {
-                const card = document.createElement('div');
-                card.className = `news-card glass bg-slate-900/80 border border-white/10 rounded-3xl overflow-hidden grid md:grid-cols-12 gap-6`;
+        async function fetchNews() {
+            // Initialize Universal Ticker
+            initUniversalTicker(supabaseClient);
+
+            const grid = document.getElementById('newsGrid');
+            const spinner = document.getElementById('loadingSpinner');
+            const noNews = document.getElementById('noNews');
+
+            try {
+                console.log('[Fetch] Requesting news from Supabase...');
+                const { data, error } = await supabaseClient
+                    .from('news')
+                    .select('*')
+                    .order('created_at', { ascending: false });
+
+                if (error) throw error;
+
+                spinner.style.display = 'none';
+
+                if (!data || data.length === 0) {
+                    noNews.style.display = 'block';
+                    return;
+                }
+
+                console.log(`[Fetch] Success! Received ${data.length} items.`);
                 
-                card.innerHTML = `
-                    <div class="md:col-span-5">
-                        <img src="${news.image}" alt="${news.headline}" class="w-full h-full object-cover">
+                grid.style.display = 'grid';
+                grid.innerHTML = data.map(news => createNewsCard(news)).join('');
+
+            } catch (err) {
+                console.error('[Fetch Error] Details:', err);
+                spinner.style.display = 'none';
+                noNews.style.display = 'block';
+                noNews.querySelector('h3').innerText = 'Connection Error';
+                noNews.querySelector('p').innerText = 'Unable to fetch news. Please check your internet or Supabase configuration.';
+            }
+        }
+
+        function createNewsCard(news) {
+            const newsUrl = `${window.location.origin}/news-detail.html?id=${news.id}`;
+            const encodedUrl = encodeURIComponent(newsUrl);
+            const encodedTitle = encodeURIComponent(news.title);
+            
+            // Short excerpt for WhatsApp
+            const shortExcerpt = news.content 
+                ? news.content.replace(/<[^>]*>/g, '').substring(0, 80) + '...'
+                : '';
+            const encodedDesc = encodeURIComponent(shortExcerpt);
+
+            // Clean excerpt for card
+            const excerpt = news.content 
+                ? news.content.replace(/<[^>]*>/g, '').substring(0, 100) + '...'
+                : 'No content available.';
+
+            const imageHtml = news.image_url 
+                ? `<img src="${news.image_url}" alt="${news.title}" loading="lazy">`
+                : `<div class="placeholder-image"><i class="fas fa-newspaper"></i></div>`;
+
+            return `
+                <div class="news-card">
+                    <div class="card-image">
+                        ${imageHtml}
                     </div>
-                    <div class="md:col-span-7 p-7 flex flex-col">
-                        <div class="flex items-center gap-3 text-xs uppercase text-red-400 mb-3">
-                            <span>${news.category}</span>
-                            <span class="w-px h-3 bg-white/30"></span>
-                            <span>${news.date}</span>
-                        </div>
-                        <h2 onclick="readFullNews(${news.id})" class="telugu text-2xl font-semibold leading-tight hover:text-cyan-400 cursor-pointer">
-                            ${news.headline}
-                        </h2>
-                        <p class="mt-4 text-white/70 line-clamp-3">${news.body}</p>
+                    <div class="card-content">
+                        <div class="card-category">${news.category || 'General'}</div>
+                        <h3 class="card-title">${news.title}</h3>
+                        <p class="card-excerpt">${excerpt}</p>
                         
-                        <div class="mt-auto pt-6 flex items-center gap-4">
-                            <button onclick="readFullNews(${news.id})" 
-                                    class="px-6 py-3 bg-red-600 hover:bg-red-700 text-sm font-bold rounded-2xl">READ MORE</button>
-                            
-                            <a href="https://wa.me/919949122402?text=${encodeURIComponent(news.headline)}" target="_blank"
-                               class="text-2xl hover:text-green-400"><i class="fa-brands fa-whatsapp"></i></a>
-                            <a href="#" class="text-2xl hover:text-blue-400"><i class="fa-brands fa-facebook"></i></a>
+                        <div class="card-footer">
+                            <a href="news-detail.html?id=${news.id}" target="_blank" class="read-more">
+                                Read Full News <i class="fas fa-arrow-right"></i>
+                            </a>
+                            <div class="share-icons">
+                                <a href="https://wa.me/?text=${encodedTitle}%0A${encodedDesc}%0A${encodedUrl}" target="_blank" title="Share on WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                                <a href="https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}" target="_blank" title="Share on Facebook"><i class="fab fa-facebook"></i></a>
+                                <a href="https://twitter.com/intent/tweet?text=${encodedTitle}&url=${encodedUrl}" target="_blank" title="Share on X (Twitter)"><i class="fab fa-x-twitter"></i></a>
+                                <a href="#" onclick="event.preventDefault(); navigator.clipboard.writeText('${newsUrl}'); alert('Link copied to clipboard!');" title="Copy Link"><i class="fas fa-link"></i></a>
+                            </div>
                         </div>
                     </div>
-                `;
-                container.appendChild(card);
-            });
+                </div>
+            `;
         }
 
-        function readFullNews(id) {
-            localStorage.setItem('currentNewsId', id);
-            window.location.href = 'news-detail.html';
-        }
-
-        function openPostNewsModal() {
-            alert("📲 Post Your News\n\nPlease send your news via WhatsApp to +91 99491 22402\nWe will verify and publish it.");
-            window.open('https://wa.me/919949122402', '_blank');
-        }
-
-        // Initialize
-        window.onload = () => {
-            renderNews();
-        };
+        window.onload = fetchNews;
     </script>
 </body>
 </html>
