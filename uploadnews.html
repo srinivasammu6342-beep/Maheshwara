@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maheshwara Nexlify News - Upload</title>
+
+    <script>
+        // --- Auth Guard (Redirect Logic) ---
+        (function() {
+            if (sessionStorage.getItem('isLoggedIn') !== 'true') {
+                window.location.href = 'login.html';
+            }
+        })();
+    </script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <!-- Noto Sans Telugu for better support -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Supabase Client Library -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="shared-ticker.js"></script>
+    <link rel="stylesheet" href="shared-header.css">
+
+    <style>
+        :root {
+            --primary-color: #0f172a; /* Deep Blue */
+            --accent-color: #10b981;  /* Emerald Green */
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --input-bg: #ffffff;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header & Navigation */
+        header {
+            background: var(--card-bg);
+            border-bottom: 1px solid var(--border-color);
+            padding: 16px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow);
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .home-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 600;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.2s;
+            border: 1px solid var(--border-color);
+            background: var(--card-bg);
+        }
+
+        .home-btn:hover {
+            background: var(--bg-color);
+            border-color: var(--text-muted);
+            transform: translateY(-1px);
+        }
+
+        .main-heading {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            letter-spacing: -0.02em;
+        }
+
+        /* Form Card */
+        main {
+            padding: 40px 0;
+        }
+
+        .form-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border-color);
+        }
+
+        h2 {
+            font-size: 1.75rem;
+            margin-bottom: 32px;
+            color: var(--primary-color);
+            font-weight: 700;
+            text-align: center;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        /* Grid Layout */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        label {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        input, select, textarea {
+            background: var(--input-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 12px 16px;
+            color: var(--text-main);
+            font-size: 1rem;
+            transition: all 0.2s;
+            width: 100%;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+        }
+
+        /* Telugu Support */
+        #headline {
+            font-family: 'Noto Sans Telugu', 'Inter', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        #body {
+            min-height: 200px;
+            resize: vertical;
+            line-height: 1.8;
+        }
+
+        .special-box {
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 16px;
+            font-size: 0.95rem;
+        }
+
+        /* Media Upload */
+        .upload-zone {
+            border: 2px dashed var(--border-color);
+            border-radius: 12px;
+            padding: 40px 20px;
+            text-align: center;
+            background: var(--bg-color);
+            transition: all 0.2s;
+            cursor: pointer;
+            margin: 24px 0;
+        }
+
+        .upload-zone:hover {
+            border-color: var(--accent-color);
+            background: #f0fdf4;
+        }
+
+        .previews {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .preview-item {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .preview-item img, .preview-item video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Toggle Switch */
+        .toggle-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 24px 0;
+            padding: 16px;
+            background: var(--bg-color);
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 48px;
+            height: 24px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #cbd5e1;
+            transition: .4s;
+            border-radius: 24px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--accent-color);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(24px);
+        }
+
+        /* Publish Button */
+        .publish-btn {
+            background-color: var(--primary-color);
+            color: white;
+            font-size: 1.125rem;
+            font-weight: 600;
+            padding: 16px 32px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.2s;
+            margin-top: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .publish-btn:hover {
+            background-color: #1e293b;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.2);
+        }
+
+        .publish-btn:active {
+            transform: translateY(0);
+        }
+
+        .publish-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        /* Social Preview */
+        .social-preview {
+            margin-top: 32px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            margin-top: 16px;
+        }
+
+        .social-icons i {
+            font-size: 1.5rem;
+            color: var(--text-muted);
+            transition: color 0.2s;
+            cursor: pointer;
+        }
+
+        .social-icons i:hover {
+            color: var(--primary-color);
+        }
+
+        /* Responsive */
+        @media (max-width: 640px) {
+            .form-card {
+                padding: 24px 16px;
+            }
+            .header-content {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+            .nav-left {
+                width: 100%;
+                justify-content: space-between;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Universal Header -->
+    <header class="universal-header sticky top-0 z-50">
+        <div class="header-inner">
+            <a href="index.html" class="branding-link">
+                <h1 class="branding-title">MAHESHWARA NEXLIFY</h1>
+                <span class="branding-subtitle">Nucleus Digital Services</span>
+            </a>
+            <nav class="universal-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="news-page.html">News Portal</a></li>
+                    <li><a href="uploadnews.html">Upload News</a></li>
+                    <li><a href="#" id="logoutBtn" style="color: #ef4444;">Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Flash News Ticker -->
+    <div class="ticker-wrapper">
+        <div class="ticker-label"><i class="fas fa-bolt mr-2"></i> FLASH NEWS</div>
+        <div class="ticker-content">
+            <div id="ticker-scroll" class="ticker-scroll">
+                <span class="ticker-item">Loading latest village updates...</span>
+            </div>
+        </div>
+    </div>
+
+    <main class="container">
+        <div class="form-card">
+            <h2>UPLOAD NEW STORY</h2>
+
+            <form id="newsForm">
+                <!-- Row 1: Category & Author & Location -->
+                <div class="grid">
+                    <div class="form-group">
+                        <label for="category">Category</label>
+                        <select id="category" required>
+                            <option value="">Select Category</option>
+                            <option value="village">Village News</option>
+                            <option value="politics">Politics</option>
+                            <option value="development">Development</option>
+                            <option value="culture">Culture &amp; Tradition</option>
+                            <option value="agriculture">Agriculture</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="author_name">Reporter Name</label>
+                        <input type="text" id="author_name" placeholder="Enter your name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="location">City / Village Name</label>
+                        <input type="text" id="location" placeholder="e.g. Anantapur Rural" required>
+                    </div>
+                </div>
+
+                <!-- Headline Section -->
+                <div class="grid">
+                    <div class="form-group" style="grid-column: 1 / -1;">
+                        <label for="title">Main Headline</label>
+                        <input type="text" id="title" placeholder="Enter impactful headline..." required>
+                    </div>
+
+                    <div class="form-group" style="grid-column: 1 / -1;">
+                        <label for="sub_headline">Secondary Headline</label>
+                        <input type="text" id="sub_headline" placeholder="Supporting sub-headline (optional)">
+                    </div>
+                </div>
+
+                <!-- Body Section -->
+                <div class="form-group" style="margin-bottom: 24px;">
+                    <label for="content">Main News Body</label>
+                    <textarea id="content" placeholder="Write the full news story here..."></textarea>
+                </div>
+
+                <!-- Media Section -->
+                <div class="grid">
+                    <div class="form-group">
+                        <label for="image_file">Main Image (File Upload)</label>
+                        <input type="file" id="image_file" accept="image/*">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="video_file">Video File (Optional)</label>
+                        <input type="file" id="video_file" accept="video/mp4,video/x-m4v,video/*">
+                    </div>
+                </div>
+
+                <!-- Flash News Toggle -->
+                <div class="toggle-container">
+                    <label class="switch">
+                        <input type="checkbox" id="flashToggle">
+                        <span class="slider"></span>
+                    </label>
+                    <span style="font-weight: 500;">Add to <strong style="color: var(--primary-color);">Flash News Ticker</strong></span>
+                </div>
+
+                <!-- Social Preview -->
+                <div class="social-preview">
+                    <p style="text-align: center; margin-bottom: 10px; color: var(--text-muted); font-size: 0.875rem;">Social Sharing Preview (will appear on published post)</p>
+                    <div class="social-icons">
+                        <i class="fab fa-whatsapp"></i>
+                        <i class="fab fa-facebook"></i>
+                        <i class="fab fa-twitter"></i>
+                        <i class="fab fa-telegram"></i>
+                        <i class="fab fa-linkedin"></i>
+                    </div>
+                </div>
+
+                <button type="submit" class="publish-btn">PUBLISH NEWS TO NEXLIFY NETWORK</button>
+            </form>
+        </div>
+    </main>
+
+    <script>
+        // Font Awesome for icons (social)
+        const faLink = document.createElement('link');
+        faLink.rel = 'stylesheet';
+        faLink.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css';
+        document.head.appendChild(faLink);
+
+        // --- Supabase Configuration ---
+        const SUPABASE_URL = 'https://ndorwpcjwzvygvrstdks.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5kb3J3cGNqd3p2eWd2cnN0ZGtzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU0MDEyOTMsImV4cCI6MjA5MDk3NzI5M30.eUISNWLqFwZG9IKCZSXn9tC9RyRWdGbn-9j0jYAfPxQ';
+        
+        // Use the global 'supabase' object provided by the CDN
+        let supabaseClient;
+        try {
+            supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        } catch (e) {
+            console.error('Supabase library not loaded correctly:', e);
+        }
+
+        // Auto-fill today's date
+        function setTodayDate() {
+            const dateInput = document.getElementById('date');
+            if (dateInput) {
+                const today = new Date().toISOString().split('T')[0];
+                dateInput.value = today;
+            }
+        }
+
+        // Form Submission to Supabase
+        function setupForm() {
+            const form = document.getElementById('newsForm');
+            const publishBtn = form.querySelector('.publish-btn');
+
+            async function uploadFile(file, bucket) {
+                if (!file) return null;
+                
+                const fileExt = file.name.split('.').pop();
+                const fileName = `${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExt}`;
+                const filePath = fileName;
+
+                console.log(`[Storage] Starting upload to bucket "${bucket}":`, fileName);
+                const { data, error } = await supabaseClient.storage
+                    .from(bucket)
+                    .upload(filePath, file);
+
+                if (error) {
+                    console.error(`[Storage Error] Bucket: ${bucket}`, error);
+                    throw error;
+                }
+
+                console.log(`[Storage] Upload successful for "${bucket}". Generating public URL...`);
+                const { data: { publicUrl } } = supabaseClient.storage
+                    .from(bucket)
+                    .getPublicUrl(filePath);
+
+                console.log(`[Storage] Public URL generated:`, publicUrl);
+                return publicUrl;
+            }
+
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                if (!supabaseClient) {
+                    const msg = 'Supabase client is not initialized. Check console for script loading errors.';
+                    console.error(msg);
+                    alert(msg);
+                    return;
+                }
+
+                // Show loading state
+                publishBtn.disabled = true;
+                publishBtn.innerText = 'Uploading media... Please wait';
+
+                try {
+                    const title = document.getElementById('title').value;
+                    const sub_headline = document.getElementById('sub_headline').value;
+                    const content = document.getElementById('content').value;
+                    const category = document.getElementById('category').value;
+                    const author_name = document.getElementById('author_name').value;
+                    const location = document.getElementById('location').value;
+                    const isFlash = document.getElementById('flashToggle').checked;
+
+                    // Files from inputs
+                    const imageFile = document.getElementById('image_file').files[0];
+                    const videoFile = document.getElementById('video_file').files[0];
+
+                    console.log('[Form Data] Captured fields:', { title, category, author_name, location, isFlash });
+
+                    // 1. Upload files to Storage
+                    let imageUrl = null;
+                    let videoUrl = null;
+
+                    if (imageFile) {
+                        try {
+                            imageUrl = await uploadFile(imageFile, 'news-images');
+                        } catch (err) {
+                            throw new Error(`Image Upload Failed: ${err.message || 'Check console'}`);
+                        }
+                    }
+
+                    if (videoFile) {
+                        try {
+                            videoUrl = await uploadFile(videoFile, 'news-videos');
+                        } catch (err) {
+                            throw new Error(`Video Upload Failed: ${err.message || 'Check console'}`);
+                        }
+                    }
+
+                    // 2. Upload to 'news' table
+                    console.log('[Database] Inserting into "news" table...');
+                    const newsPayload = {
+                        title: title,
+                        sub_headline: sub_headline,
+                        content: content,
+                        category: category,
+                        author_name: author_name,
+                        location: location,
+                        video_url: videoUrl,
+                        image_url: imageUrl,
+                        created_at: new Date().toISOString()
+                    };
+
+                    const { data: newsData, error: newsError } = await supabaseClient
+                        .from('news')
+                        .insert([newsPayload])
+                        .select();
+
+                    if (newsError) {
+                        console.error('[Database Error] News Table Insert:', newsError);
+                        const detailedMsg = `News Table Insert Error:\nMessage: ${newsError.message}\nDetails: ${newsError.details || 'None'}\nHint: ${newsError.hint || 'None'}`;
+                        throw new Error(detailedMsg);
+                    }
+
+                    console.log('[Database] News successfully inserted:', newsData);
+
+                    // 3. If Flash News is checked, upload to 'flash_news' table
+                    if (isFlash) {
+                        console.log('[Database] Inserting into "flash_news" table...');
+                        const { error: flashError } = await supabaseClient
+                            .from('flash_news')
+                            .insert([{
+                                message: title
+                            }]);
+                        
+                        if (flashError) {
+                            console.error('[Database Error] Flash News Insert:', flashError);
+                            // Only alert, don't throw, as the main news is already saved
+                            alert(`⚠️ News saved, but Flash Ticker failed:\n${flashError.message}`);
+                        } else {
+                            console.log('[Database] Flash news successfully inserted.');
+                        }
+                    }
+
+                    alert(`✅ News published successfully!\n\nHeadline: ${title.substring(0, 60)}...`);
+
+                    // Reset form
+                    form.reset();
+                    setTodayDate();
+
+                } catch (error) {
+                    console.error('[Submission Failure] Root Cause:', error);
+                    alert(`❌ Failed to publish news:\n\n${error.message}`);
+                } finally {
+                    publishBtn.disabled = false;
+                    publishBtn.innerText = 'PUBLISH NEWS TO NEXLIFY NETWORK';
+                }
+            });
+        }
+
+        // Initialize everything
+        window.onload = function() {
+            // Logout logic
+            document.getElementById('logoutBtn').addEventListener('click', function(e) {
+                e.preventDefault();
+                sessionStorage.removeItem('isLoggedIn');
+                window.location.href = 'login.html';
+            });
+
+            // Initialize Universal Ticker
+            initUniversalTicker(supabaseClient);
+
+            setTodayDate();
+            setupForm();
+
+            // Optional keyboard shortcut hint
+            console.log('%c🚀 Upload portal ready.', 'color:var(--accent-color); font-family:monospace');
+        };
+    </script>
+</body>
+</html>

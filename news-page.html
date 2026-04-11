@@ -1,0 +1,447 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maheshwara Nexlify News - All Stories</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Supabase Client Library -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="shared-ticker.js"></script>
+    <link rel="stylesheet" href="shared-header.css">
+
+    <style>
+        :root {
+            --primary-color: #0f172a; /* Deep Blue */
+            --accent-color: #10b981;  /* Emerald Green */
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header & Navigation */
+        header {
+            background: var(--card-bg);
+            border-bottom: 1px solid var(--border-color);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow);
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .branding {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .main-heading {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            letter-spacing: -0.02em;
+            text-decoration: none;
+        }
+
+        .sub-heading {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.875rem;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #1e293b;
+            transform: translateY(-1px);
+        }
+
+        /* Page Title */
+        .page-header {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .page-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        /* News Grid */
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        /* Clipping Card Style */
+        .news-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .card-image {
+            width: 100%;
+            height: 220px;
+            background-color: #f1f5f9;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .placeholder-image {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            background: #e2e8f0;
+            font-size: 3rem;
+        }
+
+        .card-content {
+            padding: 24px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-category {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            letter-spacing: 0.05em;
+        }
+
+        .card-title {
+            font-family: 'Noto Sans Telugu', 'Inter', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            line-height: 1.4;
+            margin-bottom: 12px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .card-excerpt {
+            font-size: 0.9375rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 20px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .card-footer {
+            margin-top: auto;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .read-more {
+            color: var(--primary-color);
+            font-weight: 700;
+            text-decoration: none;
+            font-size: 0.875rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: gap 0.2s;
+        }
+
+        .read-more:hover {
+            gap: 10px;
+        }
+
+        .share-icons {
+            display: flex;
+            gap: 12px;
+        }
+
+        .share-icons a {
+            color: var(--text-muted);
+            font-size: 1rem;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #f1f5f9;
+        }
+
+        .share-icons a:hover {
+            transform: translateY(-2px);
+            color: white;
+        }
+
+        .share-icons .fa-whatsapp:hover { background-color: #25d366; }
+        .share-icons .fa-facebook:hover { background-color: #1877f2; }
+        .share-icons .fa-x-twitter:hover { background-color: #000000; }
+        .share-icons .fa-link:hover { background-color: #64748b; }
+
+        /* Loading Spinner */
+        #loadingSpinner {
+            text-align: center;
+            padding: 60px 0;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid var(--border-color);
+            border-top: 5px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Responsive */
+        @media (max-width: 640px) {
+            .page-title {
+                font-size: 1.75rem;
+            }
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Universal Header -->
+    <header class="universal-header sticky top-0 z-50">
+        <div class="header-inner">
+            <a href="index.html" class="branding-link">
+                <h1 class="branding-title">MAHESHWARA NEXLIFY</h1>
+                <span class="branding-subtitle">Nucleus Digital Services</span>
+            </a>
+            <nav class="universal-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="news-page.html">News Portal</a></li>
+                    <li><a href="uploadnews.html">Upload News</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Flash News Ticker -->
+    <div class="ticker-wrapper">
+        <div class="ticker-label"><i class="fas fa-bolt mr-2"></i> FLASH NEWS</div>
+        <div class="ticker-content">
+            <div id="ticker-scroll" class="ticker-scroll">
+                <span class="ticker-item">Loading latest village updates...</span>
+            </div>
+        </div>
+    </div>
+
+    <main class="container">
+        <div class="page-header">
+            <h2 class="page-title">Latest News Stories</h2>
+            <p style="color: var(--text-muted); margin-top: 10px;">Stay updated with the latest happenings around you.</p>
+        </div>
+
+        <div id="loadingSpinner">
+            <div class="spinner"></div>
+            <p style="color: var(--text-muted);">Loading news...</p>
+        </div>
+
+        <div class="news-grid" id="newsGrid" style="display: none;">
+            <!-- News cards will be loaded here -->
+        </div>
+
+        <div id="noNews" style="display: none; text-align: center; padding: 60px 0;">
+            <i class="fas fa-newspaper" style="font-size: 4rem; color: var(--border-color); margin-bottom: 20px;"></i>
+            <h3 style="color: var(--text-main);">No News Stories Found</h3>
+            <p style="color: var(--text-muted); margin-top: 10px;">Check back later for fresh updates.</p>
+        </div>
+    </main>
+
+    <script>
+        // --- Supabase Configuration ---
+        const SUPABASE_URL = 'https://ndorwpcjwzvygvrstdks.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5kb3J3cGNqd3p2eWd2cnN0ZGtzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU0MDEyOTMsImV4cCI6MjA5MDk3NzI5M30.eUISNWLqFwZG9IKCZSXn9tC9RyRWdGbn-9j0jYAfPxQ';
+        
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        async function fetchNews() {
+            // Initialize Universal Ticker
+            initUniversalTicker(supabaseClient);
+
+            const grid = document.getElementById('newsGrid');
+            const spinner = document.getElementById('loadingSpinner');
+            const noNews = document.getElementById('noNews');
+
+            try {
+                console.log('[Fetch] Requesting news from Supabase...');
+                const { data, error } = await supabaseClient
+                    .from('news')
+                    .select('*')
+                    .order('created_at', { ascending: false });
+
+                if (error) throw error;
+
+                spinner.style.display = 'none';
+
+                if (!data || data.length === 0) {
+                    noNews.style.display = 'block';
+                    return;
+                }
+
+                console.log(`[Fetch] Success! Received ${data.length} items.`);
+                
+                grid.style.display = 'grid';
+                grid.innerHTML = data.map(news => createNewsCard(news)).join('');
+
+            } catch (err) {
+                console.error('[Fetch Error] Details:', err);
+                spinner.style.display = 'none';
+                noNews.style.display = 'block';
+                noNews.querySelector('h3').innerText = 'Connection Error';
+                noNews.querySelector('p').innerText = 'Unable to fetch news. Please check your internet or Supabase configuration.';
+            }
+        }
+
+        function createNewsCard(news) {
+            const newsUrl = `${window.location.origin}/news-detail.html?id=${news.id}`;
+            const encodedUrl = encodeURIComponent(newsUrl);
+            const encodedTitle = encodeURIComponent(news.title);
+            
+            // Short excerpt for WhatsApp
+            const shortExcerpt = news.content 
+                ? news.content.replace(/<[^>]*>/g, '').substring(0, 80) + '...'
+                : '';
+            const encodedDesc = encodeURIComponent(shortExcerpt);
+
+            // Clean excerpt for card
+            const excerpt = news.content 
+                ? news.content.replace(/<[^>]*>/g, '').substring(0, 100) + '...'
+                : 'No content available.';
+
+            const imageHtml = news.image_url 
+                ? `<img src="${news.image_url}" alt="${news.title}" loading="lazy">`
+                : `<div class="placeholder-image"><i class="fas fa-newspaper"></i></div>`;
+
+            return `
+                <div class="news-card">
+                    <div class="card-image">
+                        ${imageHtml}
+                    </div>
+                    <div class="card-content">
+                        <div class="card-category">${news.category || 'General'}</div>
+                        <h3 class="card-title">${news.title}</h3>
+                        <p class="card-excerpt">${excerpt}</p>
+                        
+                        <div class="card-footer">
+                            <a href="news-detail.html?id=${news.id}" target="_blank" class="read-more">
+                                Read Full News <i class="fas fa-arrow-right"></i>
+                            </a>
+                            <div class="share-icons">
+                                <a href="https://wa.me/?text=${encodedTitle}%0A${encodedDesc}%0A${encodedUrl}" target="_blank" title="Share on WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                                <a href="https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}" target="_blank" title="Share on Facebook"><i class="fab fa-facebook"></i></a>
+                                <a href="https://twitter.com/intent/tweet?text=${encodedTitle}&url=${encodedUrl}" target="_blank" title="Share on X (Twitter)"><i class="fab fa-x-twitter"></i></a>
+                                <a href="#" onclick="event.preventDefault(); navigator.clipboard.writeText('${newsUrl}'); alert('Link copied to clipboard!');" title="Copy Link"><i class="fas fa-link"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        window.onload = fetchNews;
+    </script>
+</body>
+</html>

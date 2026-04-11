@@ -1,530 +1,154 @@
-<!DOCTYPE html>
-<html lang="te">
+admin-login.html
+HTML<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>అడ్మిన్ — Maheshwara Nexlify Nucleus</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Gidugu&family=Ramabhadra&family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css" />
-  <style>
-    body {
-      font-family: "Roboto", "Segoe UI", Arial, sans-serif;
-      background: #f1f5f9;
-      color: #0f172a;
-    }
-    .font-telugu {
-      font-family: "Ramabhadra", "Gidugu", "Roboto", sans-serif;
-    }
-    .mns-card {
-      border-radius: 0.75rem;
-      border: 1px solid #e2e8f0;
-      background: #fff;
-      box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
-    }
-    .mns-input {
-      margin-top: 0.25rem;
-      width: 100%;
-      border-radius: 0.5rem;
-      border: 1px solid #cbd5e1;
-      background: #fff;
-      padding: 0.5rem 0.75rem;
-      font-size: 0.875rem;
-      outline: none;
-    }
-    .mns-input:focus {
-      border-color: #2563eb;
-      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
-    }
-    label {
-      font-size: 0.875rem;
-      font-weight: 600;
-      color: #334155;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login • Maheshwara News</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        
+        .dark-tech-bg {
+            background: linear-gradient(180deg, #0a1128 0%, #02040f 100%);
+        }
+        
+        .glass {
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(24px);
+        }
+        
+        .neon-cyan-glow {
+            text-shadow: 0 0 25px #00f7ff, 0 0 50px #00f7ff;
+        }
+    </style>
 </head>
-<body class="min-h-screen">
-  <div id="gate" class="fixed inset-0 z-[200] flex items-center justify-center bg-slate-900/80 p-4 backdrop-blur-sm">
-    <div class="mns-card w-full max-w-md p-8 shadow-xl">
-      <h1 class="text-xl font-bold text-slate-900">నియంత్రణ గది</h1>
-      <p class="mt-2 text-sm text-slate-600">కొనసాగడానికి అడ్మిన్ పాస్‌వర్డ్ నమోదు చేయండి.</p>
-      <label class="mt-4 block font-telugu">అడ్మిన్ పాస్‌వర్డ్</label>
-      <input
-        type="password"
-        id="gate-pass"
-        class="mns-input font-mono"
-        placeholder="పాస్‌వర్డ్"
-        autocomplete="current-password"
-      />
-      <button type="button" id="gate-btn" class="mt-4 w-full rounded-lg bg-blue-700 py-2.5 font-semibold text-white hover:bg-blue-800">తెరవండి</button>
-      <p id="gate-err" class="mt-3 hidden text-sm text-red-600">పాస్‌వర్డ్ తప్పు.</p>
-    </div>
-  </div>
-
-  <header class="sticky top-0 z-50 border-b border-slate-200 bg-white/95 shadow-sm backdrop-blur">
-    <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
-      <div class="flex items-center gap-3">
-        <span class="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-700 text-xs font-bold text-white">MNS</span>
-        <div>
-          <p class="text-sm font-extrabold uppercase tracking-wide text-slate-900">Maheshwara Nexlify Nucleus</p>
-          <p class="font-telugu text-xs text-slate-500">అడ్మిన్ డాష్‌బోర్డ్</p>
+<body class="dark-tech-bg text-white min-h-screen flex items-center justify-center">
+    
+    <div class="w-full max-w-md px-6">
+        <!-- Logo Header -->
+        <div class="flex justify-center mb-10">
+            <div class="flex items-center gap-4">
+                <div class="w-14 h-14 bg-gradient-to-br from-red-500 to-rose-600 rounded-2xl flex items-center justify-center shadow-[0_0_40px_-10px] shadow-red-500">
+                    <i class="fa-solid fa-shield-halved text-4xl text-white"></i>
+                </div>
+                <div>
+                    <h1 class="text-4xl font-bold tracking-tighter neon-cyan-glow">ADMIN</h1>
+                    <p class="text-red-400 text-sm tracking-[3px]">MAHESHWARA NEWS</p>
+                </div>
+            </div>
         </div>
-      </div>
-      <nav class="flex items-center gap-2 text-sm font-semibold">
-        <a href="index.html" class="rounded-lg px-3 py-2 text-slate-700 hover:bg-slate-100">Home</a>
-        <a href="news.html" class="rounded-lg px-3 py-2 text-slate-700 hover:bg-slate-100">News</a>
-        <button type="button" id="logout-btn" class="rounded-lg bg-slate-900 px-3 py-2 text-white hover:bg-slate-800">లాక్</button>
-      </nav>
+
+        <div class="glass border border-white/20 rounded-3xl p-10 shadow-2xl">
+            <h2 class="text-2xl font-semibold text-center mb-8">Secure Admin Access</h2>
+            
+            <form id="loginForm" onsubmit="handleLogin(event)" class="space-y-6">
+                <!-- User ID -->
+                <div>
+                    <label class="block text-xs uppercase tracking-widest text-white/70 mb-2">User ID</label>
+                    <div class="relative">
+                        <input id="userid" type="text" 
+                               class="w-full bg-white/10 border border-white/30 focus:border-cyan-400 rounded-2xl px-6 py-4 outline-none text-white placeholder:text-white/40"
+                               placeholder="admin" required>
+                        <i class="fa-solid fa-user absolute right-6 top-1/2 -translate-y-1/2 text-white/40"></i>
+                    </div>
+                </div>
+
+                <!-- Password -->
+                <div>
+                    <label class="block text-xs uppercase tracking-widest text-white/70 mb-2">Password</label>
+                    <div class="relative">
+                        <input id="password" type="password" 
+                               class="w-full bg-white/10 border border-white/30 focus:border-cyan-400 rounded-2xl px-6 py-4 outline-none text-white placeholder:text-white/40"
+                               placeholder="••••••••" required>
+                        <i class="fa-solid fa-lock absolute right-6 top-1/2 -translate-y-1/2 text-white/40"></i>
+                    </div>
+                </div>
+
+                <!-- Remember Me -->
+                <div class="flex items-center justify-between text-sm">
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <input type="checkbox" class="w-4 h-4 accent-cyan-400">
+                        <span class="text-white/70">Remember me</span>
+                    </label>
+                    <a href="#" class="text-cyan-400 hover:underline text-sm">Forgot Password?</a>
+                </div>
+
+                <!-- Login Button -->
+                <button type="submit"
+                        class="w-full py-5 bg-gradient-to-r from-red-600 via-rose-600 to-red-600 hover:brightness-110 font-bold text-xl rounded-3xl flex items-center justify-center gap-3 shadow-lg shadow-red-500/50">
+                    <i class="fa-solid fa-right-to-bracket"></i>
+                    LOGIN TO DASHBOARD
+                </button>
+            </form>
+
+            <!-- Demo Credentials Hint -->
+            <div class="mt-8 pt-6 border-t border-white/10 text-center">
+                <p class="text-xs text-white/50 mb-2">Demo Credentials (for testing)</p>
+                <div class="bg-black/40 rounded-2xl p-4 text-left text-sm font-mono">
+                    <p><span class="text-cyan-400">User ID:</span> <span class="text-white">admin</span></p>
+                    <p><span class="text-cyan-400">Password:</span> <span class="text-white">maheshwara2026</span></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mt-8 text-xs text-white/40">
+            © 2026 Maheshwara News • Kasrlagadda Bus Stand, MUTHARAM
+        </div>
     </div>
-  </header>
 
-  <main id="panel" class="hidden mx-auto max-w-6xl px-4 py-8">
-    <div class="rounded-xl border border-blue-100 bg-blue-50/80 p-4 text-sm text-slate-700">
-      <p class="font-telugu font-semibold text-slate-900">భద్రత</p>
-      <p class="mt-1 font-telugu text-slate-600">
-        క్రింది ఫారమ్లన్నీ సర్వర్‌కు పంపేటప్పుడు <code class="rounded bg-white px-1 py-0.5 text-xs">adminPassword</code> ఆటోమేటిక్‌గా జత చేయబడుతుంది (
-        <span class="font-mono text-xs">config.js</span> లోని <span class="font-mono text-xs">MNS_CONFIG.adminPassword</span>).
-      </p>
-    </div>
-
-    <div class="mt-8 grid grid-cols-1 gap-8 lg:grid-cols-3">
-      <!-- Post News -->
-      <section class="mns-card p-6 lg:col-span-2">
-        <h2 class="border-b border-slate-100 pb-2 font-telugu text-xl font-bold text-slate-900">వార్త పోస్ట్ చేయండి</h2>
-        <p class="mt-1 text-sm text-slate-500">POST <code class="text-xs">/api/save-news</code></p>
-
-        <form id="news-form" class="mt-6 space-y-4">
-          <div>
-            <label class="font-telugu">శీర్షిక (ఇంగ్లీష్ / తెలుగు)</label>
-            <input name="headline" required class="mns-input" />
-          </div>
-          <div>
-            <label class="font-telugu">ఉప శీర్షిక</label>
-            <input name="sub_headline" class="mns-input font-telugu" />
-          </div>
-          <div class="grid gap-4 sm:grid-cols-2">
-            <div>
-              <label class="font-telugu">వర్గం</label>
-              <select name="category" class="mns-input">
-                <option>General</option>
-                <option>Local</option>
-                <option>Agriculture</option>
-                <option>Politics</option>
-                <option>Business</option>
-                <option>Health</option>
-                <option>Technology</option>
-                <option>Grama Panchayath</option>
-              </select>
-            </div>
-            <div>
-              <label class="font-telugu">రిపోర్టర్ / రచయిత పేరు</label>
-              <input name="author_name" class="mns-input" placeholder="Reporter name" />
-            </div>
-          </div>
-          <div>
-            <label class="font-telugu">స్థానం</label>
-            <input name="location" class="mns-input font-telugu" placeholder="ముత్తారం, పెద్దపల్లి" />
-          </div>
-          <div>
-            <label>YouTube / వీడియో URL</label>
-            <input type="text" name="video_url" class="mns-input" placeholder="https://youtube.com/..." />
-          </div>
-          <div>
-            <label class="font-telugu">వార్త పాఠ్యం</label>
-            <textarea name="body" rows="10" required class="mns-input font-telugu" style="resize: vertical"></textarea>
-          </div>
-          <div>
-            <label>చిత్ర URL లు (కామా లేదా newline)</label>
-            <textarea id="gallery_urls_text" name="gallery_urls_text" rows="3" class="mns-input" placeholder="https://…"></textarea>
-          </div>
-          <div>
-            <label>ప్రధాన చిత్రం URL (అప్‌లోడ్ ఉంటే ఆటో)</label>
-            <input type="text" name="image_url" id="image_url" class="mns-input" />
-          </div>
-          <div>
-            <label class="font-telugu">చిత్రాలు అప్‌లోడ్ (వాటర్‌మార్క్ — మొదటిది హీరో)</label>
-            <input type="file" id="file-imgs" accept="image/*" multiple class="mt-1 block w-full text-sm text-slate-600 file:mr-3 file:rounded-lg file:border-0 file:bg-blue-600 file:px-4 file:py-2 file:text-white" />
-          </div>
-          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
-            <p class="text-sm font-medium text-slate-700">ప్రివ్యూ</p>
-            <canvas id="wm-canvas" width="0" height="0" class="mt-2 max-h-56 w-full rounded-lg border border-slate-200 bg-black object-contain"></canvas>
-          </div>
-          <button type="submit" class="w-full rounded-xl bg-blue-700 py-3 font-semibold text-white shadow hover:bg-blue-800">సేవ్ చేయి</button>
-          <p id="form-msg" class="text-center text-sm"></p>
-        </form>
-      </section>
-
-      <!-- Flash + Ads column -->
-      <div class="flex flex-col gap-8">
-        <section class="mns-card p-6">
-          <h2 class="border-b border-slate-100 pb-2 font-telugu text-lg font-bold text-slate-900">ఫ్లాష్ వార్త (టిక్కర్)</h2>
-          <p class="mt-1 text-xs text-slate-500">POST <code>/api/save-flash-news</code> — గత 24 గంటల తాజా సందేశాలు</p>
-          <form id="flash-form" class="mt-4 space-y-3">
-            <div>
-              <label class="font-telugu">సందేశం</label>
-              <input name="message" required class="mns-input font-telugu" placeholder="తాజా ఫ్లాష్…" />
-            </div>
-            <button type="submit" class="w-full rounded-lg bg-amber-500 py-2.5 font-semibold text-white hover:bg-amber-600">పోస్ట్</button>
-            <p id="flash-msg" class="text-center text-sm"></p>
-          </form>
-        </section>
-
-        <section class="mns-card p-6">
-          <h2 class="border-b border-slate-100 pb-2 font-telugu text-lg font-bold text-slate-900">ప్రకటన (అడ్) అప్‌లోడ్</h2>
-          <p class="mt-1 text-xs text-slate-500">POST <code>/api/save-ad</code></p>
-          <form id="ad-form" class="mt-4 space-y-4">
-            <div>
-              <label class="font-telugu">బ్యానర్ చిత్రం</label>
-              <input type="file" id="ad-file" accept="image/*" class="mt-1 block w-full text-sm file:mr-3 file:rounded-lg file:border-0 file:bg-emerald-600 file:px-4 file:py-2 file:text-white" />
-              <canvas id="ad-wm-canvas" width="0" height="0" class="mt-2 max-h-40 w-full rounded-lg border border-slate-200 bg-black object-contain"></canvas>
-            </div>
-            <div>
-              <label>URL / Base64 (అప్‌లోడ్ తర్వాత నింపబడుతుంది)</label>
-              <textarea name="image_url" id="ad-image-url" rows="4" class="mns-input font-mono text-xs" placeholder="data:image/jpeg;base64,…"></textarea>
-            </div>
-            <div>
-              <label>లింక్ URL (ఐచ్ఛికం)</label>
-              <input name="link_url" class="mns-input" placeholder="https://…" />
-            </div>
-            <div>
-              <label>క్రమం (తక్కువ = ముందు)</label>
-              <input name="sort_order" type="number" min="0" value="0" class="mns-input" />
-            </div>
-            <button type="submit" class="w-full rounded-lg bg-emerald-600 py-2.5 font-semibold text-white hover:bg-emerald-700">ప్రకటన సేవ్</button>
-            <p id="ad-msg" class="text-center text-sm"></p>
-          </form>
-        </section>
-      </div>
-    </div>
-  </main>
-
-  <footer class="mt-12 border-t border-slate-200 bg-white py-8 text-center text-xs text-slate-500">
-    <p>Maheshwara Nexlify Nucleus · 9949122402</p>
-  </footer>
-
-  <script src="config.js"></script>
-  <script>
-    (function () {
-      var SESSION_KEY = "mns_admin_ok";
-      var gate = document.getElementById("gate");
-      var panel = document.getElementById("panel");
-      var cfg = window.MNS_CONFIG || {};
-
-      function showPanel() {
-        gate.classList.add("hidden");
-        panel.classList.remove("hidden");
-        sessionStorage.setItem(SESSION_KEY, "1");
-      }
-      function showGate() {
-        gate.classList.remove("hidden");
-        panel.classList.add("hidden");
-        sessionStorage.removeItem(SESSION_KEY);
-      }
-
-      if (sessionStorage.getItem(SESSION_KEY) === "1") showPanel();
-
-      function tryGate() {
-        var v = document.getElementById("gate-pass").value;
-        var err = document.getElementById("gate-err");
-        if (v && v === (cfg.adminPassword || "")) {
-          err.classList.add("hidden");
-          showPanel();
-        } else err.classList.remove("hidden");
-      }
-      document.getElementById("gate-btn").addEventListener("click", tryGate);
-      document.getElementById("gate-pass").addEventListener("keydown", function (e) {
-        if (e.key === "Enter") tryGate();
-      });
-
-      document.getElementById("logout-btn").addEventListener("click", showGate);
-
-      var BRAND_WM = "Maheshwara Nexlify Nucleus";
-      var canvas = document.getElementById("wm-canvas");
-      var ctx = canvas.getContext("2d");
-      var watermarkedList = [];
-      var adDataUrl = null;
-      var adCanvas = document.getElementById("ad-wm-canvas");
-      var adCtx = adCanvas.getContext("2d");
-
-      function applyWatermarkToImage(img) {
-        var w = img.naturalWidth;
-        var h = img.naturalHeight;
-        var maxW = 1200;
-        var scale = w > maxW ? maxW / w : 1;
-        var cw = Math.round(w * scale);
-        var ch = Math.round(h * scale);
-        canvas.width = cw;
-        canvas.height = ch;
-        ctx.drawImage(img, 0, 0, cw, ch);
-        var text = BRAND_WM;
-        ctx.save();
-        ctx.font = "bold " + Math.max(11, Math.round(cw * 0.022)) + "px Ramabhadra, Roboto, sans-serif";
-        ctx.fillStyle = "rgba(255,255,255,0.88)";
-        ctx.strokeStyle = "rgba(0,0,0,0.55)";
-        ctx.lineWidth = 3;
-        var pad = 12;
-        var tw = ctx.measureText(text).width;
-        var x = cw - tw - pad;
-        var y = ch - pad;
-        ctx.strokeText(text, x, y);
-        ctx.fillText(text, x, y);
-        ctx.restore();
-        return canvas.toDataURL("image/jpeg", 0.82);
-      }
-
-      function applyWatermarkToAdFile(img) {
-        var w = img.naturalWidth;
-        var h = img.naturalHeight;
-        var maxW = 1200;
-        var scale = w > maxW ? maxW / w : 1;
-        var cw = Math.round(w * scale);
-        var ch = Math.round(h * scale);
-        adCanvas.width = cw;
-        adCanvas.height = ch;
-        adCtx.drawImage(img, 0, 0, cw, ch);
-        var text = BRAND_WM;
-        adCtx.save();
-        adCtx.font = "bold " + Math.max(11, Math.round(cw * 0.022)) + "px Ramabhadra, Roboto, sans-serif";
-        adCtx.fillStyle = "rgba(255,255,255,0.88)";
-        adCtx.strokeStyle = "rgba(0,0,0,0.55)";
-        adCtx.lineWidth = 3;
-        var pad = 12;
-        var tw = adCtx.measureText(text).width;
-        var x = cw - tw - pad;
-        var y = ch - pad;
-        adCtx.strokeText(text, x, y);
-        adCtx.fillText(text, x, y);
-        adCtx.restore();
-        return adCanvas.toDataURL("image/jpeg", 0.82);
-      }
-
-      document.getElementById("ad-file").addEventListener("change", function (e) {
-        adDataUrl = null;
-        var files = e.target.files;
-        if (!files || !files.length) return;
-        var file = files[0];
-        var blobUrl = URL.createObjectURL(file);
-        var img = new Image();
-        img.onload = function () {
-          adDataUrl = applyWatermarkToAdFile(img);
-          document.getElementById("ad-image-url").value = adDataUrl;
-          URL.revokeObjectURL(blobUrl);
-        };
-        img.onerror = function () {
-          URL.revokeObjectURL(blobUrl);
-        };
-        img.src = blobUrl;
-      });
-
-      function previewLast(dataUrl) {
-        var pv = new Image();
-        pv.onload = function () {
-          var mh = 220;
-          var sc = Math.min(1, mh / pv.naturalHeight, 640 / pv.naturalWidth);
-          canvas.width = Math.round(pv.naturalWidth * sc);
-          canvas.height = Math.round(pv.naturalHeight * sc);
-          ctx.drawImage(pv, 0, 0, canvas.width, canvas.height);
-        };
-        pv.src = dataUrl;
-      }
-
-      document.getElementById("file-imgs").addEventListener("change", function (e) {
-        watermarkedList = [];
-        var files = e.target.files;
-        if (!files || !files.length) return;
-        var pending = files.length;
-        Array.from(files).forEach(function (file) {
-          var blobUrl = URL.createObjectURL(file);
-          var img = new Image();
-          img.onload = function () {
-            watermarkedList.push(applyWatermarkToImage(img));
-            URL.revokeObjectURL(blobUrl);
-            pending--;
-            if (pending === 0) {
-              if (watermarkedList[0]) document.getElementById("image_url").value = watermarkedList[0];
-              previewLast(watermarkedList[watermarkedList.length - 1]);
+    <script>
+        function handleLogin(e) {
+            e.preventDefault();
+            
+            const userid = document.getElementById('userid').value.trim();
+            const password = document.getElementById('password').value.trim();
+            
+            // Demo credentials
+            if (userid === "admin" && password === "maheshwara2026") {
+                // Success animation + redirect
+                const btn = document.querySelector('button[type="submit"]');
+                btn.innerHTML = `
+                    <i class="fa-solid fa-check"></i> 
+                    ACCESS GRANTED
+                `;
+                btn.classList.add('!bg-emerald-500');
+                
+                setTimeout(() => {
+                    window.location.href = "admin.html";
+                }, 1200);
+            } 
+            else {
+                // Error feedback
+                const form = document.getElementById('loginForm');
+                form.classList.add('animate-shake');
+                
+                setTimeout(() => {
+                    form.classList.remove('animate-shake');
+                    alert("❌ Invalid credentials!\n\nUse:\nUser ID: admin\nPassword: maheshwara2026");
+                }, 500);
             }
-          };
-          img.onerror = function () {
-            URL.revokeObjectURL(blobUrl);
-            pending--;
-          };
-          img.src = blobUrl;
-        });
-      });
+        }
 
-      function apiBase() {
-        return typeof cfg.apiBase === "string" ? cfg.apiBase.replace(/\/$/, "") : "";
-      }
+        // Simple shake animation
+        const style = document.createElement('style');
+        style.innerHTML = `
+            @keyframes shake {
+                0%, 100% { transform: translateX(0); }
+                20%, 60% { transform: translateX(-8px); }
+                40%, 80% { transform: translateX(8px); }
+            }
+            .animate-shake {
+                animation: shake 0.4s ease-in-out;
+            }
+        `;
+        document.head.appendChild(style);
 
-      document.getElementById("news-form").addEventListener("submit", async function (ev) {
-        ev.preventDefault();
-        var msg = document.getElementById("form-msg");
-        msg.textContent = "";
-        msg.className = "text-center text-sm";
-
-        var fd = new FormData(ev.target);
-        var imageUrl = (document.getElementById("image_url").value || "").trim();
-        var galleryJson = watermarkedList.slice(1);
-        if (watermarkedList.length && watermarkedList[0]) imageUrl = watermarkedList[0];
-
-        var payload = {
-          title: fd.get("headline"),
-          content: fd.get("body"),
-          sub_headline: (fd.get("sub_headline") || "").trim() || null,
-          category: fd.get("category"),
-          author_name: (fd.get("author_name") || "").trim() || null,
-          location: (fd.get("location") || "").trim() || null,
-          video_url: (fd.get("video_url") || "").trim() || null,
-          image_url: imageUrl || null,
-          gallery_json: galleryJson,
-          gallery_urls_text: document.getElementById("gallery_urls_text").value,
+        // Auto-focus on load
+        window.onload = () => {
+            document.getElementById('userid').focus();
         };
-
-        msg.textContent = "సేవ్ అవుతోంది…";
-        msg.classList.add("text-slate-500");
-
-        var res;
-        try {
-          res = await fetch(apiBase() + "/api/save-news", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(adminBody(payload)),
-          });
-        } catch (e) {
-          msg.textContent = "నెట్‌వర్క్ లోపం.";
-          msg.classList.add("text-red-600");
-          return;
-        }
-
-        var data;
-        try {
-          data = await res.json();
-        } catch (e2) {
-          msg.textContent = "సర్వర్ స్పందన తప్పు.";
-          msg.classList.add("text-red-600");
-          return;
-        }
-
-        if (!res.ok || !data.ok) {
-          msg.textContent = (data && data.error) || "సేవ్ విఫలం";
-          msg.classList.add("text-red-600");
-          return;
-        }
-
-        msg.textContent = "సేవ్ అయ్యింది.";
-        msg.classList.add("text-green-600");
-        ev.target.reset();
-        document.getElementById("image_url").value = "";
-        document.getElementById("gallery_urls_text").value = "";
-        watermarkedList = [];
-        document.getElementById("file-imgs").value = "";
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-      });
-
-      function adminBody(extra) {
-        var o = extra || {};
-        o.adminPassword = cfg.adminPassword || "";
-        return o;
-      }
-
-      document.getElementById("flash-form").addEventListener("submit", async function (ev) {
-        ev.preventDefault();
-        var msg = document.getElementById("flash-msg");
-        msg.textContent = "";
-        msg.className = "mt-2 text-center text-sm";
-        var fd = new FormData(ev.target);
-        var message = (fd.get("message") || "").trim();
-        if (!message) return;
-        msg.textContent = "పోస్ట్ అవుతోంది…";
-        msg.classList.add("text-slate-500");
-        var res;
-        try {
-          res = await fetch(apiBase() + "/api/save-flash-news", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(adminBody({ message: message })),
-          });
-        } catch (e) {
-          msg.textContent = "నెట్‌వర్క్ లోపం.";
-          msg.classList.add("text-red-600");
-          return;
-        }
-        var data;
-        try {
-          data = await res.json();
-        } catch (e2) {
-          msg.textContent = "స్పందన తప్పు.";
-          msg.classList.add("text-red-600");
-          return;
-        }
-        if (!res.ok || !data.ok) {
-          msg.textContent = (data && data.error) || "విఫలం";
-          msg.classList.add("text-red-600");
-          return;
-        }
-        msg.textContent = "ఫ్లాష్ పోస్ట్ అయ్యింది.";
-        msg.classList.add("text-green-600");
-        ev.target.reset();
-      });
-
-      document.getElementById("ad-form").addEventListener("submit", async function (ev) {
-        ev.preventDefault();
-        var msg = document.getElementById("ad-msg");
-        msg.textContent = "";
-        msg.className = "mt-2 text-center text-sm";
-        var fd = new FormData(ev.target);
-        var linkVal = (fd.get("link_url") || "").trim();
-        var urlField = (document.getElementById("ad-image-url").value || "").trim();
-        var imageUrl = adDataUrl || urlField;
-        var payload = adminBody({
-          image_url: imageUrl,
-          link_url: linkVal ? linkVal : null,
-          sort_order: fd.get("sort_order"),
-        });
-        if (!payload.image_url) {
-          msg.textContent = "చిత్రం అప్‌లోడ్ చేయండి లేదా URL నమోదు చేయండి.";
-          msg.classList.add("text-red-600");
-          return;
-        }
-        msg.textContent = "సేవ్ అవుతోంది…";
-        msg.classList.add("text-slate-500");
-        var res;
-        try {
-          res = await fetch(apiBase() + "/api/save-ad", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(payload),
-          });
-        } catch (e) {
-          msg.textContent = "నెట్‌వర్క్ లోపం.";
-          msg.classList.add("text-red-600");
-          return;
-        }
-        var data;
-        try {
-          data = await res.json();
-        } catch (e2) {
-          msg.textContent = "స్పందన తప్పు.";
-          msg.classList.add("text-red-600");
-          return;
-        }
-        if (!res.ok || !data.ok) {
-          msg.textContent = (data && data.error) || "విఫలం";
-          msg.classList.add("text-red-600");
-          return;
-        }
-        msg.textContent = "ప్రకటన సేవ్ అయ్యింది.";
-        msg.classList.add("text-green-600");
-        ev.target.reset();
-        document.querySelector('#ad-form [name="sort_order"]').value = "0";
-        document.getElementById("ad-image-url").value = "";
-        document.getElementById("ad-file").value = "";
-        adDataUrl = null;
-        adCtx.clearRect(0, 0, adCanvas.width, adCanvas.height);
-      });
-    })();
-  </script>
+    </script>
 </body>
 </html>

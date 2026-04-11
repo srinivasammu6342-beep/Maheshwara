@@ -1,0 +1,566 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSC Services | Digital Seva Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        
+        :root {
+            --neon-cyan: #00f7ff;
+            --royal-red: #ff0033;
+            --emerald: #10f7a0;
+        }
+        
+        * {
+            transition-property: all;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 200ms;
+        }
+        
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+        }
+        
+        .telugu {
+            font-family: 'Gidugu', 'Noto Sans Telugu', system-ui, sans-serif;
+        }
+        
+        .dark-tech-bg {
+            background: linear-gradient(180deg, #0a1128 0%, #02040f 100%);
+        }
+        
+        .neon-cyan-glow {
+            text-shadow: 0 0 20px var(--neon-cyan), 0 0 40px var(--neon-cyan);
+        }
+        
+        .neon-red-glow {
+            text-shadow: 0 0 20px var(--royal-red), 0 0 40px var(--royal-red);
+        }
+        
+        .glass {
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(24px);
+            border: 1px solid rgba(0, 247, 255, 0.25);
+        }
+        
+        .service-card {
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        
+        .service-card:hover {
+            transform: translateY(-12px) scale(1.03);
+            box-shadow: 0 0 60px -15px var(--neon-cyan);
+            border-color: var(--neon-cyan);
+        }
+        
+        .modal {
+            animation: modalPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+        
+        @keyframes modalPop {
+            from {
+                opacity: 0;
+                transform: scale(0.9) translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+        
+        .category-badge {
+            background: linear-gradient(90deg, var(--neon-cyan), var(--emerald));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="dark-tech-bg text-white min-h-screen overflow-x-hidden">
+    
+    <!-- HEADER -->
+    <header class="sticky top-0 z-50 border-b border-white/10 bg-black/60 backdrop-blur-2xl">
+        <div class="max-w-screen-2xl mx-auto px-8 py-6 flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-cyan-400 to-emerald-400 flex items-center justify-center shadow-[0_0_30px_-8px] shadow-cyan-400">
+                    <i class="fa-solid fa-building-columns text-3xl text-black"></i>
+                </div>
+                <div>
+                    <h1 class="text-4xl font-bold tracking-tighter neon-cyan-glow">CSC SERVICES</h1>
+                    <p class="text-sm text-emerald-400 tracking-[3px] telugu -mt-1">డిజిటల్ సేవా హబ్</p>
+                </div>
+            </div>
+            
+            <nav class="hidden md:flex items-center gap-8 text-sm font-medium">
+                <a href="index.html" class="hover:text-cyan-400">Home</a>
+                <a href="edu-services.html" class="hover:text-cyan-400">Education</a>
+                <a href="#" class="text-cyan-400 border-b-2 border-cyan-400 pb-1">CSC Services</a>
+                <a href="#" class="hover:text-cyan-400">Contact</a>
+            </nav>
+            
+            <a href="https://wa.me/919949122402" target="_blank"
+               class="flex items-center gap-3 bg-gradient-to-r from-cyan-400 to-emerald-400 text-black font-bold px-8 py-4 rounded-3xl text-sm uppercase tracking-widest hover:shadow-2xl hover:shadow-emerald-400/50">
+                <i class="fa-brands fa-whatsapp text-xl"></i>
+                WHATSAPP NOW
+            </a>
+        </div>
+    </header>
+
+    <div class="max-w-screen-2xl mx-auto px-6 lg:px-8 py-12">
+        <div class="grid grid-cols-1 lg:grid-cols-[280px_1fr_280px] gap-10">
+            
+            <!-- LEFT SIDEBAR - Local Promotions -->
+            <div class="lg:sticky lg:top-24 self-start">
+                <div class="glass rounded-3xl p-7 border border-cyan-400/30">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-3 h-3 bg-emerald-400 rounded-full animate-pulse"></div>
+                        <h3 class="uppercase text-xs tracking-[4px] font-semibold text-cyan-400">LOCAL OFFERS</h3>
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <!-- Ad 1 -->
+                        <div class="border border-white/10 rounded-2xl p-5 hover:border-emerald-400/50 group">
+                            <div class="flex justify-between">
+                                <div class="text-4xl">🌾</div>
+                                <span class="text-xs bg-emerald-400/10 text-emerald-400 px-3 py-1 rounded-xl">Agri Deal</span>
+                            </div>
+                            <h4 class="font-semibold mt-4">Fertilizer &amp; Seeds Discount</h4>
+                            <p class="text-sm text-white/70">Book through CSC - Get 15% off</p>
+                            <button onclick="fakeAdClick()" 
+                                    class="mt-6 text-xs uppercase font-bold w-full py-3 border border-emerald-400/70 hover:bg-emerald-400/10 rounded-2xl">
+                                Claim Offer
+                            </button>
+                        </div>
+                        
+                        <!-- Ad 2 -->
+                        <div class="border border-white/10 rounded-2xl p-5 hover:border-emerald-400/50 group">
+                            <div class="flex justify-between">
+                                <div class="text-4xl">🚌</div>
+                                <span class="text-xs bg-rose-400/10 text-rose-400 px-3 py-1 rounded-xl">Travel</span>
+                            </div>
+                            <h4 class="font-semibold mt-4">TSRTC Bus Tickets</h4>
+                            <p class="text-sm text-white/70">Zero convenience fee today</p>
+                            <button onclick="fakeAdClick()" 
+                                    class="mt-6 text-xs uppercase font-bold w-full py-3 border border-emerald-400/70 hover:bg-emerald-400/10 rounded-2xl">
+                                Book Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- MAIN CONTENT -->
+            <div class="space-y-16">
+                
+                <div class="text-center">
+                    <div class="inline-flex items-center gap-2 bg-white/10 px-6 py-2 rounded-3xl text-xs tracking-widest mb-4">
+                        <span class="text-emerald-400">COMMON SERVICE CENTER</span>
+                        <span class="w-px h-3 bg-white/30"></span>
+                        <span class="text-rose-400">KASRLAGADDA</span>
+                    </div>
+                    <h1 class="text-5xl md:text-6xl font-bold leading-none neon-cyan-glow">Digital Seva Hub</h1>
+                    <p class="telugu text-3xl text-white/80 mt-3">డిజిటల్ సేవా హబ్</p>
+                    <p class="max-w-md mx-auto mt-6 text-white/70">
+                        One-stop futuristic CSC for Government, Agri, Banking, Travel &amp; Loan services near Kasrlagadda Bus Stand
+                    </p>
+                </div>
+                
+                <!-- Agri Services -->
+                <div>
+                    <div class="flex items-center gap-4 mb-8">
+                        <div class="text-4xl">🌱</div>
+                        <div>
+                            <h2 class="text-3xl font-semibold">Agri Services</h2>
+                            <p class="telugu text-emerald-400 text-xl">వ్యవసాయ సేవలు</p>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div class="service-card glass border border-emerald-400/30 rounded-3xl p-7">
+                            <h4 class="font-semibold text-xl">PM Kisan Status &amp; Registration</h4>
+                            <p class="telugu text-white/70 text-sm mt-1">పీఎం కిసాన్ స్టేటస్ &amp; న్యూ రిజిస్ట్రేషన్</p>
+                            <button onclick="openApplyModal('PM Kisan Status &amp; New Registration', 'Agri Services')" 
+                                    class="mt-10 w-full py-4 bg-gradient-to-r from-emerald-400 to-cyan-400 text-black font-bold rounded-2xl flex items-center justify-center gap-2 text-sm uppercase tracking-widest">
+                                Apply Now <span class="telugu">ఇప్పుడే అప్లై చేయండి</span>
+                            </button>
+                        </div>
+                        <div class="service-card glass border border-emerald-400/30 rounded-3xl p-7">
+                            <h4 class="font-semibold text-xl">Crop Insurance (PMFBY)</h4>
+                            <p class="telugu text-white/70 text-sm mt-1">ఫసల్ బీమా యోజన</p>
+                            <button onclick="openApplyModal('Crop Insurance (Fasal Bima)', 'Agri Services')" 
+                                    class="mt-10 w-full py-4 bg-gradient-to-r from-emerald-400 to-cyan-400 text-black font-bold rounded-2xl flex items-center justify-center gap-2 text-sm uppercase tracking-widest">
+                                Apply Now <span class="telugu">ఇప్పుడే అప్లై చేయండి</span>
+                            </button>
+                        </div>
+                        <div class="service-card glass border border-emerald-400/30 rounded-3xl p-7">
+                            <h4 class="font-semibold text-xl">Fertilizer &amp; Seed Booking</h4>
+                            <p class="telugu text-white/70 text-sm mt-1">ఎరువులు &amp; విత్తనాల బుకింగ్</p>
+                            <button onclick="openApplyModal('Fertilizer Booking', 'Agri Services')" 
+                                    class="mt-10 w-full py-4 bg-gradient-to-r from-emerald-400 to-cyan-400 text-black font-bold rounded-2xl flex items-center justify-center gap-2 text-sm uppercase tracking-widest">
+                                Apply Now <span class="telugu">ఇప్పుడే అప్లై చేయండి</span>
+                            </button>
+                        </div>
+                        <div class="service-card glass border border-emerald-400/30 rounded-3xl p-7">
+                            <h4 class="font-semibold text-xl">Smart Farming Guidance</h4>
+                            <p class="telugu text-white/70 text-sm mt-1">స్మార్ట్ ఫార్మింగ్ మార్గదర్శకత్వం</p>
+                            <button onclick="openApplyModal('Smart Farming Guidance', 'Agri Services')" 
+                                    class="mt-10 w-full py-4 bg-gradient-to-r from-emerald-400 to-cyan-400 text-black font-bold rounded-2xl flex items-center justify-center gap-2 text-sm uppercase tracking-widest">
+                                Apply Now <span class="telugu">ఇప్పుడే అప్లై చేయండి</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Travel & Booking -->
+                <div>
+                    <div class="flex items-center gap-4 mb-8">
+                        <div class="text-4xl">✈️</div>
+                        <div>
+                            <h2 class="text-3xl font-semibold">Travel &amp; Booking</h2>
+                            <p class="telugu text-emerald-400 text-xl">ప్రయాణ సేవలు</p>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div class="service-card glass border border-rose-400/30 rounded-3xl p-7">
+                            <h4 class="font-semibold text-xl">IRCTC Railway Tickets</h4>
+                            <p class="telugu text-white/70 text-sm mt-1">రైల్వే టికెట్లు</p>
+                            <button onclick="openApplyModal('IRCTC Railway Ticket Booking', 'Travel Services')" 
+                                    class="mt-10 w-full py-4 bg-gradient-to-r from-rose-400 to-orange-400 text-black font-bold rounded-2xl flex items-center justify-center gap-2 text-sm uppercase tracking-widest">
+                                Book Now <span class="telugu">ఇప్పుడే అప్లై చేయండి</span>
+                            </button>
+                        </div>
+                        <div class="service-card glass border border-rose-400/30 rounded-3xl p-7">
+                            <h4 class="font-semibold text-xl">TSRTC &amp; Private Bus</h4>
+                            <p class="telugu text-white/70 text-sm mt-1">బస్సు బుకింగ్స్</p>
+                            <button onclick="openApplyModal('TSRTC/Private Bus Bookings', 'Travel Services')" 
+                                    class="mt-10 w-full py-4 bg-gradient-to-r from-rose-400 to-orange-400 text-black font-bold rounded-2xl flex items-center justify-center gap-2 text-sm uppercase tracking-widest">
+                                Book Now <span class="telugu">ఇప్పుడే అప్లై చేయండి</span>
+                            </button>
+                        </div>
+                        <div class="service-card glass border border-rose-400/30 rounded-3xl p-7 col-span-1 sm:col-span-2">
+                            <h4 class="font-semibold text-xl">Flight Ticket Booking</h4>
+                            <p class="telugu text-white/70 text-sm mt-1">విమాన టికెట్లు</p>
+                            <button onclick="openApplyModal('Flight Tickets', 'Travel Services')" 
+                                    class="mt-10 w-full py-4 bg-gradient-to-r from-rose-400 to-orange-400 text-black font-bold rounded-2xl flex items-center justify-center gap-2 text-sm uppercase tracking-widest">
+                                Book Now <span class="telugu">ఇప్పుడే అప్లై చేయండి</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Banking Hub -->
+                <div>
+                    <div class="flex items-center gap-4 mb-8">
+                        <div class="text-4xl">🏦</div>
+                        <div>
+                            <h2 class="text-3xl font-semibold">Banking Hub</h2>
+                            <p class="telugu text-emerald-400 text-xl">బ్యాంకింగ్ సేవలు</p>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div class="service-card glass border border-cyan-400/30 rounded-3xl p-7">
+                            <h4 class="font-semibold text-xl">AEPS - Aadhaar Cash Withdrawal</h4>
+                            <p class="telugu text-white/70 text-sm mt-1">ఆధార్ ద్వారా నగదు విత్‌డ్రా</p>
+                            <button onclick="openApplyModal('AEPS Cash Withdrawal', 'Banking Services')" 
+                                    class="mt-10 w-full py-4 bg-gradient-to-r from-cyan-400 to-emerald-400 text-black font-bold rounded-2xl flex items-center justify-center gap-2 text-sm uppercase tracking-widest">
+                                Apply Now <span class="telugu">ఇప్పుడే అప్లై చేయండి</span>
+                            </button>
+                        </div>
+                        <div class="service-card glass border border-cyan-400/30 rounded-3xl p-7">
+                            <h4 class="font-semibold text-xl">Domestic Money Transfer</h4>
+                            <p class="telugu text-white/70 text-sm mt-1">డొమెస్టిక్ మనీ ట్రాన్స్‌ఫర్</p>
+                            <button onclick="openApplyModal('Domestic Money Transfer', 'Banking Services')" 
+                                    class="mt-10 w-full py-4 bg-gradient-to-r from-cyan-400 to-emerald-400 text-black font-bold rounded-2xl flex items-center justify-center gap-2 text-sm uppercase tracking-widest">
+                                Apply Now <span class="telugu">ఇప్పుడే అప్లై చేయండి</span>
+                            </button>
+                        </div>
+                        <div class="service-card glass border border-cyan-400/30 rounded-3xl p-7">
+                            <h4 class="font-semibold text-xl">New Bank Account Opening</h4>
+                            <p class="telugu text-white/70 text-sm mt-1">కొత్త బ్యాంక్ అకౌంట్</p>
+                            <button onclick="openApplyModal('New Bank Account Opening', 'Banking Services')" 
+                                    class="mt-10 w-full py-4 bg-gradient-to-r from-cyan-400 to-emerald-400 text-black font-bold rounded-2xl flex items-center justify-center gap-2 text-sm uppercase tracking-widest">
+                                Apply Now <span class="telugu">ఇప్పుడే అప్లై చేయండి</span>
+                            </button>
+                        </div>
+                        <div class="service-card glass border border-cyan-400/30 rounded-3xl p-7">
+                            <h4 class="font-semibold text-xl">ATM &amp; Other Banking Services</h4>
+                            <p class="telugu text-white/70 text-sm mt-1">ఏటీఎం సేవలు</p>
+                            <button onclick="openApplyModal('ATM Services', 'Banking Services')" 
+                                    class="mt-10 w-full py-4 bg-gradient-to-r from-cyan-400 to-emerald-400 text-black font-bold rounded-2xl flex items-center justify-center gap-2 text-sm uppercase tracking-widest">
+                                Apply Now <span class="telugu">ఇప్పుడే అప్లై చేయండి</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Loan Center -->
+                <div>
+                    <div class="flex items-center gap-4 mb-8">
+                        <div class="text-4xl">💰</div>
+                        <div>
+                            <h2 class="text-3xl font-semibold">Loan Center</h2>
+                            <p class="telugu text-emerald-400 text-xl">రుణ సేవలు</p>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div class="service-card glass border border-amber-400/30 rounded-3xl p-7">
+                            <h4 class="font-semibold text-xl">Aadhaar / Tiger Loan</h4>
+                            <p class="telugu text-white/70 text-sm mt-1">ఆధార్ ఆధారిత లోన్</p>
+                            <button onclick="openApplyModal('Aadhaar Loan', 'Loan Services')" 
+                                    class="mt-10 w-full py-4 bg-gradient-to-r from-amber-400 to-orange-400 text-black font-bold rounded-2xl flex items-center justify-center gap-2 text-sm uppercase tracking-widest">
+                                Apply Now <span class="telugu">ఇప్పుడే అప్లై చేయండి</span>
+                            </button>
+                        </div>
+                        <div class="service-card glass border border-amber-400/30 rounded-3xl p-7">
+                            <h4 class="font-semibold text-xl">Business &amp; Gold Loans</h4>
+                            <p class="telugu text-white/70 text-sm mt-1">బిజినెస్ &amp; గోల్డ్ లోన్స్</p>
+                            <button onclick="openApplyModal('Business / Gold Loans', 'Loan Services')" 
+                                    class="mt-10 w-full py-4 bg-gradient-to-r from-amber-400 to-orange-400 text-black font-bold rounded-2xl flex items-center justify-center gap-2 text-sm uppercase tracking-widest">
+                                Apply Now <span class="telugu">ఇప్పుడే అప్లై చేయండి</span>
+                            </button>
+                        </div>
+                        <div class="service-card glass border border-amber-400/30 rounded-3xl p-7 col-span-1 sm:col-span-2">
+                            <h4 class="font-semibold text-xl">Personal Loans</h4>
+                            <p class="telugu text-white/70 text-sm mt-1">పర్సనల్ లోన్స్</p>
+                            <button onclick="openApplyModal('Personal Loans', 'Loan Services')" 
+                                    class="mt-10 w-full py-4 bg-gradient-to-r from-amber-400 to-orange-400 text-black font-bold rounded-2xl flex items-center justify-center gap-2 text-sm uppercase tracking-widest">
+                                Apply Now <span class="telugu">ఇప్పుడే అప్లై చేయండి</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Digital Center -->
+                <div>
+                    <div class="flex items-center gap-4 mb-8">
+                        <div class="text-4xl">🖨️</div>
+                        <div>
+                            <h2 class="text-3xl font-semibold">Digital Center</h2>
+                            <p class="telugu text-emerald-400 text-xl">డిజిటల్ సెంటర్</p>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div class="service-card glass border border-purple-400/30 rounded-3xl p-7">
+                            <h4 class="font-semibold text-xl">Xerox (B/W &amp; Color)</h4>
+                            <p class="telugu text-white/70 text-sm mt-1">జిరాక్స్ సేవలు</p>
+                            <button onclick="openApplyModal('Xerox (B/W &amp; Color)', 'Digital Services')" 
+                                    class="mt-10 w-full py-4 bg-gradient-to-r from-purple-400 to-pink-400 text-black font-bold rounded-2xl flex items-center justify-center gap-2 text-sm uppercase tracking-widest">
+                                Apply Now <span class="telugu">ఇప్పుడే అప్లై చేయండి</span>
+                            </button>
+                        </div>
+                        <div class="service-card glass border border-purple-400/30 rounded-3xl p-7">
+                            <h4 class="font-semibold text-xl">Lamination &amp; Scanning</h4>
+                            <p class="telugu text-white/70 text-sm mt-1">లామినేషన్ &amp; స్కానింగ్</p>
+                            <button onclick="openApplyModal('Lamination &amp; Scanning', 'Digital Services')" 
+                                    class="mt-10 w-full py-4 bg-gradient-to-r from-purple-400 to-pink-400 text-black font-bold rounded-2xl flex items-center justify-center gap-2 text-sm uppercase tracking-widest">
+                                Apply Now <span class="telugu">ఇప్పుడే అప్లై చేయండి</span>
+                            </button>
+                        </div>
+                        <div class="service-card glass border border-purple-400/30 rounded-3xl p-7">
+                            <h4 class="font-semibold text-xl">Photo Printing</h4>
+                            <p class="telugu text-white/70 text-sm mt-1">ఫోటో ప్రింటింగ్</p>
+                            <button onclick="openApplyModal('Photo Printing', 'Digital Services')" 
+                                    class="mt-10 w-full py-4 bg-gradient-to-r from-purple-400 to-pink-400 text-black font-bold rounded-2xl flex items-center justify-center gap-2 text-sm uppercase tracking-widest">
+                                Apply Now <span class="telugu">ఇప్పుడే అప్లై చేయండి</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- RIGHT SIDEBAR - Essential Portals -->
+            <div class="lg:sticky lg:top-24 self-start">
+                <div class="glass rounded-3xl p-7 border border-white/20">
+                    <h3 class="uppercase tracking-[3px] text-xs font-semibold text-amber-400 mb-6 flex items-center gap-2">
+                        <i class="fa-solid fa-globe"></i> ESSENTIAL PORTALS
+                    </h3>
+                    
+                    <div class="space-y-4">
+                        <a href="https://pmkisan.gov.in/" target="_blank" class="flex items-center gap-4 p-4 rounded-2xl hover:bg-white/10 group">
+                            <i class="fa-solid fa-seedling text-3xl text-emerald-400 group-hover:scale-110"></i>
+                            <div>
+                                <p class="font-medium">PM-KISAN Portal</p>
+                                <p class="text-xs text-white/50">pmkisan.gov.in</p>
+                            </div>
+                        </a>
+                        <a href="https://www.irctc.co.in/" target="_blank" class="flex items-center gap-4 p-4 rounded-2xl hover:bg-white/10 group">
+                            <i class="fa-solid fa-train text-3xl text-rose-400 group-hover:scale-110"></i>
+                            <div>
+                                <p class="font-medium">IRCTC Official</p>
+                                <p class="text-xs text-white/50">irctc.co.in</p>
+                            </div>
+                        </a>
+                        <a href="https://dharani.telangana.gov.in/" target="_blank" class="flex items-center gap-4 p-4 rounded-2xl hover:bg-white/10 group">
+                            <i class="fa-solid fa-landmark text-3xl text-amber-400 group-hover:scale-110"></i>
+                            <div>
+                                <p class="font-medium">Dharani Portal</p>
+                                <p class="text-xs text-white/50">Land Records</p>
+                            </div>
+                        </a>
+                        <a href="https://meeseva.telangana.gov.in/" target="_blank" class="flex items-center gap-4 p-4 rounded-2xl hover:bg-white/10 group">
+                            <i class="fa-solid fa-file-lines text-3xl text-cyan-400 group-hover:scale-110"></i>
+                            <div>
+                                <p class="font-medium">Meeseva Services</p>
+                                <p class="text-xs text-white/50">Certificates &amp; Services</p>
+                            </div>
+                        </a>
+                        <a href="https://www.onlinesbi.sbi/" target="_blank" class="flex items-center gap-4 p-4 rounded-2xl hover:bg-white/10 group">
+                            <i class="fa-solid fa-building-columns text-3xl text-blue-400 group-hover:scale-110"></i>
+                            <div>
+                                <p class="font-medium">Banking Portals</p>
+                                <p class="text-xs text-white/50">SBI, HDFC, etc.</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- APPLY MODAL -->
+    <div id="applyModal" onclick="if(event.target.id==='applyModal') closeModal()" 
+         class="hidden fixed inset-0 bg-black/90 backdrop-blur-2xl z-[100] flex items-center justify-center p-4">
+        
+        <div onclick="event.stopImmediatePropagation()" 
+             class="modal glass max-w-md w-full rounded-3xl p-8 border border-cyan-400/50">
+            
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold neon-cyan-glow">Service Request</h2>
+                <button onclick="closeModal()" class="text-4xl text-white/60 hover:text-white">×</button>
+            </div>
+            
+            <form id="serviceForm" onsubmit="handleSubmit(event)" class="space-y-6">
+                <div>
+                    <label class="text-xs uppercase tracking-widest text-white/70 block mb-2">Full Name</label>
+                    <input id="name" type="text" required class="w-full px-5 py-4 bg-white/10 border border-white/30 focus:border-cyan-400 rounded-2xl outline-none text-white">
+                </div>
+                
+                <div>
+                    <label class="text-xs uppercase tracking-widest text-white/70 block mb-2">WhatsApp Number</label>
+                    <input id="whatsapp" type="tel" value="+919949122402" required 
+                           class="w-full px-5 py-4 bg-white/10 border border-white/30 focus:border-cyan-400 rounded-2xl outline-none text-white">
+                </div>
+                
+                <div>
+                    <label class="text-xs uppercase tracking-widest text-white/70 block mb-2">Service Category</label>
+                    <input id="category" readonly 
+                           class="w-full px-5 py-4 bg-white/5 border border-white/20 rounded-2xl text-cyan-400 font-medium">
+                </div>
+                
+                <div>
+                    <label class="text-xs uppercase tracking-widest text-white/70 block mb-2">Service Required</label>
+                    <input id="service" readonly 
+                           class="w-full px-5 py-4 bg-white/5 border border-white/20 rounded-2xl text-white">
+                </div>
+                
+                <div>
+                    <label class="text-xs uppercase tracking-widest text-white/70 block mb-2">Additional Details</label>
+                    <textarea id="details" rows="3" placeholder="Any specific requirement or deadline..." 
+                              class="w-full px-5 py-4 bg-white/10 border border-white/30 focus:border-cyan-400 rounded-3xl outline-none resize-y"></textarea>
+                </div>
+                
+                <button type="submit"
+                        class="w-full py-5 bg-gradient-to-r from-cyan-400 via-emerald-400 to-cyan-400 text-black font-bold text-lg rounded-3xl flex items-center justify-center gap-3 hover:brightness-110">
+                    <i class="fa-brands fa-whatsapp text-2xl"></i>
+                    SEND VIA WHATSAPP
+                </button>
+            </form>
+        </div>
+    </div>
+    
+    <!-- FOOTER -->
+    <footer class="bg-black/90 border-t border-white/10 py-12 mt-20">
+        <div class="max-w-screen-2xl mx-auto px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-10">
+                
+                <div class="text-center md:text-left">
+                    <div class="flex items-center gap-3 justify-center md:justify-start">
+                        <i class="fa-solid fa-location-dot text-cyan-400 text-2xl"></i>
+                        <div>
+                            <p class="font-semibold">Kasrlagadda Bus Stand</p>
+                            <p class="text-white/60 text-sm">Hyderabad, Telangana</p>
+                        </div>
+                    </div>
+                    <p class="mt-6 text-xs text-white/50">Open Daily • 8:00 AM - 9:00 PM</p>
+                </div>
+                
+                <div class="flex gap-8 text-4xl">
+                    <a href="https://wa.me/919949122402" target="_blank" class="hover:text-emerald-400"><i class="fa-brands fa-whatsapp"></i></a>
+                    <a href="#" class="hover:text-rose-400"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#" class="hover:text-pink-400"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="hover:text-cyan-400"><i class="fa-brands fa-x-twitter"></i></a>
+                </div>
+                
+                <div class="text-center md:text-right text-xs font-mono text-white/40">
+                    © 2026 Digital Seva Hub<br>
+                    Common Service Center • Kasrlagadda<br>
+                    Powered by Neon Tech
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        function openApplyModal(serviceName, category) {
+            const modal = document.getElementById('applyModal')
+            document.getElementById('service').value = serviceName
+            document.getElementById('category').value = category || 'CSC Service'
+            modal.classList.remove('hidden')
+            modal.classList.add('flex')
+        }
+        
+        function closeModal() {
+            const modal = document.getElementById('applyModal')
+            modal.classList.add('hidden')
+            modal.classList.remove('flex')
+        }
+        
+        function handleSubmit(e) {
+            e.preventDefault()
+            
+            const name = document.getElementById('name').value
+            const whatsapp = document.getElementById('whatsapp').value
+            const service = document.getElementById('service').value
+            const category = document.getElementById('category').value
+            const details = document.getElementById('details').value || "No additional details"
+            
+            const msg = encodeURIComponent(
+                `*CSC Service Request*\n\n` +
+                `👤 Name: ${name}\n` +
+                `📱 Contact: ${whatsapp}\n` +
+                `📂 Category: ${category}\n` +
+                `🔖 Service: ${service}\n` +
+                `📝 Details: ${details}\n\n` +
+                `Requested from csc-services.html\n` +
+                `Location: Kasrlagadda Bus Stand, Hyderabad\n` +
+                `Please process immediately! 🚀`
+            )
+            
+            window.open(`https://wa.me/919949122402?text=${msg}`, '_blank')
+            
+            console.log('%c✅ CSC Request Sent to Admin', 'color:#10f7a0; font-size:14px')
+            
+            setTimeout(() => {
+                alert('✅ Your request has been sent!\nWhatsApp will open with pre-filled details.\nOur team will contact you shortly.')
+                closeModal()
+            }, 600)
+        }
+        
+        function fakeAdClick() {
+            alert('🎉 Thank you!\nThis is a promotional demo.\nReal offers available at the center.')
+        }
+        
+        // Keyboard escape support
+        document.addEventListener('keydown', (e) => {
+            if (e.key === "Escape") {
+                const modal = document.getElementById('applyModal')
+                if (!modal.classList.contains('hidden')) closeModal()
+            }
+        })
+        
+        console.log('%c✅ csc-services.html updated with expanded Agri, Travel, Banking, Loan & Digital services. Fully functional dark-tech theme.', 'color:#00f7ff; background:#0a1128; padding:4px 8px; border-radius:6px')
+    </script>
+</body>
+</html>
