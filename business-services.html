@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="te">
 <head>
     <meta charset="UTF-8">
@@ -6,6 +6,32 @@
     <title>బిజినెస్ టూల్‌కిట్ - మహేశ్వర నెక్స్లిఫై (Business Services)</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@700&family=Noto+Sans+Telugu:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              brand: {
+                cyan: '#22d3ee',
+                teal: '#0d9488',
+                gold: '#fbbf24',
+                dark: '#020617',
+                glass: 'rgba(15, 23, 42, 0.6)',
+              }
+            },
+            fontFamily: {
+              sans: ['Roboto', 'sans-serif'],
+              telugu: ['Noto Sans Telugu', 'sans-serif'],
+              display: ['Space Grotesk', 'sans-serif'],
+            }
+          }
+        }
+      }
+    </script>
     <link rel="stylesheet" href="shared-header.css">
     
     <!-- Supabase Client Library -->
@@ -25,8 +51,8 @@
 
         body {
             font-family: 'Inter', 'Noto Sans Telugu', sans-serif;
-            background-color: #f8fafc;
-            color: var(--text-main);
+            background-color: #020617;
+            color: #e2e8f0;
             line-height: 1.6;
             margin: 0;
         }
@@ -181,37 +207,13 @@
         }
     </style>
 </head>
-<body>
-    <!-- Universal Header -->
-    <header class="universal-header sticky top-0 z-50">
-        <div class="header-inner">
-            <a href="index.html" class="branding-link">
-                <h1 class="branding-title">MAHESHWARA NEXLIFY</h1>
-                <span class="branding-subtitle">Nucleus Digital Services</span>
-            </a>
-            <nav class="universal-nav">
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="news-page.html">News Portal</a></li>
-                    <li><a href="uploadnews.html">Upload News</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+<body class="bg-slate-900 text-slate-100">
+    <!-- Universal Header & Ticker System -->
+    <script src="js/universal-header-ticker.js"></script>
 
-    <!-- Flash News Ticker -->
-    <div class="ticker-wrapper">
-        <div class="ticker-label"><i class="fas fa-bolt mr-2"></i> FLASH NEWS</div>
-        <div class="ticker-content">
-            <div id="ticker-scroll" class="ticker-scroll">
-                <span class="ticker-item">వ్యాపారులకు మరియు ప్రజలకు అవసరమైన డిజిటల్ టూల్స్ ఇక్కడ అందుబాటులో ఉన్నాయి.</span>
-            </div>
-        </div>
-    </div>
-
-    <div class="container">
+    <div class="container pb-12 m-0 p-0">
         <!-- Hero Section -->
-        <div class="hero-biz">
+        <div class="hero-biz" style="margin-top: 0 !important; padding-top: 20px !important; margin-bottom: 20px !important;">
             <h2>డిజిటల్ బిజినెస్ టూల్‌కిట్</h2>
             <p>మీ వ్యాపార గణనలు మరియు ప్రభుత్వ సేవలు - ఇప్పుడు మీ చేతుల్లో!</p>
         </div>

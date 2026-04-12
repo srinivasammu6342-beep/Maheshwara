@@ -393,6 +393,54 @@
     </div>
 
     <main class="container">
+        <!-- Market Rates Admin Section -->
+        <div class="form-card" style="margin-bottom: 40px; border-left: 4px solid var(--accent-color);">
+            <h2 style="text-align: left; font-size: 1.25rem; margin-bottom: 20px;">UPDATE MARKET RATES (DAILY)</h2>
+            <form id="marketRatesForm">
+                <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));">
+                    <div class="form-group">
+                        <label>Gold 24K (10g)</label>
+                        <input type="text" id="m-gold-24k" placeholder="₹72,450">
+                    </div>
+                    <div class="form-group">
+                        <label>Gold 22K (10g)</label>
+                        <input type="text" id="m-gold-22k" placeholder="₹66,410">
+                    </div>
+                    <div class="form-group">
+                        <label>Silver (1kg)</label>
+                        <input type="text" id="m-silver" placeholder="₹91,200">
+                    </div>
+                    <div class="form-group">
+                        <label>Sensex</label>
+                        <input type="text" id="m-sensex" placeholder="74,320">
+                    </div>
+                    <div class="form-group">
+                        <label>Nifty</label>
+                        <input type="text" id="m-nifty" placeholder="22,580">
+                    </div>
+                </div>
+                <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));">
+                    <div class="form-group">
+                        <label>Sensex Trend</label>
+                        <select id="m-sensex-trend">
+                            <option value="up">Up (Green)</option>
+                            <option value="down">Down (Red)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Nifty Trend</label>
+                        <select id="m-nifty-trend">
+                            <option value="up">Up (Green)</option>
+                            <option value="down">Down (Red)</option>
+                        </select>
+                    </div>
+                    <div class="form-group" style="display: flex; align-items: flex-end;">
+                        <button type="submit" class="publish-btn" style="margin-top: 0; padding: 12px; background-color: var(--accent-color);">UPDATE RATES</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
         <div class="form-card">
             <h2>UPLOAD NEW STORY</h2>
 
@@ -664,10 +712,48 @@
 
             setTodayDate();
             setupForm();
+            setupMarketRates();
 
             // Optional keyboard shortcut hint
             console.log('%c🚀 Upload portal ready.', 'color:var(--accent-color); font-family:monospace');
         };
+
+        function setupMarketRates() {
+            const form = document.getElementById('marketRatesForm');
+            if (!form) return;
+
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const btn = form.querySelector('button');
+                btn.disabled = true;
+                btn.innerText = 'Updating...';
+
+                const updates = [
+                    { item: 'GOLD_24K', price: document.getElementById('m-gold-24k').value || '₹72,450', trend: 'up' },
+                    { item: 'GOLD_22K', price: document.getElementById('m-gold-22k').value || '₹66,410', trend: 'up' },
+                    { item: 'SILVER', price: document.getElementById('m-silver').value || '₹91,200', trend: 'up' },
+                    { item: 'SENSEX', price: document.getElementById('m-sensex').value || '74,320', trend: document.getElementById('m-sensex-trend').value },
+                    { item: 'NIFTY', price: document.getElementById('m-nifty').value || '22,580', trend: document.getElementById('m-nifty-trend').value }
+                ];
+
+                try {
+                    // We'll use 'upsert' to update existing items by their 'item' name
+                    // This assumes the 'item' column is unique in Supabase
+                    const { error } = await supabaseClient
+                        .from('market_rates')
+                        .upsert(updates, { onConflict: 'item' });
+
+                    if (error) throw error;
+                    alert('✅ Market Rates updated successfully!');
+                } catch (err) {
+                    console.error('Update failed:', err);
+                    alert('❌ Failed to update rates: ' + err.message);
+                } finally {
+                    btn.disabled = false;
+                    btn.innerText = 'UPDATE RATES';
+                }
+            });
+        }
     </script>
 </body>
 </html>

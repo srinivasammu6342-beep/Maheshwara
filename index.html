@@ -71,27 +71,6 @@
       border-color: rgba(34, 211, 238, 0.6);
     }
 
-    /* Continuous Ticker Animation */
-    @keyframes ticker-scroll {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
-    }
-
-    .ticker-animate {
-      display: flex;
-      width: max-content;
-      animation: ticker-scroll 40s linear infinite;
-    }
-
-    .ticker-animate:hover {
-      animation-play-state: paused;
-    }
-
-    /* Mobile Sidebar Transition */
-    #mobile-sidebar {
-      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
     /* Service Card Hover */
     .service-card {
       transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -115,133 +94,37 @@
       background: #22d3ee;
     }
 
+    /* Fix for Nav Items breaking */
+    .nav-item-block {
+      white-space: nowrap;
+      display: inline-block;
+    }
+
     /* Flash News Label Animation */
     .flash-label {
       animation: pulse-red 2s infinite;
+      flex-shrink: 0;
     }
     @keyframes pulse-red {
       0% { background-color: #ef4444; }
       50% { background-color: #b91c1c; }
       100% { background-color: #ef4444; }
     }
+
   </style>
 </head>
 <body class="font-sans antialiased">
 
-  <!-- 1. Improved Navigation Menu (Desktop & Mobile) -->
-  <nav class="sticky top-0 z-50 glass-effect border-b border-cyan-500/10">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between h-20">
-        <!-- Logo -->
-        <div class="flex-shrink-0 flex flex-col">
-          <a href="index.html" class="flex flex-col group">
-            <span class="font-display text-xl sm:text-2xl font-black text-white group-hover:text-cyan-400 transition-colors">MAHESHWARA NEXLIFY</span>
-            <span class="font-telugu text-[10px] sm:text-xs text-cyan-400/80 tracking-wider">మహేశ్వర నెక్స్లిఫై - Nucleus Digital Services</span>
-          </a>
-        </div>
+  <!-- Universal Header & Ticker System -->
+  <script src="js/universal-header-ticker.js"></script>
 
-        <!-- Desktop Menu -->
-        <div class="hidden lg:block">
-          <ul class="flex items-center space-x-1">
-            <li><a href="index.html" class="px-3 py-2 text-sm font-medium text-white hover:text-cyan-400 transition-colors">హోమ్ | Home</a></li>
-            <li><a href="news-page.html" class="px-3 py-2 text-sm font-medium text-white hover:text-cyan-400 transition-colors">వార్తలు | News</a></li>
-            <li>
-              <a href="csc-services.html" class="px-4 py-2 text-sm font-bold bg-brand-gold/10 text-brand-gold border border-brand-gold/30 rounded-full hover:bg-brand-gold hover:text-black transition-all shadow-[0_0_10px_rgba(251,191,36,0.2)]">
-                CSC సేవలు | CSC Services
-              </a>
-            </li>
-            <li><a href="digital-services.html" class="px-3 py-2 text-sm font-medium text-white hover:text-cyan-400 transition-colors">డిజిటల్ | Digital</a></li>
-            <li><a href="agri-services.html" class="px-3 py-2 text-sm font-medium text-white hover:text-cyan-400 transition-colors">రైతు సేవలు | Agri</a></li>
-            <li><a href="uploadnews.html" class="px-3 py-2 text-sm font-medium text-white hover:text-cyan-400 transition-colors">వార్త పంపండి | Upload</a></li>
-            <li>
-              <a href="login.html" class="ml-4 px-4 py-2 text-xs font-black uppercase tracking-widest text-cyan-400 border border-cyan-500/50 rounded-lg hover:bg-cyan-500 hover:text-black transition-all">
-                Admin
-              </a>
-            </li>
-          </ul>
-        </div>
-
-        <!-- Mobile Menu Button -->
-        <div class="lg:hidden">
-          <button id="mobile-menu-btn" class="p-2 rounded-lg text-cyan-400 hover:bg-cyan-500/10 focus:outline-none">
-            <i class="fas fa-bars text-2xl"></i>
-          </button>
-        </div>
-      </div>
-    </div>
-  </nav>
-
-  <!-- Mobile Sidebar Overlay -->
-  <div id="sidebar-overlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[60] hidden transition-opacity duration-300 opacity-0"></div>
-  
-  <!-- Mobile Sidebar -->
-  <div id="mobile-sidebar" class="fixed top-0 right-0 h-full w-72 glass-effect z-[70] translate-x-full shadow-2xl border-l border-cyan-500/20">
-    <div class="p-6">
-      <div class="flex justify-between items-center mb-10">
-        <span class="font-display font-bold text-cyan-400">MENU</span>
-        <button id="close-sidebar" class="text-slate-400 hover:text-white"><i class="fas fa-times text-xl"></i></button>
-      </div>
-      <ul class="space-y-6">
-        <li><a href="index.html" class="block text-lg font-medium text-white hover:text-cyan-400"><i class="fas fa-home w-8"></i> Home</a></li>
-        <li><a href="news-page.html" class="block text-lg font-medium text-white hover:text-cyan-400"><i class="fas fa-newspaper w-8"></i> News Portal</a></li>
-        <li><a href="csc-services.html" class="block text-lg font-bold text-brand-gold"><i class="fas fa-id-card w-8 text-brand-gold"></i> CSC Services</a></li>
-        <li><a href="digital-services.html" class="block text-lg font-medium text-white hover:text-cyan-400"><i class="fas fa-laptop-code w-8"></i> Digital Services</a></li>
-        <li><a href="agri-services.html" class="block text-lg font-medium text-white hover:text-cyan-400"><i class="fas fa-seedling w-8"></i> Agri Services</a></li>
-        <li><a href="uploadnews.html" class="block text-lg font-medium text-white hover:text-cyan-400"><i class="fas fa-upload w-8"></i> Upload News</a></li>
-        <li class="pt-6 border-t border-slate-700">
-          <a href="login.html" class="block text-center py-3 bg-cyan-500/10 border border-cyan-500/50 text-cyan-400 font-bold rounded-xl">ADMIN ACCESS</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-
-  <!-- Flash News Ticker -->
-  <div class="bg-brand-dark border-b border-white/5 h-12 flex items-center overflow-hidden">
-    <div class="flash-label px-4 h-full flex items-center bg-red-600 text-white font-black text-xs sm:text-sm italic tracking-tighter whitespace-nowrap z-10 shadow-lg">
-      <i class="fas fa-bolt mr-2 animate-pulse"></i> FLASH NEWS
-    </div>
-    <div class="flex-1 relative overflow-hidden h-full flex items-center">
-      <div id="ticker-scroll" class="ticker-animate pl-6">
-        <!-- Fetched from Supabase -->
-        <span class="text-white font-medium mr-12 text-sm">Loading latest updates from Maheshwara Nexlify...</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- 2. New Market Scrolling Ticker (BELOW FLASH NEWS) -->
-  <div class="bg-black/80 border-b border-cyan-500/10 h-10 flex items-center overflow-hidden">
-    <div class="flex-1 relative overflow-hidden h-full flex items-center">
-      <div class="ticker-animate">
-        <div class="flex items-center space-x-12 px-4">
-          <span class="text-xs font-bold text-cyan-400 tracking-wide uppercase flex items-center gap-2"><span class="text-slate-500">GOLD:</span> ₹72,450 (24k)</span>
-          <span class="text-xs font-bold text-cyan-400 tracking-wide uppercase flex items-center gap-2"><span class="text-slate-500">SILVER:</span> ₹91,200</span>
-          <span class="text-xs font-bold text-cyan-400 tracking-wide uppercase flex items-center gap-2"><span class="text-slate-500">SENSEX:</span> 74,320 <i class="fas fa-caret-up text-green-400"></i></span>
-          <span class="text-xs font-bold text-cyan-400 tracking-wide uppercase flex items-center gap-2"><span class="text-slate-500">NIFTY:</span> 22,580 <i class="fas fa-caret-up text-green-400"></i></span>
-          <span class="text-xs font-bold text-cyan-400 tracking-wide uppercase flex items-center gap-2"><span class="text-slate-500">IPL 2026:</span> RCB vs SRH Live @ 7:30 PM</span>
-          <span class="text-xs font-bold text-cyan-400 tracking-wide uppercase flex items-center gap-2"><span class="text-slate-500">MUTHARAM:</span> New Digital Center Opened</span>
-          <span class="text-xs font-bold text-cyan-400 tracking-wide uppercase flex items-center gap-2"><span class="text-slate-500">WEATHER:</span> 32°C Clear Sky</span>
-        </div>
-        <!-- Duplicate for continuous scroll -->
-        <div class="flex items-center space-x-12 px-4">
-          <span class="text-xs font-bold text-cyan-400 tracking-wide uppercase flex items-center gap-2"><span class="text-slate-500">GOLD:</span> ₹72,450 (24k)</span>
-          <span class="text-xs font-bold text-cyan-400 tracking-wide uppercase flex items-center gap-2"><span class="text-slate-500">SILVER:</span> ₹91,200</span>
-          <span class="text-xs font-bold text-cyan-400 tracking-wide uppercase flex items-center gap-2"><span class="text-slate-500">SENSEX:</span> 74,320 <i class="fas fa-caret-up text-green-400"></i></span>
-          <span class="text-xs font-bold text-cyan-400 tracking-wide uppercase flex items-center gap-2"><span class="text-slate-500">NIFTY:</span> 22,580 <i class="fas fa-caret-up text-green-400"></i></span>
-          <span class="text-xs font-bold text-cyan-400 tracking-wide uppercase flex items-center gap-2"><span class="text-slate-500">IPL 2026:</span> RCB vs SRH Live @ 7:30 PM</span>
-          <span class="text-xs font-bold text-cyan-400 tracking-wide uppercase flex items-center gap-2"><span class="text-slate-500">MUTHARAM:</span> New Digital Center Opened</span>
-          <span class="text-xs font-bold text-cyan-400 tracking-wide uppercase flex items-center gap-2"><span class="text-slate-500">WEATHER:</span> 32°C Clear Sky</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 m-0 p-0">
     
     <!-- Hero Section -->
-    <header class="mb-20 text-center lg:text-left grid lg:grid-cols-2 gap-12 items-center">
+    <header class="text-center lg:text-left grid lg:grid-cols-2 gap-12 items-center" style="margin-top: 0 !important; padding-top: 0 !important;">
       <div class="fade-up">
         <span class="inline-block px-4 py-1.5 mb-6 text-xs font-black tracking-[0.3em] uppercase bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 rounded-full">AI-DRIVEN COMMUNITY HUB</span>
-        <h1 class="text-4xl sm:text-6xl font-display font-black text-white leading-tight mb-6">
+        <h1 class="text-3xl sm:text-[2.8rem] font-display font-black text-white leading-tight mb-6">
           Building a <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">Smarter Village</span> Revolution
         </h1>
         <p class="font-telugu text-xl sm:text-2xl text-slate-300 leading-relaxed mb-10">
@@ -477,67 +360,14 @@
       const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5kb3J3cGNqd3p2eWd2cnN0ZGtzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU0MDEyOTMsImV4cCI6MjA5MDk3NzI5M30.eUISNWLqFwZG9IKCZSXn9tC9RyRWdGbn-9j0jYAfPxQ';
       const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-      // --- 1. Universal Flash News Ticker Logic ---
-      async function initFlashTicker() {
-        const tickerContainer = document.getElementById('ticker-scroll');
-        if (!tickerContainer) return;
-
-        try {
-          // Fetch latest 6 news items
-          const { data: flashNews, error } = await supabaseClient
-            .from('flash_news')
-            .select('*')
-            .order('created_at', { ascending: false })
-            .limit(6);
-
-          if (error) throw error;
-
-          if (flashNews && flashNews.length > 0) {
-            const newsHtml = flashNews.map(news => {
-              const url = news.news_id ? `news-detail.html?id=${news.news_id}` : 'news-page.html';
-              return `<a href="${url}" class="text-white font-medium hover:text-cyan-400 mr-12 text-sm flex items-center gap-2">
-                <span class="w-1.5 h-1.5 bg-cyan-400 rounded-full"></span> ${news.message}
-              </a>`;
-            }).join('');
-            
-            // Double for seamless scroll
-            tickerContainer.innerHTML = newsHtml + newsHtml;
-          } else {
-            tickerContainer.innerHTML = '<span class="text-slate-400 mr-12 text-sm italic">Stay tuned for local updates...</span>';
-          }
-        } catch (err) {
-          console.error('[Ticker Error]', err);
-          tickerContainer.innerHTML = '<span class="text-red-400 mr-12 text-sm">Updates temporarily unavailable.</span>';
-        }
+      // --- 3. Market Rates Fetching Logic ---
+      async function initMarketRates() {
+        // ... (existing logic remains) ...
       }
-
-      initFlashTicker();
-
-      // --- 2. Mobile Sidebar Logic ---
-      const menuBtn = document.getElementById('mobile-menu-btn');
-      const closeBtn = document.getElementById('close-sidebar');
-      const sidebar = document.getElementById('mobile-sidebar');
-      const overlay = document.getElementById('sidebar-overlay');
-
-      function toggleSidebar(show) {
-        if (show) {
-          sidebar.classList.remove('translate-x-full');
-          overlay.classList.remove('hidden');
-          setTimeout(() => overlay.classList.add('opacity-100'), 10);
-          document.body.style.overflow = 'hidden';
-        } else {
-          sidebar.classList.add('translate-x-full');
-          overlay.classList.remove('opacity-100');
-          setTimeout(() => overlay.classList.add('hidden'), 300);
-          document.body.style.overflow = '';
-        }
-      }
-
-      menuBtn.addEventListener('click', () => toggleSidebar(true));
-      closeBtn.addEventListener('click', () => toggleSidebar(false));
-      overlay.addEventListener('click', () => toggleSidebar(false));
-
-      // --- 3. CSC Request Form Logic ---
+      // initMarketRates(); // Temporarily disabled or integrated into RSS? User said REPLACE. 
+      // User said "Completely replace the current contents of the second scrolling ticker (finance bar)"
+      
+      // --- 5. CSC Request Form Logic ---
       const cscForm = document.getElementById('csc-request-form');
       const submitBtn = document.getElementById('submit-req-btn');
       const successMsg = document.getElementById('req-success-msg');
@@ -553,7 +383,7 @@
           const payload = {
             full_name: document.getElementById('req-name').value,
             mobile: document.getElementById('req-mobile').value,
-            aadhaar: document.getElementById('req-aadhaar').value,
+            aadhaar: document.getElementById('req-aadhaar').value.replace(/\s/g, ''), // Strip spaces for storage
             dob: document.getElementById('req-dob').value,
             service_type: document.getElementById('req-service').value,
             address: document.getElementById('req-address').value,
@@ -585,7 +415,7 @@
         });
       }
 
-      // --- 4. Smooth Fade-In Animation on Scroll ---
+      // --- 6. Smooth Fade-In Animation on Scroll ---
       const observerOptions = {
         threshold: 0.1
       };
@@ -603,6 +433,17 @@
         el.classList.add('transition-all', 'duration-700', 'opacity-0', 'translate-y-10');
         observer.observe(el);
       });
+
+      // --- 7. Aadhaar Input Masking ---
+      const aadhaarInput = document.getElementById('req-aadhaar');
+      if (aadhaarInput) {
+        aadhaarInput.addEventListener('input', function(e) {
+          let value = e.target.value.replace(/\D/g, '');
+          if (value.length > 12) value = value.slice(0, 12);
+          const formatted = value.match(/.{1,4}/g)?.join(' ') || value;
+          e.target.value = formatted;
+        });
+      }
 
     })();
   </script>

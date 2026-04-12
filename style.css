@@ -1,3 +1,17 @@
+/* Aggressive Global Reset */
+* {
+  margin: 0 !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
+}
+
+html, body {
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100% !important;
+  overflow-x: hidden !important;
+}
+
 /* Lightweight extras —   primary styling via Tailwind CDN */
 @keyframes mns-ticker {
   0% {
