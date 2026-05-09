@@ -3,24 +3,18 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Maheshwara Nexlify Nucleus | Mutharam Digital Portal</title>
+  <title>MAHESHWARA NEXLIFY NUCLEUS DIGITAL SEVA</title>
   
-  <!-- SEO Meta Tags -->
-  <meta name="description" content="Official digital portal for Mutharam. Providing CSC services, local news, and AI-driven community tools." />
-  
-  <!-- Google Fonts: Space Grotesk for Headings, Roboto for Body, Noto Sans Telugu for Telugu text -->
+  <!-- Stylish Telugu Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu:wght@400;700&family=Roboto:wght@300;400;500;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Ramabhadra&family=Hind+Guntur:wght@400;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
   
   <!-- FontAwesome for Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
-  
-  <!-- Supabase JS -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <script>
     tailwind.config = {
@@ -28,17 +22,14 @@
         extend: {
           colors: {
             brand: {
-              cyan: '#22d3ee',
-              teal: '#0d9488',
-              gold: '#fbbf24',
-              dark: '#020617',
-              glass: 'rgba(15, 23, 42, 0.6)',
+              orange: '#FF6600',
+              dark: '#1a1a1a',
+              light: '#f8fafc',
             }
           },
           fontFamily: {
-            sans: ['Roboto', 'sans-serif'],
-            telugu: ['Noto Sans Telugu', 'sans-serif'],
-            display: ['Space Grotesk', 'sans-serif'],
+            telugu: ['Hind Guntur', 'sans-serif'],
+            display: ['Ramabhadra', 'sans-serif'],
           }
         }
       }
@@ -46,406 +37,717 @@
   </script>
 
   <style>
-    /* Custom CSS for Glassmorphism and Animations */
+    /* Modern UI Redesign - Clean & Professional */
     :root {
-      --glass-bg: rgba(15, 23, 42, 0.65);
-      --glass-border: rgba(34, 211, 238, 0.2);
-      --cyan-glow: 0 0 15px rgba(34, 211, 238, 0.4);
+      --brand-orange: #FF6600;
+      --brand-dark: #0f172a;
+      --brand-bg: #f8fafc;
+      --card-border: #e2e8f0;
+      --card-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+      --card-hover-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
     }
 
-    body {
-      background: radial-gradient(circle at 10% 20%, #0f172a 0%, #020617 100%);
-      color: #e2e8f0;
-      overflow-x: hidden;
+    html, body {
+      overflow-x: hidden !important;
+      width: 100% !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      background-color: var(--brand-bg);
+      color: #334155;
+      font-family: 'Hind Guntur', sans-serif;
+      box-sizing: border-box !important;
+      scroll-behavior: smooth;
     }
 
-    .glass-effect {
-      background: var(--glass-bg);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid var(--glass-border);
+    *, ::before, ::after {
+      box-sizing: border-box !important;
     }
 
-    .cyan-glow:hover {
-      box-shadow: var(--cyan-glow);
-      border-color: rgba(34, 211, 238, 0.6);
+    /* Layout Structure — 20% : 55% : 25% via fr units (stable at 100% zoom) */
+    .portal-container {
+      display: grid;
+      grid-template-columns: minmax(0, 20fr) minmax(0, 55fr) minmax(0, 25fr);
+      gap: 1.25rem;
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 1.5rem 1rem 2rem;
+      align-items: start;
+      width: 100%;
+      box-sizing: border-box;
     }
 
-    /* Service Card Hover */
-    .service-card {
-      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-    .service-card:hover {
-      transform: translateY(-10px) scale(1.02);
+    .left-column, .center-column, .right-column {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      min-width: 0;
+      width: 100%;
     }
 
-    /* Custom Scrollbar */
-    ::-webkit-scrollbar {
-      width: 8px;
+    .portal-container .column-card {
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
     }
-    ::-webkit-scrollbar-track {
-      background: #020617;
+
+    /* Responsive Adjustments */
+    @media (max-width: 1200px) {
+      .portal-container { 
+        grid-template-columns: 1fr 1fr; 
+        padding: 1rem;
+      }
+      .center-column { grid-column: span 2; order: -1; }
     }
-    ::-webkit-scrollbar-thumb {
-      background: #1e293b;
+
+    @media (max-width: 768px) {
+      .portal-container { 
+        grid-template-columns: 1fr; 
+      }
+      .center-column { grid-column: span 1; }
+    }
+
+    /* Clean Card Styling */
+    .column-card {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 1.5rem;
+      border: 1px solid var(--card-border);
+      box-shadow: var(--card-shadow);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      height: fit-content;
+    }
+
+    .column-card:hover {
+      box-shadow: var(--card-hover-shadow);
+      transform: translateY(-2px);
+    }
+
+    .column-title {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--brand-dark);
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      border-bottom: 2px solid #f8fafc;
+      padding-bottom: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .column-title i {
+      color: var(--brand-orange);
+      font-size: 1.1rem;
+      width: 20px;
+      text-align: center;
+    }
+
+    /* Flexbox Internal Card Alignment */
+    .card-flex-center {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .card-flex-row {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    /* Service Grid Redesign */
+    .category-grid-mini {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .category-card-mini {
+      background: #f8fafc;
+      border-radius: 12px;
+      padding: 1rem 0.5rem;
+      text-align: center;
+      transition: all 0.2s;
+      border: 1px solid transparent;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .category-card-mini:hover {
+      background: #ffffff;
+      border-color: var(--brand-orange);
+      box-shadow: 0 4px 6px -1px rgba(255, 102, 0, 0.1);
+    }
+
+    .category-icon-mini {
+      font-size: 1.5rem;
+      color: var(--brand-orange);
+    }
+
+    .category-title-mini {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #475569;
+      line-height: 1.2;
+    }
+
+    /* List & Info Rows */
+    .info-row, .list-item-vertical {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 1rem;
+      background: #f8fafc;
       border-radius: 10px;
-    }
-    ::-webkit-scrollbar-thumb:hover {
-      background: #22d3ee;
-    }
-
-    /* Fix for Nav Items breaking */
-    .nav-item-block {
-      white-space: nowrap;
-      display: inline-block;
+      margin-bottom: 0.5rem;
+      border: 1px solid transparent;
+      transition: all 0.2s;
+      text-decoration: none;
+      color: inherit;
     }
 
-    /* Flash News Label Animation */
-    .flash-label {
-      animation: pulse-red 2s infinite;
-      flex-shrink: 0;
-    }
-    @keyframes pulse-red {
-      0% { background-color: #ef4444; }
-      50% { background-color: #b91c1c; }
-      100% { background-color: #ef4444; }
+    .info-row:hover, .list-item-vertical:hover {
+      background: #fff7ed;
+      border-color: #fff7ed;
+      box-shadow: 0 4px 6px -1px rgba(255, 102, 0, 0.05);
+      color: var(--brand-orange);
     }
 
+    .info-label { font-weight: 700; color: #64748b; font-size: 0.85rem; }
+    .info-value { font-weight: 900; color: var(--brand-dark); font-size: 0.95rem; }
+
+    /* Mobile adjustments */
+    @media (max-width: 640px) {
+      .category-grid-mini { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+      #live-clock { font-size: 1.5rem !important; }
+    }
   </style>
 </head>
-<body class="font-sans antialiased">
+<body class="font-telugu">
 
   <!-- Universal Header & Ticker System -->
   <script src="js/universal-header-ticker.js"></script>
 
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 m-0 p-0">
-    
-    <!-- Hero Section -->
-    <header class="text-center lg:text-left grid lg:grid-cols-2 gap-12 items-center" style="margin-top: 0 !important; padding-top: 0 !important;">
-      <div class="fade-up">
-        <span class="inline-block px-4 py-1.5 mb-6 text-xs font-black tracking-[0.3em] uppercase bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 rounded-full">AI-DRIVEN COMMUNITY HUB</span>
-        <h1 class="text-3xl sm:text-[2.8rem] font-display font-black text-white leading-tight mb-6">
-          Building a <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">Smarter Village</span> Revolution
-        </h1>
-        <p class="font-telugu text-xl sm:text-2xl text-slate-300 leading-relaxed mb-10">
-          ముత్తారం డిజిటల్ విప్లవం - ప్రభుత్వ సేవలు, వార్తలు మరియు సాంకేతికత ఇప్పుడు మీ చేతుల్లో.
-        </p>
-        <div class="flex flex-wrap gap-4 justify-center lg:justify-start">
-          <a href="#quick-apply" class="px-8 py-4 bg-cyan-500 text-black font-black rounded-2xl shadow-lg shadow-cyan-500/20 hover:scale-105 transition-all">
-            Apply for Services
-          </a>
-          <a href="news-page.html" class="px-8 py-4 glass-effect text-white font-bold rounded-2xl hover:bg-white/5 transition-all">
-            Read Local News
-          </a>
-        </div>
-      </div>
-      <div class="hidden lg:block relative">
-        <div class="absolute -inset-10 bg-cyan-500/10 blur-3xl rounded-full"></div>
-        <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=800" alt="Tech Hub" class="relative z-10 rounded-3xl border border-white/10 shadow-2xl">
-      </div>
-    </header>
+  <main class="w-full">
+    <!-- Portal Container (3 Columns) -->
+    <div class="portal-container">
+      
+      <!-- LEFT COLUMN (20%) -->
+      <aside class="left-column">
+        
+        <!-- లైవ్ అప్‌డేట్స్ (Live Updates) -->
+        <div class="column-card border-l-4 border-orange-500">
+          <h3 class="column-title"><i class="fas fa-clock text-orange-500 mr-2"></i> లైవ్ అప్‌డేట్స్</h3>
+          <div class="p-1 space-y-4">
+            <!-- నేటి తేదీ & వారం -->
+            <div>
+              <p class="text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">నేటి తేదీ & వారం:</p>
+              <p id="live-date-telugu" class="text-[15px] font-black text-slate-800">తేదీ లోడ్ అవుతోంది...</p>
+            </div>
+            
+            <!-- లైవ్ డిజిటల్ క్లాక్ -->
+            <div>
+              <p class="text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">లైవ్ డిజిటల్ క్లాక్:</p>
+              <h3 id="live-clock" class="text-3xl font-black text-orange-600 tracking-tighter">00:00:00 AM</h3>
+            </div>
 
-    <!-- 3. Our Services Section Improvements -->
-    <section id="services" class="mb-24">
-      <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
-        <div>
-          <h2 class="text-3xl sm:text-4xl font-display font-black text-white">Our Services | మన సేవలు</h2>
-          <p class="mt-2 text-cyan-400 font-medium">Professional digital solutions for the Mutharam community.</p>
-        </div>
-        <a href="csc-services.html" class="text-sm font-bold text-slate-400 hover:text-cyan-400 flex items-center gap-2">
-          View All Services <i class="fas fa-arrow-right"></i>
-        </a>
-      </div>
-
-      <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-        <!-- CSC Services Highlighted -->
-        <a href="csc-services.html" class="service-card group glass-effect rounded-[2.5rem] p-10 border-2 border-brand-gold/40 relative overflow-hidden shadow-[0_0_30px_rgba(251,191,36,0.1)]">
-          <div class="absolute -right-4 -top-4 w-24 h-24 bg-brand-gold/10 rounded-full blur-2xl"></div>
-          <span class="absolute top-6 right-8 bg-brand-gold text-black text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest shadow-lg">MOST POPULAR</span>
-          <div class="w-16 h-16 bg-brand-gold/20 rounded-2xl flex items-center justify-center text-3xl mb-8 group-hover:scale-110 transition-transform">🏢</div>
-          <h4 class="text-2xl font-black text-brand-gold font-telugu mb-4">CSC సేవలు (CSC Services)</h4>
-          <p class="text-sm text-slate-300 leading-relaxed mb-8">ప్రభుత్వ పథకాలు, మీ-సేవ, పాన్ కార్డ్ మరియు ఇతర సర్టిఫికేట్ల కోసం అత్యుత్తమ డిజిటల్ కేంద్రం.</p>
-          <div class="flex items-center gap-2 text-brand-gold font-bold text-sm">
-            Open CSC Portal <i class="fas fa-chevron-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
-          </div>
-        </a>
-
-        <!-- Quick PAN Card Apply Card (New) -->
-        <a href="#quick-apply" class="service-card group glass-effect rounded-[2.5rem] p-10 cyan-glow">
-          <div class="w-16 h-16 bg-cyan-500/20 rounded-2xl flex items-center justify-center text-3xl mb-8 group-hover:scale-110 transition-transform">💳</div>
-          <h4 class="text-2xl font-black text-cyan-400 font-telugu mb-4">పాన్ కార్డ్ అప్లై (Quick PAN)</h4>
-          <p class="text-sm text-slate-300 leading-relaxed mb-8">కొత్త పాన్ కార్డ్ లేదా సవరణల కోసం కేవలం 2 నిమిషాల్లో ఇక్కడ దరఖాస్తు చేసుకోండి.</p>
-          <div class="flex items-center gap-2 text-cyan-400 font-bold text-sm">
-            Apply Instantly <i class="fas fa-chevron-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
-          </div>
-        </a>
-
-        <!-- News Portal -->
-        <a href="news-page.html" class="service-card group glass-effect rounded-[2.5rem] p-10 border border-red-500/20">
-          <div class="w-16 h-16 bg-red-500/20 rounded-2xl flex items-center justify-center text-3xl mb-8 group-hover:scale-110 transition-transform">📰</div>
-          <h4 class="text-2xl font-black text-red-500 font-telugu mb-4">వార్తలు (Local News)</h4>
-          <p class="text-sm text-slate-300 leading-relaxed mb-8">ముత్తారం మరియు పరిసర ప్రాంతాల తాజా సమాచారం, అప్‌డేట్స్ ఇప్పుడు మీ ఫోన్‌లో.</p>
-          <div class="flex items-center gap-2 text-red-500 font-bold text-sm">
-            Browse News <i class="fas fa-chevron-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
-          </div>
-        </a>
-
-        <!-- Agri Services -->
-        <a href="agri-services.html" class="service-card group glass-effect rounded-[2.5rem] p-10 border border-green-500/20">
-          <div class="w-16 h-16 bg-green-500/20 rounded-2xl flex items-center justify-center text-3xl mb-8 group-hover:scale-110 transition-transform">🌱</div>
-          <h4 class="text-2xl font-black text-green-400 font-telugu mb-4">రైతు సేవలు (Agri Services)</h4>
-          <p class="text-sm text-slate-300 leading-relaxed mb-8">వాతావరణ వివరాలు, మార్కెట్ ధరలు మరియు వ్యవసాయ సలహాల కోసం రైతుల డిజిటల్ వేదిక.</p>
-          <div class="flex items-center gap-2 text-green-400 font-bold text-sm">
-            Agri Hub <i class="fas fa-chevron-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
-          </div>
-        </a>
-
-        <!-- Digital Services -->
-        <a href="digital-services.html" class="service-card group glass-effect rounded-[2.5rem] p-10 border border-blue-500/20">
-          <div class="w-16 h-16 bg-blue-500/20 rounded-2xl flex items-center justify-center text-3xl mb-8 group-hover:scale-110 transition-transform">💻</div>
-          <h4 class="text-2xl font-black text-blue-400 font-telugu mb-4">డిజిటల్ సేవలు (E-Services)</h4>
-          <p class="text-sm text-slate-300 leading-relaxed mb-8">ఆన్‌లైన్ అప్లికేషన్లు, డాక్యుమెంట్స్ డౌన్‌లోడ్ మరియు ఇతర ఈ-సేవల సమాచారం.</p>
-          <div class="flex items-center gap-2 text-blue-400 font-bold text-sm">
-            E-Services <i class="fas fa-chevron-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
-          </div>
-        </a>
-
-        <!-- Business Services -->
-        <a href="business-services.html" class="service-card group glass-effect rounded-[2.5rem] p-10 border border-purple-500/20">
-          <div class="w-16 h-16 bg-purple-500/20 rounded-2xl flex items-center justify-center text-3xl mb-8 group-hover:scale-110 transition-transform">💼</div>
-          <h4 class="text-2xl font-black text-purple-400 font-telugu mb-4">బిజినెస్ సేవలు (Business)</h4>
-          <p class="text-sm text-slate-300 leading-relaxed mb-8">GST, ఇన్సూరెన్స్, బ్యాంకింగ్ మరియు ఇతర వ్యాపార సంబంధిత డిజిటల్ సహాయం.</p>
-          <div class="flex items-center gap-2 text-purple-400 font-bold text-sm">
-            Business Tools <i class="fas fa-chevron-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
-          </div>
-        </a>
-      </div>
-    </section>
-
-    <!-- 4. New Section: Quick CSC & PAN Services -->
-    <section id="quick-apply" class="scroll-mt-32 mb-24">
-      <div class="glass-effect rounded-[3rem] overflow-hidden border border-cyan-500/20 shadow-2xl">
-        <div class="grid lg:grid-cols-5">
-          <div class="lg:col-span-2 p-10 lg:p-16 bg-gradient-to-br from-cyan-950/50 to-brand-dark flex flex-col justify-center">
-            <h3 class="text-3xl sm:text-4xl font-display font-black text-white leading-tight mb-6">
-              Quick Services <br><span class="text-cyan-400">Apply Now</span>
-            </h3>
-            <p class="font-telugu text-lg text-slate-300 mb-10">
-              పాన్ కార్డ్ లేదా ఇతర సేవలు కావాలా? వివరాలను నింపండి, మా టీమ్ మిమ్మల్ని వెంటనే సంప్రదిస్తుంది.
-            </p>
-            <div class="space-y-6">
-              <div class="flex items-center gap-4 group">
-                <div class="w-12 h-12 rounded-xl bg-cyan-500/10 flex items-center justify-center text-cyan-400 border border-cyan-500/20 group-hover:bg-cyan-500 group-hover:text-black transition-all">
-                  <i class="fas fa-bolt"></i>
-                </div>
-                <div>
-                  <h5 class="font-bold text-white text-sm">Fast Processing</h5>
-                  <p class="text-xs text-slate-400">అత్యంత వేగవంతమైన సేవలు</p>
-                </div>
-              </div>
-              <div class="flex items-center gap-4 group">
-                <div class="w-12 h-12 rounded-xl bg-brand-gold/10 flex items-center justify-center text-brand-gold border border-brand-gold/20 group-hover:bg-brand-gold group-hover:text-black transition-all">
-                  <i class="fas fa-shield-halved"></i>
-                </div>
-                <div>
-                  <h5 class="font-bold text-white text-sm">Secure & Trusted</h5>
-                  <p class="text-xs text-slate-400">100% నమ్మకమైన మరియు సురక్షితం</p>
-                </div>
+            <!-- నేటి సూక్తి/కొటేషన్ -->
+            <div class="pt-4 border-t border-slate-100">
+              <p class="text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-2">నేటి సూక్తి/కొటేషన్:</p>
+              <div class="bg-orange-50 p-3 rounded-xl border border-orange-100 italic text-slate-700 text-sm leading-relaxed relative">
+                <i class="fas fa-quote-left text-orange-200 absolute top-2 left-2 text-xl"></i>
+                <p id="daily-quote" class="relative z-10 pl-5">నేటి సూక్తి లోడ్ అవుతోంది...</p>
               </div>
             </div>
           </div>
+        </div>
 
-          <div class="lg:col-span-3 p-10 lg:p-16 bg-black/20">
-            <form id="csc-request-form" class="space-y-6">
-              <div class="grid sm:grid-cols-2 gap-6">
-                <div class="space-y-2">
-                  <label class="block text-[10px] font-black text-cyan-400 uppercase tracking-widest ml-1">Full Name | పూర్తి పేరు</label>
-                  <input type="text" id="req-name" required placeholder="Ex: Akula Mahesh" class="w-full bg-slate-900/50 border border-white/10 rounded-2xl px-5 py-4 text-white focus:border-cyan-500 focus:outline-none transition-all placeholder:text-slate-600">
-                </div>
-                <div class="space-y-2">
-                  <label class="block text-[10px] font-black text-cyan-400 uppercase tracking-widest ml-1">Mobile Number | మొబైల్</label>
-                  <input type="tel" id="req-mobile" required placeholder="91XXXXXXXX" class="w-full bg-slate-900/50 border border-white/10 rounded-2xl px-5 py-4 text-white focus:border-cyan-500 focus:outline-none transition-all placeholder:text-slate-600">
-                </div>
+        <!-- Live Market Prices Section -->
+        <div class="column-card">
+          <h3 class="column-title"><i class="fas fa-tractor"></i> రైతు సమాచారం</h3>
+          <div class="bg-orange-50 rounded-xl p-3 border border-orange-100">
+            <h4 class="text-[11px] font-bold text-orange-700 mb-2 border-b border-orange-200 pb-1">నేటి మార్కెట్ ధరలు (మంథని/పెద్దపల్లి)</h4>
+            <div class="space-y-2">
+              <div class="flex justify-between items-center text-[12px]">
+                <span class="text-slate-600">వరి (Paddy)</span>
+                <span class="font-bold text-slate-800">₹2,320 - ₹2,500</span>
               </div>
-              <div class="grid sm:grid-cols-2 gap-6">
-                <div class="space-y-2">
-                  <label class="block text-[10px] font-black text-cyan-400 uppercase tracking-widest ml-1">Aadhaar Number | ఆధార్</label>
-                  <input type="text" id="req-aadhaar" required placeholder="XXXX XXXX XXXX" class="w-full bg-slate-900/50 border border-white/10 rounded-2xl px-5 py-4 text-white focus:border-cyan-500 focus:outline-none transition-all placeholder:text-slate-600">
-                </div>
-                <div class="space-y-2">
-                  <label class="block text-[10px] font-black text-cyan-400 uppercase tracking-widest ml-1">Date of Birth | పుట్టిన తేదీ</label>
-                  <input type="date" id="req-dob" required class="w-full bg-slate-900/50 border border-white/10 rounded-2xl px-5 py-4 text-white focus:border-cyan-500 focus:outline-none transition-all [color-scheme:dark]">
-                </div>
+              <div class="flex justify-between items-center text-[12px]">
+                <span class="text-slate-600">మిర్చి (Chilli)</span>
+                <span class="font-bold text-slate-800">₹18,000 - ₹22,000</span>
               </div>
-              <div class="space-y-2">
-                <label class="block text-[10px] font-black text-cyan-400 uppercase tracking-widest ml-1">Service Type | సేవ రకం</label>
-                <select id="req-service" class="w-full bg-slate-900/50 border border-white/10 rounded-2xl px-5 py-4 text-white focus:border-cyan-500 focus:outline-none transition-all">
-                  <option value="New PAN Card">New PAN Card (కొత్త పాన్ కార్డ్)</option>
-                  <option value="PAN Correction">PAN Correction (పాన్ సవరణ)</option>
-                  <option value="Aadhaar Update">Aadhaar Update (ఆధార్ అప్‌డేట్)</option>
-                  <option value="Voter ID">Voter ID Services (ఓటర్ కార్డ్)</option>
-                  <option value="Passport">Passport Apply (పాస్‌పోర్ట్)</option>
-                  <option value="Other CSC">Other CSC Services (ఇతర సేవలు)</option>
-                </select>
+              <div class="flex justify-between items-center text-[12px]">
+                <span class="text-slate-600">మొక్కజొన్న (Maize)</span>
+                <span class="font-bold text-slate-800">₹2,200 - ₹2,450</span>
               </div>
-              <div class="space-y-2">
-                <label class="block text-[10px] font-black text-cyan-400 uppercase tracking-widest ml-1">Address | చిరునామా</label>
-                <textarea id="req-address" rows="3" required placeholder="H.No, Street, Village, Mandal..." class="w-full bg-slate-900/50 border border-white/10 rounded-2xl px-5 py-4 text-white focus:border-cyan-500 focus:outline-none transition-all placeholder:text-slate-600"></textarea>
+              <div class="flex justify-between items-center text-[12px]">
+                <span class="text-slate-600">పత్తి (Cotton)</span>
+                <span class="font-bold text-slate-800">₹6,800 - ₹7,500</span>
               </div>
-              
-              <button type="submit" id="submit-req-btn" class="w-full bg-cyan-500 hover:bg-cyan-400 text-black font-black py-5 rounded-2xl transition-all uppercase tracking-widest shadow-xl shadow-cyan-500/20 active:scale-95">
-                Submit Request | దరఖాస్తు చేయండి
-              </button>
-              
-              <div id="req-success-msg" class="hidden text-center p-6 bg-green-500/10 border border-green-500/30 rounded-2xl">
-                <p class="text-green-400 font-bold mb-1">Success! | విజయవంతమైంది!</p>
-                <p class="font-telugu text-sm text-green-400/80">మీ దరఖాస్తు విజయవంతంగా పంపబడింది. మా టీమ్ త్వరలోనే మిమ్మల్ని సంప్రదిస్తుంది.</p>
-              </div>
-            </form>
+            </div>
+            <p class="text-[9px] text-slate-400 mt-3 italic text-right" id="market-last-updated">Last Updated: Loading...</p>
           </div>
         </div>
-      </div>
-    </section>
 
-    <!-- Footer / Contact Info -->
-    <footer class="border-t border-white/5 pt-20 pb-10">
-      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-20">
-        <div class="lg:col-span-2">
-          <h4 class="font-display text-2xl font-black text-white mb-6">MAHESHWARA NEXLIFY</h4>
-          <p class="font-telugu text-slate-400 leading-relaxed mb-8 max-w-md">
-            మహేశ్వర నెక్స్లిఫై న్యూక్లియస్ డిజిటల్ సర్వీసెస్ - ముత్తారం గ్రామ ప్రజలకు సాంకేతికతను మరియు ప్రభుత్వ సేవలను చేరువ చేయడమే మా లక్ష్యం.
-          </p>
-          <div class="flex gap-4">
-            <a href="https://wa.me/919949122402" target="_blank" class="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center text-xl text-green-400 hover:bg-green-500 hover:text-black transition-all">
-              <i class="fab fa-whatsapp"></i>
+        <!-- Quick Links -->
+        <div class="column-card">
+          <h3 class="column-title"><i class="fas fa-bolt"></i> త్వరిత లింకులు</h3>
+          <div class="grid grid-cols-1 gap-1">
+            <a href="uploadnews.html" class="list-item-vertical py-2"><i class="fas fa-upload text-xs"></i> వార్తను పంపండి</a>
+            <a href="service.html" class="list-item-vertical py-2"><i class="fas fa-headset text-xs"></i> మమ్మల్ని అడగండి</a>
+            <a href="login.html" class="list-item-vertical py-2"><i class="fas fa-user-lock text-xs"></i> Admin Login</a>
+          </div>
+        </div>
+      </aside>
+
+      <!-- CENTER COLUMN: వార్తలు & సేవలు (55%) -->
+      <section class="center-column">
+        <!-- Latest News Feed (primary — top of column) -->
+        <div class="column-card">
+          <div class="flex justify-between items-center mb-4 border-b-2 border-orange-500 pb-2">
+            <h3 class="text-xl font-bold text-slate-800"><i class="fas fa-rss text-orange-500 mr-2"></i> తాజా వార్తలు (Latest News)</h3>
+            <a href="news-page.html" class="text-orange-500 font-bold text-xs hover:underline shrink-0">అన్నీ చూడండి →</a>
+          </div>
+          <div id="latest-news-feed" class="space-y-4">
+            <p class="text-slate-400 italic text-center py-10">వార్తలు లోడ్ అవుతున్నాయి...</p>
+          </div>
+        </div>
+
+        <!-- Category Grid (Services) -->
+        <div class="column-card">
+          <div class="flex justify-between items-center mb-4 border-b-2 border-orange-500 pb-2">
+            <h3 class="text-xl font-bold text-slate-800"><i class="fas fa-th-large text-orange-500 mr-2"></i> డిజిటల్ సేవలు (Services)</h3>
+          </div>
+          
+          <div class="category-grid-mini">
+            <a href="news-page.html" class="category-card-mini">
+              <i class="fas fa-newspaper category-icon-mini"></i>
+              <span class="category-title-mini">వార్తలు<br>NEWS</span>
             </a>
-            <a href="#" class="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center text-xl text-blue-400 hover:bg-blue-500 hover:text-black transition-all">
-              <i class="fab fa-facebook-f"></i>
+            <a href="agriculture.html" class="category-card-mini">
+              <i class="fas fa-seedling category-icon-mini"></i>
+              <span class="category-title-mini">వ్యవసాయం<br>AGRI</span>
             </a>
-            <a href="mailto:nexlifynucleus@gmail.com" class="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center text-xl text-red-400 hover:bg-red-500 hover:text-black transition-all">
-              <i class="fas fa-envelope"></i>
+            <a href="business.html" class="category-card-mini">
+              <i class="fas fa-briefcase category-icon-mini"></i>
+              <span class="category-title-mini">బిజినెస్<br>BUSINESS</span>
+            </a>
+            <a href="digital-services.html" class="category-card-mini">
+              <i class="fas fa-user-shield category-icon-mini"></i>
+              <span class="category-title-mini">నా పోర్టల్<br>MY PORTAL</span>
+            </a>
+            <a href="technology.html" class="category-card-mini">
+              <i class="fas fa-microchip category-icon-mini"></i>
+              <span class="category-title-mini">సాంకేతికత<br>TECH</span>
+            </a>
+            <a href="gramapanchayath.html" class="category-card-mini">
+              <i class="fas fa-home category-icon-mini"></i>
+              <span class="category-title-mini">మన గ్రామం<br>VILLAGE</span>
+            </a>
+            <a href="edu-services.html" class="category-card-mini">
+              <i class="fas fa-user-graduate category-icon-mini"></i>
+              <span class="category-title-mini">విద్య<br>EDU</span>
+            </a>
+            <a href="#" class="category-card-mini">
+              <i class="fas fa-share-nodes category-icon-mini"></i>
+              <span class="category-title-mini">సోషల్<br>SOCIAL</span>
+            </a>
+            <a href="service.html" class="category-card-mini">
+              <i class="fas fa-phone-alt category-icon-mini"></i>
+              <span class="category-title-mini">కాంటాక్ట్<br>CONTACT</span>
             </a>
           </div>
         </div>
-        <div>
-          <h5 class="font-bold text-white mb-6">Quick Links</h5>
-          <ul class="space-y-4 text-sm text-slate-400">
-            <li><a href="news-page.html" class="hover:text-cyan-400">Latest News</a></li>
-            <li><a href="csc-services.html" class="hover:text-cyan-400">CSC Services</a></li>
-            <li><a href="agri-services.html" class="hover:text-cyan-400">Agriculture Hub</a></li>
-            <li><a href="digital-services.html" class="hover:text-cyan-400">Digital Toolkit</a></li>
-          </ul>
-        </div>
-        <div>
-          <h5 class="font-bold text-white mb-6">Office Address</h5>
-          <p class="text-sm text-slate-400 leading-relaxed">
-            Kasrlagadda Bus Stand,<br>
-            Mutharam, Peddapalli Dist,<br>
-            Telangana - 505184.
-          </p>
-          <p class="mt-4 text-sm font-bold text-cyan-400">Ph: +91 99491 22402</p>
-        </div>
-      </div>
-      <div class="text-center text-[10px] font-black text-slate-600 uppercase tracking-[0.4em]">
-        © 2026 MAHESHWARA NEXLIFY NUCLEUS DIGITAL SERVICES. ALL RIGHTS RESERVED.
-      </div>
-    </footer>
+      </section>
 
+      <!-- RIGHT COLUMN: Sidebar (25%) -->
+      <aside class="right-column">
+        <!-- IPL Live Widget -->
+        <div class="column-card border-orange-500 border-t-4">
+          <h3 class="column-title"><i class="fas fa-trophy"></i> IPL Live Score</h3>
+          <a href="https://www.cricbuzz.com/cricket-match/live-scores" target="_blank" class="block bg-orange-600 p-4 rounded-xl text-center hover:bg-orange-700 transition-all shadow-lg shadow-orange-100">
+            <div class="flex items-center justify-center gap-2 mb-2">
+              <span class="w-2 h-2 bg-white rounded-full animate-ping"></span>
+              <span class="text-xs font-black uppercase tracking-widest text-white">Live Updates</span>
+            </div>
+            <p class="text-sm font-bold text-white">Check Current Match Score</p>
+          </a>
+        </div>
+
+        <!-- E-Commerce Shopping Grid -->
+        <div class="column-card">
+          <h3 class="column-title"><i class="fas fa-shopping-cart"></i> ఆన్‌లైన్ షాపింగ్</h3>
+          <div class="grid grid-cols-3 gap-2">
+            <a href="https://www.amazon.in" target="_blank" class="flex flex-col items-center justify-center p-2 bg-white border border-slate-100 rounded-xl hover:shadow-md transition-all group">
+              <div class="w-10 h-10 flex items-center justify-center mb-1 group-hover:scale-110 transition-transform">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" class="w-full h-full object-contain" alt="Amazon">
+              </div>
+              <span class="text-[9px] font-bold text-slate-600">Amazon</span>
+            </a>
+            <a href="https://www.flipkart.com" target="_blank" class="flex flex-col items-center justify-center p-2 bg-white border border-slate-100 rounded-xl hover:shadow-md transition-all group">
+              <div class="w-10 h-10 flex items-center justify-center mb-1 group-hover:scale-110 transition-transform">
+                <img src="https://seeklogo.com/images/F/flipkart-logo-3F33927DAA-seeklogo.com.png" class="w-8 h-8 object-contain" alt="Flipkart">
+              </div>
+              <span class="text-[9px] font-bold text-slate-600">Flipkart</span>
+            </a>
+            <a href="https://www.myntra.com" target="_blank" class="flex flex-col items-center justify-center p-2 bg-white border border-slate-100 rounded-xl hover:shadow-md transition-all group">
+              <div class="w-10 h-10 flex items-center justify-center mb-1 group-hover:scale-110 transition-transform">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/b/bc/Myntra_Logo.png" class="w-8 h-8 object-contain" alt="Myntra">
+              </div>
+              <span class="text-[9px] font-bold text-slate-600">Myntra</span>
+            </a>
+            <a href="https://www.indiamart.com" target="_blank" class="flex flex-col items-center justify-center p-2 bg-white border border-slate-100 rounded-xl hover:shadow-md transition-all group">
+              <div class="w-10 h-10 flex items-center justify-center mb-1 group-hover:scale-110 transition-transform">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Indiamart_logo.png" class="w-8 h-8 object-contain" alt="IndiaMart">
+              </div>
+              <span class="text-[9px] font-bold text-slate-600">IndiaMart</span>
+            </a>
+            <a href="https://www.ajio.com" target="_blank" class="flex flex-col items-center justify-center p-2 bg-white border border-slate-100 rounded-xl hover:shadow-md transition-all group">
+              <div class="w-10 h-10 flex items-center justify-center mb-1 group-hover:scale-110 transition-transform">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Ajio_logo.png/640px-Ajio_logo.png" class="w-8 h-8 object-contain" alt="Ajio">
+              </div>
+              <span class="text-[9px] font-bold text-slate-600">Ajio</span>
+            </a>
+            <a href="https://www.meesho.com" target="_blank" class="flex flex-col items-center justify-center p-2 bg-white border border-slate-100 rounded-xl hover:shadow-md transition-all group">
+              <div class="w-10 h-10 flex items-center justify-center mb-1 group-hover:scale-110 transition-transform">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Meesho_Logo_Full.png/640px-Meesho_Logo_Full.png" class="w-8 h-8 object-contain" alt="Meesho">
+              </div>
+              <span class="text-[9px] font-bold text-slate-600">Meesho</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Admin Login Section -->
+        <div class="column-card border-orange-500 border-t-4">
+          <h3 class="column-title"><i class="fas fa-user-lock"></i> Admin Login</h3>
+          <div class="space-y-4">
+            <div>
+              <label for="admin-user-id" class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1 ml-1">User ID:</label>
+              <input type="text" id="admin-user-id" placeholder="Enter Admin ID" 
+                     class="w-full px-4 py-3 bg-slate-50 border border-slate-100 rounded-xl focus:border-orange-500 outline-none text-sm font-bold transition-all">
+            </div>
+            <div>
+              <label for="admin-password" class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1 ml-1">Password:</label>
+              <input type="password" id="admin-password" placeholder="••••••••" 
+                     class="w-full px-4 py-3 bg-slate-50 border border-slate-100 rounded-xl focus:border-orange-500 outline-none text-sm font-bold transition-all">
+            </div>
+            <button onclick="handleAdminLogin()" class="w-full bg-orange-600 hover:bg-orange-700 text-white font-black py-3 rounded-xl shadow-lg shadow-orange-100 transition-all flex items-center justify-center gap-2 text-sm uppercase tracking-widest">
+              <i class="fas fa-sign-in-alt"></i> Login
+            </button>
+            <div id="login-error" class="hidden text-[10px] font-bold text-red-500 text-center animate-pulse">
+              Invalid User ID or Password!
+            </div>
+          </div>
+        </div>
+
+        <!-- E-News Papers List -->
+        <div class="column-card">
+          <h3 class="column-title"><i class="fas fa-newspaper"></i> E-News Papers</h3>
+          <div class="flex flex-col">
+            <a href="https://www.prajaprathibha.in/" target="_blank" class="list-item-vertical"><i class="fas fa-link text-[10px]"></i> ప్రజా ప్రతిభ (E-Paper)</a>
+            <a href="https://epaper.vijayakranthinews.com/" target="_blank" class="list-item-vertical"><i class="fas fa-link text-[10px]"></i> విజయ క్రాంతి</a>
+            <a href="https://epaper.eenadu.net/" target="_blank" class="list-item-vertical"><i class="fas fa-link text-[10px]"></i> ఈనాడు (Eenadu)</a>
+            <a href="https://epaper.sakshi.com/" target="_blank" class="list-item-vertical"><i class="fas fa-link text-[10px]"></i> సాక్షి (Sakshi)</a>
+            <a href="https://epaper.ntnews.com/" target="_blank" class="list-item-vertical"><i class="fas fa-link text-[10px]"></i> నమస్తే తెలంగాణ</a>
+            <a href="https://epaper.andhrajyothy.com/" target="_blank" class="list-item-vertical"><i class="fas fa-link text-[10px]"></i> ఆంధ్రజ్యోతి</a>
+          </div>
+        </div>
+
+        <!-- Govt Schemes List -->
+        <div class="column-card">
+          <h3 class="column-title"><i class="fas fa-landmark"></i> ప్రభుత్వ పథకాలు</h3>
+          <div class="flex flex-col">
+            <a href="https://tgobmms.cgg.gov.in/" target="_blank" class="list-item-vertical"><i class="fas fa-chevron-right text-[10px]"></i> తెలంగాణ OBMMS</a>
+            <a href="https://meeseva.telangana.gov.in/" target="_blank" class="list-item-vertical"><i class="fas fa-chevron-right text-[10px]"></i> మీసేవ (Mee Seva)</a>
+            <a href="https://bhubharati.telangana.gov.in/homePage?lang=en/" target="_blank" class="list-item-vertical"><i class="fas fa-chevron-right text-[10px]"></i> ధరణి పోర్టల్</a>
+            <a href="https://agri.telangana.gov.in/" target="_blank" class="list-item-vertical"><i class="fas fa-chevron-right text-[10px]"></i> రైతు బంధు</a>
+            <a href="https://www.tgsrtcbus.in/" target="_blank" class="list-item-vertical"><i class="fas fa-chevron-right text-[10px]"></i> TGSRTC బస్ ట్రాకింగ్</a>
+          </div>
+        </div>
+      </aside>
+    </div>
   </main>
 
+  <!-- Modals for Tools (Removed) -->
+
+  <!-- Footer -->
+  <footer class="bg-slate-900 pt-12 pb-8 border-t border-slate-800">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mb-10 text-center md:text-left">
+        <!-- Brand -->
+        <div>
+          <h2 class="font-display text-2xl font-black mb-4 tracking-tighter text-white uppercase">MAHESHWARA <span class="text-brand-orange">NEXLIFY NUCLEUS</span></h2>
+          <p class="font-telugu text-slate-400 text-sm leading-relaxed">ముత్తారం డిజిటల్ విప్లవం - వేగవంతమైన సేవలు మరియు సమాచారం కోసం మీ ఏకైక వేదిక.</p>
+        </div>
+        <!-- Quick Links -->
+        <div class="flex flex-col gap-2">
+          <h4 class="text-white font-bold uppercase tracking-widest text-xs mb-2">Quick Links</h4>
+          <a href="index.html" class="text-slate-400 hover:text-orange-500 text-sm">Home</a>
+          <a href="news-page.html" class="text-slate-400 hover:text-orange-500 text-sm">Latest News</a>
+          <a href="service.html" class="text-slate-400 hover:text-orange-500 text-sm">Services</a>
+        </div>
+        <!-- Contact -->
+        <div>
+          <h4 class="text-white font-bold uppercase tracking-widest text-xs mb-2">Contact Us</h4>
+          <p class="text-slate-400 text-sm">Mutharam, Peddapalli Dist.</p>
+          <p class="text-slate-400 text-sm">Email: info@nexlifynucleus.in</p>
+          <div class="flex justify-center md:justify-start gap-4 mt-4">
+            <a href="#" class="text-slate-400 hover:text-orange-500"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="text-slate-400 hover:text-orange-500"><i class="fab fa-x-twitter"></i></a>
+            <a href="#" class="text-slate-400 hover:text-orange-500"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="text-slate-400 hover:text-orange-500"><i class="fab fa-whatsapp"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="border-t border-slate-800 pt-8 text-center">
+        <p class="text-[10px] text-slate-500 font-bold uppercase tracking-[0.4em]">© 2026 NEXLIFY NUCLEUS. ALL RIGHTS RESERVED.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
-    (function () {
-      // --- Supabase Configuration ---
+    // --- 1. Basic UI Logic ---
+    const teluguMonths = ["జనవరి", "ఫిబ్రవరి", "మార్చి", "ఏప్రిల్", "మే", "జూన్", "జులై", "ఆగస్టు", "సెప్టెంబర్", "అక్టోబర్", "నవంబర్", "డిసెంబర్"];
+    const teluguDays = ["ఆదివారం", "సోమవారం", "మంగళవారం", "బుధవారం", "గురువారం", "శుక్రవారం", "శనివారం"];
+
+    function updateLiveDateTime() {
+      try {
+        const now = new Date();
+        const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
+        const timeString = now.toLocaleTimeString('en-US', timeOptions);
+        const clockEl = document.getElementById('live-clock');
+        if (clockEl) clockEl.innerText = timeString;
+
+        const date = now.getDate();
+        const month = teluguMonths[now.getMonth()];
+        const year = now.getFullYear();
+        const day = teluguDays[now.getDay()];
+        const dateEl = document.getElementById('live-date-telugu');
+        if (dateEl) dateEl.innerText = `${date} ${month} ${year}, ${day}`;
+      } catch (err) { console.error("Clock error:", err); }
+    }
+
+    function updateMarketTimestamp() {
+      try {
+        const now = new Date();
+        const date = now.getDate();
+        const month = teluguMonths[now.getMonth()];
+        const year = now.getFullYear();
+        const el = document.getElementById('market-last-updated');
+        if (el) el.innerText = `Last Updated: ${date} ${month} ${year}`;
+      } catch (err) { console.error("Market update error:", err); }
+    }
+
+    function updateQuote() {
+      const quotes = [
+        "నిరంతరం నేర్చుకుంటూ ఉండటమే నిజమైన విజయం.",
+        "కష్టపడటం ఒక్కటే మన చేతుల్లో ఉంది, ఫలితం దానంతట అదే వస్తుంది.",
+        "సమయం చాలా విలువైనది, దాన్ని వృధా చేయకండి.",
+        "నీ మీద నీకు నమ్మకం ఉంటే, నువ్వు ఏదైనా సాధించగలవు.",
+        "మంచి ఆలోచనలే మనిషిని గొప్పగా మారుస్తాయి.",
+        "ఓటమి అనేది గెలుపుకు మొదటి మెట్టు.",
+        "లక్ష్యం వైపు అడుగులు వేస్తూ ఉంటే, గమ్యం తప్పక చేరుతావు.",
+        "జ్ఞానం కంటే గొప్ప ఆస్తి మరొకటి లేదు.",
+        "నీ కష్టమే నీకు గుర్తింపును తెస్తుంది.",
+        "ప్రతి రోజు ఒక కొత్త అవకాశం, దాన్ని వాడుకో."
+      ];
+      const quoteEl = document.getElementById('daily-quote');
+      if (quoteEl) {
+        const now = new Date();
+        const start = new Date(now.getFullYear(), 0, 0);
+        const diff = now - start;
+        const oneDay = 1000 * 60 * 60 * 24;
+        const dayOfYear = Math.floor(diff / oneDay);
+        quoteEl.innerText = quotes[dayOfYear % quotes.length];
+      }
+    }
+
+    // Initialize UI Updates immediately and on DOMContentLoaded
+    function initUI() {
+      updateLiveDateTime();
+      updateMarketTimestamp();
+      updateQuote();
+    }
+
+    initUI();
+    setInterval(updateLiveDateTime, 1000);
+    document.addEventListener('DOMContentLoaded', initUI);
+
+    // --- 2. Data Logic (Supabase) ---
       const SUPABASE_URL = 'https://ndorwpcjwzvygvrstdks.supabase.co';
       const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5kb3J3cGNqd3p2eWd2cnN0ZGtzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU0MDEyOTMsImV4cCI6MjA5MDk3NzI5M30.eUISNWLqFwZG9IKCZSXn9tC9RyRWdGbn-9j0jYAfPxQ';
-      const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-      // --- 3. Market Rates Fetching Logic ---
-      async function initMarketRates() {
-        // ... (existing logic remains) ...
-      }
-      // initMarketRates(); // Temporarily disabled or integrated into RSS? User said REPLACE. 
-      // User said "Completely replace the current contents of the second scrolling ticker (finance bar)"
       
-      // --- 5. CSC Request Form Logic ---
-      const cscForm = document.getElementById('csc-request-form');
-      const submitBtn = document.getElementById('submit-req-btn');
-      const successMsg = document.getElementById('req-success-msg');
+      let supabaseClient = null;
+      try {
+        if (typeof supabase !== 'undefined') {
+          supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        }
+      } catch (e) { console.error("Supabase init error:", e); }
 
-      if (cscForm) {
-        cscForm.addEventListener('submit', async function(e) {
-          e.preventDefault();
-          
-          submitBtn.disabled = true;
-          const originalText = submitBtn.innerHTML;
-          submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Processing...';
+      async function fetchCenterNews() {
+        const container = document.getElementById('latest-news-feed');
+        if (!container) return;
+        if (!supabaseClient) {
+          container.innerHTML = '<p class="text-slate-400 text-center py-10">డేటాబేస్ అందుబాటులో లేదు.</p>';
+          return;
+        }
+        try {
+          const { data, error } = await supabaseClient
+            .from('news')
+            .select('*')
+            .order('created_at', { ascending: false })
+            .limit(8);
 
-          const payload = {
-            full_name: document.getElementById('req-name').value,
-            mobile: document.getElementById('req-mobile').value,
-            aadhaar: document.getElementById('req-aadhaar').value.replace(/\s/g, ''), // Strip spaces for storage
-            dob: document.getElementById('req-dob').value,
-            service_type: document.getElementById('req-service').value,
-            address: document.getElementById('req-address').value,
-            created_at: new Date().toISOString()
-          };
-
-          try {
-            const { error } = await supabaseClient
-              .from('csc_requests')
-              .insert([payload]);
-
-            if (error) throw error;
-
-            // Success UI
-            successMsg.classList.remove('hidden');
-            cscForm.reset();
-            setTimeout(() => { successMsg.classList.add('hidden'); }, 8000);
-            
-            // Scroll to success message
-            successMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
-
-          } catch (err) {
-            console.error('Request failed:', err);
-            alert('Error: ' + (err.message || 'Something went wrong. Please try again.'));
-          } finally {
-            submitBtn.disabled = false;
-            submitBtn.innerHTML = originalText;
+          if (error) throw error;
+          if (data && data.length > 0) {
+            container.innerHTML = data.map(news => `
+              <article class="flex flex-col sm:flex-row gap-4 group p-3 hover:bg-slate-50 rounded-xl transition-all">
+                <div class="w-full sm:w-40 h-28 overflow-hidden rounded-lg bg-slate-100 flex-shrink-0">
+                  <img src="${news.image_url || 'https://images.unsplash.com/photo-1585829365234-781fcd5013d2?w=300'}" 
+                       class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                </div>
+                <div class="flex-1">
+                  <div class="flex items-center gap-2 text-[10px] text-slate-400 font-bold mb-1">
+                    <span class="text-orange-500 uppercase">${news.category || 'వార్తలు'}</span>
+                    <span>•</span>
+                    <span>${new Date(news.created_at).toLocaleDateString('te-IN')}</span>
+                  </div>
+                  <a href="news-detail.html?id=${news.id}" class="block">
+                    <h4 class="text-md font-bold text-slate-800 group-hover:text-orange-600 line-clamp-2 leading-snug mb-2">${news.title}</h4>
+                  </a>
+                  <p class="text-xs text-slate-500 line-clamp-2">${news.content ? news.content.substring(0, 100) : ''}...</p>
+                </div>
+              </article>
+            `).join('');
+          } else {
+            container.innerHTML = '<p class="text-slate-400 text-center py-10">వార్తలు ఏవీ లేవు.</p>';
           }
-        });
+        } catch (err) {
+          console.error('News Feed Error:', err);
+          container.innerHTML = '<p class="text-red-400 text-center py-10">వార్తలను లోడ్ చేయడంలో విఫలమైంది.</p>';
+        }
       }
 
-      // --- 6. Smooth Fade-In Animation on Scroll ---
-      const observerOptions = {
-        threshold: 0.1
+      // Call fetch when DOM is ready
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', fetchCenterNews);
+      } else {
+        fetchCenterNews();
+      }
+
+      // --- 3. Utilities ---
+      window.calculateEMI = function() {
+        const p = parseFloat(document.getElementById('emi-amount').value);
+        const r = parseFloat(document.getElementById('emi-rate').value) / 12 / 100;
+        const n = parseFloat(document.getElementById('emi-tenure').value);
+        if (isNaN(p) || isNaN(r) || isNaN(n)) return;
+        const emi = (p * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
+        const resEl = document.getElementById('emi-result');
+        if (resEl) resEl.innerText = `EMI: ₹${Math.round(emi).toLocaleString()}`;
       };
 
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('opacity-100', 'translate-y-0');
-            entry.target.classList.remove('opacity-0', 'translate-y-10');
-          }
-        });
-      }, observerOptions);
+      window.calculateInterest = function() {
+        const p = parseFloat(document.getElementById('int-amount').value);
+        const r = parseFloat(document.getElementById('int-rate').value);
+        const t = parseFloat(document.getElementById('int-time').value);
+        if (isNaN(p) || isNaN(r) || isNaN(t)) return;
+        const interest = (p * r * t) / 100;
+        const resEl = document.getElementById('int-result');
+        if (resEl) resEl.innerText = `Interest: ₹${interest.toLocaleString()}\nTotal: ₹${(p + interest).toLocaleString()}`;
+      };
 
-      document.querySelectorAll('.service-card, section').forEach(el => {
-        el.classList.add('transition-all', 'duration-700', 'opacity-0', 'translate-y-10');
-        observer.observe(el);
-      });
+      window.convertUnit = function() {
+        const val = parseFloat(document.getElementById('unit-val').value);
+        const from = document.getElementById('unit-from').value;
+        if (isNaN(val)) return;
+        let acres = 0;
+        if (from === 'acre') acres = val;
+        else if (from === 'gunta') acres = val / 40;
+        else if (from === 'sqft') acres = val / 43560;
+        
+        const resGunta = acres * 40;
+        const resSqft = acres * 43560;
+        const resEl = document.getElementById('unit-result');
+        if (resEl) resEl.innerHTML = `Acre: ${acres.toFixed(3)}<br>Gunta: ${resGunta.toFixed(2)}<br>Sq. Ft: ${resSqft.toLocaleString()}`;
+      };
 
-      // --- 7. Aadhaar Input Masking ---
-      const aadhaarInput = document.getElementById('req-aadhaar');
-      if (aadhaarInput) {
-        aadhaarInput.addEventListener('input', function(e) {
-          let value = e.target.value.replace(/\D/g, '');
-          if (value.length > 12) value = value.slice(0, 12);
-          const formatted = value.match(/.{1,4}/g)?.join(' ') || value;
-          e.target.value = formatted;
-        });
+      window.calculateAge = function() {
+        const dobVal = document.getElementById('age-dob').value;
+        if (!dobVal) return;
+        const dob = new Date(dobVal);
+        const now = new Date();
+        let age = now.getFullYear() - dob.getFullYear();
+        const m = now.getMonth() - dob.getMonth();
+        if (m < 0 || (m === 0 && now.getDate() < dob.getDate())) age--;
+        const resEl = document.getElementById('age-result');
+        if (resEl) resEl.innerText = `Age: ${age} Years`;
+      };
+
+      let calcStr = '';
+      window.calcInput = function(v) { 
+        calcStr += v; 
+        const disp = document.getElementById('calc-display');
+        if (disp) disp.value = calcStr; 
+      };
+      window.calcClear = function() { 
+        calcStr = ''; 
+        const disp = document.getElementById('calc-display');
+        if (disp) disp.value = ''; 
+      };
+      window.calcResult = function() {
+        try { 
+          calcStr = eval(calcStr).toString(); 
+          const disp = document.getElementById('calc-display');
+          if (disp) disp.value = calcStr; 
+        } catch(e) { 
+          const disp = document.getElementById('calc-display');
+          if (disp) disp.value = 'Error'; 
+          calcStr = ''; 
+        }
+      };
+
+      // Close modals on outside click
+      window.onclick = function(event) {
+        const toolModal = document.getElementById('tool-modal');
+        const horoscopeModal = document.getElementById('horoscope-modal');
+        if (event.target == toolModal) { if (typeof closeModal === 'function') closeModal(); }
+        if (event.target == horoscopeModal) { if (typeof closeHoroscopeModal === 'function') closeHoroscopeModal(); }
       }
 
-    })();
-  </script>
-</body>
-</html>
+      window.closeModal = function() { 
+        const el = document.getElementById('tool-modal');
+        if (el) el.style.display = 'none'; 
+      };
+      window.closeHoroscopeModal = function() { 
+        const el = document.getElementById('horoscope-modal');
+        if (el) el.style.display = 'none'; 
+      };
+
+      window.handleAdminLogin = function() {
+        const userId = document.getElementById('admin-user-id').value.trim();
+        const pass = document.getElementById('admin-password').value.trim();
+        const errorEl = document.getElementById('login-error');
+
+        if (userId === 'admin' && pass === '12345') {
+          localStorage.setItem('isAdminLoggedIn', 'true');
+          window.location.href = 'administration.html';
+        } else {
+          if (errorEl) {
+            errorEl.classList.remove('hidden');
+            setTimeout(() => errorEl.classList.add('hidden'), 3000);
+          }
+        }
+      };
+     </script>
+
+ </body>
+ </html>
