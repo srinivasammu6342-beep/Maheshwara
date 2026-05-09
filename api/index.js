@@ -290,28 +290,48 @@ app.post("/api/stats/ping", async (req, res) => {
 
 // --- DYNAMIC OG TAGS (For WhatsApp Previews) ---
 
-app.get("/news-detail.html", async (req, res, next) => {
+app.get(["/news-detail", "/news-detail.html"], async (req, res, next) => {
   try {
     const id = normalizeNewsId(req.query.id);
     if (!isValidNewsId(id)) return next();
+    
+    // పాత టేబుల్ పేరు "news_articles" నుండి "news" కి మార్చబడింది
     let { data, error } = await supabase.from("news").select("*").eq("id", id).maybeSingle();
     if (error || !data) return next();
 
     const filePath = path.join(__dirname, "..", "news-detail.html");
+    if (!fs.existsSync(filePath)) return next();
+    
     let html = fs.readFileSync(filePath, "utf8");
 
-    const desc = (data.sub_headline || data.content || "").slice(0, 200);
+    const title = data.title || "Nexlify Nucleus News";
+    const desc = (data.sub_headline || data.content || "తాజా వార్తలు మరియు అప్‌డేట్స్ కోసం క్లిక్ చేయండి.").slice(0, 160).replace(/\s+/g, " ").trim() + "...";
     const img = firstNewsImage(data);
+    const pageUrl = absoluteNewsDetailUrl(req, id);
+
+    // Dynamic Meta Tags for better social media previews (WhatsApp, FB, X)
     const ogBlock = `
       <meta name="description" content="${escapeHtmlAttr(desc)}" />
-      <meta property="og:title" content="${escapeHtmlAttr(data.title)}" />
+      <meta property="og:title" content="${escapeHtmlAttr(title)}" />
       <meta property="og:description" content="${escapeHtmlAttr(desc)}" />
       <meta property="og:image" content="${escapeHtmlAttr(img)}" />
+      <meta property="og:url" content="${escapeHtmlAttr(pageUrl)}" />
+      <meta property="og:type" content="article" />
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:title" content="${escapeHtmlAttr(title)}" />
+      <meta name="twitter:description" content="${escapeHtmlAttr(desc)}" />
+      <meta name="twitter:image" content="${escapeHtmlAttr(img)}" />
     `;
-    html = html.replace(/<title>[^<]*<\/title>/, `<title>${data.title}</title>`);
+
+    // Replace default title and inject dynamic tags after charset
+    html = html.replace(/<title>[^<]*<\/title>/, `<title>${escapeTitleText(title)}</title>`);
     html = html.replace(/<meta charset="UTF-8"\s*\/?>/i, `<meta charset="UTF-8" />\n${ogBlock}`);
+    
     res.type("html").send(html);
-  } catch (e) { next(); }
+  } catch (e) { 
+    console.error("OG injection error:", e);
+    next(); 
+  }
 });
 
 app.use(express.static(path.join(__dirname, "..")));

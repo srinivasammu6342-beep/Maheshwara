@@ -16,7 +16,7 @@ async function initUniversalTicker(supabaseClient) {
         // 1. Try to fetch news from TODAY
         const today = new Date().toISOString().split('T')[0];
         let { data: todayNews, error: todayError } = await supabaseClient
-            .from('flash_news')
+            .from('news')
             .select('*')
             .gte('created_at', today)
             .order('created_at', { ascending: false });
@@ -32,7 +32,7 @@ async function initUniversalTicker(supabaseClient) {
         if (flashNews.length === 0) {
             console.log('[Ticker] No news for today. Falling back to latest 6 records.');
             const { data: latestNews, error: latestError } = await supabaseClient
-                .from('flash_news')
+                .from('news')
                 .select('*')
                 .order('created_at', { ascending: false })
                 .limit(6);
@@ -46,16 +46,13 @@ async function initUniversalTicker(supabaseClient) {
 
         // 3. Render news items
         if (flashNews.length === 0) {
-            tickerContainer.innerHTML = '<span class="ticker-item">Stay tuned for the latest updates from Maheshwara Nexlify!</span>';
+            tickerContainer.innerHTML = '<span class="ticker-item">Stay tuned for the latest updates from Nexlify Nucleus News!</span>';
         } else {
             // Repeat the items to ensure smooth scrolling
             const itemsHtml = flashNews.map(news => {
-                const newsId = news.id; // Or a linked news ID if your table supports it
-                // Note: Assuming flash_news table has a news_id for linking to detail page
-                // If not, we use the ticker's headline or link to news detail if possible
-                const detailUrl = news.news_id ? `news-detail.html?id=${news.news_id}` : `news-page.html`;
-                
-                return `<a href="${detailUrl}" target="_blank" class="ticker-item">${news.message}</a>`;
+                const title = news.title || news.message;
+                const detailUrl = `news-detail.html?id=${news.id}`;
+                return `<a href="${detailUrl}" target="_blank" class="ticker-item">${title}</a>`;
             }).join('');
             
             // Duplicate content for seamless scrolling

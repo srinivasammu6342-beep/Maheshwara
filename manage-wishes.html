@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wishes Management | Admin Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap');
+        body { font-family: 'Inter', sans-serif; background: #f8fafc; }
+        .form-card { background: white; border-radius: 32px; box-shadow: 0 20px 50px -12px rgba(0,0,0,0.05); }
+        .input-field { width: 100%; padding: 1rem; border: 2px solid #f1f5f9; border-radius: 16px; font-weight: 700; transition: all 0.3s; }
+        .input-field:focus { border-color: #e11d48; outline: none; }
+        .wishes-preview { background: linear-gradient(135deg, #e11d48 0%, #fb7185 100%); color: white; border-radius: 24px; padding: 2rem; text-align: center; }
+    </style>
+</head>
+<body class="min-h-screen p-6 md:p-12">
+
+    <div class="max-w-3xl mx-auto">
+        <a href="administration.html" class="inline-flex items-center gap-2 text-slate-500 font-bold mb-8 hover:text-orange-600 transition-colors">
+            <i class="fas fa-arrow-left"></i> Back to Admin Hub
+        </a>
+
+        <div class="form-card p-8 md:p-12">
+            <div class="flex items-center gap-4 mb-10">
+                <div class="w-16 h-16 bg-rose-100 text-rose-600 rounded-2xl flex items-center justify-center text-3xl">
+                    <i class="fas fa-cake-candles"></i>
+                </div>
+                <div>
+                    <h1 class="text-3xl font-black text-slate-800">శుభాకాంక్షల నిర్వహణ</h1>
+                    <p class="text-slate-500 font-medium">Wishes & Special Greetings Management</p>
+                </div>
+            </div>
+
+            <form id="wishes-form" class="space-y-8">
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="space-y-2">
+                        <label class="text-xs font-black text-slate-400 uppercase tracking-widest ml-1">Occasion / Event</label>
+                        <select class="input-field appearance-none">
+                            <option>Birthday (పుట్టినరోజు)</option>
+                            <option>Wedding Day (పెళ్లి రోజు)</option>
+                            <option>Success Greeting (విజయానికి శుభాకాంక్షలు)</option>
+                            <option>Festival (పండుగ శుభాకాంక్షలు)</option>
+                            <option>Other Special Day</option>
+                        </select>
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-xs font-black text-slate-400 uppercase tracking-widest ml-1">Person's Name</label>
+                        <input type="text" placeholder="E.g. Ramesh Garu" class="input-field">
+                    </div>
+                    <div class="md:col-span-2 space-y-2">
+                        <label class="text-xs font-black text-slate-400 uppercase tracking-widest ml-1">Special Message (Telugu/English)</label>
+                        <textarea rows="3" class="input-field" placeholder="మీకు మరియు మీ కుటుంబ సభ్యులకు హృదయపూర్వక శుభాకాంక్షలు..."></textarea>
+                    </div>
+                    <div class="md:col-span-2">
+                        <label class="text-xs font-black text-slate-400 uppercase tracking-widest ml-1 block mb-3">Upload Photo (optional)</label>
+                        <div class="w-full border-2 border-dashed border-slate-200 rounded-2xl p-6 text-center cursor-pointer hover:bg-rose-50 hover:border-rose-200 transition-all">
+                            <i class="fas fa-image text-2xl text-slate-300 mb-2"></i>
+                            <p class="text-xs font-bold text-slate-400">Click to upload photo</p>
+                            <input type="file" class="hidden">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="wishes-preview">
+                    <p class="text-[10px] font-black uppercase tracking-[0.3em] mb-4 opacity-70">Live Preview</p>
+                    <h4 class="text-2xl font-black mb-2">Happy Birthday!</h4>
+                    <p class="text-rose-100 font-medium leading-relaxed">May your day be filled with joy and success. Heartfelt wishes from Maheshwara Team.</p>
+                </div>
+
+                <div class="pt-4">
+                    <button type="submit" class="w-full bg-rose-600 text-white font-black py-5 rounded-2xl shadow-xl shadow-rose-100 hover:bg-rose-700 hover:scale-[1.02] transition-all text-lg uppercase tracking-widest">
+                        Publish Wishes (శుభాకాంక్షలు పంపండి)
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('wishes-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('శుభాకాంక్షలు విజయవంతంగా ప్రచురించబడ్డాయి! (Wishes published successfully!)');
+        });
+    </script>
+</body>
+</html>

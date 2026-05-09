@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Advanced Admin Hub | Maheshwara Nexlify Nucleus">
+    <title>Admin Hub | Maheshwara</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap');
+        body { font-family: 'Inter', sans-serif; background: #f8fafc; color: #1e293b; }
+        
+        .admin-hub-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .hub-card {
+            background: white;
+            border-radius: 24px;
+            padding: 2rem;
+            text-align: center;
+            border: 1px solid #e2e8f0;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .hub-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px -12px rgba(255, 102, 0, 0.15);
+            border-color: #FF6600;
+        }
+
+        .hub-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            transition: all 0.3s;
+        }
+
+        .hub-card:hover .hub-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        /* Module Specific Colors */
+        .icon-news { background: #fff7ed; color: #ea580c; }
+        .icon-portal { background: #eff6ff; color: #2563eb; }
+        .icon-ticker { background: #fef2f2; color: #dc2626; }
+        .icon-prices { background: #f0fdf4; color: #16a34a; }
+        .icon-ads { background: #faf5ff; color: #9333ea; }
+        .icon-wishes { background: #fff1f2; color: #e11d48; }
+        .icon-analytics { background: #f8fafc; color: #475569; }
+        .icon-panchangam { background: #fffbeb; color: #d97706; }
+
+        .hub-title {
+            font-weight: 800;
+            font-size: 1.1rem;
+            color: #334155;
+            line-height: 1.2;
+        }
+
+        .hub-badge {
+            font-size: 0.7rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            background: #f1f5f9;
+            color: #64748b;
+        }
+
+        .admin-header {
+            background: white;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 1.5rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Auth Protection -->
+    <script>
+        if (localStorage.getItem('isAdminLoggedIn') !== 'true') {
+            window.location.href = 'index.html';
+        }
+    </script>
+
+    <!-- Header -->
+    <header class="admin-header">
+        <div class="admin-hub-container flex items-center justify-between py-0">
+            <div class="flex items-center gap-4">
+                <div class="w-12 h-12 bg-orange-600 rounded-2xl flex items-center justify-center text-white text-2xl shadow-lg shadow-orange-200">
+                    <i class="fas fa-shield-halved"></i>
+                </div>
+                <div>
+                    <h1 class="text-2xl font-black tracking-tighter text-slate-800">ADMIN HUB</h1>
+                    <p class="text-[10px] font-black text-orange-600 uppercase tracking-[0.3em]">Nexlify Nucleus Control</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-4">
+                <button onclick="window.location.href='index.html'" class="text-slate-500 font-bold text-sm hover:text-orange-600 transition-colors">
+                    <i class="fas fa-home mr-2"></i> Home
+                </button>
+                <button onclick="handleLogout()" class="bg-slate-100 text-slate-600 font-black px-6 py-2 rounded-xl text-sm hover:bg-red-50 hover:text-red-600 transition-all">
+                    LOGOUT
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="admin-hub-container">
+        <!-- Welcome Section -->
+        <div class="mb-12">
+            <h2 class="text-4xl font-black text-slate-900 mb-2">Welcome, Administrator</h2>
+            <p class="text-slate-500 font-medium">Manage all aspects of your website from this unified command center.</p>
+        </div>
+
+        <!-- Hub Grid -->
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+            
+            <!-- 1. News Management -->
+            <div onclick="window.location.href='admin-upload-news.html'" class="hub-card group">
+                <div class="hub-icon icon-news">
+                    <i class="fas fa-newspaper"></i>
+                </div>
+                <div>
+                    <span class="hub-badge">Module</span>
+                    <h3 class="hub-title mt-1">వార్తల నిర్వహణ<br>(Upload News)</h3>
+                </div>
+            </div>
+
+            <!-- 2. My Portal Management -->
+            <div onclick="window.location.href='manage-portal.html'" class="hub-card group">
+                <div class="hub-icon icon-portal">
+                    <i class="fas fa-user-shield"></i>
+                </div>
+                <div>
+                    <span class="hub-badge">Service</span>
+                    <h3 class="hub-title mt-1">నా పోర్టల్<br>(My Portal)</h3>
+                </div>
+            </div>
+
+            <!-- 3. Ticker Manager -->
+            <div onclick="window.location.href='manage-ticker.html'" class="hub-card group">
+                <div class="hub-icon icon-ticker">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <div>
+                    <span class="hub-badge">Global</span>
+                    <h3 class="hub-title mt-1">స్క్రోల్ టిక్కర్<br>(Flash News)</h3>
+                </div>
+            </div>
+
+            <!-- 4. Price Management -->
+            <div onclick="window.location.href='manage-prices.html'" class="hub-card group">
+                <div class="hub-icon icon-prices">
+                    <i class="fas fa-tractor"></i>
+                </div>
+                <div>
+                    <span class="hub-badge">Market</span>
+                    <h3 class="hub-title mt-1">ధరల నిర్వహణ<br>(Market Prices)</h3>
+                </div>
+            </div>
+
+            <!-- 5. Ads Management -->
+            <div onclick="window.location.href='manage-ads.html'" class="hub-card group">
+                <div class="hub-icon icon-ads">
+                    <i class="fas fa-rectangle-ad"></i>
+                </div>
+                <div>
+                    <span class="hub-badge">Revenue</span>
+                    <h3 class="hub-title mt-1">ప్రకటనలు<br>(Ads Management)</h3>
+                </div>
+            </div>
+
+            <!-- 6. Wishes Management -->
+            <div onclick="window.location.href='manage-wishes.html'" class="hub-card group">
+                <div class="hub-icon icon-wishes">
+                    <i class="fas fa-cake-candles"></i>
+                </div>
+                <div>
+                    <span class="hub-badge">Special</span>
+                    <h3 class="hub-title mt-1">శుభాకాంక్షలు<br>(Wishes)</h3>
+                </div>
+            </div>
+
+            <!-- 7. Panchangam & Daily -->
+            <div onclick="window.location.href='manage-daily.html'" class="hub-card group">
+                <div class="hub-icon icon-panchangam">
+                    <i class="fas fa-om"></i>
+                </div>
+                <div>
+                    <span class="hub-badge">Daily</span>
+                    <h3 class="hub-title mt-1">పంచాంగం<br>(Panchangam)</h3>
+                </div>
+            </div>
+
+            <!-- 8. Analytics -->
+            <div onclick="window.location.href='analytics.html'" class="hub-card group">
+                <div class="hub-icon icon-analytics">
+                    <i class="fas fa-chart-pie"></i>
+                </div>
+                <div>
+                    <span class="hub-badge">System</span>
+                    <h3 class="hub-title mt-1">విజిటర్ అనలిటిక్స్<br>(Visitor Stats)</h3>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Quick Help -->
+        <div class="mt-16 bg-orange-600 rounded-[32px] p-10 text-white flex flex-col md:flex-row items-center justify-between gap-8 shadow-2xl shadow-orange-100">
+            <div class="text-center md:text-left">
+                <h4 class="text-2xl font-black mb-2">Need Technical Assistance?</h4>
+                <p class="text-orange-100 font-medium opacity-80">Access developer logs or contact Nexlify Nucleus Support directly from the hub.</p>
+            </div>
+            <div class="flex gap-4">
+                <button class="bg-white text-orange-600 font-black px-8 py-4 rounded-2xl hover:bg-orange-50 transition-all">Support Chat</button>
+                <button class="bg-orange-700/50 text-white font-black px-8 py-4 rounded-2xl hover:bg-orange-800 transition-all">System Logs</button>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function handleLogout() {
+            localStorage.removeItem('isAdminLoggedIn');
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>

@@ -138,21 +138,21 @@
 
             // Fixed Credentials
             const CORRECT_USER = 'admin';
-            const CORRECT_PASS = 'Maheshwara2026#';
+            const CORRECT_PASS = '12345';
 
             if (user === CORRECT_USER && pass === CORRECT_PASS) {
                 // Save session
-                sessionStorage.setItem('isLoggedIn', 'true');
-                window.location.href = 'uploadnews.html';
+                localStorage.setItem('isAdminLoggedIn', 'true');
+                window.location.href = 'administration.html';
             } else {
                 error.style.display = 'block';
                 setTimeout(() => { error.style.display = 'none'; }, 3000);
             }
         });
 
-        // If already logged in, skip to upload page
-        if (sessionStorage.getItem('isLoggedIn') === 'true') {
-            window.location.href = 'uploadnews.html';
+        // If already logged in, skip to admin hub
+        if (localStorage.getItem('isAdminLoggedIn') === 'true') {
+            window.location.href = 'administration.html';
         }
     </script>
 </body>

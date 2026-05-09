@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="te-IN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>వార్తను ప్రచురించండి - నెక్స్లిఫై న్యూక్లియస్ | Upload News - Nexlify Nucleus</title>
+
+    <script>
+        // --- Auth Guard ---
+        (function() {
+            if (localStorage.getItem('isAdminLoggedIn') !== 'true') {
+                // Not logged in, redirect to home page login section
+                window.location.href = 'index.html#admin-login';
+                alert('Please login as administrator to access this page.');
+            }
+        })();
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu:wght@400;700&family=Roboto:wght@300;400;500;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Supabase JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              brand: {
+                red: '#e11d48',
+                blue: '#1e3a8a',
+                dark: '#0f172a',
+                light: '#f8fafc',
+              }
+            },
+            fontFamily: {
+              sans: ['Roboto', 'sans-serif'],
+              telugu: ['Noto Sans Telugu', 'sans-serif'],
+              display: ['Space Grotesk', 'sans-serif'],
+            }
+          }
+        }
+      }
+    </script>
+
+    <style>
+        body {
+            background-color: #f1f5f9;
+            color: #1e293b;
+        }
+
+        .form-card {
+            background: white;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+        }
+
+        .input-field {
+            width: 100%;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.75rem;
+            padding: 0.75rem 1rem;
+            transition: all 0.2s;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: #1e3a8a;
+            box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.1);
+            background: white;
+        }
+
+        .label {
+            display: block;
+            font-weight: 700;
+            color: #475569;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .input-field.error {
+            border-color: #ef4444 !important;
+            border-width: 2px !important;
+            background-color: #fef2f2 !important;
+        }
+
+        .error-message {
+            color: #ef4444;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-top: 0.25rem;
+            display: none;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased">
+    <!-- Universal Header & Ticker System -->
+    <script src="js/universal-header-ticker.js"></script>
+
+    <main class="max-w-4xl mx-auto px-4 py-12">
+        <div class="mb-10 flex items-center justify-between">
+            <div>
+                <div class="flex items-center gap-3 mb-2">
+                    <a href="administration.html" class="w-10 h-10 bg-slate-100 rounded-full flex items-center justify-center text-slate-500 hover:bg-orange-100 hover:text-orange-600 transition-all">
+                        <i class="fas fa-arrow-left"></i>
+                    </a>
+                    <h1 class="text-3xl font-black font-telugu text-brand-blue">వార్తను ప్రచురించండి</h1>
+                </div>
+                <p class="text-slate-500 font-telugu">నెక్స్లిఫై న్యూక్లియస్ నెట్‌వర్క్ లో వార్తను పంపండి.</p>
+            </div>
+            <button id="logoutBtn" class="px-6 py-2 bg-slate-100 text-slate-600 rounded-xl font-bold hover:bg-red-50 hover:text-red-500 transition-colors">
+                LOGOUT
+            </button>
+        </div>
+
+        <div class="form-card p-8 md:p-12">
+            <form id="newsForm" class="space-y-8">
+                <!-- Headline -->
+                <div>
+                    <label class="label font-telugu">వార్త ముఖ్యాంశం (Headline in English Only) *</label>
+                    <input type="text" id="headline-input" class="input-field text-xl font-bold" placeholder="Type headline in English..." required>
+                    <p id="headline-error" class="error-message font-telugu">దయచేసి ఇక్కడ కేవలం ఇంగ్లీష్ మాత్రమే ఉపయోగించండి (ASCII 0-127 only)</p>
+                    <p class="text-[10px] text-orange-500 mt-1 font-bold italic uppercase tracking-wider">Please type in English only.</p>
+                </div>
+
+                <!-- Sub-headline -->
+                <div>
+                    <label class="label font-telugu">ఉప శీర్షిక (Sub-headline in English Only)</label>
+                    <input type="text" id="subheadline-input" class="input-field" placeholder="Type short summary in English...">
+                    <p id="subheadline-error" class="error-message font-telugu">దయచేసి ఇక్కడ కేవలం ఇంగ్లీష్ మాత్రమే ఉపయోగించండి</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <!-- Category -->
+                    <div>
+                        <label class="label font-telugu">విభాగం (Category)</label>
+                        <select id="category" class="input-field font-telugu">
+                            <option value="Local">స్థానిక (Local)</option>
+                            <option value="National">జాతీయ (National)</option>
+                            <option value="International">అంతర్జాతీయ (International)</option>
+                            <option value="Agriculture">వ్యవసాయం (Agriculture)</option>
+                            <option value="Technology">సాంకేతికత (Technology)</option>
+                        </select>
+                    </div>
+
+                    <!-- YouTube Link -->
+                    <div>
+                        <label class="label font-telugu">యూట్యూబ్ లింక్ (YouTube Link)</label>
+                        <input type="text" id="youtube_link" class="input-field" placeholder="https://www.youtube.com/watch?v=...">
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <!-- Author -->
+                    <div>
+                        <label class="label font-telugu">రిపోర్టర్ పేరు (Author)</label>
+                        <input type="text" id="author_name" class="input-field font-telugu" placeholder="మీ పేరు...">
+                    </div>
+
+                    <!-- Location -->
+                    <div>
+                        <label class="label font-telugu">ప్రాంతం (Location)</label>
+                        <input type="text" id="location" class="input-field font-telugu" placeholder="గ్రామం/మండలం...">
+                    </div>
+                </div>
+
+                <!-- Content -->
+                <div>
+                    <label class="label font-telugu">వార్త వివరాలు (Full Content in English) *</label>
+                    <textarea id="content-textarea" class="input-field h-64" placeholder="Enter news content in English only..." required></textarea>
+                    <p id="content-error" class="error-message font-telugu">దయచేసి ఇక్కడ కేవలం ఇంగ్లీష్ మాత్రమే ఉపయోగించండి</p>
+                    <p class="text-xs text-slate-400 mt-2 italic">* వార్తను ఇంగ్లీష్‌లో మాత్రమే రాయండి. ఇది ఆటోమేటిక్‌గా తెలుగు మరియు హిందీలోకి మార్చబడుతుంది.</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- Multiple Images Upload -->
+                    <div id="image-dropzone" class="p-6 bg-slate-50 rounded-2xl border-2 border-dashed border-slate-200 text-center transition-all">
+                        <label class="label font-telugu mb-4">ఫోటోలు (Multiple Images)</label>
+                        <input type="file" id="image_files" accept="image/*" multiple class="hidden">
+                        <label for="image_files" class="cursor-pointer flex flex-col items-center">
+                            <i class="fas fa-images text-4xl text-slate-300 mb-2"></i>
+                            <span id="images-label" class="text-slate-500 text-sm font-telugu">ఒకటి కంటే ఎక్కువ ఫోటోలను ఎంచుకోవచ్చు</span>
+                            <span class="text-[10px] text-orange-400 font-bold uppercase mt-2">లేదా ఇక్కడ నేరుగా పేస్ట్ చేయండి (Ctrl+V)</span>
+                        </label>
+                        <!-- Image Preview Container -->
+                        <div id="image-preview-grid" class="grid grid-cols-3 gap-2 mt-4"></div>
+                    </div>
+
+                    <!-- Multiple Videos Upload -->
+                    <div class="p-6 bg-slate-50 rounded-2xl border-2 border-dashed border-slate-200 text-center">
+                        <label class="label font-telugu mb-4">వీడియోలు (Multiple Videos)</label>
+                        <input type="file" id="video_files" accept="video/*" multiple class="hidden">
+                        <label for="video_files" class="cursor-pointer flex flex-col items-center">
+                            <i class="fas fa-file-video text-4xl text-slate-300 mb-2"></i>
+                            <span id="videos-label" class="text-slate-500 text-sm font-telugu">ఒకటి కంటే ఎక్కువ వీడియోలను ఎంచుకోవచ్చు</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" id="publishBtn" class="w-full py-4 bg-brand-blue text-white rounded-2xl font-black text-lg uppercase tracking-widest hover:bg-brand-dark transition-all shadow-xl shadow-blue-900/20 flex items-center justify-center gap-3">
+                    <i class="fas fa-paper-plane"></i> వార్తను ప్రచురించండి
+                </button>
+            </form>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-white py-16 mt-24">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-12 mb-12">
+                <div class="md:col-span-2">
+                    <h2 class="font-display text-3xl font-black mb-6 tracking-tighter text-white">NEXLIFY NUCLEUS NEWS</h2>
+                    <p class="font-telugu text-slate-400 leading-relaxed max-w-md">ముత్తారం డిజిటల్ విప్లవం - వేగవంతమైన వార్తలు మరియు అత్యాధునిక డిజిటల్ సేవలను మీ చెంతకు చేరుస్తున్నాము.</p>
+                </div>
+                <div>
+                    <h3 class="font-black text-sm uppercase tracking-widest text-white/40 mb-6">Quick Links</h3>
+                    <ul class="space-y-4 font-telugu text-slate-400">
+                        <li><a href="index.html" class="hover:text-cyan-400 transition-colors">హోమ్</a></li>
+                        <li><a href="news-page.html" class="hover:text-cyan-400 transition-colors">అన్ని వార్తలు</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-black text-sm uppercase tracking-widest text-white/40 mb-6">Connect</h3>
+                    <div class="flex gap-4">
+                        <a href="#" class="text-2xl text-slate-400 hover:text-white"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="text-2xl text-slate-400 hover:text-white"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-2xl text-slate-400 hover:text-white"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="pt-12 border-t border-white/5 text-center">
+                <p class="text-xs text-slate-500 font-black uppercase tracking-widest">© 2026 NEXLIFY NUCLEUS. ALL RIGHTS RESERVED.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const SUPABASE_URL = 'https://ndorwpcjwzvygvrstdks.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5kb3J3cGNqd3p2eWd2cnN0ZGtzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU0MDEyOTMsImV4cCI6MjA5MDk3NzI5M30.eUISNWLqFwZG9IKCZSXn9tC9RyRWdGbn-9j0jYAfPxQ';
+        
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        // Global arrays to store files
+        let uploadedImages = [];
+        let uploadedVideos = [];
+
+        // Validation & Silent Cleaning Logic
+        function validateAndClean(inputEl, errorEl) {
+            let val = inputEl.value;
+            // Silent Cleaning: Remove non-ASCII characters (anything outside 0-127)
+            const cleaned = val.replace(/[^\x00-\x7F]/g, '');
+            
+            if (val !== cleaned) {
+                inputEl.value = cleaned;
+                val = cleaned;
+            }
+
+            // Flag if still contains non-ASCII (though cleaned should prevent this, it acts as a safeguard)
+            const isInvalid = /[^\x00-\x7F]/.test(val);
+            
+            if (isInvalid) {
+                inputEl.classList.add('error');
+                errorEl.style.display = 'block';
+            } else {
+                inputEl.classList.remove('error');
+                errorEl.style.display = 'none';
+            }
+            
+            checkFormValidity();
+        }
+
+        function checkFormValidity() {
+            const hasErrors = document.querySelectorAll('.input-field.error').length > 0;
+            const publishBtn = document.getElementById('publishBtn');
+            publishBtn.disabled = hasErrors;
+            publishBtn.style.opacity = hasErrors ? '0.5' : '1';
+            publishBtn.style.cursor = hasErrors ? 'not-allowed' : 'pointer';
+        }
+
+        // Attach listeners
+        ['headline-input', 'subheadline-input', 'content-textarea'].forEach(id => {
+            const el = document.getElementById(id);
+            const errorEl = document.getElementById(id.replace('-input', '-error').replace('-textarea', '-error'));
+            
+            el.addEventListener('input', () => validateAndClean(el, errorEl));
+            el.addEventListener('paste', () => setTimeout(() => validateAndClean(el, errorEl), 10));
+        });
+
+        // Function to update image preview grid
+        function updateImagePreviews() {
+            const grid = document.getElementById('image-preview-grid');
+            const label = document.getElementById('images-label');
+            grid.innerHTML = '';
+            
+            uploadedImages.forEach((file, index) => {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const div = document.createElement('div');
+                    div.className = 'relative group aspect-square rounded-lg overflow-hidden border border-slate-200';
+                    div.innerHTML = `
+                        <img src="${e.target.result}" class="w-full h-full object-cover">
+                        <button type="button" onclick="removeImage(${index})" class="absolute top-1 right-1 bg-red-500 text-white w-5 h-5 rounded-full text-[10px] flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    `;
+                    grid.appendChild(div);
+                };
+                reader.readAsDataURL(file);
+            });
+
+            label.innerText = uploadedImages.length > 0 ? `${uploadedImages.length} ఫోటోలు సిద్ధంగా ఉన్నాయి` : 'ఒకటి కంటే ఎక్కువ ఫోటోలను ఎంచుకోవచ్చు';
+        }
+
+        window.removeImage = (index) => {
+            uploadedImages.splice(index, 1);
+            updateImagePreviews();
+        };
+
+        // File Selection Labels
+        document.getElementById('image_files').onchange = function() {
+            uploadedImages = [...uploadedImages, ...Array.from(this.files)];
+            updateImagePreviews();
+        };
+
+        document.getElementById('video_files').onchange = function() {
+            uploadedVideos = [...uploadedVideos, ...Array.from(this.files)];
+            const count = uploadedVideos.length;
+            document.getElementById('videos-label').innerText = count > 1 ? `${count} వీడియోలు సిద్ధంగా ఉన్నాయి` : uploadedVideos[0].name;
+        };
+
+        // Image Paste Logic
+        document.addEventListener('paste', function(e) {
+            const items = (e.clipboardData || e.originalEvent.clipboardData).items;
+            for (let item of items) {
+                if (item.kind === 'file' && item.type.startsWith('image/')) {
+                    const blob = item.getAsFile();
+                    // Create a proper file object from blob
+                    const file = new File([blob], `pasted-image-${Date.now()}.png`, { type: blob.type });
+                    uploadedImages.push(file);
+                    updateImagePreviews();
+                    
+                    // Visual feedback on dropzone
+                    const dropzone = document.getElementById('image-dropzone');
+                    dropzone.classList.add('bg-orange-50', 'border-orange-200');
+                    setTimeout(() => dropzone.classList.remove('bg-orange-50', 'border-orange-200'), 500);
+                }
+            }
+        });
+
+        // Form Logic
+        const form = document.getElementById('newsForm');
+        const publishBtn = document.getElementById('publishBtn');
+
+        async function uploadFile(file, bucket) {
+            if (!file) return null;
+            const ext = file.name.split('.').pop();
+            const fileName = `${Date.now()}-${Math.random().toString(36).substring(2, 7)}.${ext}`;
+            
+            const { data, error } = await supabaseClient.storage
+                .from(bucket)
+                .upload(fileName, file);
+
+            if (error) throw error;
+
+            const { data: { publicUrl } } = supabaseClient.storage
+                .from(bucket)
+                .getPublicUrl(fileName);
+            
+            return publicUrl;
+        }
+
+        form.onsubmit = async (e) => {
+            e.preventDefault();
+            
+            publishBtn.disabled = true;
+            publishBtn.innerHTML = '<i class="fas fa-spinner animate-spin"></i> ప్రచురిస్తున్నాము...';
+
+            try {
+                const title = document.getElementById('headline-input').value;
+                const sub_headline = document.getElementById('subheadline-input').value;
+                const content = document.getElementById('content-textarea').value;
+                const category = document.getElementById('category').value;
+                const author_name = document.getElementById('author_name').value;
+                const location = document.getElementById('location').value;
+                const youtube_link = document.getElementById('youtube_link').value.trim() || null;
+
+                // 1. Upload Media (Multiple)
+                const imageUrls = [];
+                const videoUrls = [];
+
+                for (let file of uploadedImages) {
+                    const url = await uploadFile(file, 'news-images');
+                    if (url) imageUrls.push(url);
+                }
+
+                for (let file of uploadedVideos) {
+                    const url = await uploadFile(file, 'news-videos');
+                    if (url) videoUrls.push(url);
+                }
+
+                // 2. Save to 'news' table
+                const { error: dbError } = await supabaseClient
+                    .from('news')
+                    .insert([{
+                        title,
+                        sub_headline,
+                        content,
+                        category,
+                        author_name,
+                        location,
+                        image_url: imageUrls[0] || null,
+                        video_url: videoUrls[0] || null,
+                        youtube_link,
+                        created_at: new Date().toISOString()
+                    }]);
+
+                if (dbError) throw dbError;
+
+                alert('✅ వార్త విజయవంతంగా ప్రచురించబడింది!');
+                form.reset();
+                uploadedImages = [];
+                uploadedVideos = [];
+                updateImagePreviews();
+                document.getElementById('videos-label').innerText = 'ఒకటి కంటే ఎక్కువ వీడియోలను ఎంచుకోవచ్చు';
+
+            } catch (err) {
+                console.error('Upload Error:', err);
+                alert('❌ వార్తను ప్రచురించడంలో విఫలమైంది: ' + err.message);
+            } finally {
+                publishBtn.disabled = false;
+                publishBtn.innerHTML = '<i class="fas fa-paper-plane"></i> వార్తను ప్రచురించండి';
+            }
+        };
+
+        document.getElementById('logoutBtn').onclick = () => {
+            localStorage.removeItem('isAdminLoggedIn');
+            window.location.href = 'index.html';
+        };
+    </script>
+</body>
+</html>

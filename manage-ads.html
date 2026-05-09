@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ads Management | Admin Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap');
+        body { font-family: 'Inter', sans-serif; background: #f8fafc; }
+        .form-card { background: white; border-radius: 32px; box-shadow: 0 20px 50px -12px rgba(0,0,0,0.05); }
+        .upload-zone { border: 3px dashed #e2e8f0; border-radius: 24px; padding: 3rem; text-align: center; transition: all 0.3s; cursor: pointer; }
+        .upload-zone:hover { border-color: #9333ea; background: #faf5ff; }
+        .input-field { width: 100%; padding: 1rem; border: 2px solid #f1f5f9; border-radius: 16px; font-weight: 700; transition: all 0.3s; }
+        .input-field:focus { border-color: #9333ea; outline: none; }
+    </style>
+</head>
+<body class="min-h-screen p-6 md:p-12">
+
+    <div class="max-w-3xl mx-auto">
+        <a href="administration.html" class="inline-flex items-center gap-2 text-slate-500 font-bold mb-8 hover:text-orange-600 transition-colors">
+            <i class="fas fa-arrow-left"></i> Back to Admin Hub
+        </a>
+
+        <div class="form-card p-8 md:p-12">
+            <div class="flex items-center gap-4 mb-10">
+                <div class="w-16 h-16 bg-purple-100 text-purple-600 rounded-2xl flex items-center justify-center text-3xl">
+                    <i class="fas fa-rectangle-ad"></i>
+                </div>
+                <div>
+                    <h1 class="text-3xl font-black text-slate-800">ప్రకటనల నిర్వహణ</h1>
+                    <p class="text-slate-500 font-medium">Local Ads & Promotions Management</p>
+                </div>
+            </div>
+
+            <form id="ads-form" class="space-y-8">
+                
+                <div class="upload-zone group">
+                    <i class="fas fa-cloud-arrow-up text-4xl text-slate-300 group-hover:text-purple-500 mb-4 transition-colors"></i>
+                    <h4 class="text-lg font-black text-slate-700">Click to upload Ad Banner</h4>
+                    <p class="text-sm text-slate-400 font-medium">Recommended size: 300x250 or 728x90 (PNG, JPG)</p>
+                    <input type="file" class="hidden" id="ad-file">
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="space-y-2">
+                        <label class="text-xs font-black text-slate-400 uppercase tracking-widest ml-1">Client Name / Title</label>
+                        <input type="text" placeholder="E.g. Sri Rama Traders" class="input-field">
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-xs font-black text-slate-400 uppercase tracking-widest ml-1">Redirect Link (URL)</label>
+                        <input type="url" placeholder="https://..." class="input-field">
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-xs font-black text-slate-400 uppercase tracking-widest ml-1">Placement Area</label>
+                        <select class="input-field appearance-none">
+                            <option>Sidebar (Left)</option>
+                            <option>Sidebar (Right)</option>
+                            <option>Header Ticker</option>
+                            <option>Footer</option>
+                        </select>
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-xs font-black text-slate-400 uppercase tracking-widest ml-1">Duration</label>
+                        <select class="input-field appearance-none">
+                            <option>1 Week</option>
+                            <option>1 Month</option>
+                            <option>Unlimited</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="pt-4">
+                    <button type="submit" class="w-full bg-purple-600 text-white font-black py-5 rounded-2xl shadow-xl shadow-purple-100 hover:bg-purple-700 hover:scale-[1.02] transition-all text-lg uppercase tracking-widest">
+                        Publish Ad (ప్రకటనను ప్రచురించు)
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Current Ads List -->
+        <div class="mt-12 bg-white rounded-[32px] p-8 border border-slate-100">
+            <h3 class="text-xl font-black text-slate-800 mb-6">Active Ads (ప్రస్తుత ప్రకటనలు)</h3>
+            <div class="space-y-4">
+                <div class="flex items-center justify-between p-4 bg-slate-50 rounded-2xl border border-slate-100">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 bg-white rounded-lg border border-slate-200 flex items-center justify-center text-xs text-slate-400 font-black">AD</div>
+                        <div>
+                            <p class="font-black text-slate-700">Premium Laptop Rentals</p>
+                            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Sidebar Left • Expires in 12 days</p>
+                        </div>
+                    </div>
+                    <button class="text-red-500 hover:bg-red-50 p-2 rounded-lg transition-colors"><i class="fas fa-trash-can"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('ads-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('ప్రకటన విజయవంతంగా సేవ్ చేయబడింది! (Ad saved successfully!)');
+        });
+    </script>
+</body>
+</html>

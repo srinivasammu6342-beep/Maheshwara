@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Mobile File-Sharing Hub | Maheshwara Nexlify</title>
+    
+    <!-- Fonts & Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Noto+Sans+Telugu:wght@400;700&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+    
+    <!-- Supabase SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              brand: {
+                cyan: '#22d3ee',
+                blue: '#0f172a',
+                dark: '#020617',
+                gold: '#fbbf24',
+                whatsapp: '#25D366',
+                gmail: '#EA4335',
+                drive: '#34A853'
+              }
+            },
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+              telugu: ['Noto Sans Telugu', 'sans-serif'],
+              display: ['Space Grotesk', 'sans-serif']
+            }
+          }
+        }
+      }
+    </script>
+    
+    <style>
+        /* Mobile App Feel */
+        body {
+            background: #020617;
+            color: #f8fafc;
+            -webkit-tap-highlight-color: transparent;
+            overflow-x: hidden;
+        }
+
+        .glass-card {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .hub-button {
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            border-radius: 1.5rem;
+            text-align: left;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hub-button:active {
+            transform: scale(0.97);
+            filter: brightness(0.9);
+        }
+
+        .icon-box {
+            width: 56px;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 1rem;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .status-pill {
+            padding: 2px 10px;
+            border-radius: 99px;
+            font-size: 10px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .animate-slide-up {
+            animation: slideUp 0.5s ease forwards;
+        }
+
+        /* Custom scrollbar for mobile */
+        ::-webkit-scrollbar {
+            width: 0px;
+            background: transparent;
+        }
+
+        .nav-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            color: #94a3b8;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: all 0.3s;
+        }
+
+        .nav-link.active {
+            color: #22d3ee;
+        }
+
+        .upload-progress-bar {
+            height: 4px;
+            background: #22d3ee;
+            width: 0%;
+            transition: width 0.3s ease;
+            border-radius: 99px;
+        }
+    </style>
+</head>
+<body class="font-sans">
+
+    <!-- Universal Header & Ticker (Keeping consistency) -->
+    <script src="js/universal-header-ticker.js"></script>
+
+    <!-- App Container -->
+    <main class="max-w-lg mx-auto px-5 pt-32 pb-32 min-h-screen">
+        
+        <!-- Header Section -->
+        <header class="mb-10 animate-slide-up">
+            <h1 class="text-3xl font-display font-black text-white tracking-tighter mb-2">
+                MAHESHWARA <span class="text-cyan-400">NEXLIFY NUCLEUS</span>
+            </h1>
+            <p class="text-xs font-black text-slate-500 uppercase tracking-[0.3em] mb-8">Digital Seva Hub</p>
+            
+            <div class="glass-card p-6 rounded-[2rem] border-l-4 border-cyan-400">
+                <p class="text-slate-200 font-medium mb-3 text-sm leading-relaxed">
+                    Please use any of the options below to send your files/photos to us.
+                </p>
+                <p class="text-cyan-400 font-telugu text-lg leading-relaxed">
+                    మాకు మీ ఫోటోలను/ఫైళ్లు పంపడానికి ఈ క్రింది ఆప్షన్లలో ఒకదానిని ఎంచుకోండి .
+                </p>
+            </div>
+        </header>
+
+        <!-- Sharing Hub Buttons -->
+        <div class="space-y-4 animate-slide-up" style="animation-delay: 0.1s;">
+            
+            <!-- WhatsApp Button -->
+            <button onclick="shareViaWhatsApp()" class="hub-button glass-card group">
+                <div class="icon-box bg-brand-whatsapp text-white shadow-[0_0_20px_rgba(37,211,102,0.3)]">
+                    <i class="fab fa-whatsapp"></i>
+                </div>
+                <div class="flex-1">
+                    <h3 class="text-lg font-bold text-white leading-tight">WhatsApp</h3>
+                    <p class="text-xs text-slate-400">Upload your photoes/Files Here</p>
+                </div>
+                <i class="fas fa-chevron-right text-slate-600 group-hover:text-cyan-400 transition-colors"></i>
+            </button>
+
+            <!-- Gmail Button -->
+            <button onclick="shareViaGmail()" class="hub-button glass-card group">
+                <div class="icon-box bg-brand-gmail text-white shadow-[0_0_20px_rgba(234,67,53,0.3)]">
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <div class="flex-1">
+                    <h3 class="text-lg font-bold text-white leading-tight">Email</h3>
+                    <p class="text-xs text-slate-400">nexlifynucleus@gmail.com</p>
+                </div>
+                <i class="fas fa-chevron-right text-slate-600 group-hover:text-cyan-400 transition-colors"></i>
+            </button>
+
+            <!-- Google Drive Button -->
+            <button onclick="shareViaDrive()" class="hub-button glass-card group">
+                <div class="icon-box bg-brand-drive text-white shadow-[0_0_20px_rgba(52,168,83,0.3)]">
+                    <i class="fab fa-google-drive"></i>
+                </div>
+                <div class="flex-1">
+                    <h3 class="text-lg font-bold text-white leading-tight">Google Drive</h3>
+                    <p class="text-xs text-slate-400">Upload to our shared folder</p>
+                </div>
+                <i class="fas fa-chevron-right text-slate-600 group-hover:text-cyan-400 transition-colors"></i>
+            </button>
+
+            <!-- Direct Supabase Upload -->
+            <div class="relative">
+                <input type="file" id="direct-file-input" class="hidden" multiple onchange="handleDirectUpload(this)">
+                <button onclick="document.getElementById('direct-file-input').click()" id="upload-btn" class="hub-button glass-card border-cyan-500/20 group">
+                    <div class="icon-box bg-cyan-500 text-black shadow-[0_0_20px_rgba(34,211,238,0.3)]">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="text-lg font-bold text-white leading-tight">Upload to Shop</h3>
+                        <p class="text-xs text-slate-400">Directly sync to our server</p>
+                    </div>
+                    <span id="upload-status" class="status-pill bg-cyan-500/10 text-cyan-400">Ready</span>
+                </button>
+                
+                <!-- Progress indicator -->
+                <div id="progress-container" class="hidden mt-3 px-2">
+                    <div class="flex justify-between items-center mb-1.5">
+                        <span id="progress-text" class="text-[10px] font-black text-slate-500 uppercase tracking-widest">Uploading...</span>
+                        <span id="progress-percent" class="text-[10px] font-black text-cyan-400">0%</span>
+                    </div>
+                    <div class="w-full bg-white/5 h-1 rounded-full overflow-hidden">
+                        <div id="progress-bar" class="upload-progress-bar"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Help Section -->
+        <footer class="mt-16 text-center animate-slide-up" style="animation-delay: 0.2s;">
+            <p class="text-slate-500 text-xs font-bold uppercase tracking-widest mb-4">Need Help?</p>
+            <a href="tel:9949122402" class="inline-flex items-center gap-2 text-cyan-400 font-bold text-lg hover:underline">
+                <i class="fas fa-phone-alt"></i> 9949122402
+            </a>
+        </footer>
+
+    </main>
+
+    <!-- Bottom Navigation Bar -->
+    <nav class="fixed bottom-0 left-0 right-0 glass-card border-t border-white/5 py-4 px-10 flex justify-around items-center z-[1000]">
+        <a href="index.html" class="nav-link">
+            <i class="fas fa-home text-xl"></i>
+            <span>Home</span>
+        </a>
+        <a href="service.html" class="nav-link active">
+            <i class="fas fa-share-alt text-xl"></i>
+            <span>Share Hub</span>
+        </a>
+        <a href="news-page.html" class="nav-link">
+            <i class="fas fa-newspaper text-xl"></i>
+            <span>News</span>
+        </a>
+    </nav>
+
+    <script>
+        // --- Configuration ---
+        const SUPABASE_URL = 'https://ndorwpcjwzvygvrstdks.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5kb3J3cGNqd3p2eWd2cnN0ZGtzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU0MDEyOTMsImV4cCI6MjA5MDk3NzI5M30.eUISNWLqFwZG9IKCZSXn9tC9RyRWdGbn-9j0jYAfPxQ';
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        // 1. WhatsApp Logic
+        function shareViaWhatsApp() {
+            const phone = "9502336495";
+            const message = "Hello Maheshwara Nexlify Nucleus, I want to print some files/photos.";
+            window.open(`https://wa.me/91${phone}?text=${encodeURIComponent(message)}`, '_blank');
+        }
+
+        // 2. Gmail Logic
+        function shareViaGmail() {
+            const email = "nexlifynucleus@gmail.com";
+            const subject = "Print Request from Customer";
+            const body = "Hello,\n\nI have attached the files for printing. Please check.\n\nThank you.";
+            window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        }
+
+        // 3. Google Drive Logic
+        function shareViaDrive() {
+            // Placeholder: Link to your shared drive folder if you have one
+            // Or just open the drive app/web
+            window.open('https://drive.google.com/', '_blank');
+        }
+
+        // 4. Direct Upload Logic (Supabase)
+        async function handleDirectUpload(input) {
+            const files = Array.from(input.files);
+            if (files.length === 0) return;
+
+            const uploadBtn = document.getElementById('upload-btn');
+            const statusPill = document.getElementById('upload-status');
+            const progressContainer = document.getElementById('progress-container');
+            const progressBar = document.getElementById('progress-bar');
+            const progressPercent = document.getElementById('progress-percent');
+            const progressText = document.getElementById('progress-text');
+
+            // UI Feedback
+            uploadBtn.disabled = true;
+            statusPill.innerText = "Syncing...";
+            statusPill.classList.replace('bg-cyan-500/10', 'bg-brand-gold/10');
+            statusPill.classList.replace('text-cyan-400', 'text-brand-gold');
+            progressContainer.classList.remove('hidden');
+
+            let uploadedCount = 0;
+
+            for (const file of files) {
+                try {
+                    const fileName = `${Date.now()}-${file.name}`;
+                    const filePath = `orders/${fileName}`;
+
+                    progressText.innerText = `Sending: ${file.name}`;
+
+                    const { data, error } = await supabaseClient.storage
+                        .from('print-orders')
+                        .upload(filePath, file);
+
+                    if (error) throw error;
+
+                    uploadedCount++;
+                    const percent = Math.round((uploadedCount / files.length) * 100);
+                    progressBar.style.width = percent + '%';
+                    progressPercent.innerText = percent + '%';
+
+                } catch (err) {
+                    console.error('Upload error:', err);
+                    alert(`Failed to upload ${file.name}. Please try WhatsApp or Gmail.`);
+                }
+            }
+
+            // Completion UI
+            statusPill.innerText = "Completed";
+            statusPill.classList.replace('bg-brand-gold/10', 'bg-green-500/10');
+            statusPill.classList.replace('text-brand-gold', 'text-green-400');
+            progressText.innerText = "All files sent successfully!";
+            
+            setTimeout(() => {
+                progressContainer.classList.add('hidden');
+                uploadBtn.disabled = false;
+                statusPill.innerText = "Ready";
+                statusPill.classList.replace('bg-green-500/10', 'bg-cyan-500/10');
+                statusPill.classList.replace('text-green-400', 'text-cyan-400');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

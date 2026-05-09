@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="te-IN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ఆధార్ సేవలు (Aadhaar Services) - MAHESHWARA NEXLIFY NUCLEUS</title>
+  
+  <!-- Stylish Telugu Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Ramabhadra&family=Hind+Guntur:wght@400;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              orange: '#FF6600',
+              navy: '#003366',
+              light: '#f8fafc',
+            }
+          },
+          fontFamily: {
+            telugu: ['Hind Guntur', 'sans-serif'],
+            display: ['Ramabhadra', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      color: #1a1a1a;
+      font-family: 'Hind Guntur', sans-serif;
+      background-color: #f8fafc;
+    }
+
+    .aadhaar-container {
+      background: white;
+      border-radius: 20px;
+      padding: 2rem;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+      max-width: 1100px;
+      margin: 2rem auto;
+    }
+
+    .aadhaar-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    @media (max-width: 768px) {
+      .aadhaar-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .service-card {
+      background: white;
+      border: 2px solid #f1f5f9;
+      border-radius: 16px;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .service-card:hover {
+      border-color: #FF6600;
+      transform: translateY(-8px);
+      box-shadow: 0 15px 30px -10px rgba(255, 102, 0, 0.15);
+    }
+
+    .icon-wrapper {
+      width: 70px;
+      height: 70px;
+      background: #f0f7ff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #003366;
+      font-size: 2rem;
+      transition: all 0.3s;
+    }
+
+    .service-card:hover .icon-wrapper {
+      background: #FF6600;
+      color: white;
+      transform: rotate(10deg);
+    }
+
+    .visit-btn {
+      margin-top: auto;
+      background: #003366;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 10px;
+      font-weight: 700;
+      width: 100%;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .visit-btn:hover {
+      background: #FF6600;
+      transform: scale(1.02);
+      box-shadow: 0 4px 12px rgba(255, 102, 0, 0.2);
+    }
+
+    .header-banner {
+      background: linear-gradient(135deg, #003366 0%, #004d99 100%);
+      color: white;
+      padding: 2.5rem 1.5rem;
+      text-align: center;
+      border-radius: 0 0 40px 40px;
+      margin-bottom: 2rem;
+    }
+  </style>
+</head>
+<body class="font-telugu">
+
+  <header class="header-banner">
+    <div class="flex items-center justify-center gap-4 mb-4">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Aadhaar_Logo.svg/2560px-Aadhaar_Logo.svg.png" alt="Aadhaar Logo" class="h-16 bg-white p-2 rounded-lg">
+      <div class="text-left">
+        <h1 class="text-3xl font-black tracking-tighter">MAHESHWARA NEXLIFY NUCLEUS</h1>
+        <p class="text-sm font-bold opacity-90 uppercase tracking-widest">Digital Empowerment Portal</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="p-4">
+    <div class="aadhaar-container">
+      <div class="flex flex-col md:flex-row items-center justify-between mb-8 border-b-2 border-slate-100 pb-6 gap-4">
+        <div class="text-center md:text-left">
+          <h2 class="text-3xl font-black text-brand-navy">ఆధార్ సేవలు <span class="text-brand-orange">(Aadhaar Services)</span></h2>
+          <p class="text-slate-500 font-bold mt-1">అన్ని ఆధార్ సేవలు ఒకే చోట - సులభంగా మరియు వేగంగా</p>
+        </div>
+        <a href="digital-services.html" class="flex items-center gap-2 text-brand-orange font-bold hover:underline bg-orange-50 px-4 py-2 rounded-full transition-all">
+          <i class="fas fa-arrow-left"></i> మునుపటి పేజీకి
+        </a>
+      </div>
+
+      <div class="aadhaar-grid">
+        <!-- Card 1: Download Aadhaar -->
+        <div class="service-card">
+          <div class="icon-wrapper">
+            <i class="fas fa-file-download"></i>
+          </div>
+          <h3 class="text-xl font-bold text-slate-800">ఆధార్ డౌన్‌లోడ్<br>(Download Aadhaar)</h3>
+          <p class="text-sm text-slate-500 font-medium">మీ ఆధార్ కార్డును PDF ఫార్మాట్‌లో ఇక్కడ డౌన్‌లోడ్ చేసుకోండి.</p>
+          <a href="https://myaadhaar.uidai.gov.in/genricDownloadAadhaar" target="_blank" class="visit-btn">
+            ప్రవేశించండి (Visit Now) <i class="fas fa-external-link-alt text-xs"></i>
+          </a>
+        </div>
+
+        <!-- Card 2: Check Status -->
+        <div class="service-card">
+          <div class="icon-wrapper">
+            <i class="fas fa-tasks"></i>
+          </div>
+          <h3 class="text-xl font-bold text-slate-800">స్టేటస్ చెక్ చేయండి<br>(Check Status)</h3>
+          <p class="text-sm text-slate-500 font-medium">మీ ఆధార్ నమోదు లేదా అప్‌డేట్ స్థితిని ఇక్కడ తనిఖీ చేయండి.</p>
+          <a href="https://myaadhaar.uidai.gov.in/CheckStatus" target="_blank" class="visit-btn">
+            ప్రవేశించండి (Visit Now) <i class="fas fa-external-link-alt text-xs"></i>
+          </a>
+        </div>
+
+        <!-- Card 3: Book Appointment -->
+        <div class="service-card">
+          <div class="icon-wrapper">
+            <i class="fas fa-calendar-check"></i>
+          </div>
+          <h3 class="text-xl font-bold text-slate-800">అపాయింట్‌మెంట్ బుక్<br>(Book Appointment)</h3>
+          <p class="text-sm text-slate-500 font-medium">ఆధార్ సెంటర్ వద్ద అపాయింట్‌మెంట్ కోసం ఇక్కడ బుక్ చేసుకోండి.</p>
+          <a href="https://appointments.uidai.gov.in/bookappointment.aspx" target="_blank" class="visit-btn">
+            ప్రవేశించండి (Visit Now) <i class="fas fa-external-link-alt text-xs"></i>
+          </a>
+        </div>
+
+        <!-- Card 4: Update History -->
+        <div class="service-card">
+          <div class="icon-wrapper">
+            <i class="fas fa-history"></i>
+          </div>
+          <h3 class="text-xl font-bold text-slate-800">అప్‌డేట్ చరిత్ర<br>(Update History)</h3>
+          <p class="text-sm text-slate-500 font-medium">మీ ఆధార్‌లో జరిగిన అప్‌డేట్ వివరాల చరిత్రను ఇక్కడ చూడండి.</p>
+          <a href="https://myaadhaar.uidai.gov.in/aadhaar-update-history" target="_blank" class="visit-btn">
+            ప్రవేశించండి (Visit Now) <i class="fas fa-external-link-alt text-xs"></i>
+          </a>
+        </div>
+
+        <!-- Card 5: Verify Aadhaar -->
+        <div class="service-card">
+          <div class="icon-wrapper">
+            <i class="fas fa-user-check"></i>
+          </div>
+          <h3 class="text-xl font-bold text-slate-800">ఆధార్ వెరిఫికేషన్<br>(Verify Aadhaar)</h3>
+          <p class="text-sm text-slate-500 font-medium">ఏదైనా ఆధార్ నంబర్ చెల్లుబాటును ఇక్కడ వెరిఫై చేయండి.</p>
+          <a href="https://myaadhaar.uidai.gov.in/verifyAadhaar" target="_blank" class="visit-btn">
+            ప్రవేశించండి (Visit Now) <i class="fas fa-external-link-alt text-xs"></i>
+          </a>
+        </div>
+
+        <!-- Card 6: VID Generator -->
+        <div class="service-card">
+          <div class="icon-wrapper">
+            <i class="fas fa-id-card-alt"></i>
+          </div>
+          <h3 class="text-xl font-bold text-slate-800">VID జనరేటర్<br>(VID Generator)</h3>
+          <p class="text-sm text-slate-500 font-medium">మీ ఆధార్ కోసం వర్చువల్ ఐడి (VID)ని ఇక్కడ పొందండి.</p>
+          <a href="https://myaadhaar.uidai.gov.in/vid-generation" target="_blank" class="visit-btn">
+            ప్రవేశించండి (Visit Now) <i class="fas fa-external-link-alt text-xs"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Security Notice -->
+      <div class="mt-12 bg-blue-50 border-l-4 border-brand-navy p-4 rounded-r-xl">
+        <div class="flex items-start gap-3">
+          <i class="fas fa-info-circle text-brand-navy mt-1"></i>
+          <p class="text-sm text-brand-navy font-bold leading-relaxed">
+            గమనిక: ఇది కేవలం అధికారిక వెబ్‌సైట్‌లకు దారి చూపే లింక్ మాత్రమే. మీ వ్యక్తిగత వివరాలను జాగ్రత్తగా ఉంచుకోగలరు. (Note: This is only a link to official websites. Please keep your personal details secure.)
+          </p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="text-center p-12">
+    <p class="text-[10px] text-slate-400 font-bold uppercase tracking-[0.4em]">© 2026 MAHESHWARA NEXLIFY NUCLEUS. ALL RIGHTS RESERVED.</p>
+  </footer>
+
+</body>
+</html>

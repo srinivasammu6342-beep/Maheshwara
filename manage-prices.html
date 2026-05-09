@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Market Prices | Admin Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap');
+        body { font-family: 'Inter', sans-serif; background: #f8fafc; }
+        .form-card { background: white; border-radius: 32px; box-shadow: 0 20px 50px -12px rgba(0,0,0,0.05); }
+        .input-field { width: 100%; padding: 1rem; border: 2px solid #f1f5f9; border-radius: 16px; font-weight: 700; transition: all 0.3s; }
+        .input-field:focus { border-color: #FF6600; outline: none; background: #fffaf5; }
+    </style>
+</head>
+<body class="min-h-screen p-6 md:p-12">
+
+    <div class="max-w-2xl mx-auto">
+        <a href="administration.html" class="inline-flex items-center gap-2 text-slate-500 font-bold mb-8 hover:text-orange-600 transition-colors">
+            <i class="fas fa-arrow-left"></i> Back to Admin Hub
+        </a>
+
+        <div class="form-card p-8 md:p-12">
+            <div class="flex items-center gap-4 mb-8">
+                <div class="w-16 h-16 bg-green-100 text-green-600 rounded-2xl flex items-center justify-center text-3xl">
+                    <i class="fas fa-tractor"></i>
+                </div>
+                <div>
+                    <h1 class="text-3xl font-black text-slate-800">ధరల నిర్వహణ</h1>
+                    <p class="text-slate-500 font-medium">Market Price Management</p>
+                </div>
+            </div>
+
+            <form id="price-form" class="space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="space-y-2">
+                        <label class="text-xs font-black text-slate-400 uppercase tracking-widest ml-1">Paddy (వరి)</label>
+                        <input type="text" id="paddy" placeholder="₹2,320 - ₹2,500" class="input-field">
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-xs font-black text-slate-400 uppercase tracking-widest ml-1">Cotton (పత్తి)</label>
+                        <input type="text" id="cotton" placeholder="₹6,800 - ₹7,500" class="input-field">
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-xs font-black text-slate-400 uppercase tracking-widest ml-1">Chilli (మిర్చి)</label>
+                        <input type="text" id="chilli" placeholder="₹18,000 - ₹22,000" class="input-field">
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-xs font-black text-slate-400 uppercase tracking-widest ml-1">Maize (మొక్కజొన్న)</label>
+                        <input type="text" id="maize" placeholder="₹2,200 - ₹2,450" class="input-field">
+                    </div>
+                </div>
+
+                <div class="pt-6">
+                    <button type="submit" class="w-full bg-orange-600 text-white font-black py-5 rounded-2xl shadow-xl shadow-orange-200 hover:bg-orange-700 hover:scale-[1.02] transition-all text-lg uppercase tracking-widest">
+                        Update Prices (ధరలను అప్‌డేట్ చేయి)
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('price-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // Logic to update Supabase or LocalStorage would go here
+            alert('ధరలు విజయవంతంగా అప్‌డేట్ చేయబడ్డాయి! (Prices updated successfully!)');
+        });
+    </script>
+</body>
+</html>

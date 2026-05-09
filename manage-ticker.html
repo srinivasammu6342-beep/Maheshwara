@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Ticker | Admin Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap');
+        body { font-family: 'Inter', sans-serif; background: #f8fafc; }
+        .form-card { background: white; border-radius: 32px; box-shadow: 0 20px 50px -12px rgba(0,0,0,0.05); }
+        .textarea-field { width: 100%; padding: 1.5rem; border: 2px solid #f1f5f9; border-radius: 24px; font-weight: 600; transition: all 0.3s; resize: none; }
+        .textarea-field:focus { border-color: #dc2626; outline: none; background: #fffafb; }
+    </style>
+</head>
+<body class="min-h-screen p-6 md:p-12">
+
+    <div class="max-w-2xl mx-auto">
+        <a href="administration.html" class="inline-flex items-center gap-2 text-slate-500 font-bold mb-8 hover:text-orange-600 transition-colors">
+            <i class="fas fa-arrow-left"></i> Back to Admin Hub
+        </a>
+
+        <div class="form-card p-8 md:p-12">
+            <div class="flex items-center gap-4 mb-8">
+                <div class="w-16 h-16 bg-red-100 text-red-600 rounded-2xl flex items-center justify-center text-3xl">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <div>
+                    <h1 class="text-3xl font-black text-slate-800">స్క్రోల్ టిక్కర్</h1>
+                    <p class="text-slate-500 font-medium">Flash News Ticker Management</p>
+                </div>
+            </div>
+
+            <form id="ticker-form" class="space-y-8">
+                <div class="space-y-3">
+                    <label class="text-xs font-black text-slate-400 uppercase tracking-widest ml-1">Flash News Content (తెలుగు/English)</label>
+                    <textarea id="ticker-text" rows="6" class="textarea-field" placeholder="ఉదా: నేడు మధ్యాహ్నం 3 గంటలకు ముఖ్యమైన ప్రకటన..."></textarea>
+                    <p class="text-[10px] text-slate-400 font-bold px-2 italic">* Note: This text will scroll continuously on the home page header.</p>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="space-y-2">
+                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Scroll Speed</label>
+                        <select class="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-xl font-bold outline-none focus:border-red-500">
+                            <option>Normal</option>
+                            <option>Fast</option>
+                            <option>Slow</option>
+                        </select>
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Display Mode</label>
+                        <select class="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-xl font-bold outline-none focus:border-red-500">
+                            <option>Continuous</option>
+                            <option>Once</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="pt-4">
+                    <button type="submit" class="w-full bg-red-600 text-white font-black py-5 rounded-2xl shadow-xl shadow-red-100 hover:bg-red-700 hover:scale-[1.02] transition-all text-lg uppercase tracking-widest">
+                        Update Flash News (టిక్కర్ అప్‌డేట్ చేయి)
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('ticker-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('ఫ్లాష్ న్యూస్ విజయవంతంగా అప్‌డేట్ చేయబడింది! (Flash news updated successfully!)');
+        });
+    </script>
+</body>
+</html>

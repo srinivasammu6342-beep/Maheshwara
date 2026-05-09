@@ -5,11 +5,12 @@
   box-sizing: border-box !important;
 }
 
-html, body {
+html, body, main {
   margin: 0 !important;
   padding: 0 !important;
   width: 100% !important;
   overflow-x: hidden !important;
+  position: relative !important;
 }
 
 /* Lightweight extras —   primary styling via Tailwind CDN */

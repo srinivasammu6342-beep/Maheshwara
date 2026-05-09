@@ -1,100 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="te-IN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Article Detail - Maheshwara Nexlify News</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu:wght@400;700&display=swap" rel="stylesheet">
+    <title>వార్త వివరాలు - నెక్స్లిఫై న్యూక్లియస్ | News Details</title>
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" id="og-url" content="">
+    <meta property="og:title" id="og-title" content="వార్త వివరాలు - నెక్స్లిఫై న్యూక్లియస్">
+    <meta property="og:description" id="og-desc" content="తాజా వార్తలు మరియు అప్‌డేట్స్ కోసం క్లిక్ చేయండి.">
+    <meta property="og:image" id="og-image" content="">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" id="tw-url" content="">
+    <meta property="twitter:title" id="tw-title" content="వార్త వివరాలు - నెక్స్లిఫై న్యూక్లియస్">
+    <meta property="twitter:description" id="tw-desc" content="తాజా వార్తలు మరియు అప్‌డేట్స్ కోసం క్లిక్ చేయండి.">
+    <meta property="twitter:image" id="tw-image" content="">
+
+    <!-- Premium News Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Montserrat:wght@700;800&family=Inter:wght@400;500;600&family=Hind+Guntur:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
-    <!-- Advanced Dynamic SEO & Social Sharing (BigTV Style) -->
-    <link rel="canonical" id="canonical-url" href="">
-    <meta name="description" id="meta-desc" content="Read the latest news from Maheshwara Nexlify News.">
-    
-    <!-- Open Graph (Facebook, WhatsApp) -->
-    <meta property="og:type" content="article">
-    <meta property="og:title" id="meta-og-title" content="Maheshwara Nexlify News">
-    <meta property="og:description" id="meta-og-desc" content="Latest updates and stories.">
-    <meta property="og:image" id="meta-og-image" content="https://ndorwpcjwzvygvrstdks.supabase.co/storage/v1/object/public/news-images/default-share.jpg">
-    <meta property="og:image:secure_url" id="meta-og-image-secure" content="">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-    <meta property="og:url" id="meta-og-url" content="">
-    <meta property="og:site_name" content="Maheshwara Nexlify News">
-
-    <!-- Twitter Cards -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" id="meta-tw-title" content="Maheshwara Nexlify News">
-    <meta name="twitter:description" id="meta-tw-desc" content="Read the latest news.">
-    <meta name="twitter:image" id="meta-tw-image" content="">
-    <meta name="twitter:site" content="@MaheshwaraNews">
-
-    <!-- Schema.org for Google+ and WhatsApp -->
-    <meta itemprop="name" id="meta-item-name" content="Maheshwara Nexlify News">
-    <meta itemprop="description" id="meta-item-desc" content="Latest news updates.">
-    <meta itemprop="image" id="meta-item-image" content="https://ndorwpcjwzvygvrstdks.supabase.co/storage/v1/object/public/news-images/default-share.jpg">
-
-    <script>
-        /**
-         * Early Meta Tag Injection (Advanced Logic)
-         * WhatsApp crawlers need meta tags to be present as early as possible.
-         * This script fetches the data via REST API for maximum speed.
-         */
-        (async function() {
-            const params = new URLSearchParams(window.location.search);
-            const id = params.get('id');
-            if (!id) return;
-
-            const SUPABASE_URL = 'https://ndorwpcjwzvygvrstdks.supabase.co';
-            const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5kb3J3cGNqd3p2eWd2cnN0ZGtzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU0MDEyOTMsImV4cCI6MjA5MDk3NzI5M30.eUISNWLqFwZG9IKCZSXn9tC9RyRWdGbn-9j0jYAfPxQ';
-
-            try {
-                // Fetch only needed columns for speed
-                const res = await fetch(`${SUPABASE_URL}/rest/v1/news?id=eq.${id}&select=title,content,image_url`, {
-                    headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` }
-                });
-                const [article] = await res.json();
-                
-                if (article) {
-                    const cleanExcerpt = article.content ? article.content.replace(/<[^>]*>/g, '').substring(0, 160) + '...' : '';
-                    const pageUrl = window.location.href;
-
-                    // Update Document
-                    document.title = `${article.title} - Maheshwara Nexlify News`;
-                    document.getElementById('canonical-url').href = pageUrl;
-                    document.getElementById('meta-desc').content = cleanExcerpt;
-
-                    // Update Open Graph
-                    document.getElementById('meta-og-title').content = article.title;
-                    document.getElementById('meta-og-desc').content = cleanExcerpt;
-                    document.getElementById('meta-og-url').content = pageUrl;
-                    
-                    // Update Twitter
-                    document.getElementById('meta-tw-title').content = article.title;
-                    document.getElementById('meta-tw-desc').content = cleanExcerpt;
-
-                    // Update Schema.org
-                    document.getElementById('meta-item-name').content = article.title;
-                    document.getElementById('meta-item-desc').content = cleanExcerpt;
-
-                    // Update Images
-                    if (article.image_url) {
-                        document.getElementById('meta-og-image').content = article.image_url;
-                        document.getElementById('meta-og-image-secure').content = article.image_url;
-                        document.getElementById('meta-tw-image').content = article.image_url;
-                        document.getElementById('meta-item-image').content = article.image_url;
-                    }
-                    console.log('[SEO] Meta tags updated successfully.');
-                }
-            } catch (err) {
-                console.error('[SEO Error] Failed to inject early meta tags:', err);
-            }
-        })();
-    </script>
-
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Supabase JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <!-- html2canvas Library for Image Clipping -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
     <script>
       tailwind.config = {
@@ -102,481 +42,802 @@
           extend: {
             colors: {
               brand: {
-                cyan: '#22d3ee',
-                teal: '#0d9488',
-                gold: '#fbbf24',
+                cyan: '#06b6d4',
+                blue: '#1e40af',
                 dark: '#020617',
-                glass: 'rgba(15, 23, 42, 0.6)',
+                maroon: '#800000',
+                deepblue: '#000080',
+                whatsapp: '#25D366',
               }
             },
             fontFamily: {
-              sans: ['Roboto', 'sans-serif'],
-              telugu: ['Noto Sans Telugu', 'sans-serif'],
-              display: ['Space Grotesk', 'sans-serif'],
+              telugu: ['Hind Guntur', 'sans-serif'],
+              display: ['Ramabhadra', 'sans-serif'],
             }
           }
         }
       }
     </script>
 
-    <!-- Supabase Client Library -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="shared-ticker.js"></script>
-    <link rel="stylesheet" href="shared-header.css">
-
     <style>
         :root {
-            --primary-color: #0f172a; /* Deep Blue */
-            --accent-color: #10b981;  /* Emerald Green */
-            --bg-color: #f8fafc;
-            --card-bg: #ffffff;
-            --text-main: #1e293b;
-            --text-muted: #64748b;
-            --border-color: #e2e8f0;
-            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --brand-orange: #EA580C;
+            --brand-dark: #0F172A;
+            --text-slate: #475569;
+            --bg-premium: #F8FAFC;
+            --theme-primary: #EA580C;
+            --theme-bg: #F8FAFC;
+            --theme-text: #0F172A;
+            --theme-accent: #EA580C;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        /* Category Themes */
+        body.theme-agri {
+            --theme-primary: #15803d;
+            --theme-bg: #f0fdf4;
+            --theme-text: #14532d;
+            --theme-accent: #16a34a;
+            font-family: 'Playfair Display', serif;
+        }
+
+        body.theme-tech {
+            --theme-primary: #EA580C;
+            --theme-bg: #020617;
+            --theme-text: #f8fafc;
+            --theme-accent: #f97316;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body.theme-general {
+            --theme-primary: #1e3a8a;
+            --theme-bg: #ffffff;
+            --theme-text: #0f172a;
+            --theme-accent: #EA580C;
         }
 
         body {
-            font-family: 'Inter', system-ui, -apple-system, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            min-height: 100vh;
-            line-height: 1.8;
+            background-color: var(--theme-bg);
+            color: var(--theme-text);
+            font-family: 'Inter', 'Hind Guntur', sans-serif;
+            line-height: 1.6;
+            transition: all 0.5s ease;
         }
 
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        /* Header & Navigation */
-        header {
-            background: var(--card-bg);
-            border-bottom: 1px solid var(--border-color);
-            padding: 16px 0;
+        /* Magazine Header */
+        .magazine-header {
             position: sticky;
             top: 0;
             z-index: 100;
-            box-shadow: var(--shadow);
-            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            padding: 1rem 0;
+            transition: all 0.3s;
         }
 
-        .header-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+        body.theme-tech .magazine-header {
+            background: rgba(2, 6, 23, 0.8);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
         }
 
-        .branding {
-            display: flex;
-            flex-direction: column;
-            text-decoration: none;
+        .brand-logo {
+            font-family: 'Playfair Display', serif;
+            font-weight: 900;
+            font-size: 1.5rem;
+            background: linear-gradient(to right, #EA580C, #f97316);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -1px;
         }
 
-        .main-heading {
-            font-family: 'Space Grotesk', sans-serif;
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 360px;
+            gap: 3rem;
+            max-width: 1400px;
+            margin: 3rem auto;
+            padding: 0 1.5rem;
+        }
+
+        @media (max-width: 1100px) {
+            .main-grid { grid-template-columns: 1fr; gap: 2rem; }
+        }
+
+        .article-card {
+            background: transparent;
+            padding: 0;
+        }
+
+        .headline {
+            font-family: 'Playfair Display', serif;
+            font-weight: 900;
+            color: var(--theme-primary);
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            font-size: 4rem;
+            letter-spacing: -0.03em;
+        }
+
+        @media (max-width: 768px) {
+            .headline { font-size: 2.5rem; }
+        }
+
+        .sub-headline {
+            font-family: 'Montserrat', sans-serif;
             font-size: 1.5rem;
             font-weight: 700;
-            color: var(--primary-color);
-        }
-
-        .nav-actions {
-            display: flex;
-            gap: 15px;
-        }
-
-        .btn-back {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            text-decoration: none;
-            color: var(--text-main);
-            font-weight: 600;
-            padding: 8px 16px;
-            border-radius: 8px;
-            transition: all 0.2s;
-            border: 1px solid var(--border-color);
-            background: var(--card-bg);
-        }
-
-        .btn-back:hover {
-            background: #f1f5f9;
-            transform: translateX(-4px);
-        }
-
-        /* Article Content */
-        .article-header {
-            margin-bottom: 32px;
-        }
-
-        .category-tag {
-            display: inline-block;
-            background-color: #f1f5f9;
-            color: var(--accent-color);
-            font-size: 0.75rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            padding: 4px 12px;
-            border-radius: 20px;
-            margin-bottom: 16px;
-            letter-spacing: 0.05em;
-        }
-
-        .article-title {
-            font-family: 'Noto Sans Telugu', 'Space Grotesk', sans-serif;
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: var(--primary-color);
-            line-height: 1.2;
-            margin-bottom: 16px;
-        }
-
-        .article-subheadline {
-            font-size: 1.25rem;
-            color: var(--text-muted);
-            font-style: italic;
+            color: var(--theme-text);
+            opacity: 0.8;
+            margin-bottom: 2.5rem;
             line-height: 1.4;
-            margin-bottom: 24px;
+            border-left: 8px solid var(--theme-accent);
+            padding-left: 1.5rem;
         }
 
-        .meta-info {
+        /* Drop Cap */
+        .content-body p:first-of-type::first-letter {
+            float: left;
+            font-family: 'Playfair Display', serif;
+            font-size: 5.5rem;
+            line-height: 0.8;
+            padding-top: 4px;
+            padding-right: 12px;
+            padding-left: 3px;
+            color: var(--theme-accent);
+            font-weight: 900;
+        }
+
+        .meta-info-row {
             display: flex;
             flex-wrap: wrap;
-            gap: 20px;
-            padding: 16px 0;
-            border-top: 1px solid var(--border-color);
-            border-bottom: 1px solid var(--border-color);
-            margin-bottom: 32px;
-            font-size: 0.875rem;
-            color: var(--text-muted);
+            gap: 2rem;
+            margin-bottom: 3rem;
+            align-items: center;
+            padding: 1.5rem 0;
+            border-top: 1px solid rgba(0,0,0,0.05);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
         }
 
-        .meta-item {
+        body.theme-tech .meta-info-row {
+            border-color: rgba(255,255,255,0.1);
+        }
+
+        .meta-badge {
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 0.6rem;
+            font-size: 0.85rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--theme-text);
+            opacity: 0.7;
         }
 
-        .meta-item i {
-            color: var(--accent-color);
+        .badge-category {
+            background: var(--theme-primary);
+            color: white !important;
+            padding: 8px 20px;
+            border-radius: 4px;
+            opacity: 1 !important;
         }
 
-        /* Media Section */
-        .media-container {
-            margin-bottom: 40px;
-            border-radius: 12px;
+        /* Media Gallery - Masonry Style Grid */
+        .media-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin: 4rem 0;
+        }
+
+        .media-item {
+            border-radius: 0;
             overflow: hidden;
-            box-shadow: var(--shadow-lg);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
         }
 
-        .media-container img, .media-container video {
-            width: 100%;
-            display: block;
-            border-radius: 12px;
+        .media-item::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border: 1px solid rgba(255,255,255,0.1);
         }
 
-        /* Main Body Content */
-        .article-body {
-            font-size: 1.125rem;
-            color: var(--text-main);
-            line-height: 1.8;
-            margin-bottom: 60px;
-            white-space: pre-line; /* Preserves line breaks from database */
+        .media-item:hover { transform: scale(1.02); }
+        .media-item img { width: 100%; height: auto; display: block; filter: saturate(1.1); }
+
+        /* Cinematic Video Player */
+        .video-wrapper {
+            max-width: 1000px;
+            margin: 5rem auto;
+            padding: 0;
+            background: #000;
+            position: relative;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.3);
         }
 
-        /* Social Share Section - Premium Blogger Style */
-        .share-section {
-            margin-top: 60px;
-            padding: 40px;
-            background-color: #f8fafc;
-            border-radius: 16px;
-            border: 1px solid var(--border-color);
-            text-align: center;
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
         }
 
-        .share-title {
-            font-size: 1.125rem;
-            font-weight: 700;
-            color: var(--primary-color);
-            margin-bottom: 24px;
-            font-family: 'Space Grotesk', sans-serif;
-        }
-
-        .share-buttons {
+        .video-info-box {
+            background: #111;
+            padding: 1.5rem 2rem;
+            border-top: 2px solid var(--theme-accent);
+            color: #888;
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
             display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-
-        .share-btn {
-            height: 50px;
-            padding: 0 24px;
-            border-radius: 12px;
-            display: inline-flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 10px;
-            font-size: 0.95rem;
-            font-weight: 600;
+        }
+
+        /* Content Body */
+        .content-body {
+            font-size: 1.35rem;
+            color: var(--theme-text);
+            opacity: 0.9;
+        }
+
+        .content-body p {
+            margin-bottom: 2.5rem;
+            line-height: 1.9;
+        }
+
+        /* Language Toggle - Floating Right */
+        .floating-lang {
+            position: fixed;
+            right: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            z-index: 1000;
+        }
+
+        @media (max-width: 1200px) {
+            .floating-lang {
+                position: static;
+                transform: none;
+                flex-direction: row;
+                justify-content: center;
+                margin-bottom: 2rem;
+            }
+        }
+
+        .btn-lang {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: white;
+            color: var(--brand-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 0.8rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border: 2px solid transparent;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        body.theme-tech .btn-lang {
+            background: #111;
             color: white;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+
+        .btn-lang:hover {
+            transform: scale(1.1);
+            border-color: var(--theme-accent);
+        }
+
+        .btn-lang.active {
+            background: var(--theme-accent);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        /* Sidebar Sidebar */
+        .sidebar-section {
+            background: rgba(0,0,0,0.02);
+            border-radius: 0;
+            padding: 2.5rem;
+            border: none;
+            margin-bottom: 3rem;
+            position: sticky;
+            top: 100px;
+        }
+
+        body.theme-tech .sidebar-section {
+            background: rgba(255,255,255,0.03);
+        }
+
+        .sidebar-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 900;
+            color: var(--theme-text);
+            margin-bottom: 2rem;
+            border-bottom: 4px solid var(--theme-accent);
+            padding-bottom: 0.5rem;
+            display: inline-block;
+        }
+
+        .trending-item {
+            display: flex;
+            gap: 1.5rem;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
             text-decoration: none;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
 
-        .share-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-            filter: brightness(1.1);
+        body.theme-tech .trending-item {
+            border-color: rgba(255,255,255,0.05);
         }
 
-        .whatsapp { background-color: #25D366; }
-        .facebook { background-color: #1877F2; }
-        .twitter { background-color: #000000; } /* X / Twitter black */
-        .copy-link { background-color: #64748b; }
-
-        .share-btn i {
-            font-size: 1.25rem;
+        .trending-img {
+            width: 100px;
+            height: 80px;
+            object-fit: cover;
+            filter: grayscale(0.5);
+            transition: 0.3s;
         }
 
-        /* Loading & Error States */
-        #loadingSpinner {
-            text-align: center;
-            padding: 100px 0;
+        .trending-item:hover .trending-img { filter: grayscale(0); transform: scale(1.05); }
+
+        .trending-text {
+            font-size: 1rem;
+            font-weight: 800;
+            color: var(--theme-text);
+            line-height: 1.3;
         }
 
         .spinner {
+            width: 80px;
+            height: 80px;
+            border: 2px solid rgba(0,0,0,0.05);
+            border-top: 2px solid var(--theme-accent);
+        }
+
+        body.theme-tech .spinner {
+            border-color: rgba(255,255,255,0.05);
+            border-top-color: var(--theme-accent);
+        }
+        /* Floating Share Bar */
+        .share-bar-sticky {
+            position: fixed;
+            left: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            z-index: 100;
+        }
+
+        .share-btn-premium {
             width: 50px;
             height: 50px;
-            border: 5px solid var(--border-color);
-            border-top: 5px solid var(--primary-color);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 20px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.25rem;
+            transition: all 0.3s;
+            cursor: pointer;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
         }
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        .share-btn-premium:hover {
+            transform: translateX(5px) scale(1.1);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15);
         }
 
-        #errorState {
-            text-align: center;
-            padding: 100px 20px;
-        }
+        .bg-whatsapp { background-color: #25D366; }
+        .bg-facebook { background-color: #1877F2; }
+        .bg-x-twitter { background-color: #000000; }
+        .bg-copy-link { background-color: #64748b; }
 
-        /* Responsive */
-        @media (max-width: 640px) {
-            .article-title {
-                font-size: 1.75rem;
+        @media (max-width: 1024px) {
+            .share-bar-sticky {
+                position: fixed;
+                left: 0;
+                bottom: 0;
+                top: auto;
+                transform: none;
+                width: 100%;
+                flex-direction: row;
+                justify-content: space-around;
+                background: white;
+                padding: 0.75rem 1rem;
+                box-shadow: 0 -10px 20px rgba(0,0,0,0.05);
+                border-top: 1px solid #f1f5f9;
+                border-radius: 20px 20px 0 0;
             }
-            .article-subheadline {
-                font-size: 1.125rem;
+            .share-btn-premium {
+                width: 45px;
+                height: 45px;
+                border-radius: 10px;
+            }
+            body.theme-tech .share-bar-sticky {
+                background: #020617;
+                border-top-color: rgba(255,255,255,0.1);
+            }
+        }
+
+        /* Toast Notification */
+        #toast-notification {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: #0f172a;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 9999px;
+            font-weight: 700;
+            font-size: 0.875rem;
+            z-index: 2000;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
+        }
+
+        #toast-notification.show {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .share-cta-text {
+            font-size: 0.65rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--theme-accent);
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+
+        @media (min-width: 1025px) {
+            .share-cta-text {
+                writing-mode: vertical-lr;
+                transform: rotate(180deg);
+                margin-bottom: 1rem;
+                margin-top: 0;
             }
         }
     </style>
 </head>
-<body class="bg-slate-900 text-slate-100">
-    <!-- Universal Header & Ticker System -->
-    <script src="js/universal-header-ticker.js"></script>
-
-    <main class="container pb-12 m-0 p-0">
-        <!-- Loading Spinner -->
-        <div id="loadingSpinner">
-            <div class="spinner"></div>
-            <p style="color: var(--text-muted);">Loading article...</p>
+<body class="antialiased">
+    <!-- Sticky Share Bar -->
+    <div class="share-bar-sticky no-capture">
+        <div class="share-cta-text">Share this Story</div>
+        <div onclick="shareToWA()" class="share-btn-premium bg-whatsapp" title="Share on WhatsApp">
+            <i class="fab fa-whatsapp"></i>
         </div>
+        <div onclick="shareToFB()" class="share-btn-premium bg-facebook" title="Share on Facebook">
+            <i class="fab fa-facebook-f"></i>
+        </div>
+        <div onclick="shareToX()" class="share-btn-premium bg-x-twitter" title="Share on X">
+            <i class="fab fa-x-twitter"></i>
+        </div>
+        <div onclick="copyArticleLink()" class="share-btn-premium bg-copy-link" title="Copy Link">
+            <i class="fas fa-link"></i>
+        </div>
+    </div>
 
-        <!-- Article Content -->
-        <article id="articleContent" style="display: none;">
-            <div class="article-header" style="margin-top: 0 !important; padding-top: 20px !important;">
-                <span id="articleCategory" class="category-tag">General</span>
-                <h1 id="articleTitle" class="article-title"></h1>
-                <p id="articleSubheadline" class="article-subheadline"></p>
+    <!-- Toast Notification -->
+    <div id="toast-notification">
+        <i class="fas fa-check-circle text-green-400"></i>
+        <span>Link Copied Successfully!</span>
+    </div>
+
+    <!-- Magazine Header -->
+    <header class="magazine-header">
+        <div class="max-w-[1400px] mx-auto px-6 flex justify-between items-center">
+            <a href="index.html" class="brand-logo no-underline">
+                MAHESHWARA NEXLIFY NEWS
+            </a>
+            <div class="hidden md:flex gap-8 items-center font-black text-[10px] tracking-widest text-slate-400 uppercase">
+                <a href="index.html" class="hover:text-orange-500 transition-colors">Digital Home</a>
+                <a href="news-page.html" class="hover:text-orange-500 transition-colors">Latest Feed</a>
+                <div class="h-4 w-px bg-slate-200"></div>
+                <div id="headerDate" class="text-slate-800 font-bold">MAY 08, 2026</div>
+            </div>
+        </div>
+    </header>
+
+    <div id="translationOverlay">
+        <div class="spinner mb-8"></div>
+        <h2 class="font-display text-4xl font-black text-brand-dark tracking-tighter mb-2">TRANSLATING</h2>
+        <p class="text-slate-400 font-bold uppercase text-[10px] tracking-[0.3em]">AI-Powered Magazine Engine</p>
+    </div>
+
+    <!-- Floating Language Toggle -->
+    <div class="floating-lang no-capture">
+        <button id="btn-te" onclick="translateTo('te')" class="btn-lang">తెలుగు</button>
+        <button id="btn-hi" onclick="translateTo('hi')" class="btn-lang">HINDI</button>
+    </div>
+
+    <main class="main-grid">
+        <!-- Main Content Column -->
+        <section class="flex flex-col">
+            <div id="loadingSpinner" class="flex flex-col items-center py-40">
+                <div class="spinner mb-10"></div>
+                <p class="text-slate-400 font-bold uppercase tracking-[0.5em] text-[10px]">Assembling Experience...</p>
             </div>
 
-            <div class="meta-info">
-                <div class="meta-item"><i class="fas fa-user"></i> <span id="articleAuthor">Reporter</span></div>
-                <div class="meta-item"><i class="fas fa-map-marker-alt"></i> <span id="articleLocation">Location</span></div>
-                <div class="meta-item"><i class="fas fa-calendar-alt"></i> <span id="articleDate">Date</span></div>
+            <div id="articleContent" class="hidden">
+                <article class="article-card">
+                    <h1 id="articleTitle" class="headline">TITLE</h1>
+                    
+                    <div id="articleSubHeadline" class="sub-headline">SUBHEADLINE</div>
+
+                    <div class="meta-info-row">
+                        <span id="articleCategory" class="meta-badge badge-category">Local</span>
+                        <span class="meta-badge"><i class="far fa-calendar-alt"></i> <span id="articleDate">DATE</span></span>
+                        <span class="meta-badge"><i class="fas fa-map-marker-alt"></i> <span id="articleLocation">LOCATION</span></span>
+                        <span class="meta-badge"><i class="far fa-clock"></i> <span id="readTime">3 min read</span></span>
+                    </div>
+
+                    <!-- Gallery Grid -->
+                    <div id="mediaGallery" class="media-gallery"></div>
+
+                    <!-- Content -->
+                    <div id="articleBody" class="content-body">CONTENT</div>
+
+                    <!-- Cinematic Video -->
+                    <div id="videoSection" class="hidden">
+                        <div class="video-wrapper">
+                            <div class="video-container">
+                                <iframe id="youtubePlayer" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </div>
+                            <div class="video-info-box">
+                                <span>Maheshwara Nexlify Exclusive</span>
+                                <span>High Definition</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
             </div>
+        </section>
 
-            <div id="mediaContainer" class="media-container" style="display: none;">
-                <!-- Video or Image will be inserted here -->
-            </div>
-
-            <div id="articleBody" class="article-body"></div>
-
-            <!-- Social Share Section -->
-            <div class="share-section">
-                <p class="share-title">SHARE THIS STORY</p>
-                <div class="share-buttons">
-                    <a href="#" id="shareWhatsApp" class="share-btn whatsapp" target="_blank">
-                        <i class="fab fa-whatsapp"></i> WhatsApp
-                    </a>
-                    <a href="#" id="shareFacebook" class="share-btn facebook" target="_blank">
-                        <i class="fab fa-facebook-f"></i> Facebook
-                    </a>
-                    <a href="#" id="shareTwitter" class="share-btn twitter" target="_blank">
-                        <i class="fab fa-x-twitter"></i> Twitter
-                    </a>
-                    <a href="#" id="copyLinkBtn" class="share-btn copy-link">
-                        <i class="fas fa-link"></i> Copy Link
-                    </a>
+        <!-- Sidebar Column -->
+        <aside class="flex flex-col">
+            <!-- Trending Stories -->
+            <div class="sidebar-section">
+                <h3 class="sidebar-title">Trending</h3>
+                <div id="trendingStories">
+                    <!-- Dynamic -->
                 </div>
             </div>
-        </article>
 
-        <!-- Error State -->
-        <div id="errorState" style="display: none;">
-            <i class="fas fa-exclamation-circle" style="font-size: 4rem; color: #ef4444; margin-bottom: 24px;"></i>
-            <h2 style="color: var(--primary-color); margin-bottom: 12px;">Article Not Found</h2>
-            <p style="color: var(--text-muted); margin-bottom: 32px;">The requested article could not be loaded or does not exist.</p>
-            <a href="news-page.html" class="btn-back" style="display: inline-flex;">Go Back to News Home</a>
-        </div>
+            <!-- Related News -->
+            <div class="sidebar-section">
+                <h3 class="sidebar-title">Related</h3>
+                <div id="relatedNews">
+                    <!-- Dynamic -->
+                </div>
+            </div>
+        </aside>
     </main>
 
+    <!-- Hidden canvas for image generation -->
+    <div id="preview-modal" class="fixed inset-0 bg-black/80 z-[100] hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-lg w-full p-6 text-center">
+            <h3 class="text-xl font-bold mb-4 font-telugu">వార్త క్లిప్పింగ్ సిద్ధంగా ఉంది!</h3>
+            <div id="image-preview-container" class="mb-6 border-4 border-dashed border-slate-200 p-2 overflow-auto max-h-[60vh]">
+                <!-- Generated Image goes here -->
+            </div>
+            <div class="flex gap-4">
+                <button id="downloadClip" class="flex-1 py-3 bg-brand-blue text-white rounded-xl font-bold">Download</button>
+                <button id="closeModal" class="flex-1 py-3 bg-slate-100 text-slate-600 rounded-xl font-bold">Close</button>
+            </div>
+        </div>
+    </div>
+
     <script>
-        // --- Supabase Configuration ---
         const SUPABASE_URL = 'https://ndorwpcjwzvygvrstdks.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5kb3J3cGNqd3p2eWd2cnN0ZGtzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU0MDEyOTMsImV4cCI6MjA5MDk3NzI5M30.eUISNWLqFwZG9IKCZSXn9tC9RyRWdGbn-9j0jYAfPxQ';
         
         const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-        // --- URL Parameter Parsing ---
-        function getArticleId() {
-            const params = new URLSearchParams(window.location.search);
-            return params.get('id');
-        }
+        let originalContent = { title: '', subHeadline: '', body: '' };
 
         async function loadArticle() {
-            // Initialize Universal Ticker
-            initUniversalTicker(supabaseClient);
-
-            const articleId = getArticleId();
-            const loading = document.getElementById('loadingSpinner');
-            const content = document.getElementById('articleContent');
-            const error = document.getElementById('errorState');
-
-            if (!articleId) {
-                loading.style.display = 'none';
-                error.style.display = 'block';
-                return;
-            }
+            const params = new URLSearchParams(window.location.search);
+            const id = params.get('id');
+            if (!id) { window.location.href = 'news-page.html'; return; }
 
             try {
-                console.log(`[Fetch] Loading article ID: ${articleId}`);
-                const { data, error: fetchError } = await supabaseClient
-                    .from('news')
-                    .select('*')
-                    .eq('id', articleId)
-                    .single();
+                const { data, error } = await supabaseClient.from('news').select('*').eq('id', id).single();
+                if (error || !data) throw error;
 
-                if (fetchError || !data) throw fetchError || new Error('No data found');
+                // Update Meta Tags for Social Sharing
+                const summary = data.content.substring(0, 160).replace(/\n/g, ' ') + '...';
+                const currentUrl = window.location.href;
+                const featuredImg = data.image_url || 'https://ndorwpcjwzvygvrstdks.supabase.co/storage/v1/object/public/news-images/default-news.jpg';
 
-                console.log('[Fetch] Success! Article data:', data);
-                displayArticle(data);
+                document.getElementById('og-title').setAttribute('content', data.title);
+                document.getElementById('og-desc').setAttribute('content', summary);
+                document.getElementById('og-url').setAttribute('content', currentUrl);
+                document.getElementById('og-image').setAttribute('content', featuredImg);
+
+                document.getElementById('tw-title').setAttribute('content', data.title);
+                document.getElementById('tw-desc').setAttribute('content', summary);
+                document.getElementById('tw-url').setAttribute('content', currentUrl);
+                document.getElementById('tw-image').setAttribute('content', featuredImg);
+
+                // Apply Theme Engine based on Category
+                const category = (data.category || 'Local').toLowerCase();
+                if (category.includes('agri')) document.body.className = 'theme-agri';
+                else if (category.includes('tech')) document.body.className = 'theme-tech';
+                else document.body.className = 'theme-general';
+
+                // Update Header Date
+                const now = new Date();
+                document.getElementById('headerDate').innerText = now.toLocaleDateString('en-US', {
+                    month: 'long', day: '2-digit', year: 'numeric'
+                }).toUpperCase();
+
+                // Store original content (English)
+                originalContent = {
+                    title: data.title,
+                    subHeadline: data.sub_headline || '',
+                    body: data.content
+                };
+
+                document.title = `${data.title} - Maheshwara Nexlify News`;
+                document.getElementById('articleTitle').innerText = data.title;
+                document.getElementById('articleSubHeadline').innerText = data.sub_headline || '';
+                document.getElementById('articleCategory').innerText = data.category || 'Local';
+                document.getElementById('articleLocation').innerText = data.location || 'Mutharam';
+                
+                const newsDate = new Date(data.created_at);
+                document.getElementById('articleDate').innerText = newsDate.toLocaleDateString('te-IN', {
+                    day: 'numeric', month: 'long', year: 'numeric'
+                });
+                
+                // Calculate Read Time
+                const wordsPerMinute = 200;
+                const textLength = data.content.split(/\s+/).length;
+                const minutes = Math.ceil(textLength / wordsPerMinute);
+                document.getElementById('readTime').innerText = `${minutes} min read`;
+                
+                // Content with Drop Cap support
+                document.getElementById('articleBody').innerHTML = data.content
+                    .split('\n').map(p => p.trim() ? `<p>${p}</p>` : '').join('');
+
+                // Media Gallery (Masonry Style Grid)
+                const gallery = document.getElementById('mediaGallery');
+                const images = data.image_urls || (data.image_url ? [data.image_url] : []);
+                if (images.length > 0) {
+                    gallery.innerHTML = images.map(url => `
+                        <div class="media-item">
+                            <img src="${url}" alt="News Image" crossorigin="anonymous">
+                        </div>
+                    `).join('');
+                } else {
+                    gallery.style.display = 'none';
+                }
+
+                // Video (YouTube)
+                const videoSection = document.getElementById('videoSection');
+                const youtubePlayer = document.getElementById('youtubePlayer');
+                if (data.youtube_link) {
+                    const videoId = extractYouTubeId(data.youtube_link);
+                    if (videoId) {
+                        youtubePlayer.src = `https://www.youtube.com/embed/${videoId}`;
+                        videoSection.classList.remove('hidden');
+                    }
+                }
+
+                loadTrending();
+                loadRelated(data.category, data.id);
+
+                document.getElementById('loadingSpinner').style.display = 'none';
+                document.getElementById('articleContent').classList.remove('hidden');
 
             } catch (err) {
-                console.error('[Fetch Error] Root cause:', err);
-                loading.style.display = 'none';
-                error.style.display = 'block';
+                console.error(err);
+                document.getElementById('loadingSpinner').innerHTML = '<p class="text-red-500 font-bold">Error loading article.</p>';
             }
         }
 
-        function displayArticle(data) {
-            const loading = document.getElementById('loadingSpinner');
-            const content = document.getElementById('articleContent');
+        function extractYouTubeId(url) {
+            const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+            const match = url.match(regExp);
+            return (match && match[2].length === 11) ? match[2] : null;
+        }
 
-            // Clean excerpt for sharing
-            const excerpt = data.content 
-                ? data.content.replace(/<[^>]*>/g, '').substring(0, 150) + '...'
-                : 'Read the latest updates from Maheshwara Nexlify News.';
-
-            // --- Dynamic Meta Tags Update (BigTV style) ---
-            document.getElementById('meta-og-title').setAttribute('content', data.title);
-            document.getElementById('meta-og-desc').setAttribute('content', excerpt);
-            document.getElementById('meta-og-url').setAttribute('content', window.location.href);
+        async function translateTo(lang) {
+            const overlay = document.getElementById('translationOverlay');
+            overlay.style.display = 'flex';
             
-            // Twitter specific
-            document.getElementById('meta-tw-title').setAttribute('content', data.title);
-            document.getElementById('meta-tw-desc').setAttribute('content', excerpt);
-            
-            // Schema.org / Itemprop (WhatsApp)
-            document.getElementById('meta-item-name').setAttribute('content', data.title);
-            document.getElementById('meta-item-desc').setAttribute('content', excerpt);
+            document.querySelectorAll('.btn-lang').forEach(b => b.classList.remove('active'));
+            document.getElementById(`btn-${lang}`).classList.add('active');
 
-            if (data.image_url) {
-                document.getElementById('meta-og-image').setAttribute('content', data.image_url);
-                document.getElementById('meta-tw-image').setAttribute('content', data.image_url);
-                document.getElementById('meta-item-image').setAttribute('content', data.image_url);
+            try {
+                // Translate Title, Subheadline, and Body
+                const title = await translateText(originalContent.title, lang);
+                const subHeadline = await translateText(originalContent.subHeadline, lang);
+                const body = await translateText(originalContent.body, lang);
+
+                document.getElementById('articleTitle').innerText = title;
+                document.getElementById('articleSubHeadline').innerText = subHeadline;
+                document.getElementById('articleBody').innerHTML = body
+                    .split('\n').map(p => p.trim() ? `<p class="mb-6">${p}</p>` : '').join('');
+
+            } catch (err) {
+                console.error('Translation error:', err);
+            } finally {
+                overlay.style.display = 'none';
             }
+        }
 
-            // Populate text fields
-            document.getElementById('articleTitle').innerText = data.title;
-            document.getElementById('articleSubheadline').innerText = data.sub_headline || '';
-            document.getElementById('articleCategory').innerText = data.category || 'General';
-            document.getElementById('articleAuthor').innerText = data.author_name || 'Reporter';
-            document.getElementById('articleLocation').innerText = data.location || 'Unknown';
-            document.getElementById('articleDate').innerText = new Date(data.created_at).toLocaleDateString('en-IN', {
-                day: 'numeric', month: 'long', year: 'numeric'
-            });
-            document.getElementById('articleBody').innerText = data.content;
+        async function translateText(text, targetLang) {
+            if (!text) return '';
+            if (targetLang === 'en') return text; // Already in English
 
-            // Handle Media (Priority: Video > Image)
-            const mediaContainer = document.getElementById('mediaContainer');
-            if (data.video_url) {
-                mediaContainer.style.display = 'block';
-                mediaContainer.innerHTML = `
-                    <video controls controlsList="nodownload">
-                        <source src="${data.video_url}" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>`;
-            } else if (data.image_url) {
-                mediaContainer.style.display = 'block';
-                mediaContainer.innerHTML = `<img src="${data.image_url}" alt="${data.title}">`;
+            const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=${targetLang}&dt=t&q=${encodeURIComponent(text)}`;
+            
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+                return data[0].map(item => item[0]).join('');
+            } catch (err) {
+                return text; // Fallback to original
             }
+        }
 
-            // Setup Social Sharing (BigTV Style)
-            const shareUrl = encodeURIComponent(window.location.href);
-            const rawTitle = data.title;
-            const shareTitle = encodeURIComponent(`*${rawTitle}*`); // Bold title
-            const branding = encodeURIComponent("\n\n(Sent via maheshwaranexlify.in)");
-            
-            // WhatsApp format: *Title* \n\n URL \n\n Branding
-            document.getElementById('shareWhatsApp').href = `https://api.whatsapp.com/send?text=${shareTitle}%0A%0A${shareUrl}${branding}`;
-            document.getElementById('shareFacebook').href = `https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`;
-            document.getElementById('shareTwitter').href = `https://twitter.com/intent/tweet?text=${encodeURIComponent(rawTitle)}&url=${shareUrl}`;
-            
-            // Copy Link Logic
-            document.getElementById('copyLinkBtn').onclick = (e) => {
-                e.preventDefault();
-                navigator.clipboard.writeText(window.location.href).then(() => {
-                    const originalText = document.getElementById('copyLinkBtn').innerHTML;
-                    document.getElementById('copyLinkBtn').innerHTML = '<i class="fas fa-check"></i> Link Copied!';
-                    setTimeout(() => {
-                        document.getElementById('copyLinkBtn').innerHTML = originalText;
-                    }, 2000);
-                });
-            };
+        async function loadTrending() {
+            const { data } = await supabaseClient.from('news').select('*').order('created_at', { ascending: false }).limit(5);
+            if (data) {
+                document.getElementById('trendingStories').innerHTML = data.map(item => `
+                    <a href="news-detail.html?id=${item.id}" class="trending-item">
+                        <img src="${item.image_url || 'https://via.placeholder.com/80'}" class="trending-img">
+                        <div class="trending-text">${item.title}</div>
+                    </a>
+                `).join('');
+            }
+        }
 
-            // Show content
-            loading.style.display = 'none';
-            content.style.display = 'block';
-            
-            // Set Page Title
-            document.title = `${data.title} - Maheshwara Nexlify News`;
+        async function loadRelated(category, currentId) {
+            const { data } = await supabaseClient.from('news').select('*').eq('category', category).neq('id', currentId).limit(5);
+            if (data) {
+                document.getElementById('relatedNews').innerHTML = data.map(item => `
+                    <a href="news-detail.html?id=${item.id}" class="trending-item">
+                        <img src="${item.image_url || 'https://via.placeholder.com/80'}" class="trending-img">
+                        <div class="trending-text">${item.title}</div>
+                    </a>
+                `).join('');
+            }
+        }
+
+        function shareToWA() {
+            const url = window.location.href;
+            const text = `*${document.getElementById('articleTitle').innerText}*%0A%0ARead more at: ${encodeURIComponent(url)}`;
+            window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
+        }
+
+        function shareToFB() {
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`, '_blank');
+        }
+
+        function copyArticleLink() {
+            navigator.clipboard.writeText(window.location.href);
+            alert('Link copied to clipboard!');
         }
 
         window.onload = loadArticle;
